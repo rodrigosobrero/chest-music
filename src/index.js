@@ -1,13 +1,41 @@
+import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Root from './routes/root';
+import MyChest from './routes/my-chest';
+import Shared from './routes/shared';
+import Profile from './routes/profile';
 import reportWebVitals from './reportWebVitals';
+import store from 'app/store';
+import { Provider } from 'react-redux';
 
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Root />,
+    children: [
+      {
+        path: 'my-chest',
+        element: <MyChest />
+      },
+      {
+        path: 'shared',
+        element: <Shared />
+      },
+      {
+        path: 'profile',
+        element: <Profile />
+      }
+    ],
+  }
+]);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 

@@ -1,0 +1,11 @@
+{
+  "nav": [
+    { "name": "my chest", "link": "/my-chest" },
+    { "name": "shared", "link": "/shared" },
+    { "name": "profile", "link": "/profile" }
+  ],
+  "language": [
+    { "code": "es", "icon": "🇪🇸" },
+    { "code": "en", "icon": "🇺🇸", "default": true }
+  ]
+}
