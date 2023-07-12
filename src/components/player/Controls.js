@@ -1,10 +1,13 @@
-import { useRef, useState, useCallback, useEffect } from 'react';
-import { PlayIcon, PauseIcon } from '@heroicons/react/24/solid';
-import { ArrowPathRoundedSquareIcon } from '@heroicons/react/24/outline';
+/* shuffle button disabled */
 
-import previous from 'assets/images/icon-previous.svg';
-import next from 'assets/images/icon-next.svg';
-import shuffle from 'assets/images/icon-shuffle.svg';
+import { useRef, useState, useCallback, useEffect } from 'react';
+
+import { ReactComponent as RepeatIcon } from 'assets/images/icon-repeat.svg';
+import { ReactComponent as NextIcon } from 'assets/images/icon-next.svg';
+import { ReactComponent as PreviousIcon } from 'assets/images/icon-previous.svg';
+import { ReactComponent as ShuffleIcon } from 'assets/images/icon-shuffle.svg';
+import { ReactComponent as PlayIcon } from 'assets/images/icon-play.svg';
+import { ReactComponent as PauseIcon } from 'assets/images/icon-pause.svg';
 
 export default function Controls({
   audioRef,
@@ -67,22 +70,25 @@ export default function Controls({
     <>
       <div className='flex items-center'>
         <button type='button' className='p-2 mr-2 disabled:opacity-30' disabled>
-          <img src={shuffle} alt='Shuffle' width={20} height={20} className='' />
+          <ShuffleIcon />
         </button>
-        <button type='button' onClick={skipBackward} className='p-2'>
-          <img src={previous} alt='Previous' width={24} height={24} className='' />
+        <button type='button' onClick={skipBackward} className='p-2 player-controls'>
+          <PreviousIcon />
         </button>
-        <button type='button' onClick={togglePlayPause}>
+        <button type='button' onClick={togglePlayPause} className='player-controls'>
           {isPlaying ? 
-            <PauseIcon className='h-10 w-10 text-neutral-silver-200' /> :
-            <PlayIcon className='h-10 w-10 text-neutral-silver-200' />
+            <PauseIcon width={40} height={40} /> :
+            <PlayIcon width={40} height={40} />
           }
         </button>
-        <button type='button' onClick={skipForward} className='p-2'>
-          <img src={next} alt='Next' width={24} height={24} className='' />
+        <button type='button' onClick={skipForward} className='p-2 player-controls'>
+          <NextIcon />
         </button>
-        <button type='button' className='p-2 ml-2 text-white' onClick={toggleLoop}>
-          <ArrowPathRoundedSquareIcon className={`h-6 w-6 transition duration-500 ${loop ? 'text-brand-gold' : 'text-gray-200'}`} />
+        <button 
+          type='button' 
+          className={`p-2 ml-2 ${loop ? 'player-controls' : 'player-controls-active'}`} 
+          onClick={toggleLoop}>
+          <RepeatIcon />
         </button>
       </div>
     </>

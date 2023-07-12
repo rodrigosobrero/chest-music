@@ -43,7 +43,7 @@ export default function TrackListRow({ track, onClick }) {
             <button type='button' className='p-[7px] rounded-[10px] transition duration-500 hover:bg-neutral-silver-700 border-[3px] border-transparent active:border-gray-600'>
               <img src={upload} alt='' width={24} height={24} />
             </button>
-            <TrackListOptions />
+            <TrackListOptions id={track.id} />
           </div>
         </td>
       </tr>

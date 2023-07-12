@@ -2,10 +2,11 @@ import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Root from './routes/root';
-import MyChest from './routes/my-chest';
-import Shared from './routes/shared';
-import Profile from './routes/profile';
+import Root from 'routes/root';
+import MyChest from 'routes/my-chest';
+import Shared from 'routes/shared';
+import Profile from 'routes/profile';
+import Track from 'routes/track';
 import reportWebVitals from './reportWebVitals';
 import store from 'app/store';
 import { Provider } from 'react-redux';
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: 'my-chest',
         element: <MyChest />
+      },
+      {
+        path: 'my-chest/track/:trackId',
+        element: <Track />
       },
       {
         path: 'shared',

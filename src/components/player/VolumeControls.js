@@ -1,3 +1,5 @@
+/* clock button disabled */
+
 import { useEffect, useRef, useState } from 'react';
 import { 
   SpeakerWaveIcon, 
@@ -33,7 +35,7 @@ export default function VolumeControls({ audioRef }) {
   return (
     <>
       <div className='flex items-center justify-end player-volume'>
-        <button type='button' className='p-2'>
+        <button type='button' className='p-2 disabled:opacity-30' disabled>
           <ClockIcon className='h-6 w-6 text-neutral-silver-200' />
         </button>
         <button type='button' className='p-2' onClick={toggleMuted}>

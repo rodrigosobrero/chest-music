@@ -26,7 +26,7 @@ body {
   @apply bg-neutral-silver-700 h-screen text-white font-archivo;
 }
 
-nav {
+.main {
   @apply bg-neutral-black font-archivo flex justify-center h-20;
 }
 
@@ -198,4 +198,57 @@ td {
 .player-volume input[type='range']:active::-webkit-slider-thumb,
 .player-volume input[type='range']:hover::-webkit-slider-thumb {
   transform: scale(2);
+}
+
+.test path {
+  @apply stroke-neutral-silver-200 transition duration-500;
+}
+
+.test:hover path {
+  @apply stroke-brand-gold;
+}
+
+.player-controls path {
+  @apply fill-neutral-silver-200 transition duration-500;
+}
+
+.player-controls:hover path {
+  @apply fill-white;
+}
+
+.player-controls-active path {
+  @apply fill-brand-gold;
+}
+
+.breadcrumb {
+  @apply bg-neutral-silver-600 px-4 py-2 rounded-full;
+}
+
+.breadcrumb ul {
+  @apply list-none flex gap-1 text-neutral-silver-200;
+}
+
+.breadcrumb li {
+  @apply text-sm relative mr-4;
+}
+
+.breadcrumb li:after {
+  content: '';
+  height: 30px;
+  width: 30px;
+  background: url('/src/assets/images/icon-arrow-right.svg') 0 0 no-repeat;
+  @apply inline-block absolute top-0 -right-[30px];
+}
+
+.breadcrumb li:last-child:after {
+	content: '';
+  background: none;
+}
+
+.breadcrumb li:last-child {
+  @apply mr-0;
+}
+
+.breadcrumb li:last-child {
+  @apply text-white;
 }
