@@ -16,7 +16,9 @@ export default function TrackListRow({ track, onClick }) {
         <td>
           <div className='flex flex-row gap-4'>
             <div className='relative rounded flex items-center'>
-              <img src={track.cover} alt='' width={44} height={44} className='' />
+              {track.cover && 
+                <img src={track.cover} alt='' width={44} height={44} className='' /> 
+              }
               {show &&
                 <div className='play-hover'></div>
               }

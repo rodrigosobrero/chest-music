@@ -221,7 +221,7 @@ td {
 }
 
 .breadcrumb {
-  @apply bg-neutral-silver-600 px-4 py-2 rounded-full;
+  @apply bg-neutral-silver-600 px-4 py-2 rounded-full h-fit;
 }
 
 .breadcrumb ul {
@@ -251,4 +251,12 @@ td {
 
 .breadcrumb li:last-child {
   @apply text-white;
+}
+
+.toolbar {
+  @apply flex items-center mb-8;
+}
+
+.toolbar button path {
+  @apply stroke-white;
 }

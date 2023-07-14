@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import cloud from 'assets/images/icon-cloud.svg';
 import empty from 'assets/images/empty-chest.svg';
+
 import ProgressBar from 'components/ProgressBar';
 import SearchBar from 'components/SearchBar';
 import Tag from 'components/Tag';
 import TrackList from 'components/TrackList';
+
 import tracksData from 'data/tracks.json';
 import userData from 'data/user.json';
 
