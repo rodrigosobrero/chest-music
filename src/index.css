@@ -118,7 +118,11 @@ td {
 }
 
 .btn {
-  @apply rounded-[10px] font-archivo text-lg px-6 py-3 flex items-center h-[46px];
+  @apply rounded-[10px] font-archivo text-lg px-6 py-3 flex items-center justify-center h-[46px];
+}
+
+.btn-primary {
+  @apply disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300;
 }
 
 .btn-secondary {
@@ -259,4 +263,9 @@ td {
 
 .toolbar button path {
   @apply stroke-white;
+}
+
+.signup-cover {
+  background: url('/src/assets/images/sign-up.jpg') no-repeat;
+  @apply bg-cover;
 }

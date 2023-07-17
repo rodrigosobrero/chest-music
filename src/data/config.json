@@ -1,8 +1,12 @@
 {
   "nav": [
-    { "name": "my chest", "link": "/my-chest" },
-    { "name": "shared", "link": "/shared" },
-    { "name": "profile", "link": "/profile" }
+    { "name": "my chest", "link": "/my-chest", "private": true },
+    { "name": "shared", "link": "/shared", "private": true },
+    { "name": "profile", "link": "/profile", "private": true },
+    { "name": "the project", "link": "/the-project" },
+    { "name": "the team", "link": "/the-team" },
+    { "name": "contact us", "link": "/contact-us" },
+    { "name": "open-chest", "link": "/sign-in" }
   ],
   "language": [
     { "code": "es", "icon": "🇪🇸" },

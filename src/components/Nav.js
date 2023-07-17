@@ -1,10 +1,16 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import logo from 'assets/images/logo.svg';
 import bell from 'assets/images/icon-bell.svg';
 import Tag from 'components/Tag';
 import navData from 'data/config.json';
 
 export default function Nav() {
+  /* replace with session */
+  const location = useLocation();
+  const data = location.pathname === '/sign-up' ?
+    navData.nav.filter(item => !item.private) :
+    navData.nav.filter(item => item.private);
+
   return (
     <>
       <nav className='main'>
@@ -16,12 +22,13 @@ export default function Nav() {
           <div>
             <ul>
               {
-                navData.nav.map((item, index) =>
+                data.map((item, index) =>
                   <li key={index}>
                     <NavLink to={item.link}>
                       {item.name}
                     </NavLink>
-                  </li>)
+                  </li>
+                )
               }
               <li className='flex items-center'>
                 <a href="/notifications">
