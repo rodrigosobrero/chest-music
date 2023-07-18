@@ -7,7 +7,8 @@ import navData from 'data/config.json';
 export default function Nav() {
   /* replace with session */
   const location = useLocation();
-  const data = location.pathname === '/sign-up' ?
+  const signed = !location.pathname === '/sign-up' || !location.pathname === '/sign-in';
+  const data = location.pathname === '/sign-up' || location.pathname === '/sign-in' ?
     navData.nav.filter(item => !item.private) :
     navData.nav.filter(item => item.private);
 
@@ -23,18 +24,22 @@ export default function Nav() {
             <ul>
               {
                 data.map((item, index) =>
-                  <li key={index}>
+                  <li
+                    key={index}
+                    className={`${item.button && 'bg-brand-gold rounded-[10px] px-4 py-[9px]'}`}>
                     <NavLink to={item.link}>
                       {item.name}
                     </NavLink>
                   </li>
                 )
               }
-              <li className='flex items-center'>
-                <a href="/notifications">
-                  <img src={bell} alt="" width={24} height={24} />
-                </a>
-              </li>
+              {signed &&
+                <li className='flex items-center'>
+                  <a href="/notifications">
+                    <img src={bell} alt="" width={24} height={24} />
+                  </a>
+                </li>
+              }
             </ul>
           </div>
         </div>

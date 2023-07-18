@@ -31,7 +31,7 @@ body {
 }
 
 nav ul {
-  @apply flex gap-10;
+  @apply flex items-center gap-10;
 }
 
 nav li {
@@ -267,5 +267,10 @@ td {
 
 .signup-cover {
   background: url('/src/assets/images/sign-up.jpg') no-repeat;
+  @apply bg-cover;
+}
+
+.signin-cover {
+  background: url('/src/assets/images/sign-in.jpg') no-repeat;
   @apply bg-cover;
 }

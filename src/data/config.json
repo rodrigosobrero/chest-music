@@ -6,7 +6,7 @@
     { "name": "the project", "link": "/the-project" },
     { "name": "the team", "link": "/the-team" },
     { "name": "contact us", "link": "/contact-us" },
-    { "name": "open-chest", "link": "/sign-in" }
+    { "name": "open chest", "link": "/sign-in", "button": true }
   ],
   "language": [
     { "code": "es", "icon": "🇪🇸" },

@@ -8,6 +8,7 @@ import Shared from 'routes/shared';
 import Profile from 'routes/profile';
 import Track from 'routes/track';
 import SignUp from 'routes/sign-up';
+import SignIn from 'routes/sign-in';
 import reportWebVitals from './reportWebVitals';
 import store from 'app/store';
 import { Provider } from 'react-redux';
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: 'sign-up',
         element: <SignUp />
+      },
+      {
+        path: 'sign-in',
+        element: <SignIn />
       }
     ],
   }
