@@ -274,3 +274,20 @@ td {
   background: url('/src/assets/images/sign-in.jpg') no-repeat;
   @apply bg-cover;
 }
+
+/* NOTIFICATIONS PAGE */
+.notification {
+  @apply w-full bg-neutral-black h-full flex justify-center 
+}
+.notification h3, p {
+  @apply text-center
+}
+.notification .row {
+  @apply bg-neutral-silver-600 w-full  p-2  rounded-lg space-y-2
+}
+.notification .reply-btn {
+ @apply flex uppercase text-sm items-center rounded-lg px-2 bg-neutral-silver-700;
+}
+.notification .isOpen  {
+  @apply bg-neutral-silver-500 !important
+}

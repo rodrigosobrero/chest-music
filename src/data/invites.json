@@ -1,0 +1,62 @@
+[{
+    "id": 9219,
+    "status": "denied",
+    "host": "Duki",
+    "track": {
+        "id": 8290,
+        "cover": "../track-cover-1.png",
+        "name": "Party in the Neighborhood (feat. Duki)",
+        "author": [
+          "Agustin Posse",
+          "Duki"
+        ],
+        "album": "Party in the Neighborhood",
+        "version": 2.1,
+        "date": 1807110465663,
+        "length": 213.6,
+        "size": 35,
+        "source": "https://freetestdata.com/wp-content/uploads/2021/09/Free_Test_Data_5MB_MP3.mp3"
+      }
+ },
+ {
+    "id": 9220,
+    "status": "pending",
+    "host": "EL DOCTOR",
+    "track": {
+        "id": 8290,
+        "cover": "../track-cover-1.png",
+        "name": "Party in the Neighborhood (feat. Duki)",
+        "author": [
+          "Agustin Posse",
+          "Duki"
+        ],
+        "album": "Party in the Neighborhood",
+        "version": 2.1,
+        "date": 1807110465663,
+        "length": 213.6,
+        "size": 35,
+        "source": "https://freetestdata.com/wp-content/uploads/2021/09/Free_Test_Data_5MB_MP3.mp3"
+      }
+ },
+ {
+    "id": 9221,
+    "status": "accepted",
+    "host": "Ricardo Centurión",
+    "track": {
+        "id": 8290,
+        "cover": "../track-cover-1.png",
+        "name": "Party in the Neighborhood (feat. Duki)",
+        "author": [
+          "Agustin Posse",
+          "Duki"
+        ],
+        "album": "Party in the Neighborhood",
+        "version": 2.1,
+        "date": 1807110465663,
+        "length": 213.6,
+        "size": 35,
+        "source": "https://freetestdata.com/wp-content/uploads/2021/09/Free_Test_Data_5MB_MP3.mp3"
+      }
+
+ }
+]
