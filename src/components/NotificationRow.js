@@ -2,6 +2,7 @@ import React from 'react'
 import { formatDate, formatTime } from 'utils/helpers'
 import NotificationButton from './NotificationButton'
 import { CheckIcon } from "@heroicons/react/24/solid";
+import NotificationOption from './NotificationOption';
 
 const NotificationRow = ({invite}) => {
   const [ isOpen, setIsOpen ] = React.useState(false)
@@ -32,11 +33,7 @@ const NotificationRow = ({invite}) => {
                </span> : <span className='text-neutral-silver-200 capitalize'>denied</span> }
           </div>
         </div>
-       { isOpen &&   
-        <div className='flex justify-between px-4 space-x-2'>
-          <button className='w-2/4 bg-black text-white h-10 rounded-lg'>Deny</button>
-          <button className='w-2/4 bg-white text-black h-10 rounded-lg	'>Accept</button>
-        </div>}
+        <NotificationOption isOpen={isOpen}/>
        </div>
     </>
   )

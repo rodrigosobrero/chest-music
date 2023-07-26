@@ -291,3 +291,12 @@ td {
 .notification .isOpen  {
   @apply bg-neutral-silver-500 !important
 }
+.notification .options {
+ @apply flex justify-center space-x-2
+}
+.notification .options button {
+  @apply w-32 h-10 rounded-lg font-archivo font-semibold bg-neutral-silver-700 text-neutral-silver-200
+}
+.notification .options .isActive {
+ @apply bg-brand-gold  text-neutral-black
+}
