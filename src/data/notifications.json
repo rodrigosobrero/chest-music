@@ -1,0 +1,112 @@
+[
+  {
+    "id": 1,
+    "type": "invite",
+    "data": {
+      "date": 1690824996,
+      "status": "pending",
+      "title": "Duki added you as Feat in a track",
+      "body": "Balling (ft. Agustin Posse)"
+    }
+  },
+  {
+    "id": 2,
+    "type": "invite",
+    "data": {
+      "date": 1690824996,
+      "status": "pending",
+      "title": "Duki added you as Artist in a track",
+      "body": "Hooping (ft. Agustin Posse)"
+    }
+  },
+  {
+    "id": 3,
+    "type": "invite",
+    "data": {
+      "date": 1690824996,
+      "status": "pending",
+      "title": "EL DOCTOR added you as Feat in a tra...",
+      "body": "Fila (ft. Agustin Posse)"
+    }
+  },
+  {
+    "id": 4,
+    "type": "invite",
+    "data": {
+      "date": 1690824996,
+      "status": "pending",
+      "title": "Breik added you as Listener in a track",
+      "body": "King of break"
+    }
+  },
+  {
+    "id": 5,
+    "type": "invite",
+    "data": {
+      "date": 1690824996, 
+      "status": "accepted",
+      "title": "Breik added you as Feat in a track",
+      "body": "Jumping (ft. Agustin Posse)"
+    }
+  },
+  {
+    "id": 6,
+    "type": "invite",
+    "data": {
+      "date": 1690824996, 
+      "status": "denied",
+      "title": "Duki added you as Producer in a track",
+      "body": "Balling (ft. Agustin Posse)"
+    }
+  },
+  {
+    "id": 7,
+    "type": "general",
+    "data": {
+      "date": 1690824996,
+      "type": "invite_accepted",
+      "title": "Duki accepted your invite to the track",
+      "body": "Just a Feeling"
+    }
+  },
+  {
+    "id": 8,
+    "type": "general",
+    "data": {
+      "date": 1690824996,
+      "type": "track_uploaded",
+      "title": "Track successfully uploaded",
+      "body": "Just a Feeling"
+    }
+  },
+  {
+    "id": 9,
+    "type": "general",
+    "data": {
+      "date": 1690824996,
+      "type": "invite_denied",
+      "title": "Duki denied your invite to the track",
+      "body": "Groovy Thang"
+    }
+  },
+  {
+    "id": 10,
+    "type": "general",
+    "data": {
+      "date": 1690824996,
+      "type": "track_shared",
+      "title": "Chicho shared a track with you",
+      "body": "Groovy Thang - 'Escucha este q esta volado'"
+    }
+  },
+  {
+    "id": 11,
+    "type": "general",
+    "data": {
+      "date": 1690824996,
+      "type": "track_uploaded",
+      "title": "Track successfully uploaded",
+      "body": "Kiss from the Sun"
+    }
+  }
+]
