@@ -64,7 +64,7 @@
     "type": "general",
     "data": {
       "date": 1690824996,
-      "type": "invite_accepted",
+      "status": "invite_accepted",
       "title": "Duki accepted your invite to the track",
       "body": "Just a Feeling"
     }
@@ -74,7 +74,7 @@
     "type": "general",
     "data": {
       "date": 1690824996,
-      "type": "track_uploaded",
+      "status": "track_uploaded",
       "title": "Track successfully uploaded",
       "body": "Just a Feeling"
     }
@@ -84,7 +84,7 @@
     "type": "general",
     "data": {
       "date": 1690824996,
-      "type": "invite_denied",
+      "status": "invite_denied",
       "title": "Duki denied your invite to the track",
       "body": "Groovy Thang"
     }
@@ -94,7 +94,7 @@
     "type": "general",
     "data": {
       "date": 1690824996,
-      "type": "track_shared",
+      "status": "track_shared",
       "title": "Chicho shared a track with you",
       "body": "Groovy Thang - 'Escucha este q esta volado'"
     }
@@ -104,7 +104,7 @@
     "type": "general",
     "data": {
       "date": 1690824996,
-      "type": "track_uploaded",
+      "status": "track_uploaded",
       "title": "Track successfully uploaded",
       "body": "Kiss from the Sun"
     }
