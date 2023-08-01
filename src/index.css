@@ -286,7 +286,7 @@ td {
   @apply bg-neutral-silver-600 w-full  p-2  rounded-lg space-y-2
 }
 .notification .reply-btn {
- @apply flex uppercase text-sm items-center rounded-lg px-2 bg-neutral-silver-700;
+ @apply flex uppercase text-sm items-center rounded-lg px-2  bg-neutral-silver-700 text-brand-uva;
 }
 .notification .isOpen  {
   @apply bg-neutral-silver-500 !important
@@ -295,8 +295,14 @@ td {
  @apply flex justify-center space-x-2
 }
 .notification .options button {
-  @apply w-32 h-10 rounded-lg font-archivo font-semibold bg-neutral-silver-700 text-neutral-silver-200
+  @apply w-32 h-10 rounded-lg font-archivo font-semibold bg-neutral-silver-700 text-neutral-silver-200 text-sm
+}
+.notification .options button span {
+ @apply bg-neutral-silver-600 rounded-full px-1
 }
 .notification .options .isActive {
  @apply bg-brand-gold  text-neutral-black
+}
+.notification .options .isActive span  {
+  @apply bg-brand-gold/40 px-1 
 }

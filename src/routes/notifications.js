@@ -1,5 +1,5 @@
 import React from 'react'
-import invites from 'data/invites.json'
+import notifications from 'data/notifications.json'
 import Notification from 'components/Notification'
 export default function Notifications() {
   return (
@@ -12,7 +12,7 @@ export default function Notifications() {
           <p>
             manage
           </p>
-          <Notification invites={invites} />
+          <Notification notifications={notifications} />
         </div>
       </div>
     </>

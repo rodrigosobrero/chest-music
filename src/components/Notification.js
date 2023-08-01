@@ -1,15 +1,34 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NotificationList } from './NotificationList'
-const Notification = ({invites}) => {
+import GeneralList from './GeneralList'
+const Notification = ({notifications}) => {
   const [status, setStatus] = useState('invites')
+  const [generalNotifications, setGeneralNotifications] = useState([])
+  const [invites, setInvites] = useState([])
+  useEffect(() => {
+    const filterNotifications = () => {
+      const invites = notifications.filter((el) => el.type === 'invite');
+      const general = notifications.filter((el) => el.type === 'general');
+      return { invites, general };
+    };
+    const { invites, general } = filterNotifications();
+    setGeneralNotifications(general);
+    setInvites(invites);
+  }, [notifications])
   return (
     <>
       <div>
         <div className='options'>
-            <button className={status === 'invites' && 'isActive'} onClick={() => setStatus('invites')}>Invites{`(${invites.length})`}</button>
-            <button className={status === 'general' && 'isActive'} onClick={() => setStatus('general')}>General</button>
+            <button className={status === 'invites' && 'isActive'} onClick={() => setStatus('invites')}>
+                Invites <span>{invites.length}</span>
+            </button>
+            <button className={status === 'general' && 'isActive'} onClick={() => setStatus('general')}>
+                General <span>{invites.length}</span>
+            </button>
         </div>
-        <NotificationList invites={invites} />
+        <div className='w-[42.5rem] bg-neutral-silver-700 flex h-[80%] overflow-y-auto flex-col p-8 space-y-2 rounded-lg'>
+            {status === 'general' ? <GeneralList data={generalNotifications} /> : <NotificationList invites={invites} />}
+        </div>
       </div>
     </>
   )
