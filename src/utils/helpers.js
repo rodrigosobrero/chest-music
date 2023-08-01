@@ -18,4 +18,8 @@ function formatTime(seconds) {
   return (seconds / 60).toFixed(2).toString().replace('.', ':');
 }
 
-export { classNames, formatDate, formatTime }
+function firstLetterUpperCase(str) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export { classNames, formatDate, formatTime, firstLetterUpperCase }

@@ -17,7 +17,7 @@ module.exports = {
           700: '#15181C',
         },
         'brand-gold': '#FFB447',
-        'brand-uva': '#B296FF',
+        'brand-uva': '#7C59DE',
       },
       fontFamily: {
         'archivo': ['Archivo', 'sans-serif'],

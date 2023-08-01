@@ -59,21 +59,23 @@ footer select {
   background: url('/src/assets/images/icon-arrow-down.svg') no-repeat right;
 }
 
-h2, h3 {
+h1, h2, h3, h4 {
   @apply font-thunder-bold text-white uppercase;
 }
 
 h2 {
+  line-height: 68px;
+  @apply text-[76px]
+}
+
+h3 {
   line-height: 58px;
   @apply text-[64px];
 }
 
-h3 {
-  @apply text-5xl;
-}
-
 h4 {
-  @apply font-archivo text-[28px] font-semibold;
+  line-height: 44px;
+  @apply text-5xl;
 }
 
 table {
@@ -94,6 +96,16 @@ tr:hover td {
 
 td {
   @apply first:text-white transition duration-500;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 #root {
@@ -118,11 +130,11 @@ td {
 }
 
 .btn {
-  @apply rounded-[10px] font-archivo text-lg px-6 py-3 flex items-center justify-center h-[46px];
+  @apply rounded-[10px] font-archivo text-lg px-6 py-3 flex items-center justify-center h-[46px] w-full transition-all duration-500;
 }
 
 .btn-primary {
-  @apply disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300;
+  @apply bg-brand-gold text-black disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300;
 }
 
 .btn-secondary {
@@ -273,4 +285,96 @@ td {
 .signin-cover {
   background: url('/src/assets/images/sign-in.jpg') no-repeat;
   @apply bg-cover;
+}
+
+/* setup account */
+.account-type input {
+  @apply absolute;
+  left: -9999px;
+}
+
+.account-type label {
+  max-width: 328px;
+  @apply flex flex-col gap-6 text-center bg-transparent border-2 border-neutral-silver-600 rounded-3xl p-8 cursor-pointer transition-all duration-500;
+}
+
+.account-type label > p {
+  @apply text-lg text-neutral-silver-300;
+}
+
+.account-type label > img {
+  @apply grayscale;
+}
+
+.account-type label:hover {
+  @apply bg-neutral-black border-neutral-black;
+}
+
+.account-type input:checked + label {
+  @apply bg-neutral-black border-brand-gold;
+}
+.account-type label:hover > p,
+.account-type input:checked + label > p {
+  @apply text-neutral-silver-200;
+}
+
+.account-type label:hover > img,
+.account-type input:checked + label > img {
+  @apply grayscale-0;
+}
+
+.account-plan {
+  @apply relative transition duration-150;
+}
+
+.account-plan label {
+  @apply flex flex-col bg-neutral-silver-600 rounded-2xl px-6 py-4 cursor-pointer pl-[72px];
+}
+
+.account-plan label > h5 {
+  @apply text-lg font-semibold text-neutral-silver-200;
+}
+
+.account-plan label > p {
+  @apply text-sm text-neutral-silver-300;
+}
+
+.account-plan input {
+  top: calc(50% - 12px);
+  @apply absolute left-6;
+}
+
+.account-plan input {
+  @apply grid place-content-center appearance-none bg-neutral-silver-500 border-2 border-neutral-silver-400 w-6 h-6 rounded-full;
+}
+
+.account-plan input::before {
+  @apply rounded-full scale-0 transition ease-in-out w-2.5 h-2.5 duration-150;
+  content: "";
+  box-shadow: inset 1em 1em;
+}
+
+.account-plan input:checked {
+  @apply border-brand-uva text-brand-uva bg-transparent;
+}
+
+.account-plan input:checked::before {
+  transform: scale(1.6);
+}
+
+.account-plan input:checked + label {
+  @apply bg-neutral-black;
+}
+
+input[type="checkbox"] {
+  @apply bg-transparent appearance-none border-2 border-neutral-silver-400 w-5 h-5 m-0 rounded;
+}
+
+input[type="checkbox"]:checked {
+  @apply bg-brand-uva border-brand-uva;
+}
+
+input[type="checkbox"]:checked::before {
+  @apply z-10;
+  background-image: url('/src/assets/images/icon-check.svg') no-repeat;
 }

@@ -36,7 +36,7 @@ export default function Chest() {
       <div className='flex flex-col gap-1'>
         <div className='grid grid-cols-3 bg-neutral-black rounded-t-[32px] rounded-b-xl px-[60px] pt-10 pb-[26px]'>
           <div className='flex items-center gap-4'>
-            <h2>my chest</h2>
+            <h3>my chest</h3>
             <Tag>{tracks.length} tracks</Tag>
           </div>
           <div className='flex items-center justify-center grow'>
