@@ -283,7 +283,10 @@ td {
   @apply text-center
 }
 .notification .row {
-  @apply bg-neutral-silver-600 w-full  p-2  rounded-lg space-y-2
+  @apply bg-neutral-silver-600 w-full p-2  rounded-lg space-y-2
+}
+.notification .over {
+  @apply bg-neutral-black !important
 }
 .notification .reply-btn {
  @apply flex uppercase text-sm items-center rounded-lg px-2  bg-neutral-silver-700 text-brand-uva;
