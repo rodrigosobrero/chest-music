@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 import logo from 'assets/images/logo-gray.svg';
 import appStore from 'assets/images/icon-appstore.svg';
 import playStore from 'assets/images/icon-playstore.svg';
@@ -7,6 +9,11 @@ import linkedin from 'assets/images/icon-linkedin.svg';
 
 export default function Footer() {
   const data = require('data/config.json');
+  const { i18n } = useTranslation();
+
+  const handleChange = event => {
+    i18n.changeLanguage(event.target.value);
+  }
 
   return (
     <>
@@ -35,7 +42,7 @@ export default function Footer() {
               </a>
             </div>
             <div className='flex items-center pl-7'>
-              <select defaultValue={data.language.find(option => option.default).code}>
+              <select defaultValue={i18n.language} onChange={handleChange}>
                 {
                   data.language.map(
                     (option, index) => <option key={index} value={option.code}>{option.icon}</option>

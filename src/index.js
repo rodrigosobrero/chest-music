@@ -14,6 +14,8 @@ import reportWebVitals from './reportWebVitals';
 import store from 'app/store';
 import { Provider } from 'react-redux';
 
+import './i18n';
+
 const router = createBrowserRouter([
   {
     path: '/',
