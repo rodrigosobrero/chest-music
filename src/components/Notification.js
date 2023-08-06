@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { NotificationList } from './NotificationList'
 import GeneralList from './GeneralList'
+import Modal from './Modal'
 const Notification = ({notifications}) => {
   const [status, setStatus] = useState('invites')
   const [generalNotifications, setGeneralNotifications] = useState([])
@@ -15,8 +16,17 @@ const Notification = ({notifications}) => {
     setGeneralNotifications(general);
     setInvites(invites);
   }, [notifications])
+  const ModalContent = () => {
+    return (
+      <div>
+        <h1>Hola</h1>
+      </div>
+      
+    )
+  }
   return (
     <>
+      {/* <Modal show={true} children={ModalContent}/> */}
       <div>
         <div className='options'>
             <button className={status === 'invites' && 'isActive'} onClick={() => setStatus('invites')}>

@@ -8,7 +8,9 @@ import { MusicalNoteIcon } from "@heroicons/react/24/solid";
 
 const NotificationRow = ({invite}) => {
   const [ isOpen, setIsOpen ] = React.useState(false)
-  
+  const [ isAccepted, setIsAccepted ] = React.useState(false)
+  const [ isDenied, setIsDenied ] = React.useState(false)
+
   return (
     <>
      <div className='row'>
@@ -37,7 +39,8 @@ const NotificationRow = ({invite}) => {
                </span> : <span className='text-neutral-silver-200 capitalize'>denied</span> }
           </div>
         </div>
-        <NotificationOption isOpen={isOpen}/>
+        <NotificationOption isOpen={isOpen} onDeny={() => setIsDenied(true)} onAccept={() => setIsAccepted(true)} 
+                            isDenied={isDenied} isAccepted={isAccepted}/>
        </div>
     </>
   )

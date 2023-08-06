@@ -4,7 +4,6 @@ import { formatDate } from 'utils/helpers'
 const GeneralRow = ({ notification }) => {
   const [toggle, setToggle] = useState(false)
   const handleChange = () => setToggle(!toggle)
-  console.log(toggle)
   return (
         <>
             <div className={`row flex justify-between ${toggle && 'over'}`} onMouseEnter={handleChange} onMouseLeave={handleChange}>
