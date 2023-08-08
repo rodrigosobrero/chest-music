@@ -2,14 +2,7 @@ import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Root from 'routes/root';
-import MyChest from 'routes/my-chest';
-import Shared from 'routes/shared';
-import Profile from 'routes/profile';
-import Track from 'routes/track';
-import SignUp from 'routes/sign-up';
-import SignIn from 'routes/sign-in';
-import Notifications from 'routes/notifications';
+import { Root, MyChest, Shared, Profile, Track, SignIn, SignUp, Manage, Notifications } from 'routes'
 import reportWebVitals from './reportWebVitals';
 import store from 'app/store';
 import { Provider } from 'react-redux';
@@ -46,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: 'notifications',
         element: <Notifications />
+      },
+      {
+        path: 'notifications/manage',
+        element: <Manage />
       }
     ],
   }
