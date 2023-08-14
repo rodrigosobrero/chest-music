@@ -3,7 +3,7 @@ import { CheckIcon } from "@heroicons/react/24/solid";
 
 
 
-const NotificationOption = ({ isOpen, onAccept, onDeny, isAccepted, isDenied }) => {
+const NotificationOption = ({ isOpen, onAccept, onDeny, isAccepted, isDenied, blockUser }) => {
     return <>
             {isOpen && !isAccepted && !isDenied &&
                 <div className='flex justify-between space-x-2 font-archivo font-semibold'>
@@ -18,7 +18,7 @@ const NotificationOption = ({ isOpen, onAccept, onDeny, isAccepted, isDenied }) 
                                      <> Invite denied </> }
                     </span>
                     <button className='text-brand-gold'>Undo</button> 
-                    {isDenied && <button>Block</button>}     
+                    {isDenied && <button onClick={blockUser}>Block</button>}     
                 </div>
             }
   

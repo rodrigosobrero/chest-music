@@ -1,12 +1,12 @@
 import React from 'react'
-import { formatDate, formatTime } from 'utils/helpers'
+import { formatDate } from 'utils/helpers'
 import NotificationReplyButton from './NotificationReplyButton'
 import { CheckIcon } from "@heroicons/react/24/solid";
 import NotificationOption from './NotificationOption';
 import { MusicalNoteIcon } from "@heroicons/react/24/solid";
 
 
-const NotificationRow = ({invite}) => {
+const NotificationRow = ({invite , blockUser}) => {
   const [ isOpen, setIsOpen ] = React.useState(false)
   const [ isAccepted, setIsAccepted ] = React.useState(false)
   const [ isDenied, setIsDenied ] = React.useState(false)
@@ -40,7 +40,7 @@ const NotificationRow = ({invite}) => {
           </div>
         </div>
         <NotificationOption isOpen={isOpen} onDeny={() => setIsDenied(true)} onAccept={() => setIsAccepted(true)} 
-                            isDenied={isDenied} isAccepted={isAccepted}/>
+                            isDenied={isDenied} isAccepted={isAccepted} blockUser={blockUser}/>
        </div>
     </>
   )

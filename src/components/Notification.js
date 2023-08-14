@@ -6,6 +6,7 @@ const Notification = ({notifications}) => {
   const [status, setStatus] = useState('invites')
   const [generalNotifications, setGeneralNotifications] = useState([])
   const [invites, setInvites] = useState([])
+  const [toggle, setToggle] = useState(false)
   useEffect(() => {
     const filterNotifications = () => {
       const invites = notifications.filter((el) => el.type === 'invite');
@@ -16,17 +17,9 @@ const Notification = ({notifications}) => {
     setGeneralNotifications(general);
     setInvites(invites);
   }, [notifications])
-  const ModalContent = () => {
-    return (
-      <div>
-        <h1>Hola</h1>
-      </div>
-      
-    )
-  }
   return (
     <>
-      {/* <Modal show={true} children={ModalContent}/> */}
+
       <div>
         <div className='options'>
             <button className={status === 'invites' && 'isActive'} onClick={() => setStatus('invites')}>
