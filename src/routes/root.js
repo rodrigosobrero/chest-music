@@ -14,7 +14,8 @@ export default function Root() {
         <header>
           <Nav />
         </header>
-        <main className={`${!connected && 'p-[0]'}`}>
+        <main className={`${!connected && 'p-[0]'}`}> {//volver a poner como estaba}}
+        }
           <Outlet />
         </main>
         <Footer />
