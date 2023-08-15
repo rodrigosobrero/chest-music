@@ -5,7 +5,7 @@ const ManageRow = ({data}) => {
     <>
       <tr>
         <td>{data.name}</td>
-        <td>{data.username}</td>
+        <td>@{data.username}</td>
         <td>{timeDifference(data.date)}</td>
         <td>X</td>
       </tr>

@@ -1,12 +1,18 @@
 import React from 'react'
 import ManageRow from './ManageRow';
-const ManageList = ({data}) => {
+const ManageList = ({data, privacyIsOpen}) => {
     const titles = [
         'name',
         'username',
         'date blocked',
         ''
       ];
+    const titlesPrivate = [
+        'name',
+        'username',
+        'date allowed',
+        ''
+    ]
     const handleSortingChange = (index) => {
         console.log(index);
     }
@@ -16,7 +22,7 @@ const ManageList = ({data}) => {
             <thead>
             <tr>
                 {
-                titles.map((title, index) => 
+                privacyIsOpen ? titles.map((title, index) => 
                     <th 
                     key={index} 
                     onClick={() => { title && handleSortingChange(index) }} 
@@ -24,7 +30,16 @@ const ManageList = ({data}) => {
                         {title}
                     </th>
                 )
-                }
+                 : 
+                titlesPrivate.map((title, index) => 
+                <th 
+                key={index} 
+                onClick={() => { title && handleSortingChange(index) }} 
+                className={`${ !title && 'cursor-default' }`}>
+                    {title}
+                </th>
+            )
+            }
             </tr>
             </thead>
             <tbody>
