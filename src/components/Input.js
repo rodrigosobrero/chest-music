@@ -28,7 +28,7 @@ export default function Input({ type, placeholder, label, name, value, onChange,
             name={name}
             value={value}
             onChange={onChange}
-            className='border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 w-full' />
+            className='border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 w-full focus:outline-none focus:border-brand-gold' />
           {showHide &&
             <div className='absolute top-5 right-5'>
               <button type='button' onClick={showHidePassword}>
