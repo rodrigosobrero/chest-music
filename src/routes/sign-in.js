@@ -7,8 +7,8 @@ import google from 'assets/images/logo-google.png';
 export default function SignIn() {
   return (
     <>
-      <div className='grid grid-cols-2 h-full'>
-        <div className='flex flex-col gap-6 text-center justify-center px-[120px] py-20'>
+      <div className='grid grid-cols-1 md:grid-cols-2 h-full'>
+        <div className='flex flex-col gap-6 text-center justify-center px-6 pt-10 pb-10 md:px-[120px] md:py-20 order-last md:order-1'>
           <h2>open your chest</h2>
           <button type='button' className='flex items-center justify-center text-lg gap-3 bg-neutral-black rounded-xl w-full px-5 py-3'>
             <img src={google} alt='Google' width={32} height={32} />

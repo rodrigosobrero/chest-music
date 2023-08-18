@@ -18,12 +18,12 @@ export default function Footer() {
   return (
     <>
       <footer>
-        <div className='flex max-w-7xl w-full'>
-          <div className='flex flex-col gap-3 grow'>
+        <div className='flex md:flex-row flex-col items-center max-w-7xl w-full'>
+          <div className='flex flex-col items-center gap-3 grow order-last md:order-1'>
             <img src={logo} alt="" width={146} height={32} />
             <span>© 2023 - Chest. All rights reserved.</span>
           </div>
-          <div className='flex divide-x divide-neutral-silver-600 gap-7'>
+          <div className='flex flex-col items-center md:flex-row md:divide-x divide-neutral-silver-600 gap-7 order-1 md:order-last'>
             <div className='flex items-center gap-4'>
               <a href='https://www.apple.com' className='social'>
                 <img src={appStore} alt='App Store' width={24} height={24} />
@@ -41,7 +41,7 @@ export default function Footer() {
                 <img src={instagram} alt='Instagram' width={24} height={24} />
               </a>
             </div>
-            <div className='flex items-center pl-7'>
+            <div className='flex items-center pb-10 md:pb-0 md:pl-7'>
               <select defaultValue={i18n.language} onChange={handleChange}>
                 {
                   data.language.map(
