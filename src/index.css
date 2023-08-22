@@ -279,12 +279,12 @@ input[type=number] {
 
 .signup-cover {
   background: url('/src/assets/images/sign-up.jpg') no-repeat;
-  @apply bg-cover;
+  @apply bg-cover h-[260px] md:h-auto md:order-last;
 }
 
 .signin-cover {
   background: url('/src/assets/images/sign-in.jpg') no-repeat;
-  @apply bg-cover h-[260px] md:h-auto;
+  @apply bg-cover h-[260px] md:h-auto md:order-last;
 }
 
 /* setup account */
