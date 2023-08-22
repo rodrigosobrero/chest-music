@@ -19,6 +19,9 @@ i18next
               title: 'drop it like it’s hot',
               description: 'Drag and drop your audio file here to upload a new track, or...',
             }
+          },
+          footer: {
+            rights: 'All rights reserved.'
           }
         }
       },
@@ -32,6 +35,9 @@ i18next
               title: 'suéltalo como si estuviera caliente',
               description: 'arrastra y suelta tu archivo de audio aquí para subir un nuevo track, o...'
             }
+          },
+          footer: {
+            rights: 'Todos los derechos reservados.'
           }
         }
       }

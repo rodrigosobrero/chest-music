@@ -9,7 +9,7 @@ import linkedin from 'assets/images/icon-linkedin.svg';
 
 export default function Footer() {
   const data = require('data/config.json');
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   const handleChange = event => {
     i18n.changeLanguage(event.target.value);
@@ -21,7 +21,7 @@ export default function Footer() {
         <div className='flex md:flex-row flex-col items-center max-w-7xl w-full'>
           <div className='flex flex-col items-center gap-3 grow order-last md:order-1'>
             <img src={logo} alt="" width={146} height={32} />
-            <span>© 2023 - Chest. All rights reserved.</span>
+            <span>© 2023 - Chest. {t('footer.rights')}</span>
           </div>
           <div className='flex flex-col items-center md:flex-row md:divide-x divide-neutral-silver-600 gap-7 order-1 md:order-last'>
             <div className='flex items-center gap-4'>

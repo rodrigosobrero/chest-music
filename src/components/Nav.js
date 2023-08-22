@@ -65,7 +65,7 @@ export default function Nav() {
         </div>
       </nav>
       <motion.div
-        className='absolute top-0 left-0 bg-neutral-black w-full h-auto pt-4 pb-8'
+        className='absolute top-14 left-0 bg-neutral-black w-full h-auto pt-4 pb-8'
         animate={{ opacity: open ? 1 : 0 }}>
         <ul>
           {
