@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState } from 'react';
 import { formatDate, formatTime, timeDifference } from 'utils/helpers';
+import SharedToast from './SharedToast';
+import webdisabled from 'assets/images/icon-webdisabled.svg'
 const SharedRow = ({track}) => {
   const [show, setShow] = useState(false);
   return (
@@ -38,7 +40,7 @@ const SharedRow = ({track}) => {
       <td>{formatTime(track.length)}</td>
       <td>{track.size}</td>
       <td>
-        x
+        <SharedToast />
       </td>
     </tr>
   </>
