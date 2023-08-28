@@ -60,7 +60,7 @@ footer select {
 }
 
 h1, h2, h3, h4 {
-  @apply font-thunder-bold text-white uppercase;
+  @apply font-thunder-bold text-white uppercase text-center md:text-left;
 }
 
 h2 {
@@ -294,8 +294,7 @@ input[type=number] {
 }
 
 .account-type label {
-  max-width: 328px;
-  @apply flex flex-col gap-6 text-center bg-transparent border-2 border-neutral-silver-600 rounded-3xl p-8 cursor-pointer transition-all duration-500;
+  @apply flex flex-col gap-6 text-center bg-transparent border-2 border-neutral-silver-600 rounded-3xl p-8 cursor-pointer transition-all duration-500 md:max-w-[328px];
 }
 
 .account-type label > p {
@@ -424,6 +423,7 @@ input[type="checkbox"]:checked::before {
   content: counter(percentage) '%';
 }
 
+/*
 .html {
   background: 
     radial-gradient(closest-side, black 79%, transparent 80% 100%),
@@ -465,4 +465,17 @@ progress {
   visibility: hidden;
   width: 0;
   height: 0;
+}
+*/
+
+.swiper {
+  @apply w-full h-full md:hidden;
+}
+
+.swiper-wrapper {
+  justify-content: center;
+}
+
+.swiper-slide {
+  @apply text-center flex justify-center items-center max-w-[320px];
 }

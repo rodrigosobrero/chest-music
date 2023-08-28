@@ -1,5 +1,12 @@
 import { useState } from 'react';
 import { firstLetterUpperCase } from 'utils/helpers';
+import { Link } from 'react-router-dom';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+
+import 'swiper/css';
+import 'swiper/css/pagination';
+
 import Button from 'components/Button';
 
 import { MusicalNoteIcon } from '@heroicons/react/24/solid';
@@ -8,7 +15,6 @@ import fan from 'assets/images/sign-up-artist.png';
 import artist from 'assets/images/sign-up-fan.png';
 import Input from 'components/Input';
 import Tag from 'components/Tag';
-import { Link } from 'react-router-dom';
 
 export default function Setup() {
   const [userType, setUserType] = useState('');
@@ -26,7 +32,7 @@ export default function Setup() {
         <h2>welcome to chest</h2>
         <p className='text-neutral-silver-200 text-[22px]'>Choose your role</p>
       </div>
-      <div className='grid gap-8 grid-cols-2'>
+      <div className='hidden md:grid gap-8 grid-cols-2'>
         <div className='account-type'>
           <input type='radio' id='artist' value='artist' name='type' onChange={onOptionChange} />
           <label htmlFor='artist'>
@@ -48,7 +54,36 @@ export default function Setup() {
           </label>
         </div>
       </div>
-      <div className='w-1/4'>
+      <Swiper
+        spaceBetween={8}
+        slidesPerView={1.1}
+        pagination={true} modules={[Pagination]}>
+        <SwiperSlide>
+          <div className='account-type'>
+            <input type='radio' id='artist' value='artist' name='type' onChange={onOptionChange} />
+            <label htmlFor='artist'>
+              <h4>artist</h4>
+              <img src={artist} alt='Artist' width={264} height={140} />
+              <p>
+                If you make music, this option is for you. It doesn't matter if you are a singer, music producer, or DJ: if your music is your treasure, you have found its chest.
+              </p>
+            </label>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className='account-type'>
+            <input type='radio' id='fan' value='fan' name='type' onChange={onOptionChange} />
+            <label htmlFor='fan'>
+              <h4>fan</h4>
+              <img src={fan} alt='Artist' width={264} height={140} />
+              <p>
+                If you came to listen to the music of your favorite friends and artists before anyone else, this is for you. Enjoy a simplified version of Chest adjusted to your needs.
+              </p>
+            </label>
+          </div>
+        </SwiperSlide>
+      </Swiper>
+      <div className='w-full md:w-1/4'>
         <Button type='primary' disabled={!userType} text='Confirm' onClick={() => { setStep(1) }} />
       </div>
     </>
@@ -128,7 +163,7 @@ export default function Setup() {
 
   return (
     <>
-      <div className='flex flex-col gap-8 items-center justify-center h-full'>
+      <div className='flex flex-col gap-8 items-center justify-center h-full pt-10 pb-10 md:px-[120px] md:py-20'>
         {currentStep}
       </div>
     </>
