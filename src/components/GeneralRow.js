@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import NotificationIcon from './NotificationIcon'
-import { formatDate } from 'utils/helpers'
+import { timeDifference } from 'utils/helpers'
 const GeneralRow = ({ notification }) => {
   const [toggle, setToggle] = useState(false)
   const handleChange = () => setToggle(!toggle)
@@ -17,9 +17,9 @@ const GeneralRow = ({ notification }) => {
                     </div>
                 </div>
             </div>
-                <div className='justify-end xl:flex   hidden'>
+                <div className='justify-end xl:flex  hidden pr-2'>
                       <span className='text-neutral-silver-200'>
-                          {formatDate(notification.data.date)}
+                          {timeDifference(notification.data.date)}
                       </span>
                 </div>
             </div>

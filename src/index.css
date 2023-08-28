@@ -300,6 +300,10 @@ td {
   .notification .isOpen  {
     @apply bg-neutral-silver-500 !important
   }
+  .notification .reply-btn span {
+    @apply flex
+  } 
+  
 }
 .notification .options {
  @apply flex justify-center space-x-2

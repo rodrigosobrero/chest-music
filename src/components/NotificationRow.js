@@ -1,5 +1,5 @@
 import React from 'react'
-import { formatDate } from 'utils/helpers'
+import { formatDate , timeDifference} from 'utils/helpers'
 import NotificationOption from './NotificationOption';
 import { MusicalNoteIcon } from "@heroicons/react/24/solid";
 import NotificationStatus from './NotificationStatus';
@@ -28,11 +28,10 @@ const NotificationRow = ({invite , blockUser}) => {
           <div className='flex space-x-4'>
               <div className='xl:flex hidden'>
                   <span className='text-neutral-silver-200'>
-                      {formatDate(invite.data.date)}
+                      {timeDifference(invite.data.date)}
                   </span>
               </div>
               <NotificationStatus status={invite.data.status} isOpen={isOpen} setIsOpen={setIsOpen}/>
-
           </div>
         </div>
         <NotificationOption isOpen={isOpen} onDeny={() => setIsDenied(true)} onAccept={() => setIsAccepted(true)} 
