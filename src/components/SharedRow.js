@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { formatDate, formatTime, timeDifference } from 'utils/helpers';
 import SharedToast from './SharedToast';
 import webdisabled from 'assets/images/icon-webdisabled.svg'
-const SharedRow = ({track}) => {
+const SharedRow = ({ track, isMobile }) => {
   const [show, setShow] = useState(false);
   return (
     <>
@@ -30,15 +30,18 @@ const SharedRow = ({track}) => {
           </div>
         </div>
       </td>
-      <td>{track.album}</td>
-      <td>{track.version}</td>
-      <td>
-        <span className='capitalize'>
-          {timeDifference(track.date)}
-        </span>
-      </td>
-      <td>{formatTime(track.length)}</td>
-      <td>{track.size}</td>
+      {!isMobile &&
+          <>
+            <td>{track.album}</td>
+            <td>{track.version}</td>
+            <td>
+              <span className='capitalize'>
+                {timeDifference(track.date)}
+              </span>
+            </td>
+            <td>{formatTime(track.length)}</td>
+            <td>{track.size}</td>
+          </>}
       <td>
         <SharedToast />
       </td>

@@ -6,7 +6,7 @@ const GeneralRow = ({ notification }) => {
   const handleChange = () => setToggle(!toggle)
   return (
         <>
-            <div className={`row flex justify-between ${toggle && 'over'}`} onMouseEnter={handleChange} onMouseLeave={handleChange}>
+            <div className={`row flex justify-between ${toggle && 'over'} `} onMouseEnter={handleChange} onMouseLeave={handleChange}>
             <div className='flex space-x-4 items-center'>
                <NotificationIcon  type={notification.data.status} iconStyle={`h-5 w-5 ${toggle ? 'text-brand-gold' : 'text-white'}`} 
                 containerStyle={'bg-neutral-black rounded-lg flex justify-center items-center h-10 w-10'}/>
@@ -17,7 +17,7 @@ const GeneralRow = ({ notification }) => {
                     </div>
                 </div>
             </div>
-                <div className='justify-end flex'>
+                <div className='justify-end xl:flex   hidden'>
                       <span className='text-neutral-silver-200'>
                           {formatDate(notification.data.date)}
                       </span>

@@ -1,6 +1,7 @@
 import React from 'react'
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { motion } from 'framer-motion';
+import { NoSymbolIcon } from "@heroicons/react/24/solid";
 
 
 const NotificationOption = ({ isOpen, onAccept, onDeny, isAccepted, isDenied, blockUser }) => {
@@ -21,11 +22,11 @@ const NotificationOption = ({ isOpen, onAccept, onDeny, isAccepted, isDenied, bl
             {isOpen && (isAccepted || isDenied) &&
                 <div className='flex items-center justify-center space-x-4 font-archivo h-10 bg-neutral-silver-700'>
                     <span className='flex items-center text-neutral-silver-100 text-base'> 
-                       {isAccepted ? <> <CheckIcon className="h-5 w-5 text-[#14BD44]"/> Invite accepted </> : 
-                                     <> Invite denied </> }
+                       {isAccepted ? <> <CheckIcon className="h-5 w-5 text-[#14BD44] "/> Invite accepted </> : 
+                                     <> <NoSymbolIcon className="h-5 w-5 text-error-red"/> Invite denied </> }
                     </span>
                     <button className='text-brand-gold'>Undo</button> 
-                    {isDenied && <button onClick={blockUser}>Block</button>}     
+                    { isDenied && <button onClick={blockUser}>Block</button> }     
                 </div>
             }
   </motion.div>

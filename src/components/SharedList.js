@@ -1,17 +1,27 @@
-import React from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import SharedRow from './SharedRow';
+import useMediaQuery from 'utils/useMediaQuery';
 
 const SharedList = ({tracks}) => {
-    const titles = [
-        'title',
-        'album',
-        'version',
-        'date shared',
-        'length',
-        'plays',
-        '',
-      ];
-    
+
+  const isMobile = useMediaQuery('(max-width: 1024px)');
+  const titlesDesktop = useMemo(() =>[
+      'title',
+      'album',
+      'version',
+      'date shared',
+      'length',
+      'plays',
+      '',
+    ], []);
+  const titlesMobile = useMemo(() => [
+    'title',
+    ''
+  ], [])
+  const [titles, setTitles ]= useState(titlesDesktop)
+  useEffect(() => {
+    setTitles(isMobile ? titlesMobile : titlesDesktop)
+  }, [isMobile, titlesMobile, titlesDesktop])
   return (
     <>
      <table>
@@ -32,7 +42,7 @@ const SharedList = ({tracks}) => {
          <tbody>
               {
                 tracks?.map((track, index) =>
-                  <SharedRow key={index} track={track}  />
+                  <SharedRow key={index} track={track} isMobile={isMobile}  />
                 )
               }
          </tbody>

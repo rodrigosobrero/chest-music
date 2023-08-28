@@ -31,7 +31,7 @@ const SharedToast = () => {
             onClick={toggleOpen}>
             <img src={webdisabled} alt='' width={24} height={24} />
         </button>
-        <motion.div 
+        {/* <motion.div 
             animate={animation} 
             initial={{ opacity: 0 }} 
             className='bg-neutral-silver-100 font-archivo text-neutral-black rounded-xl pt-2 px-1.5 pb-1.5 absolute bottom-12 -right-12 overflow-hidden' 
@@ -45,7 +45,7 @@ const SharedToast = () => {
                        Some listeners may record the track in their browser. You can play this track only
                        on the Chest App. 
                 </motion.div>
-        </motion.div>
+        </motion.div> */}
 
 
      </div>
