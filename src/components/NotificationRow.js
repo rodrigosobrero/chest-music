@@ -1,9 +1,8 @@
 import React from 'react'
 import { formatDate } from 'utils/helpers'
-import NotificationReplyButton from './NotificationReplyButton'
-import { CheckIcon } from "@heroicons/react/24/solid";
 import NotificationOption from './NotificationOption';
 import { MusicalNoteIcon } from "@heroicons/react/24/solid";
+import NotificationStatus from './NotificationStatus';
 
 
 const NotificationRow = ({invite , blockUser}) => {
@@ -27,16 +26,13 @@ const NotificationRow = ({invite , blockUser}) => {
             </div>
           </div>
           <div className='flex space-x-4'>
-              <div>
+              <div className='xl:flex hidden'>
                   <span className='text-neutral-silver-200'>
                       {formatDate(invite.data.date)}
                   </span>
               </div>
-              {invite.data.status === 'pending' ? <NotificationReplyButton isOpen={isOpen} onClick={() => setIsOpen(!isOpen)}/> : 
-               invite.data.status === 'accepted' ? 
-               <span className='capitalize flex items-center text-brand-gold'>
-                     <CheckIcon className="h-5 w-5" /> accepted
-               </span> : <span className='text-neutral-silver-200 capitalize'>denied</span> }
+              <NotificationStatus status={invite.data.status} isOpen={isOpen} setIsOpen={setIsOpen}/>
+
           </div>
         </div>
         <NotificationOption isOpen={isOpen} onDeny={() => setIsDenied(true)} onAccept={() => setIsAccepted(true)} 

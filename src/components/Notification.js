@@ -22,14 +22,20 @@ const Notification = ({notifications}) => {
 
       <div>
         <div className='options'>
-            <button className={status === 'invites' && 'isActive'} onClick={() => setStatus('invites')}>
-                Invites <span>{invites.length}</span>
-            </button>
-            <button className={status === 'general' && 'isActive'} onClick={() => setStatus('general')}>
-                General <span>{invites.length}</span>
-            </button>
+           <div>
+              <button className={status === 'invites' && 'isActive'} onClick={() => setStatus('invites')}>
+                  Invites <span>{invites.length}</span>
+              </button>
+              <div className={`w-[80%] mx-auto mt-1.5 border border-brand-gold ${status !== 'invites' && 'hidden'}`}></div>
+           </div>
+           <div>
+              <button className={status === 'general' && 'isActive'} onClick={() => setStatus('general')}>
+                  General <span>{invites.length}</span>
+              </button>
+              <div className={`w-[80%] mx-auto h-0.5 mt-1.5 border border-brand-gold ${status !== 'general' && 'hidden'}`}></div>
+           </div>
         </div>
-        <div className='w-[42.5rem] bg-neutral-silver-700 flex h-[80%] overflow-y-auto flex-col p-8 space-y-2 rounded-lg'>
+        <div className='w-full xl:w-[42.5rem] bg-neutral-silver-700 flex h-[80%] overflow-y-auto flex-col xl:p-8 p-3 space-y-2 rounded-lg'>
             {status === 'general' ? <GeneralList data={generalNotifications} /> : <NotificationList invites={invites} />}
         </div>
       </div>

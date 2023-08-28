@@ -1,10 +1,17 @@
 import React from 'react'
 import { CheckIcon } from "@heroicons/react/24/solid";
-
+import { motion } from 'framer-motion';
 
 
 const NotificationOption = ({ isOpen, onAccept, onDeny, isAccepted, isDenied, blockUser }) => {
+
     return <>
+            <motion.div
+            className={`notification-option ${isOpen ? 'open' : ''}`}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}>
             {isOpen && !isAccepted && !isDenied &&
                 <div className='flex justify-between space-x-2 font-archivo font-semibold'>
                     <button className='w-2/4 bg-black text-white h-10 rounded-lg' onClick={onDeny}>Deny</button>
@@ -21,7 +28,7 @@ const NotificationOption = ({ isOpen, onAccept, onDeny, isAccepted, isDenied, bl
                     {isDenied && <button onClick={blockUser}>Block</button>}     
                 </div>
             }
-  
+  </motion.div>
         </>
 }
 
