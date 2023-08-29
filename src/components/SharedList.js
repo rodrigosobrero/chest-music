@@ -1,11 +1,12 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import SharedRow from './SharedRow';
 import useMediaQuery from 'utils/useMediaQuery';
 
-const SharedList = ({tracks}) => {
-
+const SharedList = ({ tracks }) => {
   const isMobile = useMediaQuery('(max-width: 1024px)');
-  const titlesDesktop = useMemo(() =>[
+  const titles = useMemo(() => {
+    if(isMobile) return [ 'title', '' ]
+    else { return [
       'title',
       'album',
       'version',
@@ -13,15 +14,14 @@ const SharedList = ({tracks}) => {
       'length',
       'plays',
       '',
-    ], []);
-  const titlesMobile = useMemo(() => [
-    'title',
-    ''
-  ], [])
-  const [titles, setTitles ]= useState(titlesDesktop)
-  useEffect(() => {
-    setTitles(isMobile ? titlesMobile : titlesDesktop)
-  }, [isMobile, titlesMobile, titlesDesktop])
+    ]
+  }
+  }, [isMobile]);
+  // const titlesMobile = useMemo(() =>, [])
+  // const [titles, setTitles ]= useState(titlesDesktop)
+  // useEffect(() => {
+  //   setTitles(isMobile ? titlesMobile : titlesDesktop)
+  // }, [isMobile, titlesMobile, titlesDesktop])
   return (
     <>
      <table>
