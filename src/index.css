@@ -281,7 +281,7 @@ td {
 
 /* NOTIFICATIONS WEBPAGE */
 .notification {
-  @apply w-full bg-neutral-black h-full flex justify-center 
+  @apply w-full bg-neutral-black h-full flex justify-center py-[40px]
 }
 .notification h3, p {
   @apply text-center

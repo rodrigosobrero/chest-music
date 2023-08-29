@@ -26,7 +26,7 @@ const NotificationOption = ({ isOpen, onAccept, onDeny, isAccepted, isDenied, bl
                                      <> <NoSymbolIcon className="h-5 w-5 text-error-red"/> Invite denied </> }
                     </span>
                     <button className='text-brand-gold'>Undo</button> 
-                    { isDenied && <button onClick={blockUser}>Block</button> }     
+                    { isDenied && <button onClick={blockUser} className='text-brand-gold'> Block</button> }     
                 </div>
             }
   </motion.div>

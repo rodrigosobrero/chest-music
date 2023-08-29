@@ -14,8 +14,8 @@ export const NotificationList = ({ invites }) => {
           </div>
         </div>
         <div className='font-archivo font-semibold flex mt-8 gap-4'>
-           <button className='w-[48%] bg-neutral-silver-600 text-white h-10 rounded-lg'>Cancel</button>
-           <button className='w-[48%] bg-brand-gold text-black h-10 rounded-lg'>Block</button>
+           <button className='w-[48%] bg-neutral-silver-600 text-white h-10 rounded-lg' onClick={() => setIsOpen(!isOpen)}>Cancel</button>
+           <button className='w-[48%] bg-brand-gold text-black h-10 rounded-lg' onClick={() => setIsOpen(!isOpen)}>Block</button>
         </div>
       </div>
     )

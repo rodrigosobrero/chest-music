@@ -4,8 +4,8 @@ const NotificationReplyButton = ({ onClick, isOpen }) => {
   return (
     <>
       <button onClick={onClick} className={`reply-btn ${isOpen && 'isOpen'}`}>
-         <span>Reply</span>
-         {!isOpen ? <ChevronDownIcon className="h-4 w-4 ml-1" /> : <ChevronUpIcon className="h-4 w-4  ml-1"/>}
+         <span className={isOpen && 'text-neutral-silver-100'}>Reply</span>
+         {isOpen ? <ChevronUpIcon className="h-4 w-4  ml-1 text-neutral-silver-100 " /> :  <ChevronDownIcon className="h-4 w-4 ml-1" /> }
       </button>
 
     </>
