@@ -472,9 +472,9 @@ progress {
   @apply w-full h-full md:hidden;
 }
 
-.swiper-wrapper {
+/* .swiper-wrapper {
   justify-content: center;
-}
+} */
 
 .swiper-slide {
   @apply text-center flex justify-center items-center max-w-[320px];

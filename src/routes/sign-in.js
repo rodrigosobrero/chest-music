@@ -1,6 +1,5 @@
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-
 import Input from 'components/Input';
 import Button from 'components/Button';
 

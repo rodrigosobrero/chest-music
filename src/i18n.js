@@ -16,7 +16,10 @@ i18next
             click_here: 'click here',
             password: 'Password',
             write_here: 'Write here',
-            divider: 'or'
+            divider: 'or',
+            account: 'account',
+            month: 'month',
+            coming_soon: 'Coming soon'
           },
           signin: {
             title: 'open your chest',
@@ -31,6 +34,29 @@ i18next
             button_google: 'Sign up with Google',
             full_name: 'Full name',
             login: 'Already have an account? Log in'
+          },
+          setup: {
+            title: 'welcome to chest',
+            subtitle: 'Choose your role',
+            artist: 'artist',
+            fan: 'fan',
+            button: 'Confirm',
+            step_two: {
+              title: 'configure your account',
+              selected: 'Selected role',
+              account: '{{ role }} account',
+              button: 'Change',
+              username: 'Username',
+              artist_name: 'Artist name',
+              pin: 'PIN code',
+              helper: 'You won’t be able to change this',
+              free: 'Free',
+              free_description: 'Limited cloud storage, up to 1 GB',
+              premium_description: 'Extended cloud storage and more',
+              terms: 'I have read and accept the',
+              terms_link: 'Terms and Conditions',
+              create_button: 'Create chest'
+            }
           },
           mychest: {
             uploader: {
@@ -50,7 +76,10 @@ i18next
             click_here: 'clic aquí',
             password: 'Contraseña',
             write_here: 'Escribe aquí',
-            divider: 'o'
+            divider: 'o',
+            account: 'cuenta',
+            month: 'mes',
+            coming_soon: 'Próximamente'
           },
           signin: {
             title: 'abre tu cofre',
@@ -65,6 +94,29 @@ i18next
             button_google: 'Registrate con Google',
             full_name: 'Nombre completo',
             login: '¿Ya tienes una cuenta? Ingresa'
+          },
+          setup: {
+            title: 'bienvenido a chest',
+            subtitle: 'Elije tu rol',
+            artist: 'artista',
+            fan: 'fan',
+            button: 'Confirmar',
+            step_two: {
+              title: 'configura tu cuenta',
+              selected: 'Role seleccionado',
+              account: 'Cuenta {{ role }}',
+              button: 'Cambiar',
+              username: 'Nombre de usuario',
+              artist_name: 'Nombre de artista',
+              pin: 'Código PIN',
+              helper: 'Luego no podrás cambiarlo',
+              free: 'Gratis',
+              free_description: 'Almacenamiento en la nube limitado, hasta 1 GB',
+              premium_description: 'Almacenamiento en la nube ampliado y más',
+              terms: 'He leido y acepto los',
+              terms_link: 'Términos y Condiciones',
+              create_button: 'Crear cofre'
+            }
           },
           mychest: {
             uploader: {
