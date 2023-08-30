@@ -68,7 +68,7 @@ export default function Setup() {
               <h4>{t('setup.artist')}</h4>
               <img src={artist} alt='Artist' width={264} height={140} />
               <p>
-                If you make music, this option is for you. It doesn't matter if you are a singer, music producer, or DJ: if your music is your treasure, you have found its chest.
+                {t('setup.artist_description')}
               </p>
             </label>
           </div>
@@ -80,7 +80,7 @@ export default function Setup() {
             <h4>{t('setup.fan')}</h4>
               <img src={fan} alt='Artist' width={264} height={140} />
               <p>
-                If you came to listen to the music of your favorite friends and artists before anyone else, this is for you. Enjoy a simplified version of Chest adjusted to your needs.
+                {t('setup.fan_description')}
               </p>
             </label>
           </div>

@@ -40,6 +40,8 @@ i18next
             subtitle: 'Choose your role',
             artist: 'artist',
             fan: 'fan',
+            fan_description: 'If you came to listen to the music of your favorite friends and artists before anyone else, this is for you. Enjoy a simplified version of Chest adjusted to your needs.',
+            artist_description: 'If you make music, this option is for you. It doesn\'t matter if you are a singer, music producer, or DJ: if your music is your treasure, you have found its chest.',
             button: 'Confirm',
             step_two: {
               title: 'configure your account',
