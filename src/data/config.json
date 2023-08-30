@@ -9,7 +9,7 @@
     { "name": "open chest", "link": "/sign-in", "button": true }
   ],
   "language": [
-    { "code": "es", "icon": "🇪🇸" },
-    { "code": "en", "icon": "🇺🇸", "default": true }
+    { "code": "es", "name": "english", "icon": "🇪🇸" },
+    { "code": "en", "name": "spanish", "icon": "🇺🇸", "default": true }
   ]
 }

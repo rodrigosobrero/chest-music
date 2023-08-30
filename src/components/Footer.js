@@ -19,7 +19,7 @@ export default function Footer() {
     <>
       <footer>
         <div className='flex md:flex-row flex-col items-center max-w-7xl w-full'>
-          <div className='flex flex-col items-center gap-3 grow order-last md:order-1'>
+          <div className='flex flex-col items-center md:items-start gap-3 grow order-last md:order-1'>
             <img src={logo} alt="" width={146} height={32} />
             <span>© 2023 - Chest. {t('footer.rights')}</span>
           </div>
@@ -45,7 +45,9 @@ export default function Footer() {
               <select defaultValue={i18n.language} onChange={handleChange}>
                 {
                   data.language.map(
-                    (option, index) => <option key={index} value={option.code}>{option.icon}</option>
+                    (option, index) => <option key={index} value={option.code}>
+                      {option.icon}
+                    </option>
                   )
                 }
               </select>
