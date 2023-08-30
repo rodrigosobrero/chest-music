@@ -137,7 +137,7 @@ export default function Setup() {
                 <p>{t('setup.step_two.free_description')}</p>
                 <div className='flex items-center gap-2 mt-2'>
                   <span className='text-[28px]'>$0</span>
-                  <span className='text-sm'>/{t('general.month')}</span>
+                  <span className='text-sm'>/{t('global.month')}</span>
                 </div>
               </label>
             </div>
@@ -147,7 +147,7 @@ export default function Setup() {
                 <h5>Premium</h5>
                 <p className='mb-4'>{t('setup.step_two.premium_description')}</p>
                 <div className='h-full'>
-                  <Tag>{t('general.coming_soon')}</Tag>
+                  <Tag>{t('global.coming_soon')}</Tag>
                 </div>
               </label>
             </div>

@@ -19,19 +19,19 @@ export default function SignIn() {
           </button>
           <div className="relative flex items-center w-full">
             <div className="flex-grow border-t border-neutral-silver-500"></div>
-            <span className="flex-shrink mx-6 font-bureau-grotesque-extended">{t('general.divider')}</span>
+            <span className="flex-shrink mx-6 font-bureau-grotesque-extended">{t('global.divider')}</span>
             <div className="flex-grow border-t border-neutral-silver-500"></div>
           </div>
           <div className='flex flex-col gap-4'>
-            <Input type='email' label='Email' placeholder={t('general.write_here')} />
-            <Input type='password' label={t('general.password')} placeholder={t('general.write_here')} showHide={true} />
+            <Input type='email' label='Email' placeholder={t('global.write_here')} />
+            <Input type='password' label={t('global.password')} placeholder={t('global.write_here')} showHide={true} />
           </div>
           <Button text={t('signin.button')} type='primary' disabled={true} />
           <NavLink to='/sign-up' className='text-brand-gold font-semibold text-lg'>
             {t('signin.signup')}
           </NavLink>
           <NavLink to='/sign-up' className='text-brand-uva font-normal'>
-            {t('signin.reset')} <span className='underline'>{t('general.click_here')}</span>
+            {t('signin.reset')} <span className='underline'>{t('global.click_here')}</span>
           </NavLink>
         </div>
         <div className='signin-cover'></div>

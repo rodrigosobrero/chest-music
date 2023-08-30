@@ -71,7 +71,7 @@ i18next
       },
       es: {
         translation: {
-          general: {
+          global: {
             upload: 'Seleccionar archivo',
             click_here: 'clic aquí',
             password: 'Contraseña',
