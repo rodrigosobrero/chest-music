@@ -6,6 +6,7 @@ import { Root, MyChest, Shared, Profile, Track, SignIn, SignUp, Manage, Notifica
 import reportWebVitals from './reportWebVitals';
 import store from 'app/store';
 import { Provider } from 'react-redux';
+import './i18n';
 
 const router = createBrowserRouter([
   {
