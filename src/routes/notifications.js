@@ -1,6 +1,6 @@
 import React from 'react'
 import notifications from 'data/notifications.json'
-import Notification from 'components/Notification'
+import Notification from 'components/notifications/Notification'
 import { Cog8ToothIcon } from "@heroicons/react/24/solid";
 import { NavLink } from 'react-router-dom';
 export default function Notifications() {

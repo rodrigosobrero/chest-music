@@ -1,6 +1,6 @@
 import React from 'react'
 import NotificationRow from './NotificationRow'
-import Modal from './Modal'
+import Modal from '../Modal'
 export const NotificationList = ({ invites }) => {
   const [isOpen , setIsOpen] = React.useState(false)
   const ModalContent = () => {

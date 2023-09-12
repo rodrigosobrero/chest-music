@@ -1,7 +1,10 @@
+import ProfileView from "components/profile/Profile"
 export default function Profile() {
   return (
     <>
-      <h1>Profile</h1>
+      <div className="w-full py-20">
+         <ProfileView />
+      </div>
     </>
   )
 }

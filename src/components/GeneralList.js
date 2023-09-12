@@ -1,6 +1,6 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next';
-import GeneralRow from './GeneralRow'
+import GeneralRow from './notifications/GeneralRow'
 import empty from 'assets/images/empty-chest.svg';
 
 const GeneralList = ({data}) => {

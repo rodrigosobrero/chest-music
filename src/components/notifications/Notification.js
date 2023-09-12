@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next';
 import { NotificationList } from './NotificationList'
-import GeneralList from './GeneralList'
+import GeneralList from '../GeneralList'
+import Modal from '../Modal'
 const Notification = ({notifications}) => {
   const [status, setStatus] = useState('invites')
-  const { t } = useTranslation();
   const [generalNotifications, setGeneralNotifications] = useState([])
   const [invites, setInvites] = useState([])
+  const [toggle, setToggle] = useState(false)
   useEffect(() => {
     const filterNotifications = () => {
       const invites = notifications.filter((el) => el.type === 'invite');
@@ -17,20 +17,19 @@ const Notification = ({notifications}) => {
     setGeneralNotifications(general);
     setInvites(invites);
   }, [notifications])
-
   return (
     <>
       <div>
         <div className='options'>
            <div>
               <button className={status === 'invites' && 'isActive'} onClick={() => setStatus('invites')}>
-              {t('notification.invites')} <span>{invites.length}</span>
+                  Invites <span>{invites.length}</span>
               </button>
               <div className={`w-[80%] mx-auto mt-1.5 border border-brand-gold ${status !== 'invites' && 'hidden'}`}></div>
            </div>
            <div>
               <button className={status === 'general' && 'isActive'} onClick={() => setStatus('general')}>
-              {t('notification.general')}  <span>{invites.length}</span>
+                  General <span>{invites.length}</span>
               </button>
               <div className={`w-[80%] mx-auto h-0.5 mt-1.5 border border-brand-gold ${status !== 'general' && 'hidden'}`}></div>
            </div>

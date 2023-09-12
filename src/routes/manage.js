@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import ManageList from 'components/ManageList';
+import ManageList from 'components/notifications/ManageList';
 import Modal from 'components/Modal';
-import ManageButton from 'components/ManageButton';
+import ManageButton from 'components/notifications/ManageButton';
 import unlocked from 'assets/images/icon-unlocked.svg';
 import locked from 'assets/images/icon-lock.svg'
 import manage from 'data/manage.json'
