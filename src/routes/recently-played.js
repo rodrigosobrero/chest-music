@@ -9,7 +9,7 @@ const Played = () => {
     <>
        <Ubication path={location.pathname}/>
        <div className='flex flex-col mt-5 mb-8'>
-        <div >
+        <div>
             <h3 className='font-thunder-bold text-5xl font-bold'>Recently played</h3>
             <h5 className='text-neutral-silver-200 text-lg'>Explore the list of tracks that you have recently listened</h5>
         </div>

@@ -9,4 +9,5 @@ import Profile from "./profile";
 import Root from "./root";
 import RecentlyPlayed from "./recently-played"
 import Permissions from "./permissions";
-export { Manage, MyChest, Notifications, SignIn, Track, Shared, Profile, Root, SignUp, RecentlyPlayed, Permissions }
+import Account from "./account";
+export { Manage, MyChest, Notifications, SignIn, Track, Shared, Profile, Root, SignUp, RecentlyPlayed, Permissions, Account }
