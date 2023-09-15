@@ -17,39 +17,29 @@ function formatDate(date) {
 function formatTime(seconds) {
   return (seconds / 60).toFixed(2).toString().replace('.', ':');
 }
-function timeDifference( previous) {
-  var current = new Date()
+function timeDifference(previous) {
+  var current = new Date();
+  var previousDate = new Date(previous);
 
-  var msPerMinute = 60 * 1000;
-  var msPerHour = msPerMinute * 60;
-  var msPerDay = msPerHour * 24;
-  var msPerMonth = msPerDay * 30;
-  var msPerYear = msPerDay * 365;
+  var elapsed = current - previousDate;
 
-  var elapsed = current - previous;
+  var months = Math.floor(elapsed / 2629746000); // Aproximadamente 30.44 días en un mes
+  var days = Math.floor((elapsed % 2629746000) / 86400000); // 24 horas en un día
 
-  if (elapsed < msPerMinute) {
-       return Math.round(elapsed/1000) + ' seconds ago';   
-  }
-
-  else if (elapsed < msPerHour) {
-       return Math.round(elapsed/msPerMinute) + ' minutes ago';   
-  }
-
-  else if (elapsed < msPerDay ) {
-       return Math.round(elapsed/msPerHour ) + ' hours ago';   
-  }
-
-  else if (elapsed < msPerMonth) {
-      return Math.round(elapsed/msPerDay) + ' days ago';   
-  }
-
-  else if (elapsed < msPerYear) {
-      return Math.round(elapsed/msPerMonth) + ' months ago';   
-  }
-
-  else {
-      return Math.round(elapsed/msPerYear ) + ' years ago';   
-  }
+  if (months > 3 ) {
+    var options = { year: 'numeric', month: 'short', day: 'numeric' };
+    return previousDate.toLocaleDateString('en-US', options);
+  } else if (months >= 1) {
+    return months + ' month ago';
+  } else if (days >= 2) {
+    return days + ' days ago';
+  } else if (days === 1) {
+    return '1 day ago';
+  } 
 }
+
+var timestamp = 1672531200000; // Timestamp para el 01 de enero de 2023
+console.log(timeDifference(timestamp));
+
+
 export { classNames, formatDate, formatTime, timeDifference }

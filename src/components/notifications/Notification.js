@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { NotificationList } from './NotificationList'
 import GeneralList from '../GeneralList'
 import Modal from '../Modal'
+import Ubication from 'components/Ubication'
+import { useLocation } from 'react-router-dom'
 const Notification = ({notifications}) => {
   const [status, setStatus] = useState('invites')
   const [generalNotifications, setGeneralNotifications] = useState([])
   const [invites, setInvites] = useState([])
   const [toggle, setToggle] = useState(false)
+  const location = useLocation()
   useEffect(() => {
     const filterNotifications = () => {
       const invites = notifications.filter((el) => el.type === 'invite');
@@ -21,6 +24,7 @@ const Notification = ({notifications}) => {
     <>
       <div>
         <div className='options'>
+          <Ubication path={location.pathname}/>
            <div>
               <button className={status === 'invites' && 'isActive'} onClick={() => setStatus('invites')}>
                   Invites <span>{invites.length}</span>

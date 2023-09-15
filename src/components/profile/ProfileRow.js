@@ -1,9 +1,10 @@
 import React from 'react'
 import { MusicalNoteIcon, XMarkIcon, LinkIcon, CheckCircleIcon } from "@heroicons/react/24/solid";
 import { ChevronRightIcon } from "@heroicons/react/24/solid";
+import { NavLink } from 'react-router-dom';
 
 
-const ProfileRow = ({ title, subtitle }) => {
+const ProfileRow = ({ title, subtitle, to }) => {
   return (
     <>
        <div className='font-archivo mx-auto bg-neutral-black p-4  rounded-xl flex items-center justify-between'>  
@@ -17,7 +18,9 @@ const ProfileRow = ({ title, subtitle }) => {
                 </div>
             </div>
             <div>
+             <NavLink to={to}>
                 <ChevronRightIcon className='h-6 w-6 text-silver-gray-200' />
+             </NavLink>
             </div>
        </div>
     </>

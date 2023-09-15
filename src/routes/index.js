@@ -7,4 +7,5 @@ import Track from "./track";
 import Shared from "./shared";
 import Profile from "./profile";
 import Root from "./root";
-export { Manage, MyChest, Notifications, SignIn, Track, Shared, Profile, Root, SignUp }
+import RecentlyPlayed from "./recently-played"
+export { Manage, MyChest, Notifications, SignIn, Track, Shared, Profile, Root, SignUp, RecentlyPlayed}

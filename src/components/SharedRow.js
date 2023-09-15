@@ -4,6 +4,8 @@ import { formatDate, formatTime, timeDifference } from 'utils/helpers';
 import SharedToast from './SharedToast';
 import webdisabled from 'assets/images/icon-webdisabled.svg'
 const SharedRow = ({ track, isMobile }) => {
+  var timestamp = 1672531200000; // Timestamp para el 01 de enero de 2023
+console.log(timeDifference(timestamp)); 
   const [show, setShow] = useState(false);
   return (
     <>

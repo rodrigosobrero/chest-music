@@ -5,9 +5,12 @@ import ManageButton from 'components/notifications/ManageButton';
 import unlocked from 'assets/images/icon-unlocked.svg';
 import locked from 'assets/images/icon-lock.svg'
 import manage from 'data/manage.json'
+import Ubication from 'components/Ubication';
+import { useLocation } from 'react-router-dom';
 export default function Manage() {
   const [isOpen, setIsOpen] = useState(false)
   const [show, setShow] = useState()
+  const location = useLocation()
   const toggle = () => setShow(!show)
 
   return (
@@ -31,6 +34,7 @@ export default function Manage() {
         </div>
       </Modal>
       <div className='flex justify-center flex-col space-y-2 items-center h-full px-4 py-[32px] xl:px-20'>
+        <Ubication className='w-full items-start ' path={location.pathname}/>
         <div className='xl:hidden flex items-center justify-between h-20 bg-neutral-silver-600 p-3 w-full rounded-xl'>
            <div className='flex items-center gap-4 '>
                <div className='bg-neutral-black rounded-lg flex justify-center items-center h-10 w-10'>

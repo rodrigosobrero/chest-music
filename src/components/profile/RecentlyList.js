@@ -1,19 +1,18 @@
 import React, { useMemo } from 'react'
-import SharedRow from './SharedRow';
+import SharedRow from '../SharedRow';
 import useMediaQuery from 'utils/useMediaQuery';
 
-const SharedList = ({ tracks }) => {
+const RecentlyList = ({ data }) => {
   const isMobile = useMediaQuery('(max-width: 1024px)');
   const titles = useMemo(() => {
-    if(isMobile) return [ 'Date shared', '' ]
+    if(isMobile) return [ 'title', '' ]
     else { return [
       'title',
       'album',
       'version',
-      'date shared',
+      'date played',
       'length',
       'plays',
-      '',
     ]
   }
   }, [isMobile]);
@@ -27,7 +26,7 @@ const SharedList = ({ tracks }) => {
                     <th 
                       key={index} 
                       // onClick={() => { title && handleSortingChange(index) }} 
-                      className={`${ !title && 'cursor-default' }`}>
+                      className={`${ !title && 'cursor-default'  } `}>
                         {title} 
                     </th>
                   )
@@ -36,7 +35,7 @@ const SharedList = ({ tracks }) => {
          </thead>
          <tbody>
               {
-                tracks?.map((track, index) =>
+                data?.map((track, index) =>
                   <SharedRow key={index} track={track} isMobile={isMobile}  />
                 )
               }
@@ -46,4 +45,4 @@ const SharedList = ({ tracks }) => {
   )
 }
 
-export default SharedList
+export default RecentlyList
