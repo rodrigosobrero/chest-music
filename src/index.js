@@ -2,7 +2,8 @@ import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Root, MyChest, Shared, Profile, Track, SignIn, SignUp, Manage, Notifications, RecentlyPlayed, Permissions, Account } from 'routes'
+import { Root, MyChest, Shared, Profile, Track, SignIn, SignUp, Manage, 
+        Notifications, RecentlyPlayed, Permissions, Account, Security } from 'routes'
 import reportWebVitals from './reportWebVitals';
 import store from 'app/store';
 import { Provider } from 'react-redux';
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: 'profile/account',
         element: <Account />
+      },
+      {
+        path: 'profile/security',
+        element: <Security />
       },
       {
         path: 'sign-up',
