@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { EyeSlashIcon } from "@heroicons/react/24/outline";
 import { EyeIcon } from '@heroicons/react/24/outline';
 
-export default function Input({ type, placeholder, label, name, value, onChange, showHide }) {
+export default function Input({ type, placeholder, label, name, value, onChange, showHide, width }) {
   const [inputType, setInputType] = useState(type);
 
   const showHidePassword = () => {

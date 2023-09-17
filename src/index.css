@@ -122,7 +122,7 @@ td {
 }
 
 .btn-primary {
-  @apply disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300;
+  @apply disabled:bg-neutral-silver-500 bg-brand-gold disabled:text-neutral-silver-300;
 }
 
 .btn-secondary {

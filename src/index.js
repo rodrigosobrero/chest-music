@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Root, MyChest, Shared, Profile, Track, SignIn, SignUp, Manage, 
-        Notifications, RecentlyPlayed, Permissions, Account, Security } from 'routes'
+        Notifications, RecentlyPlayed, Permissions, Account, Security, Terms, Help } from 'routes'
 import reportWebVitals from './reportWebVitals';
 import store from 'app/store';
 import { Provider } from 'react-redux';
@@ -41,6 +41,14 @@ const router = createBrowserRouter([
       {
         path: 'profile/account',
         element: <Account />
+      },
+      {
+        path: 'profile/help',
+        element: <Help />
+      },
+      {
+        path: 'profile/terms',
+        element: <Terms />
       },
       {
         path: 'profile/security',
