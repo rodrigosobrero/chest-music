@@ -24,10 +24,10 @@ const SharedToast = () => {
 
   return (
     <>
-     <div className='relative'>
+     <div className='relative '>
         <button
             type='button'
-            className={`p-[7px] rounded-[10px] transition duration-500 hover:bg-neutral-silver-700 border-[3px] border-transparent active:border-gray-700 ${open && 'bg-neutral-silver-700 border-neutral-silver-600'}`}
+            className={`p-[7px] rounded-[10px] xl:flex hidden transition duration-500 hover:bg-neutral-silver-700 border-[3px] border-transparent active:border-gray-700 ${open && 'bg-neutral-silver-700 border-neutral-silver-600'}`}
             onClick={toggleOpen}>
             <img src={webdisabled} alt='' width={24} height={24} />
         </button>

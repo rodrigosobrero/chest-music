@@ -20,7 +20,7 @@ const SharedList = ({ tracks }) => {
   return (
     <>
      <table>
-         <thead>
+         <thead >
              <tr>
                 {
                   titles.map((title, index) => 

@@ -19,7 +19,7 @@ const RecentlyList = ({ data }) => {
   return (
     <>
      <table>
-         <thead>
+         <thead className={isMobile && 'hidden'}>
              <tr>
                 {
                   titles.map((title, index) => 

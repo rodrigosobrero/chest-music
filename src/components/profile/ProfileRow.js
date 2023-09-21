@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 
 
 const ProfileRow = ({ title, subtitle, to }) => {
+  console.log(to)
   return (
     <>
        <div className='font-archivo mx-auto bg-neutral-black p-4  rounded-xl flex items-center justify-between'>  

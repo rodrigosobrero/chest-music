@@ -1,20 +1,22 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
-import Ubication from 'components/Ubication'
+import { useTranslation } from 'react-i18next'
 import Input from 'components/Input'
 import Button from 'components/Button'
 import SearchBar from 'components/SearchBar'
 import faqs from 'data/faqs.json'
 import FAQItem from 'components/profile/FaqItem'
+import Breadcrumb from 'components/Breadcrumb'
 
 
 const Help = () => {
-  const location = useLocation()
+  const { t } = useTranslation() 
+  const items = t('profile.sections', { returnObjects: true });
+  let paths = [{ name:'Profile', link: '/profile' }, { name: items[4].title }]
   return (
     <>
-      <div className='px-[60px]'>
-        <Ubication path={location.pathname}/>
-        <div className='flex flex-col mt-5 mb-8 gap-y-6'>
+      <div className='xl:px-[60px]'>
+        <div className='flex flex-col mt-5 mb-8 gap-y-6 xl:px-0 px-3'>
+        <Breadcrumb items={paths}/>
         <div>
             <h3 className='font-thunder-bold text-5xl font-bold'>Help center</h3>
             <h5 className='text-neutral-silver-200 text-lg'>Access to frequently asked questions or get support to resolve your issues</h5>

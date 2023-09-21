@@ -5,9 +5,9 @@ const AccountPlan = ({  }) => {
   const used = 242.2
   return (
     <>
-      <div className='bg-neutral-silver-700 w-3/5 py-8 px-12 rounded-2xl space-y-6'>
+      <div className='bg-neutral-silver-700 xl:w-3/5 py-8 px-12 rounded-2xl space-y-6'>
          <h4 className='text-2xl font-archivo font-semibold'>My plan</h4>
-         <div className='flex gap-x-14'>
+         <div className='flex gap-y-8 xl:gap-x-14 flex-col xl:flex-row'>
             <div className='space-y-4'>
                <h5 className='text-neutral-silver-200'>Storage</h5>
                <div className='flex gap-x-4'>
@@ -30,8 +30,8 @@ const AccountPlan = ({  }) => {
             </div>
             <div className='space-y-4'>
                <h5 className='text-neutral-silver-200'>Current plan</h5>
-               <div className='flex space-x-4'>
-                    <div className='w-3/5 '>
+               <div className='flex flex-col xl:flex-row gap-4'>
+                    <div className='xl:w-3/5 '>
                         <h5 className='mb-2'>Free</h5>
                         <span className='text-neutral-silver-300'>
                             Amet pretium 1 GB scelerisque leo ut non lorem neque.

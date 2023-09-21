@@ -43,7 +43,7 @@ nav a.active {
 }
 
 main {
-  @apply grow p-[60px];
+  @apply grow xl:p-[60px] px-[12px] py-[16px];
 }
 
 footer {
@@ -225,7 +225,7 @@ td {
 }
 
 .breadcrumb {
-  @apply bg-neutral-silver-600 px-4 py-2 rounded-full h-fit;
+  @apply  px-4 py-2 rounded-full h-fit;
 }
 
 .breadcrumb ul {

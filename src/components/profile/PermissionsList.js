@@ -8,7 +8,7 @@ const PermissionsList = ({data }) => {
     }
     const titles = useMemo(() => { 
         if(!isMobile) return ['name', 'username','total plays', 'date added', '']
-        else return ['date blocked', '']
+        else return ['name', '']
     }, [isMobile])
 
   return (

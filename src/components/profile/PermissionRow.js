@@ -16,9 +16,9 @@ const ManageRow = ({ data, isMobile }) => {
     <tr>
       <td>
         <div>
-          <div className='text-lg'>{data.name}</div>
+          <div className='text-[16px]'>{data.name}</div>
           <div className='text-sm text-neutral-silver-200'>
-            @{data.username}
+            @{data.username} - {data.plays} plays
           </div>
         </div>
       </td>

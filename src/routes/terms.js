@@ -1,9 +1,11 @@
-import Ubication from 'components/Ubication'
 import React from 'react'
-import { useLocation } from 'react-router-dom'
 import data from 'data/terms'
+import Breadcrumb from 'components/Breadcrumb'
+import { useTranslation } from 'react-i18next'
 const Terms = () => {
-  const location = useLocation()
+  const { t } = useTranslation() 
+  const items = t('profile.sections', { returnObjects: true });
+  let paths = [{ name:'Profile', link: '/profile' }, { name: items[4].title }]
   const Item = ({ title, text }) => {
     return (
       <div>
@@ -14,9 +16,9 @@ const Terms = () => {
   }
   return (
     <>
-      <div className='px-[60px]'>
-        <Ubication path={location.pathname}/>
+      <div className='xl:px-[60px]'>
         <div className='flex flex-col mt-5 mb-8 gap-y-6'>
+        <Breadcrumb items={paths}/>
             <div>
                 <h3 className='font-thunder-bold text-5xl font-bold'>Terms & conditions</h3>
                 <h5 className='text-neutral-silver-200 text-lg'>Review user rights, legal responsibilities, and usage guidelines of the platform</h5>

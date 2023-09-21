@@ -1,20 +1,22 @@
-import Ubication from 'components/Ubication'
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import permissions from 'data/permissions.json'
 import PermissionsList from 'components/profile/PermissionsList'
 import icon from 'assets/images/icon-exclamation-circle.svg'
 import ManageButton from 'components/notifications/ManageButton'
+import Breadcrumb from 'components/Breadcrumb'
 const Permissions = () => {
-  const location = useLocation()
+  const { t } = useTranslation() 
+  const items = t('profile.sections', { returnObjects: true });
+  let paths = [{ name:'Profile', link: '/profile' }, { name: items[1].title }]
   return (
     <>
-      <div className='px-[60px]'>
-        <Ubication path={location.pathname} />
-        <div className='flex justify-between mt-5 mb-8'>
+      <div className='xl:px-[60px]'>
+        <Breadcrumb items={paths} />
+        <div className='flex flex-col xl:flex-row justify-between mt-5 mb-8 gap-y-6'>
                 <div>
                     <h3 className='font-thunder-bold text-5xl font-bold'>Global permissions</h3>
-                    <h5 className='text-neutral-silver-200 text-lg'>Choose users to be your regular listeners by giving them the key to your chest</h5>
+                    <h5 className='text-neutral-silver-200 text-[16px] xl:text-lg'>Choose users to be your regular listeners by giving them the key to your chest</h5>
                 </div>
                 <div className='p-3 bg-neutral-black w-[348px] rounded-xl flex items-center gap-3'> 
                   <img src={icon} className='h-6 w-6'/>

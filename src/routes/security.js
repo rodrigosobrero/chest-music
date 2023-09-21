@@ -1,17 +1,20 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom';
-import Ubication from 'components/Ubication';
+import { useTranslation } from 'react-i18next';
 import { KeyIcon } from "@heroicons/react/24/solid";
 import pencil from 'assets/images/icon-pencil-alt.svg'
 import { ReactComponent as ViewGrid } from 'assets/images/icon-view-grid.svg'
 import { ReactComponent as Elipse } from 'assets/images/icon-elipse.svg'
+import Breadcrumb from 'components/Breadcrumb';
 const Security = () => {
+    const { t } = useTranslation() 
+    const items = t('profile.sections', { returnObjects: true });
+    let paths = [{ name:'Profile', link: '/profile' }, { name: items[3].title }]
     const Casillero = ({ title, icon, quantity }) => {
         const ellipses = new Array(quantity).fill(null).map((_, index) => (
             <Elipse key={index} /> 
           ));
         return  (
-            <div className='w-2/4 p-8 bg-neutral-black rounded-2xl flex justify-between font-archivo items-center '>
+            <div className='xl:w-2/4 p-8 bg-neutral-black rounded-2xl flex justify-between font-archivo items-center '>
                 <div className='flex font-semibold gap-6 items-center'>
                     <div>
                        {icon}
@@ -29,11 +32,10 @@ const Security = () => {
                 </div>
             </div>
     )}
-    const location = useLocation();
     return (
       <>
-      <div className='px-20'>
-         <Ubication path={location.pathname}/>
+      <div className='xl:px-20 px-1'>
+         <Breadcrumb items={paths}/>
          <div className='flex flex-col mt-5 mb-8'>
           <div>
               <h3 className='font-thunder-bold text-5xl font-bold'>Security</h3>
@@ -41,7 +43,7 @@ const Security = () => {
           </div>
          </div>
          <div className='w-full flex flex-col gap-y-6'>
-            <div className='w-full flex space-x-6'>
+            <div className='w-full flex flex-col xl:flex-row gap-x-6 gap-y-4'>
               <Casillero title={'PIN Code'} icon={<ViewGrid className="h-8 w-8 " />} quantity={4}/>
               <Casillero title={'Password'} icon={<KeyIcon className="h-8 w-8 text-gray-500" />} quantity={8}/>
             </div>
