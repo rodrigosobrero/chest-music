@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { NotificationList } from './NotificationList'
+import { useTranslation } from 'react-i18next'
 import GeneralList from '../GeneralList'
 const Notification = ({notifications}) => {
+  const { t } = useTranslation() 
   const [status, setStatus] = useState('invites')
   const [generalNotifications, setGeneralNotifications] = useState([])
   const [invites, setInvites] = useState([])
@@ -22,13 +24,13 @@ const Notification = ({notifications}) => {
         <div className='options'>
            <div>
               <button className={status === 'invites' && 'isActive'} onClick={() => setStatus('invites')}>
-                  Invites <span>{invites.length}</span>
+                  {t('notification.invites')} <span>{invites.length}</span>
               </button>
               <div className={`w-[80%] mx-auto mt-1.5 border border-brand-gold ${status !== 'invites' && 'hidden'}`}></div>
            </div>
            <div>
               <button className={status === 'general' && 'isActive'} onClick={() => setStatus('general')}>
-                  General <span>{invites.length}</span>
+              {t('notification.general')} <span>{invites.length}</span>
               </button>
               <div className={`w-[80%] mx-auto h-0.5 mt-1.5 border border-brand-gold ${status !== 'general' && 'hidden'}`}></div>
            </div>

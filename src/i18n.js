@@ -19,6 +19,15 @@ i18next
             nothing_here: 'Nothing here',
             not_general: 'You haven’t received any General yet'
           },
+          manage: {
+            privacy_set: 'Privacy is set to',
+            blocked_users: 'Blocked users',
+            allowed_users: 'Allowed users',
+            receive_any_except_blocked: 'Receive notifications from anyone except blocked',
+            receive_only_allowed: 'Receive notifications from allowed users only',
+            allow_new_user: 'Allow new user',
+            block_new_user: 'Block new user'
+          },
           general: {
             upload: 'Choose from files',
             click_here: 'click here',
@@ -27,7 +36,16 @@ i18next
             divider: 'or',
             account: 'account',
             month: 'month',
-            coming_soon: 'Coming soon'
+            coming_soon: 'Coming soon',
+            close: 'close',
+            open: 'open',
+            notifications: 'notifications',
+            cancel: 'Cancel',
+            learn_more: 'Learn more',
+            change: 'change',
+            add_another: 'Add another', 
+            allow: 'Allow',
+            block: 'Block'
           },
           signin: {
             title: 'open your chest',
