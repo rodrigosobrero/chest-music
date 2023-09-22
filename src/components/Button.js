@@ -8,6 +8,7 @@ export default function Button({ type, text, onClick, disabled }) {
         onClick={onClick}
         disabled={disabled}
         className={classNames({
+          'btn btn-third' : type === 'third',
           'btn btn-secondary': type === 'secondary',
           'btn btn-primary': type === 'primary'
         })}>

@@ -16,10 +16,12 @@ export default function Input({ type, placeholder, label, name, value, onChange,
   return (
     <>
       <div className='flex flex-col gap-1.5 text-left'>
-        <label htmlFor={name} className='flex items-center'>
-          <span className='grow'>{`${label}${required ? '*' : ''}`}</span>
-          {helper && <span className=' text-sm text-neutral-silver-300'>{helper}</span>}
-        </label>
+        {label && (
+          <label htmlFor={name} className='flex items-center'>
+            <span className='grow'>{`${label}${required ? '*' : ''}`}</span>
+            {helper && <span className=' text-sm text-neutral-silver-300'>{helper}</span>}
+          </label>
+        )}
         <div className='relative'>
           <input
             type={inputType}

@@ -8,7 +8,7 @@ export default function Root() {
   const location = useLocation();
   const connected = location.pathname === '/sign-up' 
                     || location.pathname === '/sign-in' 
-                    || location.pathname === '/setup' 
+                    || location.pathname === '/setup'
                     ? true : false;
 
   return (
@@ -17,7 +17,7 @@ export default function Root() {
         <header>
           <Nav />
         </header>
-        <main className={`${connected && 'p-[0]'}`}>
+        <main className={`${connected ? 'p-[0]' : ''}`}>
           <Outlet />
         </main>
         <Footer />

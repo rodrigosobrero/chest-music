@@ -11,7 +11,7 @@ i18next
     resources: {
       en: {
         translation: {
-          general: {
+          global: {
             upload: 'Choose from files',
             click_here: 'click here',
             password: 'Password',
@@ -19,7 +19,15 @@ i18next
             divider: 'or',
             account: 'account',
             month: 'month',
-            coming_soon: 'Coming soon'
+            coming_soon: 'Coming soon',
+            of: 'of',
+            cancel: 'Cancel',
+            continue: 'Continue',
+            by: 'by',
+            save: 'Save',
+            remove: 'Remove',
+            back: 'Go back',
+            confirm: 'Confirm',
           },
           signin: {
             title: 'open your chest',
@@ -66,6 +74,23 @@ i18next
               description: 'Drag and drop your audio file here to upload a new track, or...',
             }
           },
+          upload: {
+            title: 'name your treasure',
+            track_name: 'Track name',
+            your_role: 'Your role',
+            leave_empty: 'Leave empty for singles',
+            version: 'Version',
+            album: 'Album',
+            edit_cover: 'edit cover',
+            edit_instruction: 'Choose a default preset from our library or upload your own cover from your files.',
+            preview: 'Preview',
+            presets: 'Presets',
+            upload_file: 'Upload file',
+            upload_filetype: 'In .jpg or .png format, max size 10 MB',
+            browse: 'Browse files',
+            participants: 'participants',
+            participant: 'Participant'
+          },
           footer: {
             rights: 'All rights reserved.'
           }
@@ -81,7 +106,15 @@ i18next
             divider: 'o',
             account: 'cuenta',
             month: 'mes',
-            coming_soon: 'Próximamente'
+            coming_soon: 'Próximamente',
+            of: 'de',
+            cancel: 'Cancelar',
+            continue: 'Continuar',
+            by: 'por',
+            save: 'Guardar',
+            remove: 'Remover',
+            back: 'Ir atrás',
+            confirm: 'Confirmar',
           },
           signin: {
             title: 'abre tu cofre',
@@ -125,6 +158,23 @@ i18next
               title: 'suéltalo como si estuviera caliente',
               description: 'arrastra y suelta tu archivo de audio aquí para subir un nuevo track, o...'
             }
+          },
+          upload: {
+            title: 'nombra tu tesoro',
+            track_name: 'Nombre del track',
+            your_role: 'Tu rol',
+            leave_empty: 'Deja vacío para singles',
+            version: 'Versión',
+            album: 'Álbum',
+            edit_cover: 'Editar portada',
+            edit_instruction: 'Choose a default preset from our library or upload your own cover from your files.',
+            preview: 'Vista previa',
+            presets: 'Presets',
+            upload_file: 'Subir archivo',
+            upload_filetype: 'En formato .jpg o .png, tamaño máximo 10 MB',
+            browse: 'Buscar archivo',
+            participants: 'Participantes',
+            participant: 'Participante'
           },
           footer: {
             rights: 'Todos los derechos reservados.'

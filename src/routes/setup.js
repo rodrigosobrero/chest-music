@@ -27,9 +27,7 @@ export default function Setup() {
     setUserType(e.target.value);
   }
 
-  let currentStep = '';
-
-  const StepZero = () => (
+  const StepOne = () => (
     <>
       <div className='flex flex-col items-center px-6'>
         <h2>{t('setup.title')}</h2>
@@ -77,7 +75,7 @@ export default function Setup() {
           <div className='account-type'>
             <input type='radio' id='fan' value='fan' name='type' onChange={onOptionChange} />
             <label htmlFor='fan'>
-            <h4>{t('setup.fan')}</h4>
+              <h4>{t('setup.fan')}</h4>
               <img src={fan} alt='Artist' width={264} height={140} />
               <p>
                 {t('setup.fan_description')}
@@ -92,7 +90,7 @@ export default function Setup() {
     </>
   )
 
-  const StepOne = () => (
+  const StepTwo = () => (
     <>
       <div className='px-6'>
         <div className='flex flex-col items-center'>
@@ -162,16 +160,10 @@ export default function Setup() {
     </>
   )
 
-  if (step === 0) {
-    currentStep = <StepZero />;
-  } else if (step === 1) {
-    currentStep = <StepOne />;
-  }
-
   return (
     <>
       <div className='flex flex-col gap-8 items-center justify-center h-full pt-10 pb-10 md:px-[120px] md:py-20'>
-        {currentStep}
+        {step === 0 ? <StepOne /> : <StepTwo />}
       </div>
     </>
   )
