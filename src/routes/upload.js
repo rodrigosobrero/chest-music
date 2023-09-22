@@ -20,7 +20,7 @@ import { ComputerDesktopIcon } from '@heroicons/react/24/outline';
 export default function Upload() {
   const { t } = useTranslation();
 
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(0);
   const [open, setOpen] = useState(false);
   const [preview, setPreview] = useState('');
   const [user, setUser] = useState('');
@@ -53,8 +53,8 @@ export default function Upload() {
   const nextStep = () => {
     setParticipants([
       ...participants, { 
-      username: 'Current user',
-      type: track.userRole
+      user: 'Current user',
+      role: track.userRole
     }]);
     setStep(1);
   }
