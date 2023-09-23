@@ -9,7 +9,7 @@ function FAQItem({ answer, question }) {
   return (
       <div className="bg-neutral-silver-700 p-5 w-full mx-auto rounded-xl">
         <div className="flex justify-between items-center">
-          <p className="text-white font-archivo text-lg">{question}</p>
+          <p className="text-white text-left font-archivo text-lg">{question}</p>
           <button onClick={toggle} className="flex p-4 justify-end">
             {show ? (
               <ChevronUpIcon className="h-5 w-5 text-brand-gold" />

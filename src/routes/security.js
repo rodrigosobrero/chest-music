@@ -28,7 +28,7 @@ const Security = () => {
                 </div>
                 <div className='text-brand-gold text-lg font-semibold flex items-center gap-x-1.5 cursor-pointer'>
                     <img src={pencil} className='h-6 w-6'/>
-                    Edit
+                    {t('general.edit')}
                 </div>
             </div>
     )}
@@ -38,23 +38,23 @@ const Security = () => {
          <Breadcrumb items={paths}/>
          <div className='flex flex-col mt-5 mb-8'>
           <div>
-              <h3 className='font-thunder-bold text-5xl font-bold'>Security</h3>
-              <h5 className='text-neutral-silver-200 text-lg'>Change your password, set your PIN Code and learn more about our security</h5>
+              <h3 className='font-thunder-bold text-5xl font-bold'>{items[3].title}</h3>
+              <h5 className='text-neutral-silver-200 text-lg'>{t('security.change_password')}</h5>
           </div>
          </div>
          <div className='w-full flex flex-col gap-y-6'>
             <div className='w-full flex flex-col xl:flex-row gap-x-6 gap-y-4'>
-              <Casillero title={'PIN Code'} icon={<ViewGrid className="h-8 w-8 " />} quantity={4}/>
-              <Casillero title={'Password'} icon={<KeyIcon className="h-8 w-8 text-gray-500" />} quantity={8}/>
+              <Casillero title={t('security.pin')} icon={<ViewGrid className="h-8 w-8 " />} quantity={4}/>
+              <Casillero title={t('general.password')} icon={<KeyIcon className="h-8 w-8 text-gray-500" />} quantity={8}/>
             </div>
             <div className='w-full bg-neutral-black p-8 rounded-3xl'>
-                <h4 className='font-archivo text-[22px]'>Chest keeps your treasure secure</h4>
+                <h4 className='font-archivo text-[22px]'>{t('security.subtitle')}</h4>
                 <p className='text-neutral-silver-200 text-left'>
-                    Aliquet malesuada dolor sit amet consectetur. Viverra id feugiat risus volutpat dictum. Fames adipiscing nunc pretium dolor at enim eu.
+                    {t('security.text')}
                 </p>
                 <p className='text-left mt-4'>
                     <a className='font-archivo text-xl text-brand-gold ' href='!#'>
-                        Learn more
+                        {t('general.learn_more')}
                     </a>
                 </p>
             </div>

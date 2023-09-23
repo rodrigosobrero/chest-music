@@ -13,8 +13,8 @@ const Account = () => {
             <Breadcrumb items={paths}/>
             <div className='flex mt-5 mb-8'>
                 <div>
-                    <h3 className='font-thunder-bold text-5xl font-bold'>Account</h3>
-                    <h5 className='text-neutral-silver-200 text-lg'>Manage your personal information and current plan settings</h5>
+                    <h3 className='font-thunder-bold text-5xl font-bold'>{items[2].title}</h3>
+                    <h5 className='text-neutral-silver-200 text-lg'>{t('account.subtitle')}</h5>
                 </div>
             </div>
             <div className='w-full bg-neutral-black xl:p-8 p-3 flex flex-col xl:flex-row gap-y-3 gap-x-8 rounded-[32px]'>

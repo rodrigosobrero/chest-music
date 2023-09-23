@@ -25,7 +25,7 @@ const ManageButton = ({ isOpen }) => {
             </div>
             <div className='text-left mt-3'>
                 <label>{t('general.user')}</label>
-                <input type='search' placeholder='Search..' 
+                <input type='search' placeholder={t('general.placeholder.search')} 
                 className='border w-full rounded-xl border-neutral-silver-400 bg-neutral-silver-700 p-4 outline-none'/>
             </div>
             <div className='gap-4 flex self-stretch	mt-10'>
