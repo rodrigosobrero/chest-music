@@ -79,20 +79,27 @@ export default function TrackCoverSelector({ preview, updatePreview }) {
         </div>
       </div>
       <div className='w-full relative mb-3'>
-        <div className='absolute m-auto left-0 right-0 w-[78px] h-[78px] rounded-lg border-2 border-white z-10'></div>
+        <div className='absolute m-auto left-0 right-0 w-14 md:w-[78px] h-14 md:h-[78px] rounded-lg border-2 border-white z-10'></div>
         <Swiper
           centeredSlides={true}
-          spaceBetween={12}
           slidesPerView={5}
           loop={true}
           slidesPerGroup={1}
           onInit={(swiper) => setSwiper(swiper)}
-          onSlideChange={savePreview}>
+          onSlideChange={savePreview}
+          breakpoints={{
+            370: {
+              spaceBetween: 16
+            },
+            640: {
+              spaceBetween: 12
+            }
+          }}>
           {
             slides.map((slide, index) => (
               <SwiperSlide key={index}>
                 <div
-                  className='w-[78px] h-[78px] bg-cover rounded-lg'
+                  className='w-14 md:w-[78px] h-14 md:h-[78px] bg-cover rounded-lg'
                   style={{ backgroundImage: `url("${slide.image}")` }}></div>
               </SwiperSlide>
             ))
@@ -107,12 +114,14 @@ export default function TrackCoverSelector({ preview, updatePreview }) {
           <span className='text-lg font-semibold'>{t('upload.upload_file')}</span>
           <span className='text-sm text-neutral-silver-200'>{t('upload.upload_filetype')}</span>
         </div>
-        <input
-          type='file'
-          className='file-input-cover'
-          data-content={t('upload.browse')}
-          onChange={onSelectFile}
-          accept='.jpg, .png' />
+        <div>
+          <input
+            type='file'
+            className='file-input-cover'
+            data-content={t('upload.browse')}
+            onChange={onSelectFile}
+            accept='.jpg, .png' />
+        </div>
       </div>
     </>
   )

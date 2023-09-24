@@ -237,7 +237,7 @@ export default function Upload() {
 
       <Modal show={open}>
         <div className='flex flex-col items-center text-center mb-[41px] max-w-[440px]'>
-          <h4 className='mb-3'>{t('upload.edit_cover')}</h4>
+          <h4 className='mb-3 !text-5xl'>{t('upload.edit_cover')}</h4>
           <p className='text-neutral-silver-200 text-lg mb-6'>{t('upload.edit_instruction')}</p>
           <TrackCoverSelector preview={preview} updatePreview={updatePreview} />
         </div>
