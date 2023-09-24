@@ -3,10 +3,26 @@
  * @param {Object} children - Modal content
  */
 
+import { useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
 export default function Modal({ children, show, setShow }) { 
+  useEffect(() => {
+    const keyDownHandler = event => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        setShow(false);
+      }
+    }
+
+    document.addEventListener('keydown', keyDownHandler);
+
+    return () => {
+      document.addEventListener('keydown', keyDownHandler);
+    }
+  }, []);
+
   return (
     <>
       <AnimatePresence>
