@@ -5,15 +5,12 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { useState } from 'react';
 
-export default function Modal({ children, show }) {
-  const [open, setOpen] = useState(show);
-
+export default function Modal({ children, show, setShow }) { 
   return (
     <>
       <AnimatePresence>
-        {open || show && (
+        {show && (
           <>
             <motion.div
               className='fixed z-40 w-screen h-screen inset-0 bg-black bg-opacity-70'
@@ -31,7 +28,7 @@ export default function Modal({ children, show }) {
                   exit={{ opacity: 0, delay: 0 }}
                   transition={{ delay: 0.5, type: 'spring' }}>
                   <div className='flex md:hidden md:invisible justify-end mb-2'>
-                    <button type='button' className='p-1.5' onClick={() => { setOpen(false) }}>
+                    <button type='button' className='p-1.5' onClick={() => { setShow(false) }}>
                       <XMarkIcon className='h-6 w-6 text-white' />
                     </button>
                   </div>
