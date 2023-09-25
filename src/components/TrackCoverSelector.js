@@ -12,6 +12,7 @@ import arrowRight from 'assets/images/icon-arrow-sm-right.svg';
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useTranslation } from 'react-i18next';
+import InputFile from './InputFile';
 
 export default function TrackCoverSelector({ preview, updatePreview }) {
   const { t } = useTranslation();
@@ -109,18 +110,13 @@ export default function TrackCoverSelector({ preview, updatePreview }) {
       <div className='w-full text-center mb-10'>
         <span className='text-sm text-neutral-silver-300'>{t('global.by')} {slides[coverIndex].author}</span>
       </div>
-      <div className='flex flex-row w-full'>
+      <div className='flex flex-row w-full gap-5'>
         <div className='flex flex-col text-left grow'>
           <span className='text-lg font-semibold'>{t('upload.upload_file')}</span>
           <span className='text-sm text-neutral-silver-200'>{t('upload.upload_filetype')}</span>
         </div>
         <div>
-          <input
-            type='file'
-            className='file-input-cover'
-            data-content={t('upload.browse')}
-            onChange={onSelectFile}
-            accept='.jpg, .png' />
+          <InputFile accept={'.jpg, .png'} text={t('upload.browse')} onChange={onSelectFile} />
         </div>
       </div>
     </>

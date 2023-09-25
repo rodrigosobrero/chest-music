@@ -34,16 +34,18 @@ export default function Chest() {
   return (
     <>
       <div className='flex flex-col gap-1'>
-        <div className='grid grid-cols-3 bg-neutral-black rounded-t-[32px] rounded-b-xl px-[60px] pt-10 pb-[26px]'>
-          <div className='flex items-center gap-4'>
-            <h3>my chest</h3>
-            <Tag>{tracks.length} tracks</Tag>
+        <div className='flex md:grid md:grid-cols-3 bg-neutral-black rounded-t-3xl rounded-b-lg px-5 py-6 md:px-[60px] md:pt-10 md:pb-[26px]'>
+          <div className='flex items-center md:gap-4 grow'>
+            <h4>my chest</h4>
+            <div className='hidden md:block'>
+              <Tag>{tracks.length} tracks</Tag>
+            </div>
           </div>
-          <div className='flex items-center justify-center grow'>
+          <div className='hidden md:flex items-center justify-center grow'>
             <SearchBar onChange={handleOnChange} />
           </div>
-          <div className='flex items-center justify-end gap-4'>
-            <div className='flex flex-col items-end justify-center gap-1.5'>
+          <div className='flex items-center justify-end gap-3 md:gap-4'>
+            <div className='hidden md:flex flex-col items-end justify-center gap-1.5'>
               <div className='flex flex-row gap-1 text-sm font-archivo'>
                 <span className='text-neutral-silver-100'>{user.space_used} MB</span>
                 <span className='text-neutral-silver-300'>of</span>
@@ -56,7 +58,7 @@ export default function Chest() {
                 direction='right'
                 background='gray' />
             </div>
-            <div className='text-brand-uva font-thunder text-4xl'>
+            <div className='text-brand-uva-light font-thunder text-4xl flex items-center justify-center'>
               {Math.round(100 * user.space_used / user.space)}%
             </div>
             <div className='bg-neutral-silver-700 p-2 rounded-[10px]'>
@@ -64,7 +66,7 @@ export default function Chest() {
             </div>
           </div>
         </div>
-        <div className='bg-neutral-black rounded-b-[32px] rounded-t-xl px-[60px] pt-10 pb-[60px]'>
+        <div className='bg-neutral-black rounded-t-lg rounded-b-3xl pl-5 pr-4 pt-3 pb-8 md:px-[60px] md:pb-[60px] md:pt-10'>
           {
             tracks.length > 0 ?
               <TrackList tracks={filteredTracks} /> :

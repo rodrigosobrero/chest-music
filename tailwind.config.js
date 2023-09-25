@@ -18,6 +18,7 @@ module.exports = {
         },
         'brand-gold': '#FFB447',
         'brand-uva': '#7C59DE',
+        'brand-uva-light': '#B296FF',
       },
       fontFamily: {
         'archivo': ['Archivo', 'sans-serif'],
@@ -26,5 +27,7 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/line-clamp'),
+  ],
 }

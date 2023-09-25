@@ -43,7 +43,7 @@ nav a.active {
 }
 
 main {
-  @apply grow px-3 py-6 md:p-[60px];
+  @apply grow px-3 py-8 md:p-[60px];
 }
 
 footer {
@@ -59,7 +59,7 @@ footer select {
   background: url('/src/assets/images/icon-arrow-down.svg') no-repeat right;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5 {
   @apply font-thunder-bold text-white uppercase text-center md:text-left;
 }
 
@@ -69,17 +69,23 @@ h2 {
 }
 
 h3 {
-  line-height: 58px;
   @apply text-[64px];
 }
 
 h4 {
-  line-height: 44px;
   @apply text-5xl md:text-5xl;
 }
 
+h5 {
+  @apply text-4xl;
+}
+
+p {
+  @apply !text-base md:!text-lg;
+}
+
 table {
-  @apply w-full border-separate border-spacing-y-7;
+  @apply w-full border-separate border-spacing-y-3 md:border-spacing-y-7;
 }
 
 th {
@@ -118,7 +124,7 @@ input[type=number] {
 
 .uploader {
   background: radial-gradient(50% 50.00% at 50% 50.00%, #000 0%, rgba(0, 0, 0, 0.00) 100%), rgba(6, 6, 6, 0.50);
-  @apply flex flex-col items-center justify-center px-4 py-8 md:p-12 border-2 border-dashed border-neutral-silver-500 rounded-3xl md:rounded-[32px];
+  @apply flex flex-col items-center justify-center border-2 border-dashed border-neutral-silver-500 rounded-3xl md:rounded-[32px];
 }
 
 .uploader h2 {
@@ -145,32 +151,6 @@ input[type=number] {
   @apply  bg-neutral-silver-600 text-white disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300;
 }
 
-/* add mobile width */
-.file-input {
-  @apply w-52;
-}
-
-.file-input::-webkit-file-upload-button,
-.file-input-cover::-webkit-file-upload-button {
-  visibility: hidden;
-}
-
-.file-input::before {
-  white-space: nowrap;
-  content: attr(data-content);
-  @apply rounded-[10px] text-lg px-6 py-3 inline-block border-[1.5px] border-brand-gold bg-transparent text-brand-gold cursor-pointer;
-}
-
-.file-input-cover {
-  @apply w-[141px];
-}
-
-.file-input-cover::before{
-  white-space: nowrap;
-  content: attr(data-content);
-  @apply rounded-[10px] text-lg font-semibold px-[18px] py-3 inline-block border-[1.5px] border-brand-gold text-brand-gold bg-transparent cursor-pointer;
-}
-
 .cover-preview {
   @apply absolute top-0 left-0 w-full h-full rounded-lg flex flex-col items-center justify-center gap-1;
   background: 
@@ -192,6 +172,11 @@ input[type=number] {
 
 .audio-player {
   @apply grid grid-cols-3 px-[60px] pt-4 pb-5 w-full fixed bottom-0 backdrop-blur-[30px];
+  background: rgba(37, 41, 46, 0.60);
+}
+
+.audio-player-mobile {
+  @apply px-3 pt-3 pb-2 rounded-xl fixed bottom-2 mx-3 right-0 left-0 backdrop-blur-[30px];
   background: rgba(37, 41, 46, 0.60);
 }
 
@@ -309,7 +294,6 @@ input[type=number] {
   @apply bg-cover h-[260px] md:h-auto md:order-last;
 }
 
-/* setup account */
 .account-type-selector {
   @apply p-8 bg-transparent rounded-3xl border-2 border-neutral-silver-600 text-center md:max-w-[328px] cursor-pointer transition duration-300 text-neutral-silver-300 hover:text-neutral-silver-200 hover:bg-neutral-black hover:border-neutral-black;
 }

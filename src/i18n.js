@@ -71,7 +71,9 @@ i18next
           mychest: {
             uploader: {
               title: 'drop it like it’s hot',
+              title_mobile: 'upload a treasure',
               description: 'Drag and drop your audio file here to upload a new track, or...',
+              description_mobile: 'Choose a file here to upload a new track',
             }
           },
           upload: {
@@ -87,7 +89,7 @@ i18next
             presets: 'Presets',
             upload_file: 'Upload file',
             upload_filetype: 'In .jpg or .png format, max size 10 MB',
-            browse: 'Browse files',
+            browse: 'Browse',
             participants: 'participants',
             participant: 'Participant'
           },

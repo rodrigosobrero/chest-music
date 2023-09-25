@@ -28,7 +28,7 @@ export default function TrackListOptions({ id }) {
     }
   }
 
-  const toggleOpen = () => {
+  const toggleOpen = (e) => {
     setOpen(prev => !prev);
     sequence();
   }

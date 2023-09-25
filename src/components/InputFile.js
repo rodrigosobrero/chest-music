@@ -1,11 +1,30 @@
-import { useTranslation } from 'react-i18next';
+import { useRef } from 'react';
+import Button from 'components/Button';
 
-export default function InputFile({ accept }) {
-  const { t } = useTranslation();
+export default function InputFile({ text, accept, onChange }) {
+  const inputRef = useRef(null);
+
+  const handleClick = () => {
+    inputRef.current.click();
+  }
+
+  const handleFileChange = event => {
+    const fileObj = event.target.files && event.target.files[0];
+
+    if (!fileObj) return;
+
+    event.target.value = null;
+  }
 
   return (
     <>
-      <input type='file' accept={accept} className='file-input' title='' data-content={t('global.upload')} />
+      <input 
+        type='file'
+        className='hidden'
+        ref={inputRef}
+        onChange={onChange}
+        accept={accept} />
+      <Button type='secondary' text={text} onClick={handleClick} />
     </>
   )
 }
