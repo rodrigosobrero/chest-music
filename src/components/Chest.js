@@ -36,7 +36,8 @@ export default function Chest() {
       <div className='flex flex-col gap-1'>
         <div className='flex md:grid md:grid-cols-3 bg-neutral-black rounded-t-3xl rounded-b-lg px-5 py-6 md:px-[60px] md:pt-10 md:pb-[26px]'>
           <div className='flex items-center md:gap-4 grow'>
-            <h4>my chest</h4>
+            <h3 className='hidden md:block'>my chest</h3>
+            <h4 className='block md:hidden'>my chest</h4>
             <div className='hidden md:block'>
               <Tag>{tracks.length} tracks</Tag>
             </div>
