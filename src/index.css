@@ -75,7 +75,7 @@ h3 {
 
 h4 {
   line-height: 44px;
-  @apply text-4xl md:text-5xl;
+  @apply text-5xl md:text-5xl;
 }
 
 table {
@@ -310,38 +310,32 @@ input[type=number] {
 }
 
 /* setup account */
-.account-type input {
-  @apply absolute;
-  left: -9999px;
+.account-type-selector {
+  @apply p-8 bg-transparent rounded-3xl border-2 border-neutral-silver-600 text-center md:max-w-[328px] cursor-pointer transition duration-300 text-neutral-silver-300 hover:text-neutral-silver-200 hover:bg-neutral-black hover:border-neutral-black;
 }
 
-.account-type label {
-  @apply flex flex-col gap-6 text-center bg-transparent border-2 border-neutral-silver-600 rounded-3xl p-8 cursor-pointer transition-all duration-500 md:max-w-[328px];
+.account-type-selector p {
+  line-height: 22px;
 }
 
-.account-type label > p {
-  @apply text-lg text-neutral-silver-300;
-}
-
-.account-type label > img {
+.account-type-selector img {
   @apply grayscale;
 }
 
-.account-type label:hover {
-  @apply bg-neutral-black border-neutral-black;
-}
-
-.account-type input:checked + label {
-  @apply bg-neutral-black border-brand-gold;
-}
-.account-type label:hover > p,
-.account-type input:checked + label > p {
-  @apply text-neutral-silver-200;
-}
-
-.account-type label:hover > img,
-.account-type input:checked + label > img {
+.account-type-selector:hover img {
   @apply grayscale-0;
+}
+
+.slider-account-type {
+  @apply md:!hidden !pb-10;
+}
+
+.slider-account-type .swiper-pagination-bullet {
+  @apply !bg-neutral-silver-400 !opacity-100;
+}
+
+.slider-account-type .swiper-pagination-bullet-active {
+  @apply !bg-brand-gold !w-6 !rounded-md;
 }
 
 .account-plan {
@@ -413,13 +407,14 @@ input[type="checkbox"]:checked::before {
   @apply w-full h-full md:hidden;
 }
 
+/*
 .swiper-slide {
   @apply text-center flex justify-center items-center max-w-[320px];
 }
 
 .swiper {
   mask-image: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
-}
+} */
 
 .custom-input {
   @apply border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 w-full focus:outline-none focus:border-brand-gold leading-5;
@@ -440,4 +435,8 @@ input[type="checkbox"]:checked::before {
 
 .dropdown-list button:last-child {
   @apply rounded-b-xl;
+}
+
+.account-selector > .swiper {
+  @apply pb-10;
 }

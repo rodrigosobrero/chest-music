@@ -45,7 +45,7 @@ i18next
           },
           setup: {
             title: 'welcome to chest',
-            subtitle: 'Choose your role',
+            subtitle: 'Configure your new account',
             artist: 'artist',
             fan: 'fan',
             fan_description: 'If you came to listen to the music of your favorite friends and artists before anyone else, this is for you. Enjoy a simplified version of Chest adjusted to your needs.',

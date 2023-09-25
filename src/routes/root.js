@@ -17,7 +17,9 @@ export default function Root() {
         <header>
           <Nav />
         </header>
-        <main className={`${connected ? 'p-[0]' : ''}`}>
+        <main className={`
+          ${connected ? 'p-[0]' : ''}
+          ${location.pathname === '/setup' ? 'bg-black md:bg-neutral-silver-700 account-selector' : ''}`}>
           <Outlet />
         </main>
         <Footer />
