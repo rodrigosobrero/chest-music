@@ -117,8 +117,8 @@ export default function Setup() {
             <div className='account-plan'>
               <input type='radio' id='free' value='free' name='plan' />
               <label htmlFor='free'>
-                <h5>{t('setup.step_two.free')}</h5>
-                <p>{t('setup.step_two.free_description')}</p>
+                <span className='text-lg'>{t('setup.step_two.free')}</span>
+                <p className='!text-sm'>{t('setup.step_two.free_description')}</p>
                 <div className='flex items-center gap-2 mt-2'>
                   <span className='text-[28px]'>$0</span>
                   <span className='text-sm'>/{t('global.month')}</span>
@@ -128,8 +128,8 @@ export default function Setup() {
             <div className='account-plan'>
               <input type='radio' id='free' value='free' name='plan' disabled />
               <label htmlFor='free'>
-                <h5>Premium</h5>
-                <p className='mb-4'>{t('setup.step_two.premium_description')}</p>
+                <span className='text-lg'>Premium</span>
+                <p className='mb-4 !text-sm'>{t('setup.step_two.premium_description')}</p>
                 <div className='h-full'>
                   <Tag>{t('global.coming_soon')}</Tag>
                 </div>

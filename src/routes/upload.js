@@ -231,7 +231,7 @@ export default function Upload() {
 
   return (
     <>
-      <div className='uploader w-full'>
+      <div className='uploader w-full p-4 md:p-[60px]'>
         {step === 0 ? stepOne() : stepTwo()}
       </div>
 
