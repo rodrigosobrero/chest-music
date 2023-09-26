@@ -59,6 +59,7 @@ i18next
           },
           shared: {
             title: 'Shared with me',
+            subtitle: 'Explore and play the tracks that other artists shared with you'
           },
           security: {
             pin: 'PIN Code',
