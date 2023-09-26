@@ -57,6 +57,9 @@ i18next
 
             },
           },
+          shared: {
+            title: 'Shared with me',
+          },
           security: {
             pin: 'PIN Code',
             change_password: 'Change your password, set your PIN Code and learn more about our security',
