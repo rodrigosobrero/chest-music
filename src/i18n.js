@@ -49,6 +49,9 @@ i18next
             artist_username: 'Artist username',
             upgrade: 'Upgrade storage'
           },
+          shared: {
+            title: 'Shared with me',
+          },
           security: {
             pin: 'PIN Code',
             change_password: 'Change your password, set your PIN Code and learn more about our security',

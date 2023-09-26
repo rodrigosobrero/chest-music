@@ -1,10 +1,10 @@
-export default function SearchBar({ onChange }) {
+export default function SearchBar({ className, onChange, placeholder = 'Search a treasure...' }) {
   return (
     <>
       <input 
         type='search' 
-        placeholder='Search a treasure...' 
-        className='search-input' 
+        placeholder={placeholder} 
+        className={`search-input ${className}`} 
         onChange={onChange} />
     </>
   )
