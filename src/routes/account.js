@@ -34,7 +34,7 @@ const Account = () => {
         </div>
         </Modal>
         <div className='xl:px-[60px]'>
-            <Breadcrumb items={paths}/>
+            <Breadcrumb className='px-0' items={paths}/>
             <div className='flex mt-5 mb-8'>
                 <div>
                     <h3 className='font-thunder-bold text-5xl font-bold'>{items[2].title}</h3>

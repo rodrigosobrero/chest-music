@@ -225,7 +225,7 @@ td {
 }
 
 .breadcrumb {
-  @apply  px-4 py-2 rounded-full h-fit;
+  @apply   py-2 rounded-full h-fit;
 }
 
 .breadcrumb ul {

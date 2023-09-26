@@ -35,7 +35,7 @@ const Security = () => {
     return (
       <>
       <div className='xl:px-20 px-1'>
-         <Breadcrumb items={paths}/>
+         <Breadcrumb className='px-0' items={paths}/>
          <div className='flex flex-col mt-5 mb-8'>
           <div>
               <h3 className='font-thunder-bold text-5xl font-bold'>{items[3].title}</h3>

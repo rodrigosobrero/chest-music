@@ -2,12 +2,12 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 
 
-export default function Breadcrumb({ items }) {
+export default function Breadcrumb({ items, className }) {
   const navigate = useNavigate();
   console.log(items)
   return (
     <>
-      <nav className='breadcrumb xl:flex hidden'>
+      <nav className={`breadcrumb ${className} xl:flex hidden`}>
         <ul>
           {items.map((item, index) =>
             <li key={index} onClick={() => { navigate(item.link) }}>
