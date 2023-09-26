@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { motion, useAnimationControls } from 'framer-motion';
 import webdisabled from 'assets/images/icon-webdisabled.svg'
-
+import webdisabledgray from 'assets/images/icon-web-disabled-alt.svg'
 const SharedToast = () => {
     const [open, setOpen] = useState(false);
     const animation = useAnimationControls();
-  
+    const [ isHover, setIsHover ] = useState(false)
     const sequence = async () => {
       if (open) {
         await animation.start({ height: 0 });
@@ -16,7 +16,9 @@ const SharedToast = () => {
         animation.start({ height: 80 });
       }
     }
-  
+    const toggleHover = () => {
+      setIsHover(!isHover)
+    }
     const toggleOpen = () => {
       setOpen(prev => !prev);
       sequence();
@@ -27,9 +29,11 @@ const SharedToast = () => {
      <div className='relative '>
         <button
             type='button'
-            className={`p-[7px] rounded-[10px] xl:flex hidden transition duration-500 hover:bg-neutral-silver-700 border-[3px] border-transparent active:border-gray-700 ${open && 'bg-neutral-silver-700 border-neutral-silver-600'}`}
+            onMouseEnter={toggleHover}
+            onMouseLeave={toggleHover}
+            className={`p-2.5 rounded-[10px] xl:flex hidden transition duration-500  border-[3px] border-transparent active:border-gray-700 ${open && 'bg-neutral-silver-700 border-neutral-silver-600'}`}
             onClick={toggleOpen}>
-            <img src={webdisabled} alt='' width={24} height={24} />
+            <img src={isHover ? webdisabled : webdisabledgray} alt='' width={24} height={24} />
         </button>
         {/* <motion.div 
             animate={animation} 

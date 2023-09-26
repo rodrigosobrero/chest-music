@@ -47,7 +47,15 @@ i18next
             current_plan: 'Current plan',
             artist_name: 'Artist name',
             artist_username: 'Artist username',
-            upgrade: 'Upgrade storage'
+            upgrade: 'Upgrade storage',
+            modals:{
+              delete_account: 'Delete Account',
+              delete_subtitle: 'We are sad to see you go. Are you sure you want to delete your account? You cannot undo this operation.',
+              delete_confirm: 'To confirm, please type "delete my chest" below.',
+              change_name: 'change artist name',
+              change_subtitle: 'Choose a new artist name for your current account',
+
+            },
           },
           security: {
             pin: 'PIN Code',
@@ -121,11 +129,13 @@ i18next
             allow: 'Allow',
             free: 'Free',
             block: 'Block',
+            save:'Save',
             placeholder: {
-              write_here: 'Write here',
+              write_here: 'Write here...',
               search: 'Search...'
             },
             edit: 'Edit',
+            confirm: 'Confirm',
             
           },
           signin: {
