@@ -11,7 +11,7 @@ const Played = () => {
   return (
     <>
     <div className='pb-10'>
-       <Breadcrumb items={paths}/>
+    <Breadcrumb className='px-0' items={paths}/>
        <div className='flex flex-col mt-5 mb-8'>
         <div className='xl:p-0 px-3'>
             <h3 className='font-thunder-bold text-5xl font-bold'>{items[0].title}</h3>

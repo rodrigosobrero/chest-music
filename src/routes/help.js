@@ -17,7 +17,7 @@ const Help = () => {
     <>
       <div className='xl:px-[60px]'>
         <div className='flex flex-col mt-5 mb-8 gap-y-6 xl:px-0 px-3'>
-        <Breadcrumb items={paths}/>
+        <Breadcrumb className='px-0' items={paths}/>
         <div>
             <h3 className='font-thunder-bold text-5xl font-bold'>{items[4].title}</h3>
             <h5 className='text-neutral-silver-200 text-lg'>{t('help_center.subtitle')}</h5>

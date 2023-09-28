@@ -39,7 +39,7 @@ export default function Manage() {
 
       <div className='flex justify-center flex-col space-y-2 items-center h-full px-4 py-[32px] xl:px-20'>
         <div className='w-full items-start'>
-          <Breadcrumb items={breadcrumbItems}/>
+        <Breadcrumb className='px-0' items={paths}/>
         </div>
         <div className='xl:hidden flex items-center justify-between h-20 bg-neutral-silver-600 p-3 w-full rounded-xl'>
            <div className='flex items-center gap-4 '>

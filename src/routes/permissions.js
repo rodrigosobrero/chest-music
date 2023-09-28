@@ -12,7 +12,7 @@ const Permissions = () => {
   return (
     <>
       <div className='xl:px-[60px]'>
-        <Breadcrumb items={paths} />
+      <Breadcrumb className='px-0' items={paths}/>
         <div className='flex flex-col xl:flex-row justify-between mt-5 mb-8 gap-y-6'>
                 <div>
                     <h3 className='font-thunder-bold text-5xl font-bold'>{items[1].title}</h3>
