@@ -1,0 +1,28 @@
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import Button from 'components/Button'
+import Input from 'components/Input'
+const ContactUs = () => {
+  const { t } = useTranslation()
+  return (
+    <div className='w-full bg-neutral-black px-4 py-6 xl:p-8 rounded-3xl flex flex-col gap-y-4 xl:gap-y-6'>
+      <h4>{t('help_center.contact_us')}</h4>
+      <div className='flex w-full gap-x-6 gap-y-4 flex-col xl:flex-row'>
+         <div className='xl:w-2/4'>
+            <Input type='email' label={t('help_center.email')} placeholder={t('general.placeholder.write_here')} />
+         </div>
+         <div className='xl:w-2/4'>
+            <Input type='text' label={t('help_center.subject')} placeholder={t('general.placeholder.write_here')} />
+         </div>
+      </div>
+      <div>
+        <Input type='text' label={t('help_center.message')} placeholder={t('general.placeholder.write_here')} />
+      </div>
+      <div className='mt-1'>
+        <Button text={t('help_center.send')} type='primary' disabled={true}/>
+      </div>
+     </div>
+  )
+}
+
+export default ContactUs

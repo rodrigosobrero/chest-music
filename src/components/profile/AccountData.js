@@ -8,6 +8,7 @@ const AccountData = ({  }) => {
   const { t } = useTranslation()
   const [show, setShow] = useState()
   const toggle = () => setShow(!show)
+  const classDivs = 'flex flex-col gap-y-2'
   return (
     <>
       <Modal show={show}>
@@ -27,21 +28,21 @@ const AccountData = ({  }) => {
            </div>
         </div>
       </Modal>
-      <div className='bg-neutral-silver-700 xl:w-2/5 p-8 rounded-2xl space-y-6'>
+      <div className='bg-neutral-silver-700 xl:w-2/5 py-8 px-6 xl:p-8 rounded-2xl space-y-6'>
         <h4 className='text-2xl font-archivo font-semibold'>{t('account.personal_data')}</h4>
-        <div>
+        <div className={classDivs}>
             <h5 className='text-neutral-silver-200'>{t('account.artist_name')}</h5>
             <div className='flex gap-x-3'>
-               <h5>{data.name} </h5> <Pencil className='cursor-pointer' onClick={toggle}/>
+               <h5 className='text-lg'>{data.name} </h5> <Pencil className='cursor-pointer' onClick={toggle}/>
             </div> 
         </div>
-        <div>
+        <div className={classDivs}>
             <h5 className='text-neutral-silver-200'>{t('account.artist_username')}</h5>
-            <h5>{data.username}</h5>
+            <h5 className='text-lg'>{data.username}</h5>
         </div>
-        <div>
+        <div className={classDivs}>
             <h5 className='text-neutral-silver-200'>Email</h5>
-            <h5>{data.email}</h5>
+            <h5 className='text-lg'>{data.email}</h5>
         </div>
       </div>
     </>

@@ -33,15 +33,15 @@ const Account = () => {
             </div>
         </div>
         </Modal>
-        <div className='xl:px-[60px]'>
-            <Breadcrumb className='px-0' items={paths}/>
-            <div className='flex mt-5 mb-8'>
-                <div>
-                    <h3 className='font-thunder-bold text-5xl font-bold'>{items[2].title}</h3>
-                    <h5 className='text-neutral-silver-200 text-lg'>{t('account.subtitle')}</h5>
+        <div>
+            <Breadcrumb className='px-3 xl:px-0' items={paths}/>
+            <div className='container-head-account'>
+                <div className='container-items-account'>
+                    <h4 className='font-thunder-bold text-5xl uppercase font-bold'>{items[2].title}</h4>
+                    <h5 className='text-neutral-silver-200 text-base'>{t('account.subtitle')}</h5>
                 </div>
             </div>
-            <div className='w-full bg-neutral-black xl:p-8 p-3 flex flex-col xl:flex-row gap-y-3 gap-x-8 rounded-[32px]'>
+            <div className='w-full bg-neutral-black xl:p-8 p-3 flex flex-col xl:flex-row gap-y-3 gap-x-8 rounded-3xl'>
                 <AccountData />
                 <AccountPlan />
             </div>

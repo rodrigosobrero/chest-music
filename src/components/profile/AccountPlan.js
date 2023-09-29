@@ -7,7 +7,7 @@ const AccountPlan = ({  }) => {
   const { t } = useTranslation()
   return (
     <>
-      <div className='bg-neutral-silver-700 xl:w-3/5 py-8 px-12 rounded-2xl space-y-6'>
+      <div className='bg-neutral-silver-700 xl:w-3/5 py-8 px-6 xl:px-12 rounded-2xl space-y-6'>
          <h4 className='text-2xl font-archivo font-semibold'>{t('account.my_plan')}</h4>
          <div className='flex gap-y-8 xl:gap-x-14 flex-col xl:flex-row'>
             <div className='space-y-4'>
@@ -26,16 +26,18 @@ const AccountPlan = ({  }) => {
                         background='gray' />
                     </div>
                </div>
-               <h5 className='text-brand-gold font-archivo text-lg'>
-               {t('account.upgrade')}
-               </h5>
+               <button className='py-1.5'>
+                  <h5 className='text-brand-gold font-archivo text-lg'>
+                    {t('account.upgrade')}
+                  </h5>
+               </button>
             </div>
             <div className='space-y-4'>
                <h5 className='text-neutral-silver-200'>{t('account.current_plan')}</h5>
                <div className='flex flex-col xl:flex-row gap-4'>
                     <div className='xl:w-3/5 '>
-                        <h5 className='mb-2'>{t('general.free')}</h5>
-                        <span className='text-neutral-silver-300'>
+                        <h5 className='mb-1'>{t('general.free')}</h5>
+                        <span className='text-neutral-silver-300 text-sm'>
                             Amet pretium 1 GB scelerisque leo ut non lorem neque.
                         </span>
                     </div>

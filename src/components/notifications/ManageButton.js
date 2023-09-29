@@ -39,7 +39,9 @@ const ManageButton = ({ isOpen }) => {
   )
   return (
     <>
-       <p className='text-brand-gold font-archivo text-base cursor-pointer' onClick={toggle}>+  {t('general.add_another')}</p>
+       <button className='py-1.5'>
+          <p className='text-brand-gold font-archivo text-base cursor-pointer' onClick={toggle}>+  {t('general.add_another')}</p>
+       </button>
        <Modal show={show}>
            <ModalContent></ModalContent>
        </Modal>

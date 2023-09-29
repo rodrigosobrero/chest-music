@@ -39,7 +39,7 @@ export default function Manage() {
 
       <div className='flex justify-center flex-col space-y-2 items-center h-full px-4 py-[32px] xl:px-20'>
         <div className='w-full items-start'>
-        <Breadcrumb className='px-0' items={paths}/>
+        <Breadcrumb className='px-0' items={breadcrumbItems}/>
         </div>
         <div className='xl:hidden flex items-center justify-between h-20 bg-neutral-silver-600 p-3 w-full rounded-xl'>
            <div className='flex items-center gap-4 '>
@@ -71,7 +71,7 @@ export default function Manage() {
                 </button>
             </div>
         </div>
-        <div className='bg-neutral-black w-full rounded-b-3xl rounded-t-md px-6 py-4 xl:py-10 xl:px-20'>
+        <div className='bg-neutral-black w-full flex flex-col items-center rounded-b-3xl rounded-t-md px-6 py-4 xl:py-10 xl:px-20'>
              <ManageList data={manage} privacyIsOpen={isOpen}/> 
              <ManageButton isOpen={isOpen} />
         </div>
