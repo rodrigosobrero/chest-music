@@ -9,7 +9,7 @@ export default function ProgressBar({ progress, direction, color, size, backgrou
     <>
       <div className={classNames({
         'flex rounded-[3px] h-1.5': true,
-        'w-[199px]': size === '150',
+        'w-[150px]': size === '150',
         'w-full': size === 'full',
         'justify-end': direction === 'right',
         'justify-start': direction === 'left',
