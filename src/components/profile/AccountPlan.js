@@ -1,12 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ProgressBar from 'components/ProgressBar'
 import { useTranslation } from 'react-i18next'
+import Modal from 'components/Modal'
+import ChangeDataModal from 'components/modals/ChangeDataModal'
 const AccountPlan = ({  }) => {
+  const [ show, setShow ] = useState(false)
+  const toggle = () => setShow(!show)
   const storage = 1000
   const used = 242.2
   const { t } = useTranslation()
+  const inputData = [
+   {
+      label: t('account.modals.full_name'),
+      placeholder: t('general.placeholder.write_here'),
+      type: 'text'
+   },
+   {
+      label: t('account.modals.full_name'),
+      placeholder: t('general.placeholder.write_here'),
+      type: 'text' 
+   }
+  ]
   return (
     <>
+      <Modal show={show} >
+        <ChangeDataModal title={t('account.modals.upgrade_title')}  toggle={toggle} 
+                        subtitle={t('account.modals.upgrade_subtitle')} primaryButton={t('general.send')}
+                        secondaryButton={t('general.cancel')} inputsData={inputData} />
+      </Modal>
       <div className='bg-neutral-silver-700 xl:w-3/5 py-8 px-6 xl:px-12 rounded-2xl space-y-6'>
          <h4 className='text-2xl font-archivo font-semibold'>{t('account.my_plan')}</h4>
          <div className='flex gap-y-8 xl:gap-x-14 flex-col xl:flex-row'>
@@ -26,7 +47,7 @@ const AccountPlan = ({  }) => {
                         background='gray' />
                     </div>
                </div>
-               <button className='py-1.5'>
+               <button className='py-1.5' onClick={toggle}>
                   <h5 className='text-brand-gold font-archivo text-lg'>
                     {t('account.upgrade')}
                   </h5>

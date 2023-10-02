@@ -2,31 +2,24 @@ import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ReactComponent as Pencil } from 'assets/images/icon-pencil-alt.svg'
 import Modal from 'components/Modal'
-import Input from 'components/Input'
+import ChangeDataModal from 'components/modals/ChangeDataModal'
 const AccountData = ({  }) => {
   const data = { name: 'Agustin Posse', username: 'aposse', email: 'agustinposse1@gmail.com' }
   const { t } = useTranslation()
   const [show, setShow] = useState()
   const toggle = () => setShow(!show)
   const classDivs = 'flex flex-col gap-y-2'
+  const inputData = [
+    {label: t('account.artist_name'),
+     placeholder: t('general.placeholder.write_here'),
+     type: 'text'
+    } ]
   return (
-    <>
-      <Modal show={show}>
-        <div className='text-center flex flex-col gap-y-8'>
-            <div>
-              <h3>{t('account.modals.change_name')}</h3>
-              <p className='text-lg text-neutral-silver-200'>{t('account.modals.change_subtitle')}</p>
-            </div>
-            <Input label={t('account.artist_name')}placeholder={t('general.placeholder.write_here')}/>
-            <div className='font-archivo font-semibold flex gap-4'>
-              <button onClick={toggle} className='w-full bg-neutral-silver-600 text-white py-2.5 px-6 rounded-lg'>
-                {t('general.cancel')}
-              </button>
-              <button onClick={toggle} className='w-full bg-brand-gold text-black py-2.5 px-6 rounded-lg'>
-                  {t('general.save')}
-              </button>
-           </div>
-        </div>
+    <> 
+      <Modal show={show} >
+        <ChangeDataModal title={t('account.modals.change_name')}  toggle={toggle} 
+                        subtitle={t('account.modals.change_subtitle')} primaryButton={t('general.save')}
+                        secondaryButton={t('general.cancel')} inputsData={inputData} />
       </Modal>
       <div className='bg-neutral-silver-700 xl:w-2/5 py-8 px-6 xl:p-8 rounded-2xl space-y-6'>
         <h4 className='text-2xl font-archivo font-semibold'>{t('account.personal_data')}</h4>

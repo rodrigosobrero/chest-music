@@ -28,10 +28,6 @@ i18next
             allow_new_user: 'Allow new user',
             block_new_user: 'Block new user'
           },
-          security: {
-            change_password: 'Change your password, set your PIN Code and learn more about our security' ,
-            subtitle:'Chest keeps your treasure secure'
-          },
           recently: {
             subtitle: 'Explore the list of tracks that you have recently listened'
           },
@@ -54,7 +50,10 @@ i18next
               delete_confirm: 'To confirm, please type "delete my chest" below.',
               change_name: 'change artist name',
               change_subtitle: 'Choose a new artist name for your current account',
-
+              upgrade_title: 'Sign up for a bigger chest',
+              upgrade_subtitle: 'Leave your data here to know the launch date before anyone, and access to the free trial of the Premium Plan.',
+              full_name: 'Full name',
+              country_residence: 'Country of residence'
             },
           },
           shared: {
@@ -65,7 +64,15 @@ i18next
             pin: 'PIN Code',
             change_password: 'Change your password, set your PIN Code and learn more about our security',
             subtitle: 'Chest keeps your treasure secure',
-            text: 'Aliquet malesuada dolor sit amet consectetur. Viverra id feugiat risus volutpat dictum. Fames adipiscing nunc pretium dolor at enim eu.'
+            text: 'Aliquet malesuada dolor sit amet consectetur. Viverra id feugiat risus volutpat dictum. Fames adipiscing nunc pretium dolor at enim eu.',
+            password_modal: {
+              title: 'change password',
+              subtitle: 'Once you continue, you will receive an email with instructions on how to reset your password.',
+            },
+            pin_modal: {
+              current_pin: 'Current PIN Code',
+              new_pin: 'New PIN Code'
+            }
           },
           help_center: {
             subtitle: 'Access to frequently asked questions or get support to resolve your issues',
@@ -129,6 +136,7 @@ i18next
             cancel: 'Cancel',
             learn_more: 'Learn more',
             change: 'change',
+            email: 'Email',
             add_another: 'Add another', 
             allow: 'Allow',
             free: 'Free',
@@ -140,7 +148,8 @@ i18next
             },
             edit: 'Edit',
             confirm: 'Confirm',
-            
+            user: 'User', 
+            send: 'Send'
           },
           signin: {
             title: 'open your chest',
