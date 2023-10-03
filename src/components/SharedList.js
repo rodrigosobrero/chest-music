@@ -21,7 +21,7 @@ const SharedList = ({ tracks }) => {
     <>
      <table>
          <thead >
-             <tr className='hover:rounded-xl hover:bg-neutral-silver-700'>
+             <tr >
                 {
                   titles.map((title, index) => 
                     <th 

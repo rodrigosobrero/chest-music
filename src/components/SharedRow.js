@@ -1,16 +1,15 @@
 import React from 'react'
 import { useState } from 'react';
-import { formatDate, formatTime, timeDifference } from 'utils/helpers';
+import { formatTime, timeDifference } from 'utils/helpers';
 import SharedToast from './SharedToast';
 import webdisabled from 'assets/images/icon-webdisabled.svg'
 const SharedRow = ({ track, isMobile }) => {
-  var timestamp = 1672531200000; // Timestamp para el 01 de enero de 2023
-console.log(timeDifference(timestamp)); 
+
   const [show, setShow] = useState(false);
   return (
     <>
     <tr
-      className='text-left'
+      className='hover:rounded-xl hover:bg-neutral-silver-700 text-left'
       onMouseEnter={() => { setShow(true) }}
       onMouseLeave={() => { setShow(false) }}
      >

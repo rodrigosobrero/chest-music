@@ -6,15 +6,19 @@ export default function Shared() {
   const { t } = useTranslation()
   return (
     <>
-       <div className='text-center font-archivo px-3 py-[3.75rem] xl:px-[3.75rem] gap-y-4'>
-          <div className='flex flex-col items-center gap-4 mb-[60px] xl:mb-10 px-3'>
-              <h3 className="text-[64px]">{t('shared.title')}</h3>
-              <span className='text-neutral-silver-200 text-base leading-[44px] xl:leading-[22px] xl:text-lg'>
-              {t('shared.subtitle')}
+       <div className='flex flex-col px-3 py-[40px] xl:py-[60px] xl:px-[60px] gap-y-6 xl:gap-y-[40px] text-center font-archivo '>
+          <div className='flex flex-col items-center gap-y-2 px-3 xl:px-0'>
+              <h3 className="text-[64px] leading-[44px] xl:leading-[58px]">
+                 {t('shared.title')}
+              </h3>
+              <span className='text-neutral-silver-200 text-base  leading-[22px] xl:text-lg'>
+                 {t('shared.subtitle')}
               </span>
-              <SearchBar className='!border-[1.5px] placeholder:text-center focus:border-brand-gold' onChange={() => console.log('onChange')}/>
+              <div className='mt-4'>
+               <SearchBar className='!border-[1.5px] placeholder:text-center focus:border-brand-gold' onChange={() => console.log('onChange')}/>
+              </div>
           </div>
-          <div className='space-y-6'>
+          <div className='flex flex-col gap-y-1'>
           {
             shared.map((el) => (
               <SharedTable artist={el.username} data={el.tracks}/>
