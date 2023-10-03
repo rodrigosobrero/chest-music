@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import SharedRow from '../SharedRow';
+import SharedRow from '../shared/SharedRow';
 import useMediaQuery from 'utils/useMediaQuery';
 
 const RecentlyList = ({ data }) => {

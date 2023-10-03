@@ -1,5 +1,5 @@
 import SearchBar from "components/SearchBar"
-import SharedTable from "components/SharedTable"
+import SharedTable from "components/shared/SharedTable"
 import shared from "data/shared.json"
 import { useTranslation } from "react-i18next"
 export default function Shared() {

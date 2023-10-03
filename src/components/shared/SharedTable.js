@@ -1,7 +1,7 @@
 import React from 'react'
 import empty from 'assets/images/empty-chest.svg';
 import SharedList from './SharedList'
-const SharedTable = ({artist, data}) => {
+const SharedTable = ({ artist, data }) => {
   console.log(data)
   return (
     <>
