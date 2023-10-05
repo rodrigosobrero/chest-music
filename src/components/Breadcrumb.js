@@ -4,7 +4,6 @@ import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 
 export default function Breadcrumb({ items, className }) {
   const navigate = useNavigate();
-  console.log(items)
   return (
     <>
       <nav className={`breadcrumb ${className} xl:flex hidden`}>
@@ -16,7 +15,7 @@ export default function Breadcrumb({ items, className }) {
           }
         </ul>
       </nav>
-      <nav className={`${className} xl:hidden`}>
+      <nav className={`${className} xl:hidden py-2`}>
         <span className='text-brand-gold text-lg font-semibold flex gap-x-1 items-center' onClick={() => navigate(items[0].link)}>
             <ArrowLeftIcon className="h-6 w-6 text-brand-gold" />
             {items[0].name}

@@ -26,7 +26,7 @@ const AccountData = ({  }) => {
         <div className={classDivs}>
             <h5 className='text-neutral-silver-200'>{t('account.artist_name')}</h5>
             <div className='flex gap-x-3'>
-               <h5 className='text-lg'>{data.name} </h5> <Pencil className='cursor-pointer' onClick={toggle}/>
+               <h5 className='text-lg'>{data.name} </h5> <Pencil className='cursor-pointer h-4 w-4' onClick={toggle}/>
             </div> 
         </div>
         <div className={classDivs}>

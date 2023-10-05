@@ -50,7 +50,6 @@ const Account = () => {
                 <AccountPlan />
             </div>
             <div className='w-full flex justify-center xl:justify-start items-center'>
-
                 <button onClick={toggle} className='px-6 py-3  bg-neutral-silver-600 rounded-[10px] text-[#FF3636] mt-8'>Delete account</button>
             </div>
         </div>

@@ -11,7 +11,6 @@ const Help = () => {
   const { t } = useTranslation() 
   const items = t('profile.sections', { returnObjects: true });
   const { faqs } = t('help_center', { returnObjects: true});
-  console.log(faqs)
   let paths = [{ name:'Profile', link: '/profile' }, { name: items[4].title }]
   return (
     <>
@@ -31,8 +30,8 @@ const Help = () => {
                 <SearchBar onChange={() => console.log('console')}/>
               </div>
               <div className='gap-y-4 flex flex-col '>
-                {faqs.map((el) => (
-                  <FAQItem question={el.title} answer={el.content} />
+                {faqs.map((el, i) => (
+                  <FAQItem question={el.title} answer={el.content} i={i} />
                 ))}
               </div>
           </div>

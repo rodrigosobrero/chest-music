@@ -6,7 +6,6 @@ import cloud from 'assets/images/icon-cloud-upload.svg'
 import pencil from 'assets/images/icon-pencil-alt.svg'
 
 const ProfileRow = ({ title, subtitle, to, icon }) => {
-  console.log(to)
   return (
     <>
     <div>
