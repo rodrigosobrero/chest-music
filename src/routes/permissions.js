@@ -18,7 +18,7 @@ const Permissions = () => {
                     <h4 className='font-thunder-bold text-5xl font-bold uppercase'>{items[1].title}</h4>
                     <h5 className='text-neutral-silver-200 text-base xl:text-lg'>{t('permissions.subtitle')}</h5>
                 </div>
-                <div className='flex items-center gap-3 p-3 bg-neutral-black self-center rounded-xl '> 
+                <div className='flex items-center gap-3 p-3 max-w-md grow bg-neutral-black self-center rounded-xl '> 
                   <img src={icon} className='h-6 w-6'/>
                   <span className='text-neutral-silver-300 text-sm'>
                   {t('permissions.alert')}
