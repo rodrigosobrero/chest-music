@@ -1,6 +1,6 @@
 import { classNames } from 'utils/helpers';
 
-export default function ProgressBar({ progress, direction, color, size, background }) {
+export default function ProgressBar({ progress, direction, color, size, background, mobile }) {
   const innerStyle = {
     width: `${progress}%`
   }
