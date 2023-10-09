@@ -16,7 +16,7 @@ const ProfileView = () => {
                   <Unlocked className={classIcon} />, <QuestionMarkCircleIcon className={classIcon} />, <DocumentDuplicateIcon className={classIcon}/> ]
   return (
     <>
-       <div className='w-full xl:w-3/5 flex flex-col justify-center mx-auto items-center gap-y-10 py-6 xl:py-0 px-1 xl:px-0'>
+       <div className='w-full xl:w-3/5 flex flex-col justify-center mx-auto items-center gap-y-8 xl:gap-y-10 py-6 xl:py-0 px-1 xl:px-0'>
             <ProfileHead />
             <div className='flex flex-col gap-y-3 xl:gap-y-5 w-full'>
                     {items?.map((el, i) => (

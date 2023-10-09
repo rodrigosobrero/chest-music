@@ -6,7 +6,7 @@ const ProfileHead = () => {
   const storage = 1000
   const used = 242.2
   return (
-        <div className='flex w-full flex-col xl:flex-row xl:justify-between xl:items-center'>
+        <div className='flex w-full flex-col gap-y-3 xl:flex-row xl:justify-between xl:items-center xl:px-0 px-2'>
             <div className='flex items-center gap-x-4'>
                 <h3 className='font-thunder-bold text-[64px] leading-[68px] xl:text-[76px] font-bold'>Agustin Posse</h3>
                 <button className='p-2 flex items-center'>
