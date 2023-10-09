@@ -19,6 +19,7 @@ module.exports = {
         'brand-gold': '#FFB447',
         'brand-uva': '#7C59DE',
         'brand-uva-light': '#B296FF',
+        'error-red': '#FF3636'
       },
       fontFamily: {
         'archivo': ['Archivo', 'sans-serif'],
