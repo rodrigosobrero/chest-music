@@ -148,7 +148,7 @@ export default function Setup() {
 
   return (
     <>
-      <div className='flex flex-col gap-8 items-center justify-center h-full pt-10 pb-10 md:px-[120px] md:py-20'>
+      <div className='flex flex-col gap-8 items-center justify-center h-full pt-10 pb-10 md:px-[120px] md:py-20 w-full'>
         {step === 0 ? <StepOne /> : <StepTwo />}
       </div>
     </>
