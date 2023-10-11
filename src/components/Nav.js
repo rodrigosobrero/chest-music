@@ -28,7 +28,7 @@ export default function Nav() {
   return (
     <>
       <nav className='main z-10'>
-        <div className='max-w-7xl flex items-center justify-center w-full'>
+        <div className='md:container flex items-center justify-center w-full'>
           <div className='flex items-center gap-4 grow'>
             <img src={logo} alt="Chest" width={146} height={32} className='w-[110px] h-[24px] md:w-[146px] md:h-[32px]' />
             <Tag>Web</Tag>

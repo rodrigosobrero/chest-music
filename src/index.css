@@ -43,7 +43,7 @@ nav a.active {
 }
 
 main {
-  @apply grow px-3 py-8 md:p-[60px];
+  @apply flex justify-center grow;
 }
 
 footer {
