@@ -4,7 +4,7 @@ const ChangeDataModal = ({ title , subtitle, inputsData ,toggle, primaryButton, 
   return (
     <div className='w-[520px] text-center flex flex-col gap-y-8'>
         <div className='flex flex-col gap-y-3'>
-          <h3>{title}</h3>
+          <h3 className='text-center'>{title}</h3>
           {subtitle && <p className='text-lg text-neutral-silver-200'>{subtitle}</p>}
         </div>
         <div className='flex flex-col gap-y-4'>

@@ -19,37 +19,21 @@ const Account = () => {
             <DeleteModal title={t('account.modals.delete_account')} subtitle={t('account.modals.delete_subtitle')}
                          confirmText={t('account.modals.delete_confirm')} primaryButton={t('global.confirm')}
                          secondaryButton={t('global.cancel')} placeholder={t('global.placeholder.write_here')}
-                         label={t('global.email')} type={'email'}/>
-        {/* <div className='w-[32rem] p-8 text-center flex flex-col  gap-y-8'>
-            <div className='flex flex-col gap-y-4'>
-                <h3 className='text-[48px]'>{t('account.modals.delete_account')}</h3>
-                <p className='text-neutral-silver-200 text-lg'>{t('account.modals.delete_subtitle')}</p>
-                <p className='text-lg'>{t('account.modals.delete_confirm')}</p>
-                </div>
-                <Input placeholder={t('global.placeholder.write_here')}/>
-                    <div className='font-archivo font-semibold flex gap-4'>
-                <button onClick={toggle} className='w-full bg-neutral-silver-600 text-white py-2.5 px-6 rounded-lg'>
-                    {t('global.cancel')}
-                </button>
-                <button onClick={toggle} className='w-full bg-brand-gold text-black py-2.5 px-6 rounded-lg'>
-                    {t('global.confirm')}
-                </button>
-            </div>
-        </div> */}
+                         label={t('global.email')} type={'email'} toggle={toggle}/>
         </Modal>
-        <div>
-            <Breadcrumb className='px-3 xl:px-0' items={paths}/>
+        <div className='px-3 pt-4 pb-10 md:container md:px-[120px] md:pb-[60px] md:pt-[40px]'>
+            <Breadcrumb className='px-3 md:px-0' items={paths}/>
             <div className='container-head-account'>
                 <div className='container-items-account'>
                     <h4 className='font-thunder-bold text-5xl uppercase font-bold'>{items[2].title}</h4>
                     <h5>{t('account.subtitle')}</h5>
                 </div>
             </div>
-            <div className='w-full bg-neutral-black xl:p-8 p-3 flex flex-col xl:flex-row gap-y-3 gap-x-8 rounded-3xl'>
+            <div className='w-full bg-neutral-black md:p-8 p-3 flex flex-col md:flex-row gap-y-3 gap-x-8 rounded-3xl'>
                 <AccountData />
                 <AccountPlan />
             </div>
-            <div className='w-full flex justify-center xl:justify-start items-center'>
+            <div className='w-full flex justify-center md:justify-start items-center'>
                 <button onClick={toggle} className='px-6 py-3  bg-neutral-silver-600 rounded-[10px] text-[#FF3636] mt-8'>Delete account</button>
             </div>
         </div>

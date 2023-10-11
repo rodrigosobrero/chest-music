@@ -15,18 +15,18 @@ const NotificationRow = ({invite , blockUser}) => {
      <div className='row'>
         <div className='flex items-center justify-between '>
           <div className='flex space-x-4 items-center'>
-            <div className='bg-neutral-black rounded-lg flex justify-center items-center p-2.5 xl:p-3'>
-               <MusicalNoteIcon className="xl:h-7 xl:w-7 h-5 w-5 text-white" />
+            <div className='bg-neutral-black rounded-lg flex justify-center items-center p-2.5 md:p-3'>
+               <MusicalNoteIcon className="md:h-7 md:w-7 h-5 w-5 text-white" />
             </div>
             <div className='flex flex-col'>
-              <div className='xl:text-xl text-base'>{invite.data.title}</div>
-              <div className='xl:text-base text-sm text-neutral-silver-200'>
+              <div className='md:text-xl text-base'>{invite.data.title}</div>
+              <div className='md:text-base text-sm text-neutral-silver-200'>
                   {invite.data.body}
               </div>
             </div>
           </div>
           <div className='flex gap-x-3 items-center'>
-              <div className='xl:flex hidden'>
+              <div className='md:flex hidden'>
                   <span className='text-neutral-silver-200'>
                       {timeDifference(invite.data.date)}
                   </span>

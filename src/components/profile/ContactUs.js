@@ -5,13 +5,13 @@ import Input from 'components/Input'
 const ContactUs = () => {
   const { t } = useTranslation()
   return (
-    <div className='w-full bg-neutral-black px-4 py-6 xl:p-8 rounded-3xl flex flex-col gap-y-4 xl:gap-y-6'>
-      <h4>{t('help_center.contact_us')}</h4>
-      <div className='flex w-full gap-x-6 gap-y-4 flex-col xl:flex-row'>
-         <div className='xl:w-2/4'>
+    <div className='w-full bg-neutral-black px-4 py-6 md:p-8 rounded-3xl flex flex-col gap-y-4 md:gap-y-6'>
+      <h4 className='text-[28px]'>{t('help_center.contact_us')}</h4>
+      <div className='flex w-full gap-x-6 gap-y-4 flex-col md:flex-row'>
+         <div className='md:w-2/4'>
             <Input type='email' label={t('help_center.email')} placeholder={t('global.placeholder.write_here')} />
          </div>
-         <div className='xl:w-2/4'>
+         <div className='md:w-2/4'>
             <Input type='text' label={t('help_center.subject')} placeholder={t('global.placeholder.write_here')} />
          </div>
       </div>

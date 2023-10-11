@@ -6,7 +6,7 @@ const ManageRow = ({ data, isMobile }) => {
     <tr>
       <td>{data.name}</td>
       <td>@{data.username}</td>
-      <td className='xl:flex hidden'>{timeDifference(data.date)}</td>
+      <td className='md:flex hidden'>{timeDifference(data.date)}</td>
       <td>X</td>
     </tr>
   );

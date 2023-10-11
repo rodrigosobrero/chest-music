@@ -31,7 +31,7 @@ const SharedToast = () => {
             type='button'
             onMouseEnter={toggleHover}
             onMouseLeave={toggleHover}
-            className={`p-2.5 rounded-[10px] xl:flex hidden transition duration-500  border-[3px] border-transparent active:border-gray-700 ${open && 'bg-neutral-silver-700 border-neutral-silver-600'}`}
+            className={`p-2.5 rounded-[10px] md:flex hidden transition duration-500  border-[3px] border-transparent active:border-gray-700 ${open && 'bg-neutral-silver-700 border-neutral-silver-600'}`}
             onClick={toggleOpen}>
             <img src={isHover ? webdisabled : webdisabledgray} alt='' width={24} height={24} />
         </button>

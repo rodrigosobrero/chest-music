@@ -30,7 +30,7 @@ const AccountPlan = ({  }) => {
       </Modal>
       <div className='container-accountPlan'>
          <h4 className='text-[22px] font-archivo font-semibold'>{t('account.my_plan')}</h4>
-         <div className='flex gap-y-8 xl:gap-x-14 flex-col xl:flex-row'>
+         <div className='flex gap-y-8 md:gap-x-14 flex-col md:flex-row'>
             <div className='space-y-4'>
                <h5 className='text-neutral-silver-200 text-base'>{t('account.storage')}</h5>
                <div className='flex gap-x-4'>
@@ -55,8 +55,8 @@ const AccountPlan = ({  }) => {
             </div>
             <div className='space-y-4'>
                <h5 className='text-neutral-silver-200 text-base'>{t('account.current_plan')}</h5>
-               <div className='flex flex-col xl:flex-row gap-4'>
-                    <div className='xl:w-3/5 '>
+               <div className='flex flex-col md:flex-row gap-4'>
+                    <div className='md:w-3/5 '>
                         <h5 className='mb-1 text-xl'>{t('global.free')}</h5>
                         <span className='text-neutral-silver-300 text-sm'>
                             Amet pretium 1 GB scelerisque leo ut non lorem neque.

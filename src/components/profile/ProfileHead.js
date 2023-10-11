@@ -6,16 +6,16 @@ const ProfileHead = () => {
   const storage = 1000
   const used = 242.2
   return (
-        <div className='flex w-full flex-col gap-y-3 xl:flex-row xl:justify-between xl:items-center xl:px-0 px-2'>
+        <div className='flex w-full flex-col gap-y-3 md:flex-row md:justify-between md:items-center md:px-0 px-2'>
             <div className='flex items-center gap-x-4'>
-                <h3 className='font-thunder-bold text-[64px] leading-[68px] xl:text-[76px] font-bold'>Agustin Posse</h3>
+                <h3 className='font-thunder-bold text-[64px] leading-[68px] md:text-[76px] font-bold'>Agustin Posse</h3>
                 <button className='p-2 flex items-center'>
-                    <img src={pencil} alt='' width={24} height={24} className='xl:flex hidden' />
+                    <img src={pencil} alt='' width={24} height={24} className='md:flex hidden' />
                 </button>
             </div>
-            <div className='flex justify-between flex-row-reverse xl:flex-row items-center gap-x-4'>
+            <div className='flex justify-between flex-row-reverse md:flex-row items-center gap-x-4'>
                 <div className='flex flex-col items-end'>
-                    <span className='text-right text-neutral-silver-100 xl:text-[14px] leading-[18px]'>
+                    <span className='text-right text-neutral-silver-100 md:text-[14px] leading-[18px]'>
                         {used} Mb <span className='text-neutral-silver-300 leading-[18px] tracking-[0.14px]'> of </span> {storage/1000}GB
                     </span>
                     <ProgressBar 
@@ -25,7 +25,7 @@ const ProfileHead = () => {
                     direction='right'
                     background='gray' />
                 </div>
-                <div className='flex items-center flex-row-reverse xl:flex-row xl:gap-x-4 gap-x-3'>
+                <div className='flex items-center flex-row-reverse md:flex-row md:gap-x-4 gap-x-3'>
                     <span className='text-brand-gold font-thunder font-normal leading-9	text-4xl tracking-[0.36px]'>{Math.round((used / storage) * 100)}%</span>
                     <button className='p-2 bg-brand-gold rounded-[10px] cursor-pointer'>
                         <img src={cloud} alt='' width={28} height={28}  />

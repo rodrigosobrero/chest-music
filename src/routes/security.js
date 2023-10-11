@@ -20,13 +20,13 @@ const Security = () => {
             <Elipse key={index} /> 
           ));
         return  (
-            <div className='xl:w-2/4 p-6 xl:p-8 xl:pr-10 bg-neutral-black rounded-2xl flex justify-between font-archivo items-center '>
+            <div className='md:w-2/4 p-6 md:p-8 md:pr-10 bg-neutral-black rounded-2xl flex justify-between font-archivo items-center '>
                 <div className='flex font-semibold gap-6 items-center'>
                     <div>
                        {icon}
                     </div>
-                    <div className='flex flex-col gap-y-2 text-xl xl:text-[22px] '> 
-                       <h5>
+                    <div className='flex flex-col gap-y-2 '> 
+                       <h5 className='text-xl md:text-[22px] font-archivo normal-case'>
                          {title}
                        </h5>
                        <div className='flex gap-x-1.5'>
@@ -71,20 +71,20 @@ const Security = () => {
         <ChangeDataModal toggle={togglePin} primaryButton={t('global.confirm')} secondaryButton={t('global.cancel')}
                         inputsData={inputsDataPin} title='Change Pin Code' handleChange={handlePinChange} isAvailable={isAvailable}  />
       </Modal>
-      <div className='xl:px-[60px] px-1'>
-         <Breadcrumb className='px-3 xl:px-0' items={paths}/>
+      <div className='px-3 pt-4 pb-10 md:container md:px-[120px] md:pb-[60px] md:pt-[40px]'>
+         <Breadcrumb className='px-3 md:px-0' items={paths}/>
          <div className='container-head-account'>
           <div className='container-items-account'>
               <h4 className='font-thunder-bold text-5xl font-bold uppercase'>{items[3].title}</h4>
-              <h5 className='text-neutral-silver-200 text-base xl:text-lg'>{t('security.change_password')}</h5>
+              <h5 className='text-neutral-silver-200 text-base md:text-lg'>{t('security.change_password')}</h5>
           </div>
          </div>
-         <div className='w-full flex flex-col gap-y-4 xl:gap-y-6'>
-            <div className='w-full flex flex-col xl:flex-row gap-x-6 gap-y-4'>
+         <div className='w-full px-1 md:px-0 flex flex-col gap-y-4 md:gap-y-6'>
+            <div className='w-full flex flex-col md:flex-row gap-x-6 gap-y-4'>
               <Casillero title={t('security.pin')} icon={<ViewGrid className="h-8 w-8 " />} quantity={4} onClick={() => togglePin()}/>
               <Casillero title={t('global.password')} icon={<KeyIcon className="h-8 w-8 text-gray-500" />} quantity={8} onClick={() => togglePassword()}/>
             </div>
-            <div className='w-full bg-neutral-black p-6 xl:p-8 rounded-3xl'>
+            <div className='w-full bg-neutral-black p-6 md:p-8 rounded-3xl'>
                 <h4 className='font-archivo font-semibold text-[22px]'>
                   {t('security.subtitle')}
                 </h4>

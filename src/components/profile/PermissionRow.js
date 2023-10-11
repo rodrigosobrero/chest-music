@@ -8,7 +8,7 @@ const ManageRow = ({ data, isMobile }) => {
       <td className='text-lg'>{data.name}</td>
       <td>@{data.username}</td>
       <td>{data.plays}</td>
-      <td className='xl:flex hidden'>{timeDifference(data.date)}</td>
+      <td className='md:flex hidden'>{timeDifference(data.date)}</td>
       <td>
         <button className='p-2.5 '>
            <XMarkIcon className='h-6 w-6 text-white' />

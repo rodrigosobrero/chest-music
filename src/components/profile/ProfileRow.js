@@ -10,7 +10,7 @@ const ProfileRow = ({ title, subtitle, to, icon }) => {
     <>
     <div>
       <NavLink to={to}>
-        <div className='font-archivo mx-auto bg-neutral-black p-4  xl:pr-6 rounded-xl flex items-center gap-x-2 justify-between'>  
+        <div className='font-archivo mx-auto bg-neutral-black p-4  md:pr-6 rounded-xl flex items-center gap-x-2 justify-between'>  
               <div className='flex items-center gap-x-4'>
                   <div className={'bg-neutral-silver-700 rounded-xl flex justify-center items-center p-3'}>
                       {icon}

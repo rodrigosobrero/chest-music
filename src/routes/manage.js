@@ -37,11 +37,11 @@ export default function Manage() {
         </div>
       </Modal>
 
-      <div className='flex justify-center flex-col space-y-2 items-center h-full px-4 py-[32px] xl:px-20'>
+      <div className='flex justify-center flex-col space-y-2 items-center h-full px-4 py-[32px] md:px-20'>
         <div className='w-full items-start'>
         <Breadcrumb className='px-0' items={breadcrumbItems}/>
         </div>
-        <div className='xl:hidden flex items-center justify-between h-20 bg-neutral-silver-600 p-3 w-full rounded-xl'>
+        <div className='md:hidden flex items-center justify-between h-20 bg-neutral-silver-600 p-3 w-full rounded-xl'>
            <div className='flex items-center gap-4 '>
                <div className='bg-neutral-black rounded-lg flex justify-center items-center h-10 w-10'>
                     <img src={isOpen ?  unlocked : locked } className='h-4 w-4' alt='lock'/>
@@ -54,9 +54,9 @@ export default function Manage() {
                {t('global.change')}                  
            </button>
         </div>
-        <div className='bg-neutral-black h-28 w-full rounded-t-3xl rounded-b-md flex items-center justify-between px-6 xl:px-20'>
+        <div className='bg-neutral-black h-28 w-full rounded-t-3xl rounded-b-md flex items-center justify-between px-6 md:px-20'>
             <h3 className='uppercase'>{isOpen ? t('manage.blocked_users') : t('manage.allowed_users') }</h3>
-            <div className='p-2 hidden xl:flex items-center bg-neutral-silver-600 rounded-xl space-x-4'>
+            <div className='p-2 hidden md:flex items-center bg-neutral-silver-600 rounded-xl space-x-4'>
                 <div className='bg-neutral-black rounded-lg flex justify-center items-center h-10 w-10'>
                     <img src={isOpen ?  unlocked : locked } className='h-4 w-4' alt='lock'/>
                 </div>
@@ -71,7 +71,7 @@ export default function Manage() {
                 </button>
             </div>
         </div>
-        <div className='bg-neutral-black w-full flex flex-col items-center rounded-b-3xl rounded-t-md px-6 py-4 xl:py-10 xl:px-20'>
+        <div className='bg-neutral-black w-full flex flex-col items-center rounded-b-3xl rounded-t-md px-6 py-4 md:py-10 md:px-20'>
              <ManageList data={manage} privacyIsOpen={isOpen}/> 
              <ManageButton isOpen={isOpen} />
         </div>

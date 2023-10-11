@@ -11,10 +11,10 @@ const Permissions = () => {
   let paths = [{ name:'Profile', link: '/profile' }, { name: items[1].title }]
   return (
     <>
-      <div className='xl:px-[60px]'>
-      <Breadcrumb className='px-2 xl:px-0' items={paths}/>
-        <div className='flex flex-col xl:flex-row justify-between mt-5 mb-8 gap-y-6 px-1 xl:px-0'>
-                <div className='xl:px-0 px-2 container-items-account'>
+      <div className='pt-4 pb-10 px-3 md:container md:pt-10 md:px-[120px] md:pb-[60px]'>
+      <Breadcrumb className='px-3 md:px-0' items={paths}/>
+        <div className='flex flex-col md:flex-row justify-between mt-5 mb-8 gap-y-6 px-1 md:px-0'>
+                <div className='md:px-0 px-3 container-items-account'>
                     <h4 className='font-thunder-bold text-5xl font-bold uppercase'>{items[1].title}</h4>
                     <h5>{t('permissions.subtitle')}</h5>
                 </div>
@@ -25,7 +25,7 @@ const Permissions = () => {
                   </span>
                 </div>
         </div>
-        <div className='bg-neutral-black flex flex-col items-center w-full rounded-2xl xl:rounded-3xl px-4 pt-3 pb-6 xl:py-10 xl:px-[60px]'>
+        <div className='bg-neutral-black flex flex-col items-center w-full rounded-2xl md:rounded-3xl px-4 pt-3 pb-6 md:py-10 md:px-[60px]'>
                 <PermissionsList data={permissions} /> 
                 <ManageButton />
         </div>

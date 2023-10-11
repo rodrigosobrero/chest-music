@@ -35,7 +35,7 @@ const Notification = ({notifications}) => {
               <div className={`w-[80px] mx-auto h-0.5 mt-1.5 border border-brand-gold ${status !== 'general' && 'hidden'}`}></div>
            </div>
         </div>
-        <div className='w-full xl:w-[680px] bg-neutral-silver-700   flex min-h-[80%] overflow-y-auto flex-col xl:px-8 xl:py-10 p-3 space-y-2 rounded-2xl'>
+        <div className='w-full md:w-[680px] bg-neutral-silver-700   flex min-h-[80%] overflow-y-auto flex-col md:px-8 md:py-10 p-3 space-y-2 rounded-2xl'>
             {status === 'general' ? <GeneralList data={generalNotifications} /> : <NotificationList invites={invites} />}
         </div>
       </div>
