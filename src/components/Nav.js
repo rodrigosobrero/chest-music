@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-import logo from 'assets/images/logo.svg';
-import bell from 'assets/images/icon-bell.svg';
 import Tag from 'components/Tag';
 import navData from 'data/config.json';
 
+import { BellIcon } from '@heroicons/react/24/outline';
+
+import logo from 'assets/images/logo.svg';
 import menuIcon from 'assets/images/icon-menu.svg';
 import closeIcon from 'assets/images/icon-close.svg';
 
@@ -16,7 +17,6 @@ export default function Nav() {
 
   /* replace with session */
   const location = useLocation();
-  const signed = !location.pathname === '/sign-up' || !location.pathname === '/sign-in';
   const data = location.pathname === '/sign-up' || location.pathname === '/sign-in' ?
     navData.nav.filter(item => !item.private) :
     navData.nav.filter(item => item.private);
@@ -39,20 +39,18 @@ export default function Nav() {
                 data.map((item, index) =>
                   <li
                     key={index}
-                    className={`${item.button && 'bg-brand-gold rounded-[10px] px-4 py-[9px]'}`}>
+                    className={`${item.button ? 'bg-brand-gold rounded-[10px] px-4 py-[9px]' : ''}`}>
                     <NavLink to={item.link}>
                       {item.name}
                     </NavLink>
                   </li>
                 )
               }
-              {signed &&
-                <li className='flex items-center'>
-                  <a href="/notifications">
-                    <img src={bell} alt="" width={24} height={24} />
-                  </a>
-                </li>
-              }
+              <li className='flex items-center'>
+                <a href='/notifications' className='p-1 hover:!text-white text-gray-500'>
+                  <BellIcon className='h-6 w-6' />
+                </a>
+              </li>
             </ul>
           </div>
           <div className='md:hidden'>
