@@ -231,7 +231,7 @@ export default function Upload() {
 
   return (
     <>
-      <div className='md:container py-8 md:py-[60px]'>
+      <div className='md:container py-8 md:py-[60px] px-3 md:px-0'>
         <div className='uploader p-4 md:p-[60px]'>
           {step === 0 ? stepOne() : stepTwo()}
         </div>
