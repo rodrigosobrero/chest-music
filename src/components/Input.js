@@ -4,7 +4,6 @@ import { EyeIcon } from '@heroicons/react/24/outline';
 
 export default function Input({ type, placeholder, label, name, value, onChange, showHide, helper, required }) {
   const [inputType, setInputType] = useState(type);
-
   const showHidePassword = () => {
     if (inputType === 'password') {
       setInputType('text');

@@ -2,14 +2,12 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Nav from 'components/Nav';
 import Footer from 'components/Footer';
 import Player from 'components/player/Player';
-
 export default function Root() {
   /* replace with session */
   const location = useLocation();
-  const connected = location.pathname === '/sign-up' 
-                    || location.pathname === '/sign-in' 
-                    || location.pathname === '/setup'
-                    ? true : false;
+  console.log(location.pathname.includes('/notifications'))
+  const connected = location.pathname === '/sign-up' || location.pathname === '/sign-in' 
+                    || location.pathname.includes('/notifications') || location.pathname === '/shared'  || location.pathname === '/setup'  ? true : false;
 
   return (
     <>
@@ -22,7 +20,7 @@ export default function Root() {
           ${location.pathname === '/setup' ? 'bg-black md:bg-neutral-silver-700 account-selector' : ''}`}>
           <Outlet />
         </main>
-        <Footer />
+         <Footer />
         <Player />
       </div>
     </>
