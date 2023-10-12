@@ -19,6 +19,7 @@ import Account from 'routes/account';
 import Security from 'routes/security';
 import Terms from 'routes/terms';
 import Help from 'routes/help';
+import Share from 'routes/share';
 import reportWebVitals from './reportWebVitals';
 import store from 'app/store';
 import { Provider } from 'react-redux';
@@ -92,6 +93,10 @@ const router = createBrowserRouter([
       {
         path: 'notifications/manage',
         element: <Manage />
+      },
+      {
+        path: '/share/:trackid',
+        element: <Share />
       }
     ],
   }
