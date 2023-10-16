@@ -1,12 +1,13 @@
 import React from 'react'
 
-const Button = ({ isActive, icon, text, className}) => {
+const Button = ({ isActive, icon, text, className, onClick}) => {
   
   return (
     <>
     <div className='flex flex-col'>
-        <button className={`py-3 px-4 font-archivo font-semibold text-base  rounded-xl flex items-center gap-x-2 ${className}
-                       ${isActive ? 'bg-brand-gold text-neutral-black' : 'bg-neutral-silver-700 text-neutral-silver-200'}`}>
+        <button onClick={onClick} className={`py-3 px-4 font-archivo font-semibold text-base  rounded-xl flex items-center gap-x-2 ${className}
+                       ${isActive ? 'bg-brand-gold text-neutral-black' : 'bg-neutral-silver-700 text-neutral-silver-200'}
+                       transition-colors duration-600`}>
             {icon}
             {text}
         </button>

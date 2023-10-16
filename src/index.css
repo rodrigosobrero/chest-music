@@ -507,3 +507,21 @@ input[type="checkbox"]:checked::before {
 .container-accountPlan h5, h4, span {
   @apply font-archivo normal-case	text-left ;
 }
+/* CARROUCEL */
+.button-carousel-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.button {
+  border: none;
+  background-color: transparent;
+  padding: 10px;
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.3s ease;
+}
+
+.button.active {
+  transform: scale(1.1); /* Agranda el botón activo */
+}
