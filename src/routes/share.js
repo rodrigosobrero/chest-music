@@ -23,12 +23,20 @@ const Share = () => {
               <Button text={'Send to users'} isActive={false} icon={<IconSend className="h-7 w-7 text-neutral-black" />}/>
             </div>
             <div className='bg-neutral-silver-700 md:w-[680px] md:px-8 md:py-12 gap-y-6 md:rounded-xl flex flex-col items-center'>
-              <div className='flex md:flex-row flex-col items-center md:w-4/5'>
+              <div className='flex md:flex-row flex-col items-center md:w-4/5 gap-5'>
                 <div className='w-3/4'>
-                  <Input label='Play limit' required={true} />
+                  <Input label='Play limit' required={true}placeholder={'Only numbers...'} />
                 </div>
-                <div className='w-1/4'>
-                  toggle
+                <div className='w-1/4 flex'>
+                <label class="relative inline-flex items-center cursor-pointer -mb-6">
+                  <input type="checkbox" value="" class="sr-only peer" onChange={() => console.log('changed')}/>
+                  <div class="w-11 h-6 bg-neutral-silver-400 peer-focus:outline-none peer-focus:ring-4 
+                  peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full
+                   peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px]
+                   after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5
+                   after:w-5 after:transition-all  peer-checked:bg-green-600 md:mr-2"></div>
+                   <span>Unlimited</span>
+                </label>
                 </div>
               </div>
               <div className='flex flex-row gap-x-2.5 md:w-4/5'>
