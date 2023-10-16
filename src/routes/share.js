@@ -37,9 +37,7 @@ const Share = () => {
               </div>
               <div className='w-4/5'>
                 <Input label={'URL'} />
-
               </div>
-
             </div>
            </div>
         </div>
