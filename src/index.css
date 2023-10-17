@@ -525,3 +525,22 @@ input[type="checkbox"]:checked::before {
 .button.active {
   transform: scale(1.1); /* Agranda el botón activo */
 }
+.share-button {
+  @apply py-3 px-4 text-base font-semibold font-archivo flex items-center gap-2 rounded-xl bg-neutral-silver-700 text-neutral-silver-200;
+  transition: transform 0.3s ease; /* Agregamos una transición de transformación para suavizar la animación. */
+  transform: translateX(0); /* Restablecemos la transformación a su posición original. */
+  min-width: 160px; /* Establecemos un ancho mínimo para los botones. Ajusta esto según tus necesidades. */
+  align-items: center; /* Centramos verticalmente el contenido en el botón. */
+  width: 200px;
+}
+.share-button.isActive {
+  @apply bg-brand-gold  text-neutral-black;
+}
+/* Clases para mover los botones hacia la izquierda y la derecha. */
+.share-button.move-left {
+  transform: translateX(-30%);
+}
+
+.share-button.move-right {
+  transform: translateX(30%);
+}

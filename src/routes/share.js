@@ -10,15 +10,15 @@ import SendDM from 'components/share/SendDM';
 const Share = () => {
   const [ status, setStatus ] = React.useState('generate');
   const [ isUnlimited, setIsUnlimited ] = React.useState(false)
-  const [activeButton, setActiveButton] = React.useState(1);
+  const [activeButton, setActiveButton] = React.useState(2);
   const toggleUnlimited = () => setIsUnlimited(!isUnlimited)
-
   const handleButtonClick = (buttonNumber) => {
     setActiveButton(buttonNumber);
   };
+
   return (
     <>
-      <div className='md:container md:p-[60px] md:rounded-3xl rounded-2xl bg-neutral-black my-10 md:gap-y-8 '>
+      <div className='md:container md:p-[60px] md:rounded-3xl rounded-2xl w-full  bg-neutral-black my-10 md:gap-y-8 '>
         <div className='flex flex-col items-center md:gap-y-6 gap-y-4'>
            <h3 className='md:text-[64px] text-[48px] text-center'> SHARE YOUR TREASURE </h3>
            <img src={track.cover} alt='track cover' className='md:w-[200px] md:h-[200px] w-[140px] h-[140px]'/>
@@ -35,24 +35,35 @@ const Share = () => {
               <Button text={'Send to users'} isActive={status === 'send'} icon={<IconSend className="h-7 w-7"/>} 
                       onClick={() => setStatus('send')}/>
             </div>
-            <div class="w-full p-4">
-              <div class="gap-4 flex">
+            <div className="flex max-w-[100vw] items-center justify-center overflow-x-hidden space-x-2">
               <button
-                className={`col-span-1 w-40 focus:outline-none transition-transform bg-neutral-silver-300 transform hover:scale-105 ${activeButton === 1 ? 'ml-0 !bg-brand-gold' : '-ml-10'}`}
+                className={`share-button  min-w-[10rem]
+                  ${activeButton === 2 && '!-translate-x-[10px]'}
+                  ${activeButton === 3 && '!-translate-x-[80px]'}
+                  ${activeButton === 1 && '!translate-x-[80px] && isActive'}
+                  `}
                 onClick={() => handleButtonClick(1)}>
-                Botón 1
+                <LinkIcon className="h-7 w-7 text-neutral-black"/>
+                <span>Generate Link
+                  </span> 
               </button>
               <button
-                className={`col-span-1 w-40 focus:outline-none transition-transform bg-neutral-silver-300 transform hover:scale-105 ${activeButton === 2 ? 'ml-0 !bg-brand-gold' : '-ml-10'}`}
-                onClick={() => handleButtonClick(2)}> 
-              Botón 2
+                className={`share-button
+                  ${activeButton === 1 && '!translate-x-[80px]'}
+                  ${activeButton === 2 && 'isActive scale-125 && isActive'}
+                  ${activeButton === 3 && '!-translate-x-[80px] '}
+                `}
+                onClick={() => handleButtonClick(2)}>
+                <IconTwitter className="h-7 w-7"/>   Instagram
               </button>
               <button
-                className={`col-span-1 w-40 focus:outline-none transition-transform bg-neutral-silver-300 transform hover:scale-105 ${activeButton === 3 ? 'ml-0 !bg-brand-gold' : '-ml-10'}`}
-                onClick={() => handleButtonClick(3)}> 
-              Botón 3
+                className={`share-button 
+                  ${activeButton === 1 && '!translate-x-[80px]'}
+                  ${activeButton === 2 && '!translate-x-[10px]'}
+                  ${activeButton === 3 && '!-translate-x-[80px] && isActive'} `}
+                onClick={() => handleButtonClick(3)}>
+                <IconSend className="h-7 w-7"/> Tiktok
               </button>
-              </div>
             </div>
             <div className='bg-neutral-silver-700 w-full md:w-[680px] md:px-8 md:py-12 gap-y-6 md:rounded-xl flex flex-col items-center'>
               {status === 'generate' && <LinkGenerate toggleUnlimited={toggleUnlimited} />}
