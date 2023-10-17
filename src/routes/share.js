@@ -10,7 +10,12 @@ import SendDM from 'components/share/SendDM';
 const Share = () => {
   const [ status, setStatus ] = React.useState('generate');
   const [ isUnlimited, setIsUnlimited ] = React.useState(false)
+  const [activeButton, setActiveButton] = React.useState(1);
   const toggleUnlimited = () => setIsUnlimited(!isUnlimited)
+
+  const handleButtonClick = (buttonNumber) => {
+    setActiveButton(buttonNumber);
+  };
   return (
     <>
       <div className='md:container md:p-[60px] md:rounded-3xl rounded-2xl bg-neutral-black my-10 md:gap-y-8 '>
@@ -29,6 +34,25 @@ const Share = () => {
                       onClick={() => setStatus('post')}/>
               <Button text={'Send to users'} isActive={status === 'send'} icon={<IconSend className="h-7 w-7"/>} 
                       onClick={() => setStatus('send')}/>
+            </div>
+            <div class="w-full p-4">
+              <div class="gap-4 flex">
+              <button
+                className={`col-span-1 w-40 focus:outline-none transition-transform bg-neutral-silver-300 transform hover:scale-105 ${activeButton === 1 ? 'ml-0 !bg-brand-gold' : '-ml-10'}`}
+                onClick={() => handleButtonClick(1)}>
+                Botón 1
+              </button>
+              <button
+                className={`col-span-1 w-40 focus:outline-none transition-transform bg-neutral-silver-300 transform hover:scale-105 ${activeButton === 2 ? 'ml-0 !bg-brand-gold' : '-ml-10'}`}
+                onClick={() => handleButtonClick(2)}> 
+              Botón 2
+              </button>
+              <button
+                className={`col-span-1 w-40 focus:outline-none transition-transform bg-neutral-silver-300 transform hover:scale-105 ${activeButton === 3 ? 'ml-0 !bg-brand-gold' : '-ml-10'}`}
+                onClick={() => handleButtonClick(3)}> 
+              Botón 3
+              </button>
+              </div>
             </div>
             <div className='bg-neutral-silver-700 w-full md:w-[680px] md:px-8 md:py-12 gap-y-6 md:rounded-xl flex flex-col items-center'>
               {status === 'generate' && <LinkGenerate toggleUnlimited={toggleUnlimited} />}
