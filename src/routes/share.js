@@ -35,17 +35,16 @@ const Share = () => {
               <Button text={'Send to users'} isActive={status === 'send'} icon={<IconSend className="h-7 w-7"/>} 
                       onClick={() => setStatus('send')}/>
             </div>
-            <div className="flex max-w-[100vw] items-center justify-center overflow-x-hidden space-x-2">
+            <div className="flex md:hidden max-w-[100vw] items-center justify-center overflow-x-auto space-x-2">
               <button
-                className={`share-button  min-w-[10rem]
+                className={`share-button !min-w-[11rem]
                   ${activeButton === 2 && '!-translate-x-[10px]'}
                   ${activeButton === 3 && '!-translate-x-[80px]'}
                   ${activeButton === 1 && '!translate-x-[80px] && isActive'}
                   `}
                 onClick={() => handleButtonClick(1)}>
                 <LinkIcon className="h-7 w-7 text-neutral-black"/>
-                <span>Generate Link
-                  </span> 
+                <span>Generate link </span> 
               </button>
               <button
                 className={`share-button
@@ -65,12 +64,13 @@ const Share = () => {
                 <IconSend className="h-7 w-7"/> Tiktok
               </button>
             </div>
-            <div className='bg-neutral-silver-700 w-full md:w-[680px] md:px-8 md:py-12 gap-y-6 md:rounded-xl flex flex-col items-center'>
+            <div className='bg-neutral-silver-700 w-full md:w-[680px] px-6 py-8 gap-y-5 md:px-8 md:py-12 md:gap-y-6 md:rounded-xl 
+                            flex flex-col items-start md:items-center'>
               {status === 'generate' && <LinkGenerate toggleUnlimited={toggleUnlimited} />}
               {status === 'post' && <PostTwitter toggleUnlimited={toggleUnlimited}/>}
               {status === 'send' && <SendDM toggleUnlimited={toggleUnlimited}/>}
             </div>
-            <div className='md:w-4/5 flex md:gap-5 gap-4 md:mt-6 mt-3 font-semibold font-archivo text-xl'>
+            <div className='md:max-w-md w-full flex md:gap-5 gap-4 md:mt-6 mt-4 font-semibold font-archivo text-xl px-6 md:px-0'>
                 <button className='px-6 py-3 w-full bg-neutral-silver-600 rounded-[10px]'>Cancel</button>  
                 <button className='px-6 py-3 w-full bg-brand-gold rounded-[10px] text-neutral-black'>Send</button>           
             </div>

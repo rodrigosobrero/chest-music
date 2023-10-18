@@ -5,13 +5,13 @@ import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 const SendDM = () => {
   return (
     <>
-            <div className='flex md:flex-row flex-col items-center md:w-4/5 gap-5'>
-                <div className='w-3/4'>
-                <Input label='Play limit' required={true}placeholder={'Only numbers...'} />
+            <div className='flex md:flex-row flex-col items-start md:items-center md:w-4/5 gap-5'>
+                <div className='w-full md:w-3/4'>
+                <Input label='Play limit' required={true} placeholder={'Only numbers...'} />
                 </div>
-                <div className='w-1/4 flex items-center'>
-                <Toggle />
-                <span className='-mb-7'>Unlimited</span>
+                <div className='w-full md:w-1/4 flex items-center '>
+                    <Toggle />
+                    <span className='-mb-7'>Unlimited</span>
                 </div>
             </div>
             <div className='flex flex-row gap-x-2.5 items-center md:w-4/5'>

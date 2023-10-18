@@ -5,11 +5,11 @@ import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 const LinkGenerate = ({ toggleUnlimited }) => {
   return (
     <>
-            <div className='flex md:flex-row flex-col items-center md:w-4/5 gap-5'>
-                <div className='w-3/4'>
+            <div className='flex md:flex-row flex-col items-start md:items-center w-full md:w-4/5 gap-5'>
+                <div className='w-full md:w-3/4'>
                 <Input label='Play limit' required={true}placeholder={'Only numbers...'} />
                 </div>
-                <div className='w-1/4 flex items-center'>
+                <div className='w-1/4 flex items-center gap-x-2.5 pb-5 mb-5 md:pb-0 md:mb-0'>
                 <Toggle onChange={toggleUnlimited}/>
                 <span className='-mb-7'>Unlimited</span>
                 </div>
@@ -19,7 +19,7 @@ const LinkGenerate = ({ toggleUnlimited }) => {
                 <label className='text-base font-archivo'>Allow web play</label>
                 <QuestionMarkCircleIcon className="h-5 w-5 text-neutral-silver-300" />
             </div>
-            <div className='w-4/5'>
+            <div className='w-full md:w-4/5'>
                 <Input label={'URL'} showClipboard={true} disabled={true}/>
             </div>
      </>
