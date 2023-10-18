@@ -35,7 +35,7 @@ const Share = () => {
               <Button text={'Send to users'} isActive={status === 'send'} icon={<IconSend className="h-7 w-7"/>} 
                       onClick={() => setStatus('send')}/>
             </div>
-            <div className="flex md:hidden max-w-[100vw] items-center justify-center overflow-x-auto space-x-2">
+            <div className="flex md:hidden max-w-[100vw] items-center justify-center space-x-2">
               <button
                 className={`share-button !min-w-[11rem]
                   ${activeButton === 2 && '!-translate-x-[10px]'}
