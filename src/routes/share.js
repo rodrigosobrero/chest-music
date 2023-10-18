@@ -7,13 +7,13 @@ import Button from 'components/share/Button';
 import LinkGenerate from 'components/share/LinkGenerate';
 import PostTwitter from 'components/share/PostTwitter';
 import SendDM from 'components/share/SendDM';
+import OptionSectionMobile from 'components/share/OptionSectionMobile';
 const Share = () => {
   const [ status, setStatus ] = React.useState('generate');
   const [ isUnlimited, setIsUnlimited ] = React.useState(false)
-  const [activeButton, setActiveButton] = React.useState(2);
   const toggleUnlimited = () => setIsUnlimited(!isUnlimited)
-  const handleButtonClick = (buttonNumber) => {
-    setActiveButton(buttonNumber);
+  const changeStatus = (status) => {
+    setStatus(status);
   };
 
   return (
@@ -35,35 +35,7 @@ const Share = () => {
               <Button text={'Send to users'} isActive={status === 'send'} icon={<IconSend className="h-7 w-7"/>} 
                       onClick={() => setStatus('send')}/>
             </div>
-            <div className="flex md:hidden max-w-[100vw] items-center justify-center space-x-2">
-              <button
-                className={`share-button !min-w-[11rem]
-                  ${activeButton === 2 && '!-translate-x-[10px]'}
-                  ${activeButton === 3 && '!-translate-x-[80px]'}
-                  ${activeButton === 1 && '!translate-x-[80px] && isActive'}
-                  `}
-                onClick={() => handleButtonClick(1)}>
-                <LinkIcon className="h-7 w-7 text-neutral-black"/>
-                <span>Generate link </span> 
-              </button>
-              <button
-                className={`share-button
-                  ${activeButton === 1 && '!translate-x-[80px]'}
-                  ${activeButton === 2 && 'isActive scale-125 && isActive'}
-                  ${activeButton === 3 && '!-translate-x-[80px] '}
-                `}
-                onClick={() => handleButtonClick(2)}>
-                <IconTwitter className="h-7 w-7"/>   Instagram
-              </button>
-              <button
-                className={`share-button 
-                  ${activeButton === 1 && '!translate-x-[80px]'}
-                  ${activeButton === 2 && '!translate-x-[10px]'}
-                  ${activeButton === 3 && '!-translate-x-[80px] && isActive'} `}
-                onClick={() => handleButtonClick(3)}>
-                <IconSend className="h-7 w-7"/> Tiktok
-              </button>
-            </div>
+          <OptionSectionMobile status={status} changeStatus={changeStatus}/>
             <div className='bg-neutral-silver-700 w-full md:w-[680px] px-6 py-8 gap-y-5 md:px-8 md:py-12 md:gap-y-6 md:rounded-xl 
                             flex flex-col items-start md:items-center'>
               {status === 'generate' && <LinkGenerate toggleUnlimited={toggleUnlimited} />}
