@@ -20,6 +20,7 @@ import Security from 'routes/security';
 import Terms from 'routes/terms';
 import Help from 'routes/help';
 import Share from 'routes/share';
+import ShareStory from 'components/share/pages/ShareStory';
 import reportWebVitals from './reportWebVitals';
 import store from 'app/store';
 import { Provider } from 'react-redux';
@@ -95,8 +96,12 @@ const router = createBrowserRouter([
         element: <Manage />
       },
       {
-        path: '/share/:trackid',
+        path: '/share/:trackId',
         element: <Share />
+      },
+      {
+        path: '/share/instagram/:trackId',
+        element: <ShareStory />
       }
     ],
   }

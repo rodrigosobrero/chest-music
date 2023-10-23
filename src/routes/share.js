@@ -1,13 +1,12 @@
 import React from 'react'
 import track from 'data/track.json'
-import { LinkIcon } from "@heroicons/react/24/solid";
-import { ReactComponent as IconTwitter } from 'assets/images/icon-x.svg'
-import { ReactComponent as IconSend } from 'assets/images/icon-send.svg'
-import Button from 'components/share/Button';
-import LinkGenerate from 'components/share/LinkGenerate';
-import PostTwitter from 'components/share/PostTwitter';
-import SendDM from 'components/share/SendDM';
+import LinkGenerate from 'components/share/sections/LinkGenerate';
+import PostTwitter from 'components/share/sections/PostTwitter';
+import SendDM from 'components/share/sections/SendDM';
 import OptionSectionMobile from 'components/share/OptionSectionMobile';
+import Story from 'components/share/sections/Story';
+import OptionSectionDesktop from 'components/share/OptionSectionDesktop';
+import Reel from 'components/share/sections/ReelTiktok';
 const Share = () => {
   const [ status, setStatus ] = React.useState('generate');
   const [ isUnlimited, setIsUnlimited ] = React.useState(false)
@@ -18,7 +17,7 @@ const Share = () => {
 
   return (
     <>
-      <div className='md:container md:p-[60px] md:rounded-3xl rounded-2xl w-full  bg-neutral-black my-10 md:gap-y-8 '>
+      <div className='md:container md:p-[60px] md:rounded-3xl  w-full md:py-0 pt-8 pb-10  bg-neutral-black md:my-10 md:gap-y-8 '>
         <div className='flex flex-col items-center md:gap-y-6 gap-y-4'>
            <h3 className='md:text-[64px] text-[48px] text-center'> SHARE YOUR TREASURE </h3>
            <img src={track.cover} alt='track cover' className='md:w-[200px] md:h-[200px] w-[140px] h-[140px]'/>
@@ -26,26 +25,15 @@ const Share = () => {
              <h4 className='md:text-[22px] text-base uppercase font-semibold'>{track.title}</h4>
              <h6 className='md:text-xl text-base text-neutral-silver-200'>{track.versions[0].version}</h6>
            </div>
-          <div className='flex flex-col w-full md:items-center'>
-            <div className='md:max-w-xl hidden md:flex md:gap-1.5 md:px-0 px-6'>
-              <Button text={'Generate link'} isActive={status === 'generate'} icon={<LinkIcon className="h-7 w-7 text-neutral-black"/>} 
-                      onClick={() => setStatus('generate')}/>
-              <Button text={'Post'} isActive={status === 'post'} icon={<IconTwitter className="h-7 w-7"/>} 
-                      onClick={() => setStatus('post')}/>
-              <Button text={'Send to users'} isActive={status === 'send'} icon={<IconSend className="h-7 w-7"/>} 
-                      onClick={() => setStatus('send')}/>
-            </div>
-          <OptionSectionMobile status={status} changeStatus={changeStatus}/>
-            <div className='bg-neutral-silver-700 w-full md:w-[680px] px-6 py-8 gap-y-5 md:px-8 md:py-12 md:gap-y-6 md:rounded-xl 
-                            flex flex-col items-start md:items-center'>
+          <div className='flex flex-col w-full md:items-center md:mt-0 mt-4'>
+          <OptionSectionDesktop status={status} changeStatus={changeStatus} />
+          <OptionSectionMobile status={status} changeStatus={changeStatus} />
               {status === 'generate' && <LinkGenerate toggleUnlimited={toggleUnlimited} />}
               {status === 'post' && <PostTwitter toggleUnlimited={toggleUnlimited}/>}
+              {status === 'story' && <Story />}
               {status === 'send' && <SendDM toggleUnlimited={toggleUnlimited}/>}
-            </div>
-            <div className='md:max-w-md w-full flex md:gap-5 gap-4 md:mt-6 mt-4 font-semibold font-archivo text-xl px-6 md:px-0'>
-                <button className='px-6 py-3 w-full bg-neutral-silver-600 rounded-[10px]'>Cancel</button>  
-                <button className='px-6 py-3 w-full bg-brand-gold rounded-[10px] text-neutral-black'>Send</button>           
-            </div>
+              {status === 'reel' && <Reel />}
+
           </div>
         </div>
       </div>
