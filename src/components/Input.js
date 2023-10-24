@@ -12,7 +12,7 @@ export default function Input({ type, placeholder, label, name, value, onChange,
     if(onlyNumeric){
       const handleKeyPress = (evt) => {
         const valueLength = evt.target.value.length
-        if (evt.key < '0' || evt.key > '9' || valueLength >= 6 ) {
+        if (evt.key < '0' || evt.key > '9' || valueLength >= 4 ) {
           evt.preventDefault();
         }
       };

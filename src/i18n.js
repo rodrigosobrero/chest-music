@@ -37,7 +37,6 @@ i18next
             allow: 'Allow',
             free: 'Free',
             block: 'Block',
-            save:'Save',
             placeholder: {
               write_here: 'Write here...',
               search: 'Search...'
@@ -45,7 +44,8 @@ i18next
             edit: 'Edit',
             confirm: 'Confirm',
             user: 'User', 
-            send: 'Send'
+            send: 'Send',
+            generate: 'Generate'
           },
           signin: {
             title: 'open your chest',

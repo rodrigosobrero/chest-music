@@ -10,7 +10,8 @@ const ChangeDataModal = ({ title , subtitle, inputsData ,toggle, primaryButton, 
         <div className='flex flex-col gap-y-4'>
           {inputsData?.map((el,i) => {
             return  <Input label={el.label} key={`input-${i}`} onlyNumeric={el.onlyNumeric}
-            id={el.id}placeholder={el.placeholder} type={el.type} showHide={el.showHide} name={el.name} onChange={handleChange}/>
+                  id={el.id} placeholder={el.placeholder} value={el.value} disabled={el.disabled} 
+                  type={el.type} showHide={el.showHide} name={el.name} onChange={handleChange}/>
           })}
         </div>
         <div className='font-archivo font-semibold flex gap-4'>

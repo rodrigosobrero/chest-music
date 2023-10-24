@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-const useSecurity = () => {
+const useSecurity = (pincode) => {
   const [ isOpenPassword, setIsOpenPassword ] = useState(false)
   const [ isOpenPin, setIsOpenPin ] = useState(false)
   const [ pin, setPin ] = useState({ currentValue: '', new: '', isAvailable: false})
@@ -23,24 +23,21 @@ const useSecurity = () => {
   const checkPin =  (pincode) => {
     return pincode === pin.currentValue
   }
-  useEffect(()=> {
-    if(pin.currentValue.length !== 6 || pin.new.length !== 6 ) {
-      setPin((prevState) => {
-            return {
-              ...prevState,
-              isAvailable: false,
-            };
-        });
+  useEffect(() => {
+    if(pincode !== ''){
+      setPin((prevState) => ({
+        ...prevState,
+        isAvailable: pin.currentValue.length === 4 && pin.new.length === 4,
+      }));
+    } 
+    else{
+      setPin((prevState) => ({
+        ...prevState,
+        isAvailable: pin.new.length === 4,
+      }));
     }
-    else {
-      setPin((prevState) => {
-            return {
-              ...prevState,
-              isAvailable: true,
-            };
-        });
-    }
-  }, [pin.currentValue, pin.new])
+  }, [pin.currentValue, pin.new, pincode]);
+
   return {
     isOpenPassword,
     setIsOpenPassword,
