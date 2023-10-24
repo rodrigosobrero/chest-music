@@ -15,14 +15,11 @@ export default function Modal({ children, show, setShow }) {
         setShow(false);
       }
     }
-
     document.addEventListener('keydown', keyDownHandler);
-
     return () => {
       document.addEventListener('keydown', keyDownHandler);
     }
   }, []);
-
   return (
     <>
       <AnimatePresence>

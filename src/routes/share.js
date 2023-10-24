@@ -33,7 +33,6 @@ const Share = () => {
               {status === 'story' && <Story />}
               {status === 'send' && <SendDM toggleUnlimited={toggleUnlimited}/>}
               {status === 'reel' && <Reel />}
-
           </div>
         </div>
       </div>

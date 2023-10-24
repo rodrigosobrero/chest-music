@@ -2,29 +2,30 @@ import { useState, useEffect } from "react"
 const useSecurity = () => {
   const [ isOpenPassword, setIsOpenPassword ] = useState(false)
   const [ isOpenPin, setIsOpenPin ] = useState(false)
-  const [ newPin, setNewPin ] = useState({ password: '', passwordRepeat: '', isAvailable: false})
-//   const [ newPasswordConfirm, setNewPassordConfirm ] = useState('')
+  const [ pin, setPin ] = useState({ currentValue: '', new: '', isAvailable: false})
   const togglePassword = () => setIsOpenPassword(!isOpenPassword)
   const togglePin = () => { 
     setIsOpenPin(!isOpenPin);
     clearPin();
   };
   const clearPin = () => {
-        setNewPin({ password: '', passwordRepeat: '', isAvailable:false})
+    setPin({ currentValue: '', new: '', isAvailable:false})
   }
   const handlePinChange = (e) => {
     e.preventDefault()
-    console.log(e.target.name, e.target.value)
-    setNewPin((prevState) => {
-        return {
-          ...prevState,
-          [e.target.name]: e.target.value,
-        };
-      });
+    setPin((prevState) => {
+          return {
+            ...prevState,
+            [e.target.name]:  e.target.value,
+          };
+    });
+  }
+  const checkPin =  (pincode) => {
+    return pincode === pin.currentValue
   }
   useEffect(()=> {
-    if(newPin.password === '' || newPin.passwordRepeat === '') {
-        setNewPin((prevState) => {
+    if(pin.currentValue.length !== 6 || pin.new.length !== 6 ) {
+      setPin((prevState) => {
             return {
               ...prevState,
               isAvailable: false,
@@ -32,24 +33,26 @@ const useSecurity = () => {
         });
     }
     else {
-        setNewPin((prevState) => {
+      setPin((prevState) => {
             return {
               ...prevState,
               isAvailable: true,
             };
         });
     }
-  }, [newPin.password, newPin.passwordRepeat])
-  console.log(newPin.isAvailable)
+  }, [pin.currentValue, pin.new])
   return {
     isOpenPassword,
+    setIsOpenPassword,
     isOpenPin,
+    setIsOpenPin,
     togglePassword,
     togglePin,
     clearPin,
     handlePinChange,
-    newPin,
-    isAvailable: newPin.isAvailable
+    pin,
+    isAvailable: pin.isAvailable,
+    checkPin,
   }
 }
 export { useSecurity }

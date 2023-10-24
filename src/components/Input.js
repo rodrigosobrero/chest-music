@@ -1,12 +1,31 @@
-import { useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { EyeSlashIcon } from "@heroicons/react/24/outline";
 import { EyeIcon } from '@heroicons/react/24/outline';
 import { DocumentDuplicateIcon } from "@heroicons/react/24/outline";
 
 
-export default function Input({ type, placeholder, label, name, value, onChange, showHide, helper, required, showClipboard, disabled }) {
+export default function Input({ type, placeholder, label, name, value, onChange, showHide, helper, required, showClipboard, disabled, onlyNumeric }) {
   const [inputType, setInputType] = useState(type);
   const [copied, setCopied] = useState(false)
+  const numericInputRef = useRef(null);
+  useEffect(() => {
+    if(onlyNumeric){
+      const handleKeyPress = (evt) => {
+        const valueLength = evt.target.value.length
+        if (evt.key < '0' || evt.key > '9' || valueLength >= 6 ) {
+          evt.preventDefault();
+        }
+      };
+      const numericInput = numericInputRef.current;
+      if (numericInput) {
+        numericInput.addEventListener('keypress', handleKeyPress); // keypress para que chequee al presionar el boton, change lo agrega y después chequea
+        return () => {
+          numericInput.removeEventListener('keypress', handleKeyPress);
+        };
+      }
+    }
+  }, [onlyNumeric]);
+
   const showHidePassword = () => {
     if (inputType === 'password') {
       setInputType('text');
@@ -39,6 +58,7 @@ export default function Input({ type, placeholder, label, name, value, onChange,
             placeholder={placeholder}
             id={name}
             name={name}
+            ref={numericInputRef}
             value={value}
             onChange={onChange}
             disabled={disabled}

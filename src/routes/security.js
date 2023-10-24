@@ -8,13 +8,25 @@ import pencil from 'assets/images/icon-pencil-alt.svg'
 import { ReactComponent as ViewGrid } from 'assets/images/icon-view-grid.svg'
 import { ReactComponent as Elipse } from 'assets/images/icon-elipse.svg'
 import { useSecurity } from 'hooks/useSecurity';
+import { apiUrl, patchData } from 'utils/api';
+import { useFetch } from 'utils/useFetch';
 const Security = () => {
     const { t } = useTranslation() 
-    const { isOpenPassword, isOpenPin, togglePassword, togglePin, handlePinChange, isAvailable }= useSecurity()
-
-
+    const { data } = useFetch(apiUrl + 'account/')
+    const { isOpenPassword, isOpenPin, togglePassword, togglePin, handlePinChange, 
+            isAvailable, pin, setIsOpenPin, setIsOpenPassword, checkPin }= useSecurity()
     const items = t('profile.sections', { returnObjects: true });
     let paths = [{ name:'Profile', link: '/profile' }, { name: items[3].title }]
+    const changePinCode = () => {
+      const isEqual = checkPin(data.pincode)
+      
+      console.log(pin)
+      if(!isEqual) { console.log('no es igual al pincode original'); return; }
+      const parsed = parseInt(pin.new)
+      patchData('account/', { pincode: parsed })
+      .then((response) => console.log(response))
+      .catch((err) => console.log(err))
+    }
     const Casillero = ({ title, icon, quantity, onClick}) => {
         const ellipses = new Array(quantity).fill(null).map((_, index) => (
             <Elipse key={index} /> 
@@ -49,27 +61,29 @@ const Security = () => {
         { label:t('security.pin_modal.current_pin'), 
           placeholder:t('global.placeholder.write_here'), 
           type: 'password',
-          name: 'password',
-          showHide: true 
+          name: 'currentValue',
+          showHide: true,
+          onlyNumeric: true,
         },
         { 
           label:t('security.pin_modal.new_pin'), 
           placeholder:t('global.placeholder.write_here'), 
           type: 'password',
           showHide: true,
-          name: 'passwordRepeat'
+          name: 'new',
+          onlyNumeric: true,
         }
     ]
     return (
       <>
-      <Modal show={isOpenPassword}>
+      <Modal show={isOpenPassword} setShow={setIsOpenPassword}>
         <ChangeDataModal toggle={togglePassword} primaryButton={t('global.send')} secondaryButton={t('global.cancel')}
                          title={t('security.password_modal.title')} subtitle={t('security.password_modal.subtitle')}
-                         inputsData={inputsDataPassword}  />
+                         inputsData={inputsDataPassword} />
       </Modal>
-      <Modal show={isOpenPin}>
+      <Modal show={isOpenPin} setShow={setIsOpenPin}>
         <ChangeDataModal toggle={togglePin} primaryButton={t('global.confirm')} secondaryButton={t('global.cancel')}
-                        inputsData={inputsDataPin} title='Change Pin Code' handleChange={handlePinChange} isAvailable={isAvailable}  />
+                        inputsData={inputsDataPin} title='Change Pin Code' onClick={changePinCode} handleChange={handlePinChange} isAvailable={isAvailable}  />
       </Modal>
       <div className='px-3 pt-4 pb-10 md:container md:px-[120px] md:pb-[60px] md:pt-[40px]'>
          <Breadcrumb className='px-3 md:px-0' items={paths}/>

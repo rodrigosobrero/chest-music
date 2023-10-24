@@ -28,7 +28,7 @@ const PermissionsList = ({data }) => {
             </thead>
             <tbody>
             {
-                data.map((track, index) =>
+                data?.map((track, index) =>
                 <PermissionRow data={track} isMobile={isMobile}/>
                 )
             }

@@ -2,13 +2,13 @@ import React from 'react';
 import { timeDifference } from 'utils/helpers';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
-const ManageRow = ({ data, isMobile }) => {
+const ManageRow = ({ data, isMobile }) => {  
   const renderDesktopRow = () => (
     <tr>
       <td className='text-lg'>{data.name}</td>
       <td>@{data.username}</td>
       <td>{data.plays}</td>
-      <td className='md:flex hidden'>{timeDifference(data.date)}</td>
+      <td className='md:flex hidden'>{timeDifference(data.date_added)}</td>
       <td>
         <button className='p-2.5 '>
            <XMarkIcon className='h-6 w-6 text-white' />

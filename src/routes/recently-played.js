@@ -1,10 +1,11 @@
 import React from 'react'
-import data from 'data/recently.json'
 import RecentlyList from 'components/profile/RecentlyList';
 import { useTranslation } from 'react-i18next';
 import Breadcrumb from 'components/Breadcrumb';
+import { apiUrl } from 'utils/api';
+import { useFetch } from 'utils/useFetch';
 const Played = () => {
-  // const location = useLocation();
+  const { data, isFetching, error } = useFetch(apiUrl + 'recentlyplayed/')
   const { t } = useTranslation() 
   const items = t('profile.sections', { returnObjects: true });
   let paths = [{ name:'Profile', link: '/profile' }, { name: items[0].title }]
