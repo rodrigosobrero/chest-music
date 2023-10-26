@@ -1,31 +1,40 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProgressBar from 'components/ProgressBar'
 import { useTranslation } from 'react-i18next'
 import Modal from 'components/Modal'
-import ChangeDataModal from 'components/modals/ChangeDataModal'
+import UpgradeStorage from 'components/modals/UpgradeStorageModal'
 import { formatBytes } from 'utils/helpers'
+import countries from 'data/countries.json'
 const AccountPlan = ({ data }) => {
   const [ show, setShow ] = useState(false)
+  const [ input, setInput] = useState('')
+  const [ selected, setSelected ] = useState()
+  const [ isAvailable, setIsAvailable ] = useState()
+  const [ isOpen, setIsOpen ] = useState(false) //para el autocomplete del modal
+
+  const handleSelectOption = (i) => {
+   setSelected(countries[i])
+   setIsOpen(false)
+  }
+  const handleChange = (e) => setInput(e.target.value)
   const toggle = () => setShow(!show)
   const { t } = useTranslation()
-  const inputData = [
-   {
-      label: t('account.modals.full_name'),
-      placeholder: t('global.placeholder.write_here'),
-      type: 'text'
-   },
-   {
-      label: t('account.modals.full_name'),
-      placeholder: t('global.placeholder.write_here'),
-      type: 'text' 
-   }
-  ]
+  const toggleList = () => setIsOpen(!isOpen)
+  const closeModal = () => {
+      setShow(false);
+      setIsOpen(false);
+      setSelected()
+      setInput('')
+  }
+  useEffect(() => {
+   if(input !== '' && selected && selected.hasOwnProperty('country')) setIsAvailable(true)
+   else setIsAvailable(false)
+  }, [input, selected])
   return (
     <>
       <Modal show={show} >
-        <ChangeDataModal title={t('account.modals.upgrade_title')}  toggle={toggle} 
-                        subtitle={t('account.modals.upgrade_subtitle')} primaryButton={t('global.send')}
-                        secondaryButton={t('global.cancel')} inputsData={inputData} />
+        <UpgradeStorage  toggle={closeModal} countries={countries} toggleList={toggleList} selected={selected}
+        isOpen={isOpen} handleChange={handleChange} handleSelectOption={handleSelectOption} disabled={!isAvailable}/>
       </Modal>
       <div className='container-accountPlan'>
          <h4 className='text-[22px] font-archivo font-semibold'>{t('account.my_plan')}</h4>

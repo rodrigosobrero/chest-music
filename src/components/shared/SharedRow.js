@@ -43,7 +43,7 @@ const SharedRow = ({ track, isMobile }) => {
             <td>{track.version}</td>
             <td>
               <span className='capitalize'>
-                {track.date_played}
+                {timeDifference(track.date_played)}
               </span>
             </td>
             <td>{formatTime(track.length)}</td>

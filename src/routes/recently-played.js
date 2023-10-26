@@ -3,7 +3,7 @@ import RecentlyList from 'components/profile/RecentlyList';
 import { useTranslation } from 'react-i18next';
 import Breadcrumb from 'components/Breadcrumb';
 import { apiUrl } from 'utils/api';
-import { useFetch } from 'utils/useFetch';
+import { useFetch } from 'hooks/useFetch';
 const Played = () => {
   const { data, isFetching, error } = useFetch(apiUrl + 'recentlyplayed/')
   const { t } = useTranslation() 

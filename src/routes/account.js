@@ -6,7 +6,7 @@ import Breadcrumb from 'components/Breadcrumb'
 import Modal from 'components/Modal'
 import DeleteModal from 'components/modals/DeleteModal'
 import { apiUrl } from 'utils/api'
-import { useFetch } from 'utils/useFetch'
+import { useFetch } from 'hooks/useFetch'
 const Account = () => {
   const { t } = useTranslation() 
   const [show, setShow] = useState(false)
@@ -23,13 +23,16 @@ const Account = () => {
     setInput('')
   }
   useEffect(() => {
-    if(input === 'delete my chest') {
+    // delete_validation_text: 'delete my chest',
+    let validation_text = t('account.delete_validation_text')
+    console.log(validation_text)
+    if(input === validation_text) {
       setIsAvailable(true) 
     }
     else{
       setIsAvailable(false)
     };
-  },[input])
+  },[input, t])
   const items = t('profile.sections', { returnObjects: true });
   let paths = [{ name:'Profile', link: '/profile' }, { name: items[2].title }]
   return (

@@ -9,7 +9,7 @@ import { ReactComponent as ViewGrid } from 'assets/images/icon-view-grid.svg'
 import { ReactComponent as Elipse } from 'assets/images/icon-elipse.svg'
 import { useSecurity } from 'hooks/useSecurity';
 import { apiUrl, patchData } from 'utils/api';
-import { useFetch } from 'utils/useFetch';
+import { useFetch } from 'hooks/useFetch';
 const Security = () => {
     const { t } = useTranslation() 
     const { data } = useFetch(apiUrl + 'account/')

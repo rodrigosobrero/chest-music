@@ -2,12 +2,13 @@ import { useRef, useState, useEffect } from 'react';
 import { EyeSlashIcon } from "@heroicons/react/24/outline";
 import { EyeIcon } from '@heroicons/react/24/outline';
 import { DocumentDuplicateIcon } from "@heroicons/react/24/outline";
-
-
-export default function Input({ type, placeholder, label, name, value, onChange, showHide, helper, required, showClipboard, disabled, onlyNumeric }) {
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
+export default function Input({ type, placeholder, label, name, value, onChange, showHide, helper, required, 
+                                showClipboard, disabled, onlyNumeric, showDelete, showMore, onDelete, isOpen, toggleOpen }) {
   const [inputType, setInputType] = useState(type);
   const [copied, setCopied] = useState(false)
-  const numericInputRef = useRef(null);
+  const inputRef = useRef(null);
   useEffect(() => {
     if(onlyNumeric){
       const handleKeyPress = (evt) => {
@@ -16,7 +17,7 @@ export default function Input({ type, placeholder, label, name, value, onChange,
           evt.preventDefault();
         }
       };
-      const numericInput = numericInputRef.current;
+      const numericInput = inputRef.current;
       if (numericInput) {
         numericInput.addEventListener('keypress', handleKeyPress); // keypress para que chequee al presionar el boton, change lo agrega y después chequea
         return () => {
@@ -58,7 +59,7 @@ export default function Input({ type, placeholder, label, name, value, onChange,
             placeholder={placeholder}
             id={name}
             name={name}
-            ref={numericInputRef}
+            ref={inputRef}
             value={value}
             onChange={onChange}
             disabled={disabled}
@@ -79,6 +80,23 @@ export default function Input({ type, placeholder, label, name, value, onChange,
               <button type='button' onClick={copyToClipboard}>
                 {!copied ? <DocumentDuplicateIcon className="h-5 w-5 text-neutral-silver-400" /> :
                   <DocumentDuplicateIcon className="h-5 w-5 text-brand-gold" />}
+              </button>
+            </div>
+          }
+         {showDelete &&
+            <div className='absolute top-4 right-4'>
+              <button type='button' onClick={onDelete}>
+                  <XMarkIcon className="h-5 w-5 text-error-red" />
+              </button>
+            </div>
+          }
+          {showMore &&
+            <div className='absolute top-4 right-4 '>
+              <button type='button' onClick={toggleOpen}>
+                {isOpen  ?
+                  <ChevronUpIcon className='h-5 w-5 text-neutral-silver-200' /> :
+                  <ChevronDownIcon className='h-5 w-5 text-neutral-silver-200' />
+                }
               </button>
             </div>
           }

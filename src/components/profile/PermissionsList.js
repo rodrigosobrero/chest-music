@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import useMediaQuery from 'utils/useMediaQuery';
+import useMediaQuery from 'hooks/useMediaQuery';
 import PermissionRow from './PermissionRow'
 const PermissionsList = ({data }) => {
     const isMobile = useMediaQuery('(max-width: 1024px)')

@@ -4,11 +4,11 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 
 const ManageRow = ({ data, isMobile }) => {  
   const renderDesktopRow = () => (
-    <tr>
+    <tr className={!data.accepted && 'opacity-50'}>
       <td className='text-lg'>{data.name}</td>
       <td>@{data.username}</td>
       <td>{data.plays}</td>
-      <td className='md:flex hidden'>{timeDifference(data.date_added)}</td>
+      <td>{timeDifference(data.date_added)}</td>
       <td>
         <button className='p-2.5 '>
            <XMarkIcon className='h-6 w-6 text-white' />

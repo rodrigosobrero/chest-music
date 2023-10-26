@@ -1,15 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import PermissionsList from 'components/profile/PermissionsList'
 import icon from 'assets/images/icon-exclamation-circle.svg'
-import ManageButton from 'components/notifications/ManageButton'
 import Breadcrumb from 'components/Breadcrumb'
 import empty from 'assets/images/empty-chest.svg';
 import { apiUrl } from 'utils/api'
-import { useFetch } from 'utils/useFetch'
+import { useFetch } from 'hooks/useFetch'
+import PermissionsButton from 'components/profile/PermissionButton'
+import Modal from 'components/Modal'
+import GlobalListener from 'components/modals/GlobalListener'
+import { useSearch } from 'hooks/useSearch'
+import axios from 'axios'
 const Permissions = () => {
   const { t } = useTranslation() 
-  const { data } = useFetch(apiUrl + 'globalpermission/')
+  const { data, handleToggle } = useFetch(apiUrl + 'globalpermission/')
+  const { handleChange, filteredArtists, handleOptionSelect, selected, handleDeleteSelected, input, checked, handleCheck, reset } = useSearch(3, data)
+  const [ show, setShow ] = useState(false)
+  const toggle = () => {setShow(!show); reset()}
+  const addListener = () => {
+    if(!selected.hasOwnProperty('full_name')) return;
+    axios.post(apiUrl + 'globalpermission/', { user: selected.id }, { headers: { 'TEST-USER-ID': 'f1' }, })
+         .then((response) => { console.log(response.data); handleToggle(); toggle() })
+  }
   const items = t('profile.sections', { returnObjects: true });
   let paths = [{ name:'Profile', link: '/profile' }, { name: items[1].title }]
   return (
@@ -38,9 +50,14 @@ const Permissions = () => {
                       <img src={empty} alt='' width={240} height={128} className='mb-5' />
                   </div> 
                 }
-                <ManageButton />
+                <PermissionsButton toggle={toggle} />
         </div>
       </div>
+      <Modal show={show} setShow={setShow}>
+          <GlobalListener handleChange={handleChange} options={filteredArtists} handleOptionSelect={handleOptionSelect} 
+                          listeners={data} selected={selected} handleDeleteSelected={handleDeleteSelected} input={input}
+                          checked={checked} handleCheck={handleCheck} toggle={toggle} onClick={addListener} />
+       </Modal>
     </>
   )
 }

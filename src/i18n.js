@@ -39,7 +39,8 @@ i18next
             block: 'Block',
             placeholder: {
               write_here: 'Write here...',
-              search: 'Search...'
+              search: 'Search...',
+              select_one: 'Select one...'
             },
             edit: 'Edit',
             confirm: 'Confirm',
@@ -166,6 +167,7 @@ i18next
             artist_name: 'Artist name',
             artist_username: 'Artist username',
             upgrade: 'Upgrade storage',
+            delete_validation_text: 'delete my chest',
             modals:{
               delete_account: 'Delete Account',
               delete_subtitle: 'We are sad to see you go. Are you sure you want to delete your account? You cannot undo this operation.',

@@ -19,12 +19,10 @@ function formatTime(seconds) {
 }
 function timeDifference(previous) {
   var current = new Date();
-  var previousDate = new Date(previous);
+  var previousDate = new Date(parseInt(previous));
   var elapsed = current - previousDate;
-
   var months = Math.floor(elapsed / 2629746000); // Aproximadamente 30.44 días en un mes
   var days = Math.floor((elapsed % 2629746000) / 86400000); // 24 horas en un día
-
   if (months > 3 ) {
     var options = { year: 'numeric', month: 'short', day: 'numeric' };
     return previousDate.toLocaleDateString('en-US', options);
