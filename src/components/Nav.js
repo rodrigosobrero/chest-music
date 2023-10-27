@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-
 import Tag from 'components/Tag';
+import { signOut } from 'firebase/auth';
+import { auth } from 'utils/firebase';
 import navData from 'data/config.json';
-
 import { BellIcon } from '@heroicons/react/24/outline';
-
 import logo from 'assets/images/logo.svg';
 import menuIcon from 'assets/images/icon-menu.svg';
 import closeIcon from 'assets/images/icon-close.svg';
@@ -46,6 +45,12 @@ export default function Nav() {
                   </li>
                 )
               }
+              {/* Test */}
+              <li>
+                <button type='button' className='p-2' onClick={() => { signOut(auth) }}>
+                  logout
+                </button>
+              </li>
               <li className='flex items-center'>
                 <a href='/notifications' className='p-1 hover:!text-white text-gray-500'>
                   <BellIcon className='h-6 w-6' />

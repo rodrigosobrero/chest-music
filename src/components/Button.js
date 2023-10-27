@@ -1,18 +1,22 @@
 import { classNames } from 'utils/helpers';
+import spinner from 'assets/images/icon-loading-claim.png';
 
-export default function Button({ type, text, onClick, disabled }) {
+export default function Button({ type = 'button', style, text, onClick, disabled, loading }) {
   return (
     <>
-      <button 
-        type='button'
+      <button
+        type={type}
         onClick={onClick}
         disabled={disabled}
         className={classNames({
-          'btn btn-third' : type === 'third',
-          'btn btn-secondary': type === 'secondary',
-          'btn btn-primary': type === 'primary'
+          'btn btn-third': style === 'third',
+          'btn btn-secondary': style === 'secondary',
+          'btn btn-primary': style === 'primary'
         })}>
-          {text}
+        {loading ?
+          <img src={spinner} alt='' width={20} height={20} className='animate-spin' /> :
+          <span>{text}</span>
+        }
       </button>
     </>
   )

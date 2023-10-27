@@ -40,4 +40,16 @@ function firstLetterUpperCase(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-export { classNames, formatDate, formatTime, firstLetterUpperCase, timeDifference }
+function bytesToSize(bytes) {
+  const units = ['byte', 'kilobyte', 'megabyte', 'gigabyte', 'terabyte'];
+
+  const navigatorLocal = navigator.languages && navigator.languages.length >= 0 ? navigator.languages[0] : 'en-US'
+  const unitIndex = Math.max(0, Math.min(Math.floor(Math.log(bytes) / Math.log(1000)), units.length - 1));
+
+  return Intl.NumberFormat(navigatorLocal, {
+    style: 'unit',
+    unit: units[unitIndex]
+  }).format(bytes / (1000 ** unitIndex))
+}
+
+export { classNames, formatDate, formatTime, firstLetterUpperCase, bytesToSize, timeDifference }

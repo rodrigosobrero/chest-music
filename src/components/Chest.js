@@ -1,25 +1,39 @@
-import { useState } from 'react';
-import cloud from 'assets/images/icon-cloud.svg';
-import empty from 'assets/images/empty-chest.svg';
-
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { bytesToSize } from 'utils/helpers';
+import axios from 'utils/api';
 import ProgressBar from 'components/ProgressBar';
 import SearchBar from 'components/SearchBar';
 import Tag from 'components/Tag';
 import TrackList from 'components/TrackList';
-
-import tracksData from 'data/tracks.json';
-import userData from 'data/user.json';
+import cloud from 'assets/images/icon-cloud.svg';
+import empty from 'assets/images/empty-chest.svg';
 
 export default function Chest() {
-  /* states */
-  const [user, setUser] = useState(userData);
-  const [tracks, setTracks] = useState(tracksData);
+  const user = useSelector((state) => state.auth.user);
+  const [tracks, setTracks] = useState([]);
   const [searchValue, setSearchValue] = useState('');
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('mychest/', {
+        headers: { Authorization: `Bearer ${user.token}` }
+      });
+      setTracks(response.data.projects);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const handleOnChange = (event) => {
     const lowerCase = event.target.value.toLowerCase();
     setSearchValue(lowerCase);
   }
+
   const filteredTracks = tracks.filter(track => {
     if (searchValue === '') {
       return track;
@@ -48,19 +62,19 @@ export default function Chest() {
           <div className='flex items-center justify-end gap-3 md:gap-4'>
             <div className='hidden md:flex flex-col items-end justify-center gap-1.5'>
               <div className='flex flex-row gap-1 text-sm font-archivo'>
-                <span className='text-neutral-silver-100'>{user.space_used} MB</span>
+                <span className='text-neutral-silver-100'>{bytesToSize(user.data.used_storage)}</span>
                 <span className='text-neutral-silver-300'>of</span>
-                <span className='text-neutral-silver-100'>{user.space / 1000} GB</span>
+                <span className='text-neutral-silver-100'>{bytesToSize(user.data.total_space)}</span>
               </div>
               <ProgressBar 
-                progress={100 * user.space_used / user.space} 
+                progress={100 * user.data.used_storage / user.data.total_space} 
                 color='violet'
                 size='150'
                 direction='right'
                 background='gray' />
             </div>
             <div className='text-brand-uva-light font-thunder text-4xl flex items-center justify-center'>
-              {Math.round(100 * user.space_used / user.space)}%
+              {Math.round(100 * user.data.used_storage / user.data.total_space)}%
             </div>
             <div className='bg-neutral-silver-700 p-2 rounded-[10px]'>
               <img src={cloud} alt='' width={28} height={28} />

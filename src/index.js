@@ -1,4 +1,3 @@
-import './index.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -11,17 +10,10 @@ import SignUp from 'routes/sign-up';
 import SignIn from 'routes/sign-in';
 import Setup from 'routes/setup';
 import Upload from 'routes/upload';
-import Manage from 'routes/manage';
-import Notifications from 'routes/notifications'
-import RecentlyPlayed from 'routes/recently-played';
-import Permissions from 'routes/permissions';
-import Account from 'routes/account';
-import Security from 'routes/security';
-import Terms from 'routes/terms';
-import Help from 'routes/help';
 import reportWebVitals from './reportWebVitals';
 import store from 'app/store';
 import { Provider } from 'react-redux';
+
 import './i18n';
 
 const router = createBrowserRouter([
@@ -42,6 +34,14 @@ const router = createBrowserRouter([
         element: <Track />
       },
       {
+        path: 'shared',
+        element: <Shared />
+      },
+      {
+        path: 'profile',
+        element: <Profile />
+      },
+      {
         path: 'sign-up',
         element: <SignUp />
       },
@@ -52,60 +52,14 @@ const router = createBrowserRouter([
       {
         path: 'setup',
         element: <Setup />
-      },
-      {
-        path: 'shared',
-        element: <Shared />
-      },
-      {
-        path: 'profile',
-        element: <Profile />
-      },
-      {
-        path: 'profile/played',
-        element: <RecentlyPlayed />
-      },
-      {
-        path: 'profile/permissions',
-        element: <Permissions />
-      },
-      {
-        path: 'profile/account',
-        element: <Account />
-      },
-      {
-        path: 'profile/help',
-        element: <Help />
-      },
-      {
-        path: 'profile/terms',
-        element: <Terms />
-      },
-      {
-        path: 'profile/security',
-        element: <Security />
-      },
-      {
-        path: 'notifications',
-        element: <Notifications />
-      },
-      {
-        path: 'notifications/manage',
-        element: <Manage />
       }
     ],
   }
 ]);
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
-  </React.StrictMode>
-);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+root.render(
+  <Provider store={store}>
+    <App />
+  </Provider>
+);

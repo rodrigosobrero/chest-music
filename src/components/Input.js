@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { EyeSlashIcon } from "@heroicons/react/24/outline";
 import { EyeIcon } from '@heroicons/react/24/outline';
+import { motion } from 'framer-motion';
 
-export default function Input({ type, placeholder, label, name, value, onChange, showHide, helper, required }) {
+export default function Input({ type, placeholder, label, name, value, onChange, showHide, helper, required, register, error }) {
   const [inputType, setInputType] = useState(type);
   const showHidePassword = () => {
     if (inputType === 'password') {
@@ -18,7 +19,14 @@ export default function Input({ type, placeholder, label, name, value, onChange,
         {label && (
           <label htmlFor={name} className='flex items-center'>
             <span className='grow'>{`${label}${required ? '*' : ''}`}</span>
-            {helper && <span className=' text-sm text-neutral-silver-300'>{helper}</span>}
+            {helper && <span className='text-sm text-neutral-silver-300'>{helper}</span>}
+            <motion.span
+              className='text-sm text-error-red'
+              key={error}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}>
+              {error}
+            </motion.span>
           </label>
         )}
         <div className='relative'>
@@ -27,9 +35,8 @@ export default function Input({ type, placeholder, label, name, value, onChange,
             placeholder={placeholder}
             id={name}
             name={name}
-            value={value}
-            onChange={onChange}
-            className='border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 w-full focus:outline-none focus:border-brand-gold leading-5' />
+            {...register(name, { required })}
+            className={`transition duration-300 border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 w-full focus:outline-none focus:border-brand-gold leading-5 ${error && '!border-error-red'}`} />
           {showHide &&
             <div className='absolute top-4 right-4'>
               <button type='button' onClick={showHidePassword}>
