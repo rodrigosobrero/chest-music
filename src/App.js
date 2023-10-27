@@ -18,6 +18,8 @@ import Account from 'routes/account';
 import Security from 'routes/security';
 import Terms from 'routes/terms';
 import Help from 'routes/help'; 
+import Shared from 'routes/shared';
+import Profile from 'routes/profile';
 
 function App() {
   const dispatch = useDispatch();
