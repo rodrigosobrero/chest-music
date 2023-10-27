@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { RouterProvider, createBrowserRouter, redirect } from 'react-router-dom';
 import axios from 'utils/api';
 import { auth } from 'utils/firebase';
@@ -10,9 +10,16 @@ import Root from 'routes/root';
 import SignIn from 'routes/sign-in';
 import ProtectedRoute from 'utils/ProtectedRoute';
 import SignUp from 'routes/sign-up';
+import Manage from 'routes/manage';
+import Notifications from 'routes/notifications'
+import RecentlyPlayed from 'routes/recently-played';
+import Permissions from 'routes/permissions';
+import Account from 'routes/account';
+import Security from 'routes/security';
+import Terms from 'routes/terms';
+import Help from 'routes/help'; 
 
 function App() {
-  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const router = createBrowserRouter([
     {
@@ -32,6 +39,76 @@ function App() {
           element: 
             <ProtectedRoute>
               <MyChest />
+            </ProtectedRoute>
+        },
+        {
+          path: 'shared',
+          element: 
+            <ProtectedRoute>
+              <Shared />
+            </ProtectedRoute>
+        },
+        {
+          path: 'profile',
+          element: 
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+        },
+        {
+          path: 'profile/played',
+          element: 
+            <ProtectedRoute>
+              <RecentlyPlayed />
+            </ProtectedRoute>
+        },
+        {
+          path: 'profile/permissions',
+          element: 
+            <ProtectedRoute>
+              <Permissions />
+            </ProtectedRoute>
+        },
+        {
+          path: 'profile/account',
+          element: 
+            <ProtectedRoute>
+              <Account />
+            </ProtectedRoute>
+        },
+        {
+          path: 'profile/help',
+          element: 
+            <ProtectedRoute>
+              <Help />
+            </ProtectedRoute>
+        },
+        {
+          path: 'profile/terms',
+          element: 
+            <ProtectedRoute>
+              <Terms />
+            </ProtectedRoute>
+        },
+        {
+          path: 'profile/security',
+          element: 
+            <ProtectedRoute>
+              <Security />
+            </ProtectedRoute>
+        },
+        {
+          path: 'notifications',
+          element: 
+            <ProtectedRoute>
+              <Notifications />
+            </ProtectedRoute>
+        },
+        {
+          path: 'notifications/manage',
+          element: 
+            <ProtectedRoute>
+              <Manage />
             </ProtectedRoute>
         }
       ]

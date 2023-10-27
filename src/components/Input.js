@@ -30,13 +30,26 @@ export default function Input({ type, placeholder, label, name, value, onChange,
           </label>
         )}
         <div className='relative'>
-          <input
-            type={inputType}
-            placeholder={placeholder}
-            id={name}
-            name={name}
-            {...register(name, { required })}
-            className={`transition duration-300 border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 w-full focus:outline-none focus:border-brand-gold leading-5 ${error && '!border-error-red'}`} />
+          {register 
+            ? (
+              <input
+              type={inputType}
+              placeholder={placeholder}
+              id={name}
+              name={name}
+              {...register(name, { required })}
+              className={`transition duration-300 border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 w-full focus:outline-none focus:border-brand-gold leading-5 ${error && '!border-error-red'}`} />
+            )
+            : (
+              <input
+                type={inputType}
+                placeholder={placeholder}
+                id={name}
+                name={name}
+                className={`transition duration-300 border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 w-full focus:outline-none focus:border-brand-gold leading-5 ${error && '!border-error-red'}`} />
+            )
+          }
+
           {showHide &&
             <div className='absolute top-4 right-4'>
               <button type='button' onClick={showHidePassword}>
