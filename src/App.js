@@ -1,24 +1,143 @@
-import logo from 'assets/logo.svg';
-import 'components/App.css';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { RouterProvider, createBrowserRouter, redirect } from 'react-router-dom';
+import axios from 'utils/api';
+import { auth } from 'utils/firebase';
+import { saveUser } from 'app/auth';
+import { onAuthStateChanged, getIdToken } from 'firebase/auth';
+import MyChest from 'routes/my-chest';
+import Root from 'routes/root';
+import SignIn from 'routes/sign-in';
+import ProtectedRoute from 'utils/ProtectedRoute';
+import SignUp from 'routes/sign-up';
+import Manage from 'routes/manage';
+import Notifications from 'routes/notifications'
+import RecentlyPlayed from 'routes/recently-played';
+import Permissions from 'routes/permissions';
+import Account from 'routes/account';
+import Security from 'routes/security';
+import Terms from 'routes/terms';
+import Help from 'routes/help'; 
+import Shared from 'routes/shared';
+import Profile from 'routes/profile';
 
 function App() {
+  const dispatch = useDispatch();
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Root />,
+      children: [
+        {
+          path: '/sign-in',
+          element: <SignIn />
+        },
+        {
+          path: '/sign-up',
+          element: <SignUp />
+        },
+        {
+          path: '/my-chest',
+          element: 
+            <ProtectedRoute>
+              <MyChest />
+            </ProtectedRoute>
+        },
+        {
+          path: 'shared',
+          element: 
+            <ProtectedRoute>
+              <Shared />
+            </ProtectedRoute>
+        },
+        {
+          path: 'profile',
+          element: 
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+        },
+        {
+          path: 'profile/played',
+          element: 
+            <ProtectedRoute>
+              <RecentlyPlayed />
+            </ProtectedRoute>
+        },
+        {
+          path: 'profile/permissions',
+          element: 
+            <ProtectedRoute>
+              <Permissions />
+            </ProtectedRoute>
+        },
+        {
+          path: 'profile/account',
+          element: 
+            <ProtectedRoute>
+              <Account />
+            </ProtectedRoute>
+        },
+        {
+          path: 'profile/help',
+          element: 
+            <ProtectedRoute>
+              <Help />
+            </ProtectedRoute>
+        },
+        {
+          path: 'profile/terms',
+          element: 
+            <ProtectedRoute>
+              <Terms />
+            </ProtectedRoute>
+        },
+        {
+          path: 'profile/security',
+          element: 
+            <ProtectedRoute>
+              <Security />
+            </ProtectedRoute>
+        },
+        {
+          path: 'notifications',
+          element: 
+            <ProtectedRoute>
+              <Notifications />
+            </ProtectedRoute>
+        },
+        {
+          path: 'notifications/manage',
+          element: 
+            <ProtectedRoute>
+              <Manage />
+            </ProtectedRoute>
+        }
+      ]
+    }
+  ]);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        getIdToken(user).then(async (token) => {
+          const response = await axios.get('account/', {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+
+          dispatch(saveUser({
+            data: response.data,
+            token: token
+          }));
+        });
+      } else {
+        dispatch(saveUser(undefined));
+      }
+    })
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RouterProvider router={router} />
   );
 }
 
