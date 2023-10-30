@@ -36,7 +36,7 @@ const useSearch = (lengthToStartSearch, listeners) => {
         axios.get(apiUrl + 'user/?search=' + input, { headers: { 'TEST-USER-ID': 'f1' }})
         .then((response) =>  {
             let artists = response.data;
-            artists = response.data.filter(artist => artist.type === 'fan')
+            artists = response.data.filter(artist => artist.type !== 'fan')
             if (listeners && listeners.length>0) {
                 artists = artists.filter(artist => !listeners.some(listener => listener.user_id === artist.id));
             }

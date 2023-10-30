@@ -4,7 +4,11 @@ import { ReactComponent as Pencil } from 'assets/images/icon-pencil-alt.svg'
 import Modal from 'components/Modal'
 import ChangeDataModal from 'components/modals/ChangeDataModal'
 import { patchData } from 'utils/api'
-const AccountData = ({ data,  handleToggle }) => {
+import { useDispatch } from 'react-redux'
+import { updateUserData } from 'app/auth'
+const AccountData = ({ data, token }) => {
+  console.log(token)
+  const dispatch = useDispatch()
   const { t } = useTranslation()
   const [show, setShow] = useState()
   const [ input, setInput ] = useState()
@@ -16,11 +20,12 @@ const AccountData = ({ data,  handleToggle }) => {
     setInput(e.target.value)
   }
   const changeName = () => {
+    console.log(token)
     if(input === '') return;
-      patchData('account/', { full_name: input })
-      .then((response) => console.log(response))
+      patchData('account/', { full_name: input }, token)
+      .then((response) => dispatch(updateUserData(response)))
       .catch((err) => console.log('error', err))
-      .finally(() => { toggle(); handleToggle() })
+      .finally(() => {toggle();})
   }
   const inputData = [
     {

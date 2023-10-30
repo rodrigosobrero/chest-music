@@ -4,7 +4,8 @@ import { EyeIcon } from '@heroicons/react/24/outline';
 import { DocumentDuplicateIcon } from "@heroicons/react/24/outline";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
-export default function Input({ type, placeholder, label, name, value, onChange, showHide, helper, required, 
+import { motion } from 'framer-motion';
+export default function Input({ type, placeholder, label, name, value, onChange, showHide, helper, required, register, error,
                                 showClipboard, disabled, onlyNumeric, showDelete, showMore, onDelete, isOpen, toggleOpen }) {
   const [inputType, setInputType] = useState(type);
   const [copied, setCopied] = useState(false)
@@ -50,21 +51,43 @@ export default function Input({ type, placeholder, label, name, value, onChange,
         {label && (
           <label htmlFor={name} className='flex items-center'>
             <span className='grow'>{`${label}${required ? '*' : ''}`}</span>
-            {helper && <span className=' text-sm text-neutral-silver-300'>{helper}</span>}
+            {helper && <span className='text-sm text-neutral-silver-300'>{helper}</span>}
+            <motion.span
+              className='text-sm text-error-red'
+              key={error}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}>
+              {error}
+            </motion.span>
           </label>
         )}
         <div className='relative'>
-          <input
-            type={inputType}
-            placeholder={placeholder}
-            id={name}
-            name={name}
-            ref={inputRef}
-            value={value}
-            onChange={onChange}
-            disabled={disabled}
-            className='border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 
-                       w-full focus:outline-none focus:border-brand-gold leading-5 disabled:bg-neutral-silver-600 disabled:border-none disabled:text-neutral-silver-300' />
+          {register 
+            ? (
+              <input
+              type={inputType}
+              placeholder={placeholder}
+              id={name}
+              name={name}
+              {...register(name, { required })}
+              className={`transition duration-300 border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 w-full focus:outline-none focus:border-brand-gold leading-5 ${error && '!border-error-red'}`} />
+            )
+            : (
+              <input
+              type={inputType}
+              placeholder={placeholder}
+              id={name}
+              name={name}
+              ref={inputRef}
+              value={value}
+              onChange={onChange}
+              disabled={disabled}
+              className={`border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 w-full 
+                          focus:outline-none focus:border-brand-gold leading-5 disabled:bg-neutral-silver-600 disabled:border-none 
+                        disabled:text-neutral-silver-300 transition duration-300 ${error && 'border-error-red'}`}/>
+            )
+          }
+
           {showHide &&
             <div className='absolute top-4 right-4'>
               <button type='button' onClick={showHidePassword}>

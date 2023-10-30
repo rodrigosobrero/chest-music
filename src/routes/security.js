@@ -8,11 +8,13 @@ import pencil from 'assets/images/icon-pencil-alt.svg'
 import { ReactComponent as ViewGrid } from 'assets/images/icon-view-grid.svg'
 import { ReactComponent as Elipse } from 'assets/images/icon-elipse.svg'
 import { useSecurity } from 'hooks/useSecurity';
-import { apiUrl, patchData } from 'utils/api';
-import { useFetch } from 'hooks/useFetch';
+import { patchData } from 'utils/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateUserData } from 'app/auth';
 const Security = () => {
     const { t } = useTranslation() 
-    const { data } = useFetch(apiUrl + 'account/')
+    const { data, token } = useSelector((state) => state.auth.user);
+    const dispatch = useDispatch()
     const { isOpenPassword, isOpenPin, togglePassword, togglePin, handlePinChange, 
             isAvailable, pin, setIsOpenPin, setIsOpenPassword, checkPin }= useSecurity(data.pincode)
     const items = t('profile.sections', { returnObjects: true });
@@ -21,8 +23,11 @@ const Security = () => {
       const isEqual = checkPin(data.pincode)
       if(!isEqual) { console.log('no es igual al pincode original'); return; }
       const parsed = parseInt(pin.new)
-      patchData('account/', { pincode: parsed })
-      .then((response) => console.log(response))
+      patchData('account/', { pincode: parsed }, token )
+      .then((response) => {
+        dispatch(updateUserData(response))
+        togglePin()
+      })
       .catch((err) => console.log(err))
     }
     const Casillero = ({ title, icon, quantity=0, onClick, type }) => {

@@ -21,18 +21,18 @@ export default function Track({
     <>
       <div className='flex items-center'>
         <audio
-          src={currentTrack.source}
+          src={currentTrack.audio_url}
           ref={audioRef}
           onLoadedMetadata={onLoadedMetadata}
         />
         <div className='flex gap-4 items-center'>
           <div>
-            <img src={currentTrack.cover} alt='' width={52} height={52} />
+            <img src={currentTrack.cover_url} alt='' width={52} height={52} />
           </div>
           <div>
             <h5>{currentTrack.name}</h5>
             <h6 className='text-sm text-neutral-silver-200'>
-              {currentTrack.author.join(', ')}
+              {currentTrack?.authors.join(', ')}
             </h6>
           </div>
         </div>

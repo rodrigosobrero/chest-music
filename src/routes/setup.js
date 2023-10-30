@@ -1,27 +1,34 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import { firstLetterUpperCase } from 'utils/helpers';
-
+import axios from 'utils/api';
 import 'swiper/css';
 import 'swiper/css/pagination';
-
 import Button from 'components/Button';
 import Input from 'components/Input';
 import Tag from 'components/Tag';
-
 import { MusicalNoteIcon } from '@heroicons/react/24/solid';
 import { MicrophoneIcon } from '@heroicons/react/24/solid';
 import artist from 'assets/images/sign-up-artist.png';
 import fan from 'assets/images/sign-up-fan.png';
 
+
 export default function Setup() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.auth.user);
 
   const [userType, setUserType] = useState('');
   const [step, setStep] = useState(0);
+  const [username, setUsername] = useState('');
+  const [artistName, setArtistName] = useState('');
+  const [pinCode, setPinCode] = useState('');
+  const [plan, setPlan] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const options = [
     {
@@ -35,6 +42,31 @@ export default function Setup() {
       description: `If you came to listen to the music of your favorite friends and artists before anyone else, this is for you. Enjoy a simplified version of Chest adjusted to your needs.`
     }
   ]
+
+  const handleSetup = async () => {
+    setLoading(true);
+
+    console.log(user);
+
+    try {
+      await axios.post(`/account/${userType}/`, {
+        username: username,
+        full_name: artistName,
+        plan: plan,
+        email: user.data.email,
+        pincode: pinCode,
+        login_method: 'local'
+      }, {
+        headers: { Authorization: `Bearer ${user.token}` }
+      });
+
+      navigate('/my-chest')
+    } catch (error) {
+      console.log(error);
+    }
+
+    setLoading(false);
+  }
 
   const optionCard = (option, index) => {
     return (
@@ -51,7 +83,7 @@ export default function Setup() {
     )
   }
 
-  const StepOne = () => (
+  const stepOne = () => (
     <>
       <div className='flex flex-col items-center px-6'>
         <h2>{t('setup.title')}</h2>
@@ -71,12 +103,12 @@ export default function Setup() {
         {options.map((option, index) => <SwiperSlide key={index}>{optionCard(option, index)}</SwiperSlide>)}
       </Swiper>
       <div className='w-full md:w-1/4 px-6'>
-        <Button type='primary' disabled={!userType} text={t('setup.button')} onClick={() => { setStep(1) }} />
+        <Button style='primary' disabled={!userType} text={t('setup.button')} onClick={() => { setStep(1) }} />
       </div>
     </>
   )
 
-  const StepTwo = () => (
+  const stepTwo = () => (
     <>
       <div className='px-6 flex flex-col items-center'>
         <div>
@@ -106,16 +138,41 @@ export default function Setup() {
             </div>
           </div>
           <div className='flex flex-col gap-6 mb-6'>
-            <Input type='text' name='username' label={t('setup.step_two.username')} helper={t('setup.step_two.helper')} required={true} />
+            <Input
+              type='text'
+              name='username'
+              label={t('setup.step_two.username')}
+              helper={t('setup.step_two.helper')}
+              required={true}
+              value={username}
+              onChange={(e) => { setUsername(e.target.value) }} />
             {userType === 'artist' &&
-              <Input type='text' name='name' label={t('setup.step_two.artist_name')} required={true} />
+              <Input
+                type='text'
+                name='name'
+                label={t('setup.step_two.artist_name')}
+                required={true}
+                value={artistName}
+                onChange={(e) => { setArtistName(e.target.value) }} />
             }
-            <Input type='number' name='pin' label={t('setup.step_two.pin')} showHide={true} required={true} />
+            <Input
+              type='number'
+              name='pin'
+              label={t('setup.step_two.pin')}
+              showHide={true}
+              required={true}
+              value={pinCode}
+              onChange={(e) => { setPinCode(e.target.value) }} />
           </div>
           <div className='flex flex-col gap-4 mb-8'>
             <span className='font-semibold'>Plan</span>
             <div className='account-plan'>
-              <input type='radio' id='free' value='free' name='plan' />
+              <input
+                type='radio'
+                id='free'
+                value='free'
+                name='plan'
+                onChange={(e) => { setPlan(e.target.value) }} />
               <label htmlFor='free'>
                 <span className='text-lg'>{t('setup.step_two.free')}</span>
                 <p className='!text-sm'>{t('setup.step_two.free_description')}</p>
@@ -126,8 +183,14 @@ export default function Setup() {
               </label>
             </div>
             <div className='account-plan'>
-              <input type='radio' id='free' value='free' name='plan' disabled />
-              <label htmlFor='free'>
+              <input
+                type='radio'
+                id='premium'
+                value='premium'
+                name='plan'
+                onChange={(e) => { setPlan(e.target.value) }}
+                disabled />
+              <label htmlFor='premium'>
                 <span className='text-lg'>Premium</span>
                 <p className='mb-4 !text-sm'>{t('setup.step_two.premium_description')}</p>
                 <div className='h-full'>
@@ -140,7 +203,12 @@ export default function Setup() {
             <input type='checkbox' value='' className='' id='terms-and-conditions' />
             <label htmlFor='terms-and-conditions'>{t('setup.step_two.terms')} <Link to='/terms-and-conditions' className='text-brand-gold'>{t('setup.step_two.terms_link')}</Link></label>
           </div>
-          <Button type='primary' text={t('setup.step_two.create_button')} disabled={true} />
+          <Button
+            style='primary'
+            text={t('setup.step_two.create_button')}
+            disabled={loading}
+            loading={loading}
+            onClick={handleSetup} />
         </div>
       </div>
     </>
@@ -149,7 +217,7 @@ export default function Setup() {
   return (
     <>
       <div className='flex flex-col gap-8 items-center justify-center h-full pt-10 pb-10 md:px-[120px] md:py-20 w-full'>
-        {step === 0 ? <StepOne /> : <StepTwo />}
+        {step === 0 ? stepOne() : stepTwo()}
       </div>
     </>
   )

@@ -11,15 +11,18 @@ import Modal from 'components/Modal'
 import GlobalListener from 'components/modals/GlobalListener'
 import { useSearch } from 'hooks/useSearch'
 import axios from 'axios'
+import spinner from 'assets/images/icon-loading-claim.png';
+import { useSelector } from 'react-redux'
 const Permissions = () => {
   const { t } = useTranslation() 
-  const { data, handleToggle } = useFetch(apiUrl + 'globalpermission/')
+  const user = useSelector((state) => state.auth.user)
+  const { data, handleToggle , isFetching } = useFetch(apiUrl + 'globalpermission/', user.token )
   const { handleChange, filteredArtists, handleOptionSelect, selected, handleDeleteSelected, input, checked, handleCheck, reset } = useSearch(3, data)
   const [ show, setShow ] = useState(false)
   const toggle = () => {setShow(!show); reset()}
   const addListener = () => {
     if(!selected.hasOwnProperty('full_name')) return;
-    axios.post(apiUrl + 'globalpermission/', { user: selected.id }, { headers: { 'TEST-USER-ID': 'f1' }, })
+    axios.post(apiUrl + 'globalpermission/', { user: selected.id }, { headers: {  Authorization: `Bearer ${user.token}`}, })
          .then((response) => { console.log(response.data); handleToggle(); toggle() })
   }
   const items = t('profile.sections', { returnObjects: true });
@@ -41,14 +44,15 @@ const Permissions = () => {
                 </div>
         </div>
         <div className='bg-neutral-black flex flex-col items-center w-full rounded-2xl md:rounded-3xl px-4 pt-3 pb-6 md:py-10 md:px-[60px]'>
-                {data.length >  0 ? <PermissionsList data={data} /> :            
-                  <div className='flex flex-col items-center gap-2'>
-                      <h4>{t('notification.nothing_here')}</h4>
-                      <p className='text-lg text-neutral-silver-200 font-light mb-10'>
-                      {t('notification.not_general')}
-                      </p>
-                      <img src={empty} alt='' width={240} height={128} className='mb-5' />
-                  </div> 
+                {isFetching ? 
+                  <img src={spinner} alt='' width={20} height={20} className='animate-spin' /> : data.length >  0 ? <PermissionsList data={data} /> :            
+                    <div className='flex flex-col items-center gap-2'>
+                        <h4>{t('notification.nothing_here')}</h4>
+                        <p className='text-lg text-neutral-silver-200 font-light mb-10'>
+                        {t('notification.not_general')}
+                        </p>
+                        <img src={empty} alt='' width={240} height={128} className='mb-5' />
+                    </div> 
                 }
                 <PermissionsButton toggle={toggle} />
         </div>

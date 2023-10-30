@@ -6,22 +6,32 @@ import Breadcrumb from 'components/Breadcrumb'
 import Modal from 'components/Modal'
 import DeleteModal from 'components/modals/DeleteModal'
 import { apiUrl } from 'utils/api'
-import { useFetch } from 'hooks/useFetch'
+import { useSelector } from 'react-redux'
+import axios from 'axios'
 const Account = () => {
   const { t } = useTranslation() 
   const [show, setShow] = useState(false)
-  const { data, isFetching, error, handleToggle } = useFetch(apiUrl + 'account/')
   const [input, setInput] = useState('')
   const [isAvailable, setIsAvailable] = useState(false)
-
+  const { data, token } = useSelector((state) => state.auth.user);
   const handleChange = (e) =>  {
     setInput(e.target.value)
     console.log(e.target.value)
   }
+
   const toggle = () => {
     setShow(!show)
     setInput('')
   }
+
+  const deleteAccount = () => {
+    axios.delete(apiUrl+'account/artist/', { 
+      headers: { Authorization: `Bearer ${token}` }
+    }).then((response) => {
+      console.log(response)
+    })
+  }
+
   useEffect(() => {
     // delete_validation_text: 'delete my chest',
     let validation_text = t('account.delete_validation_text')
@@ -40,7 +50,7 @@ const Account = () => {
         <Modal show={show}>
             <DeleteModal title={t('account.modals.delete_account')} subtitle={t('account.modals.delete_subtitle')}
                          confirmText={t('account.modals.delete_confirm')} primaryButton={t('global.confirm')}
-                         secondaryButton={t('global.cancel')} placeholder={t('global.placeholder.write_here')}
+                         secondaryButton={t('global.cancel')} placeholder={t('global.placeholder.write_here')}  onClick={deleteAccount}
                          label={t('global.email')} type={'email'} toggle={toggle} onChange={handleChange} disabled={isAvailable}
                         />
         </Modal>
@@ -53,7 +63,7 @@ const Account = () => {
                 </div>
             </div>
             <div className='w-full bg-neutral-black md:p-8 p-3 flex flex-col md:flex-row gap-y-3 gap-x-8 rounded-3xl'>
-                <AccountData data={data}  handleToggle={handleToggle}/>
+                <AccountData data={data} token={token}/>
                 <AccountPlan data={data}/>
             </div>
             <div className='w-full flex justify-center md:justify-start items-center'>

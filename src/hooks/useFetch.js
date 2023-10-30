@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-const useFetch = (url) => {
+const useFetch = (url, token) => {
     const [data, setData] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
     const [error, setError] = useState();
@@ -8,7 +8,7 @@ const useFetch = (url) => {
     useEffect(() => {
       if(!url) return;
       setIsFetching(true);
-      axios.get(url, { headers: { 'TEST-USER-ID': 'f1' }})
+      axios.get(url, { headers: { Authorization: `Bearer ${token}` }})
         .then(response => setData(response.data))
         .catch(error => setError(error.response.data))
         .finally(() => setIsFetching(false));
