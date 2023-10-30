@@ -9,6 +9,7 @@ import MyChest from 'routes/my-chest';
 import Root from 'routes/root';
 import SignIn from 'routes/sign-in';
 import ProtectedRoute from 'utils/ProtectedRoute';
+import DisconnectedRoute from 'utils/DisconnectedRoute';
 import SignUp from 'routes/sign-up';
 import Manage from 'routes/manage';
 import Notifications from 'routes/notifications'
@@ -20,6 +21,7 @@ import Terms from 'routes/terms';
 import Help from 'routes/help'; 
 import Shared from 'routes/shared';
 import Profile from 'routes/profile';
+import Setup from 'routes/setup';
 
 function App() {
   const dispatch = useDispatch();
@@ -30,7 +32,10 @@ function App() {
       children: [
         {
           path: '/sign-in',
-          element: <SignIn />
+          element:
+           <DisconnectedRoute>
+             <SignIn />
+           </DisconnectedRoute>
         },
         {
           path: '/sign-up',
@@ -112,11 +117,18 @@ function App() {
             <ProtectedRoute>
               <Manage />
             </ProtectedRoute>
+        },
+        {
+          path: 'setup',
+          element: 
+          <ProtectedRoute>
+            <Setup/>
+          </ProtectedRoute>
         }
       ]
     }
   ]);
-
+   //
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -124,7 +136,6 @@ function App() {
           const response = await axios.get('account/', {
             headers: { Authorization: `Bearer ${token}` }
           });
-
           dispatch(saveUser({
             data: response.data,
             token: token

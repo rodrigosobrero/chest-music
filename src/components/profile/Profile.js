@@ -1,13 +1,12 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux';
 import ProfileRow from './ProfileRow'
 import { KeyIcon, ClockIcon, CloudIcon, QuestionMarkCircleIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";
 import { ReactComponent as Unlocked } from 'assets/images/icon-unlocked-alt.svg';
 import ProfileHead from './ProfileHead';
-
-
-
 const ProfileView = () => {
+  const user = useSelector((state) => state.auth.user);
   const { t } = useTranslation() 
   const items = t('profile.sections', { returnObjects: true });
   const classIcon = 'h-7 w-7 text-brand-gold'
@@ -17,7 +16,7 @@ const ProfileView = () => {
   return (
     <>
        <div className='w-full md:w-3/5 flex flex-col justify-center mx-auto items-center gap-y-8 md:gap-y-10'>
-            <ProfileHead />
+            <ProfileHead data={user?.data}/>
             <div className='flex flex-col gap-y-3 md:gap-y-5 w-full'>
                     {items?.map((el, i) => (
                             <ProfileRow title={el.title} subtitle={el.subtitle} to={to[i]} icon={icons[i]}/>

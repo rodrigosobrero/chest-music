@@ -53,8 +53,9 @@ export default function Setup() {
         username: username,
         full_name: artistName,
         plan: plan,
-        email: user.email,
-        pincode: pinCode
+        email: user.data.email,
+        pincode: pinCode,
+        login_method: 'local'
       }, {
         headers: { Authorization: `Bearer ${user.token}` }
       });

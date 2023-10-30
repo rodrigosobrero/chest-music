@@ -12,8 +12,11 @@ export const authSlice = createSlice({
     updateUser: (state, action) => {
       state.user = {...state.user, ...action.payload};
     },
+    updateUserData: (state, action) => {
+      state.user.data = {...state.user.data, ...action.payload}
+    }
   },
 });
 
-export const { saveUser, updateUser } = authSlice.actions;
+export const { saveUser, updateUser, updateUserData } = authSlice.actions;
 export default authSlice.reducer;

@@ -1,10 +1,33 @@
-import { useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { EyeSlashIcon } from "@heroicons/react/24/outline";
 import { EyeIcon } from '@heroicons/react/24/outline';
+import { DocumentDuplicateIcon } from "@heroicons/react/24/outline";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { motion } from 'framer-motion';
-
-export default function Input({ type, placeholder, label, name, value, onChange, showHide, helper, required, register, error }) {
+export default function Input({ type, placeholder, label, name, value, onChange, showHide, helper, required, register, error,
+                                showClipboard, disabled, onlyNumeric, showDelete, showMore, onDelete, isOpen, toggleOpen }) {
   const [inputType, setInputType] = useState(type);
+  const [copied, setCopied] = useState(false)
+  const inputRef = useRef(null);
+  useEffect(() => {
+    if(onlyNumeric){
+      const handleKeyPress = (evt) => {
+        const valueLength = evt.target.value.length
+        if (evt.key < '0' || evt.key > '9' || valueLength >= 4 ) {
+          evt.preventDefault();
+        }
+      };
+      const numericInput = inputRef.current;
+      if (numericInput) {
+        numericInput.addEventListener('keypress', handleKeyPress); // keypress para que chequee al presionar el boton, change lo agrega y después chequea
+        return () => {
+          numericInput.removeEventListener('keypress', handleKeyPress);
+        };
+      }
+    }
+  }, [onlyNumeric]);
+
   const showHidePassword = () => {
     if (inputType === 'password') {
       setInputType('text');
@@ -12,6 +35,15 @@ export default function Input({ type, placeholder, label, name, value, onChange,
       setInputType('password');
     }
   }
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText('blabla')
+      .then(() => {
+        setCopied(true);
+      })
+      .catch((error) => {
+        console.error('Error al copiar al portapapeles:', error);
+      });
+  };
 
   return (
     <>
@@ -42,11 +74,17 @@ export default function Input({ type, placeholder, label, name, value, onChange,
             )
             : (
               <input
-                type={inputType}
-                placeholder={placeholder}
-                id={name}
-                name={name}
-                className={`transition duration-300 border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 w-full focus:outline-none focus:border-brand-gold leading-5 ${error && '!border-error-red'}`} />
+              type={inputType}
+              placeholder={placeholder}
+              id={name}
+              name={name}
+              ref={inputRef}
+              value={value}
+              onChange={onChange}
+              disabled={disabled}
+              className={`border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 w-full 
+                          focus:outline-none focus:border-brand-gold leading-5 disabled:bg-neutral-silver-600 disabled:border-none 
+                        disabled:text-neutral-silver-300 transition duration-300 ${error && 'border-error-red'}`}/>
             )
           }
 
@@ -56,6 +94,31 @@ export default function Input({ type, placeholder, label, name, value, onChange,
                 {inputType === 'password' ?
                   <EyeSlashIcon className='h-5 w-5 text-neutral-silver-500' /> :
                   <EyeIcon className='h-5 w-5 text-brand-gold' />
+                }
+              </button>
+            </div>
+          }
+          {showClipboard &&
+            <div className='absolute top-4 right-4'>
+              <button type='button' onClick={copyToClipboard}>
+                {!copied ? <DocumentDuplicateIcon className="h-5 w-5 text-neutral-silver-400" /> :
+                  <DocumentDuplicateIcon className="h-5 w-5 text-brand-gold" />}
+              </button>
+            </div>
+          }
+         {showDelete &&
+            <div className='absolute top-4 right-4'>
+              <button type='button' onClick={onDelete}>
+                  <XMarkIcon className="h-5 w-5 text-error-red" />
+              </button>
+            </div>
+          }
+          {showMore &&
+            <div className='absolute top-4 right-4 '>
+              <button type='button' onClick={toggleOpen}>
+                {isOpen  ?
+                  <ChevronUpIcon className='h-5 w-5 text-neutral-silver-200' /> :
+                  <ChevronDownIcon className='h-5 w-5 text-neutral-silver-200' />
                 }
               </button>
             </div>

@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import SharedRow from './SharedRow';
-import useMediaQuery from 'utils/useMediaQuery';
+import useMediaQuery from 'hooks/useMediaQuery';
 
 const SharedList = ({ tracks }) => {
   const isMobile = useMediaQuery('(max-width: 1024px)');

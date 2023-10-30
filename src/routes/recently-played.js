@@ -1,10 +1,15 @@
 import React from 'react'
-import data from 'data/recently.json'
 import RecentlyList from 'components/profile/RecentlyList';
 import { useTranslation } from 'react-i18next';
 import Breadcrumb from 'components/Breadcrumb';
+import { apiUrl } from 'utils/api';
+import { useFetch } from 'hooks/useFetch';
+import { useSelector } from 'react-redux';
+import empty from 'assets/images/empty-chest.svg';
+
 const Played = () => {
-  // const location = useLocation();
+  const user = useSelector((state) => state.auth.user) 
+  const { data, isFetching, error } = useFetch(apiUrl + 'recentlyplayed/', user.token )
   const { t } = useTranslation() 
   const items = t('profile.sections', { returnObjects: true });
   let paths = [{ name:'Profile', link: '/profile' }, { name: items[0].title }]
@@ -19,7 +24,16 @@ const Played = () => {
          </div>
        </div>
        <div className='bg-neutral-black rounded-3xl px-4 pt-6 pb-8 md:p-[60px] md:pt-10'>
-            <RecentlyList data={data}/>
+            {data.length > 0 ?
+                    <RecentlyList data={data}/> :
+                    <div className='flex flex-col items-center gap-2'>
+                    <h4>{t('notification.nothing_here')}</h4>
+                    <p className='text-lg text-neutral-silver-200 font-light mb-10'>
+                      {t('notification.not_general')}
+                    </p>
+                    <img src={empty} alt='' width={240} height={128} className='mb-5' />
+                </div>
+            }
        </div>
     </div>
     </>

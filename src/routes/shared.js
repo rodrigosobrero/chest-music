@@ -1,9 +1,12 @@
 import SearchBar from "components/SearchBar"
 import SharedTable from "components/shared/SharedTable"
 import shared from "data/shared.json"
+import { useEffect } from "react"
 import { useTranslation } from "react-i18next"
+import axios from "axios"
 export default function Shared() {
   const { t } = useTranslation()
+
   return (
     <>     
        <div className='flex flex-col  md:container px-3 py-10 md:p-[60px] gap-y-6 md:gap-y-10 text-center font-archivo '>
