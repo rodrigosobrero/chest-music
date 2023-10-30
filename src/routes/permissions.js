@@ -19,7 +19,9 @@ const Permissions = () => {
   const { data, handleToggle , isFetching } = useFetch(apiUrl + 'globalpermission/', user.token )
   const { handleChange, filteredArtists, handleOptionSelect, selected, handleDeleteSelected, input, checked, handleCheck, reset } = useSearch(3, data)
   const [ show, setShow ] = useState(false)
+  
   const toggle = () => {setShow(!show); reset()}
+
   const addListener = () => {
     if(!selected.hasOwnProperty('full_name')) return;
     axios.post(apiUrl + 'globalpermission/', { user: selected.id }, { headers: {  Authorization: `Bearer ${user.token}`}, })
