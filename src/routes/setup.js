@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
+import { useForm } from 'react-hook-form';
 import { firstLetterUpperCase } from 'utils/helpers';
 import axios from 'utils/api';
 import 'swiper/css';
@@ -15,7 +16,7 @@ import { MusicalNoteIcon } from '@heroicons/react/24/solid';
 import { MicrophoneIcon } from '@heroicons/react/24/solid';
 import artist from 'assets/images/sign-up-artist.png';
 import fan from 'assets/images/sign-up-fan.png';
-
+import ErrorMessage from 'components/ErrorMessage';
 
 export default function Setup() {
   const { t } = useTranslation();
@@ -24,11 +25,12 @@ export default function Setup() {
 
   const [userType, setUserType] = useState('');
   const [step, setStep] = useState(0);
-  const [username, setUsername] = useState('');
-  const [artistName, setArtistName] = useState('');
-  const [pinCode, setPinCode] = useState('');
-  const [plan, setPlan] = useState('');
   const [loading, setLoading] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm();
 
   const options = [
     {
@@ -43,18 +45,22 @@ export default function Setup() {
     }
   ]
 
-  const handleSetup = async () => {
+  const handleSetup = async (data) => {
+    console.log(data);
+    console.log(user.data);
+    return;
+
     setLoading(true);
 
     console.log(user);
 
     try {
       await axios.post(`/account/${userType}/`, {
-        username: username,
-        full_name: artistName,
-        plan: plan,
+        username: data.username,
+        full_name: data.name,
+        plan: data.plan,
         email: user.data.email,
-        pincode: pinCode,
+        pincode: data.pin,
         login_method: 'local'
       }, {
         headers: { Authorization: `Bearer ${user.token}` }
@@ -137,78 +143,90 @@ export default function Setup() {
               </button>
             </div>
           </div>
-          <div className='flex flex-col gap-6 mb-6'>
-            <Input
-              type='text'
-              name='username'
-              label={t('setup.step_two.username')}
-              helper={t('setup.step_two.helper')}
-              required={true}
-              value={username}
-              onChange={(e) => { setUsername(e.target.value) }} />
-            {userType === 'artist' &&
+          <form onSubmit={handleSubmit(handleSetup)}>
+            <div className='flex flex-col gap-6 mb-6'>
               <Input
                 type='text'
-                name='name'
-                label={t('setup.step_two.artist_name')}
+                name='username'
+                label={t('setup.step_two.username')}
+                helper={t('setup.step_two.helper')}
                 required={true}
-                value={artistName}
-                onChange={(e) => { setArtistName(e.target.value) }} />
-            }
-            <Input
-              type='number'
-              name='pin'
-              label={t('setup.step_two.pin')}
-              showHide={true}
-              required={true}
-              value={pinCode}
-              onChange={(e) => { setPinCode(e.target.value) }} />
-          </div>
-          <div className='flex flex-col gap-4 mb-8'>
-            <span className='font-semibold'>Plan</span>
-            <div className='account-plan'>
-              <input
-                type='radio'
-                id='free'
-                value='free'
-                name='plan'
-                onChange={(e) => { setPlan(e.target.value) }} />
-              <label htmlFor='free'>
-                <span className='text-lg'>{t('setup.step_two.free')}</span>
-                <p className='!text-sm'>{t('setup.step_two.free_description')}</p>
-                <div className='flex items-center gap-2 mt-2'>
-                  <span className='text-[28px]'>$0</span>
-                  <span className='text-sm'>/{t('global.month')}</span>
-                </div>
-              </label>
+                register={register}
+                error={errors.username && 'This field is required'} />
+              {userType === 'artist' &&
+                <Input
+                  type='text'
+                  name='name'
+                  label={t('setup.step_two.artist_name')}
+                  required={true}
+                  register={register}
+                  error={errors.name && 'This field is required'} />
+              }
+              <Input
+                type='number'
+                name='pin'
+                label={t('setup.step_two.pin')}
+                showHide={true}
+                required={true}
+                register={register}
+                error={errors.pin && 'This field is required'} />
             </div>
-            <div className='account-plan'>
-              <input
-                type='radio'
-                id='premium'
-                value='premium'
-                name='plan'
-                onChange={(e) => { setPlan(e.target.value) }}
-                disabled />
-              <label htmlFor='premium'>
-                <span className='text-lg'>Premium</span>
-                <p className='mb-4 !text-sm'>{t('setup.step_two.premium_description')}</p>
-                <div className='h-full'>
-                  <Tag>{t('global.coming_soon')}</Tag>
-                </div>
-              </label>
+            <div className='flex flex-col gap-4'>
+              <div className='flex items-center'>
+                <span className='font-semibold grow'>Plan</span>
+                <ErrorMessage show={errors.plan} message='Select a plan' />
+              </div>
+              <div className='account-plan'>
+                <input
+                  type='radio'
+                  id='free'
+                  value='free'
+                  name='plan'
+                  {...register('plan', { required: true })} />
+                <label htmlFor='free'>
+                  <span className='text-lg'>{t('setup.step_two.free')}</span>
+                  <p className='!text-sm text-left'>{t('setup.step_two.free_description')}</p>
+                  <div className='flex items-center gap-2 mt-2'>
+                    <span className='text-[28px]'>$0</span>
+                    <span className='text-sm'>/{t('global.month')}</span>
+                  </div>
+                </label>
+              </div>
+              <div className='account-plan'>
+                <input
+                  type='radio'
+                  id='premium'
+                  value='premium'
+                  name='plan'
+                  {...register('plan', { required: true })}
+                  disabled />
+                <label htmlFor='premium'>
+                  <span className='text-lg'>Premium</span>
+                  <p className='mb-4 !text-sm text-left'>{t('setup.step_two.premium_description')}</p>
+                  <div className='h-full'>
+                    <Tag>{t('global.coming_soon')}</Tag>
+                  </div>
+                </label>
+              </div>
             </div>
-          </div>
-          <div className='flex items-center gap-3 mb-8'>
-            <input type='checkbox' value='' className='' id='terms-and-conditions' />
-            <label htmlFor='terms-and-conditions'>{t('setup.step_two.terms')} <Link to='/terms-and-conditions' className='text-brand-gold'>{t('setup.step_two.terms_link')}</Link></label>
-          </div>
-          <Button
-            style='primary'
-            text={t('setup.step_two.create_button')}
-            disabled={loading}
-            loading={loading}
-            onClick={handleSetup} />
+            <div className='flex items-center justify-end h-14'>
+              <ErrorMessage show={errors.terms} message='Accept Terms and Conditions' />
+            </div>
+            <div className='flex items-center gap-3 mb-8'>
+              <input
+                type='checkbox'
+                name='terms'
+                id='terms-and-conditions'
+                {...register('terms', { required: true })} />
+              <label htmlFor='terms-and-conditions'>{t('setup.step_two.terms')} <Link to='/terms-and-conditions' className='text-brand-gold'>{t('setup.step_two.terms_link')}</Link></label>
+            </div>
+            <Button
+              style='primary'
+              type='submit'
+              text={t('setup.step_two.create_button')}
+              disabled={loading}
+              loading={loading} />
+          </form>
         </div>
       </div>
     </>
