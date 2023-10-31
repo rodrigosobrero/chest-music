@@ -46,13 +46,9 @@ export default function Setup() {
   ]
 
   const handleSetup = async (data) => {
-    console.log(data);
-    console.log(user.data);
-    return;
-
     setLoading(true);
 
-    console.log(user);
+    console.log('setup')
 
     try {
       await axios.post(`/account/${userType}/`, {
@@ -167,9 +163,7 @@ export default function Setup() {
                 name='pin'
                 label={t('setup.step_two.pin')}
                 showHide={true}
-                required={true}
-                register={register}
-                error={errors.pin && 'This field is required'} />
+                register={register} />
             </div>
             <div className='flex flex-col gap-4'>
               <div className='flex items-center'>
