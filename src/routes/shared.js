@@ -4,9 +4,14 @@ import shared from "data/shared.json"
 import { useEffect } from "react"
 import { useTranslation } from "react-i18next"
 import axios from "axios"
+import { useFetch } from "hooks/useFetch"
+import { useSelector } from "react-redux"
+import { apiUrl } from "utils/api"
 export default function Shared() {
   const { t } = useTranslation()
-
+  const user = useSelector((state) => state.auth.user )
+  const { data, isFetching, error } = useFetch(apiUrl + 'shared/', user.token)
+  
   return (
     <>     
        <div className='flex flex-col  md:container px-3 py-10 md:p-[60px] gap-y-6 md:gap-y-10 text-center font-archivo '>
@@ -22,10 +27,12 @@ export default function Shared() {
               </div>
           </div>
           <div className='flex flex-col gap-y-1'>
-          {
-            shared.map((el) => (
-              <SharedTable artist={el.username} data={el.tracks}/>
-            ))
+          { data.length > 0 ? 
+            data?.map((el) => (
+              <SharedTable artist={el.artist} data={el.tracks}/>
+            )) 
+            : 
+            <h3>Any yet</h3>
           }
           </div>
       </div>
