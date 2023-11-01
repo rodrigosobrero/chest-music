@@ -48,16 +48,14 @@ export default function Setup() {
   const handleSetup = async (data) => {
     setLoading(true);
 
-    console.log('setup')
-
     try {
       await axios.post(`/account/${userType}/`, {
         username: data.username,
         full_name: data.name,
         plan: data.plan,
-        email: user.data.email,
+        email: user.email,
         pincode: data.pin,
-        login_method: 'local'
+        login_method: user.signInMethod
       }, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
