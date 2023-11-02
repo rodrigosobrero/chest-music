@@ -4,12 +4,13 @@ import { formatTime, timeDifference } from 'utils/helpers';
 import SharedToast from './SharedToast';
 import webdisabled from 'assets/images/icon-webdisabled.svg'
 import chestLogo from 'assets/images/chest-logo.svg'
-const SharedRow = ({ track, isMobile }) => {
+const SharedRow = ({ track, isMobile, onClick }) => {
   console.log(track)
   const [show, setShow] = useState(false);
   return (
     <>
     <tr
+      onClick={onClick}
       className='hover:rounded-xl hover:bg-neutral-silver-700 text-left'
       onMouseEnter={() => { setShow(true) }}
       onMouseLeave={() => { setShow(false) }}
@@ -43,7 +44,7 @@ const SharedRow = ({ track, isMobile }) => {
             <td>{track.version}</td>
             <td>
               <span className='capitalize'>
-                {timeDifference(track.date_played)}
+                {timeDifference(track.date_shared ?  track.date_shared : track.date_played)}
               </span>
             </td>
             <td>{formatTime(track.length)}</td>

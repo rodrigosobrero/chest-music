@@ -1,12 +1,29 @@
+import { useEffect, useState } from "react"
 import SearchBar from "components/SearchBar"
 import SharedTable from "components/shared/SharedTable"
-import shared from "data/shared.json"
-import { useEffect } from "react"
 import { useTranslation } from "react-i18next"
-import axios from "axios"
+import { useFetch } from "hooks/useFetch"
+import { useDispatch, useSelector } from "react-redux"
+import { apiUrl } from "utils/api"
 export default function Shared() {
   const { t } = useTranslation()
+  const user = useSelector((state) => state.auth.user )
+  const { data, isFetching, error } = useFetch(apiUrl + 'shared/', user.token)
+  const [ input, setInput ] = useState('')
+  const handleChange = (e) => setInput(e.target.value.toLowerCase())
+  const filteredTracks = data.filter(track => {
+    if (input === '') {
+      return track;
+    } else {
+      return Object.values(track)
+        .join(' ')
+        .toLowerCase()
+        .includes(input)
+      }
+    });
 
+
+  const dispatch = useDispatch()
   return (
     <>     
        <div className='flex flex-col  md:container px-3 py-10 md:p-[60px] gap-y-6 md:gap-y-10 text-center font-archivo '>
@@ -18,14 +35,16 @@ export default function Shared() {
                  {t('shared.subtitle')}
               </span>
               <div className='mt-4'>
-               <SearchBar className='!border-[1.5px] placeholder:text-center focus:border-brand-gold' onChange={() => console.log('onChange')}/>
+               <SearchBar className='!border-[1.5px] placeholder:text-center focus:border-brand-gold' onChange={handleChange}/>
               </div>
           </div>
           <div className='flex flex-col gap-y-1'>
-          {
-            shared.map((el) => (
-              <SharedTable artist={el.username} data={el.tracks}/>
-            ))
+          {isFetching ? <h3>Loading</h3>  : data.length > 0 ? 
+            filteredTracks?.map((el) => (
+              <SharedTable artist={el.artist} data={el.tracks} dispatch={dispatch}/>
+            )) 
+            : 
+            <h3>Any yet</h3>
           }
           </div>
       </div>
