@@ -1,5 +1,5 @@
 import axios from "axios"
-// import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 export default axios.create({
   baseURL: 'https://chest-api-stg.cexar.io/web/v1/'
 });
@@ -15,19 +15,20 @@ export const patchData = async (path, body, token) => {
     return data
 }
 
-// export const resetPassword = (email) => {
-//   const auth = getAuth();
-//   sendPasswordResetEmail(auth, email)
-//     .then(() => {
-//       // Correo de restablecimiento de contraseña enviado exitosamente.
-//       console.log("Correo de restablecimiento de contraseña enviado exitosamente");
-//       })
-//     .catch((error) => {
-//       const errorCode = error.code;
-//       const errorMessage = error.message;
-//        // Manejar errores
-//        console.error("Error al enviar el correo de restablecimiento de contraseña:", errorCode, errorMessage);
-//     });
-// }
+export const resetPassword = (email, callback) => {
+  const auth = getAuth();
+  sendPasswordResetEmail(auth, email)
+    .then(() => {
+      // Correo de restablecimiento de contraseña enviado exitosamente.
+      console.log("Correo de restablecimiento de contraseña enviado exitosamente");
+      callback()
+      })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+       // Manejar errores
+       console.error("Error al enviar el correo de restablecimiento de contraseña:", errorCode, errorMessage);
+    });
+}
 
 
