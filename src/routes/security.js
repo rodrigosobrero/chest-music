@@ -11,6 +11,7 @@ import { useSecurity } from 'hooks/useSecurity';
 import { patchData } from 'utils/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserData } from 'app/auth';
+import { resetPassword } from 'utils/api';
 const Security = () => {
     const { t } = useTranslation() 
     const { data, token } = useSelector((state) => state.auth.user);
@@ -30,6 +31,7 @@ const Security = () => {
       })
       .catch((err) => console.log(err))
     }
+    
     const Casillero = ({ title, icon, quantity=0, onClick, type }) => {
         const ellipses = new Array(quantity).fill(null).map((_, index) => (
             <Elipse key={index} /> 
@@ -70,23 +72,7 @@ const Security = () => {
           disabled: true,
         }
     ]
-    // const inputsDataPin = [
-    //     { label:t('security.pin_modal.current_pin'), 
-    //       placeholder:t('global.placeholder.write_here'), 
-    //       type: 'password',
-    //       name: 'currentValue',
-    //       showHide: true,
-    //       onlyNumeric: true,
-    //     },
-    //     { 
-    //       label:t('security.pin_modal.new_pin'), 
-    //       placeholder:t('global.placeholder.write_here'), 
-    //       type: 'password',
-    //       showHide: true,
-    //       name: 'new',
-    //       onlyNumeric: true,
-    //     }
-    // ]
+
     const inputsDataPin = useMemo(() => { 
       if(!data.pincode || data.pincode === '') {
         return [    
@@ -120,7 +106,7 @@ const Security = () => {
       <Modal show={isOpenPassword} setShow={setIsOpenPassword}>
         <ChangeDataModal toggle={togglePassword} primaryButton={t('global.send')} secondaryButton={t('global.cancel')}
                          title={t('security.password_modal.title')} subtitle={t('security.password_modal.subtitle')}
-                         inputsData={inputsDataPassword}  isAvailable={true}/>
+                         inputsData={inputsDataPassword}  isAvailable={true} onClick={() => resetPassword(data.email, () => setIsOpenPassword(false))}/>
       </Modal>
       <Modal show={isOpenPin} setShow={setIsOpenPin}>
         <ChangeDataModal toggle={togglePin} primaryButton={t('global.confirm')} secondaryButton={t('global.cancel')}
