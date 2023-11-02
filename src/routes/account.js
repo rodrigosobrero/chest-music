@@ -29,6 +29,7 @@ const Account = () => {
       headers: { Authorization: `Bearer ${token}` }
     }).then((response) => {
       console.log(response)
+      window.location.reload()
     })
   }
 
