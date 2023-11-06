@@ -7,27 +7,33 @@ const useSearch = (lengthToStartSearch, listeners) => {
     const [filteredArtists, setFilteredArtists] = useState([])
     const [selected, setSelected] = useState({})
     const [checked, setChecked] = useState(false)
+
     const handleChange = (e) => {
         setInput(e.target.value)
     }
+
     const handleCheck = () => {
         setChecked(true)
     }
+
     const handleOptionSelect = (i) => {
         setSelected(filteredArtists[i])
         setFilteredArtists([])
         setInput('')
     }
+
     const handleDeleteSelected = () => {
         setSelected({})
         setChecked(false)
     }
+
     const reset = () => {
         setChecked(false);
         setSelected({})
         setInput('')
         setFilteredArtists([])
     }
+
     useEffect(() =>{
         if(input.length < lengthToStartSearch) {
             if(filteredArtists.length > 0) setFilteredArtists([])
@@ -37,7 +43,7 @@ const useSearch = (lengthToStartSearch, listeners) => {
         .then((response) =>  {
             let artists = response.data;
             artists = response.data.filter(artist => artist.type !== 'fan')
-            if (listeners && listeners.length>0) {
+            if (listeners && listeners.length > 0) {
                 artists = artists.filter(artist => !listeners.some(listener => listener.user_id === artist.id));
             }
             setFilteredArtists(artists)

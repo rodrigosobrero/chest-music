@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import ManageRow from './ManageRow';
 import useMediaQuery from 'hooks/useMediaQuery';
-const ManageList = ({data, privacyIsOpen}) => {
+const ManageList = ({ data, privacyIsOpen }) => {
     const isMobile = useMediaQuery('(max-width: 1024px)')
     const handleSortingChange = (index) => {
         console.log(index);

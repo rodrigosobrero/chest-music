@@ -53,7 +53,7 @@ export default function Setup() {
         username: username,
         full_name: artistName,
         plan: plan,
-        email: user.data.email,
+        email: 'dylans55@hotmail.com',
         pincode: pinCode,
         login_method: 'local'
       }, {

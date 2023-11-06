@@ -5,7 +5,6 @@ import DropdownSearch from 'components/profile/DropdownSearch'
 import check from 'assets/images/icon-check-28.svg'
 const GlobalListener = ({ handleChange, options = [], handleOptionSelect, listeners, 
                          toggle, onClick, selected, handleDeleteSelected, input, checked, handleCheck }) => {
-                            console.log(listeners)
   return (
     <>
         <div className='md:w-[520px] text-center flex flex-col  h-96'>

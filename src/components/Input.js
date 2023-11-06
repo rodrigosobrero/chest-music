@@ -7,6 +7,7 @@ import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { motion } from 'framer-motion';
 export default function Input({ type, placeholder, label, name, value, onChange, showHide, helper, required, register, error,
                                 showClipboard, disabled, onlyNumeric, showDelete, showMore, onDelete, isOpen, toggleOpen }) {
+                                  
   const [inputType, setInputType] = useState(type);
   const [copied, setCopied] = useState(false)
   const inputRef = useRef(null);
