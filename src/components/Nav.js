@@ -19,7 +19,7 @@ export default function Nav() {
   const data = location.pathname === '/sign-up' || location.pathname === '/sign-in' ?
     navData.nav.filter(item => !item.private) :
     navData.nav.filter(item => item.private);
-
+  console.log('data', data)
   const toggleOpen = () => {
     setOpen(prev => !prev);
   }
@@ -45,7 +45,7 @@ export default function Nav() {
                   </li>
                 )
               }
-              {/* Test */}
+              Test
               <li>
                 <button type='button' className='p-2' onClick={() => { signOut(auth) }}>
                   logout
