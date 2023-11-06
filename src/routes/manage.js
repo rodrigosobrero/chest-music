@@ -43,8 +43,7 @@ export default function Manage() {
   }
 
   const deletePermission = (id) => {
-    axios.post(apiUrl + 'notification/permission/',
-    { permission_id: id },
+    axios.delete(apiUrl + 'notification/permission/' + id,
     { headers: { Authorization: `Bearer ${user.token}` } })
     .then(() => handleToggle())
     .catch((err) => console.log(err))
@@ -124,7 +123,7 @@ export default function Manage() {
             </div>
         </div>
         <div className='bg-neutral-black w-full flex flex-col items-center rounded-b-3xl rounded-t-md px-6 py-4 md:py-10 md:px-[60px]'>
-             {isFetching ? <Loading /> : data.length > 0 && <ManageList data={data} privacyIsOpen={isOpen} deletePermission={deletePermission}/>} 
+             {isFetching ? <Loading /> : data.length > 0 && <ManageList data={data} privacyIsOpen={isOpen} onDelete={deletePermission}/>} 
              <ManageButton handleOptionSelect={handleOptionSelect} isOpen={isOpen} filteredArtists={filteredArtists} 
                            createPermission={createPermission} handleDeleteSelected={handleDeleteSelected}
                            handleChange={handleChange} input={input} selected={selected} />

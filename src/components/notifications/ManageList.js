@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import ManageRow from './ManageRow';
 import useMediaQuery from 'hooks/useMediaQuery';
-const ManageList = ({ data, privacyIsOpen }) => {
+const ManageList = ({ data, privacyIsOpen, onDelete }) => {
     const isMobile = useMediaQuery('(max-width: 1024px)')
     const handleSortingChange = (index) => {
         console.log(index);
@@ -35,7 +35,7 @@ const ManageList = ({ data, privacyIsOpen }) => {
             <tbody>
             {
                 data.map((track, index) =>
-                <ManageRow data={track} isMobile={isMobile}/>
+                <ManageRow data={track} isMobile={isMobile} onDelete={onDelete}/>
                 )
             }
             </tbody>
