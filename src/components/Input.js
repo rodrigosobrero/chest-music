@@ -4,18 +4,19 @@ import { EyeIcon } from '@heroicons/react/24/outline';
 import { DocumentDuplicateIcon } from "@heroicons/react/24/outline";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+import ErrorMessage from './ErrorMessage';
 export default function Input({ type, placeholder, label, name, value, onChange, showHide, helper, required, register, error,
-                                showClipboard, disabled, onlyNumeric, showDelete, showMore, onDelete, isOpen, toggleOpen }) {
-                                  
+      showClipboard, disabled, onlyNumeric, showDelete, showMore, onDelete, isOpen, toggleOpen }) {
+
   const [inputType, setInputType] = useState(type);
   const [copied, setCopied] = useState(false)
   const inputRef = useRef(null);
   useEffect(() => {
-    if(onlyNumeric){
+    if (onlyNumeric) {
       const handleKeyPress = (evt) => {
         const valueLength = evt.target.value.length
-        if (evt.key < '0' || evt.key > '9' || valueLength >= 4 ) {
+        if (evt.key < '0' || evt.key > '9' || valueLength >= 4) {
           evt.preventDefault();
         }
       };
@@ -52,40 +53,44 @@ export default function Input({ type, placeholder, label, name, value, onChange,
         {label && (
           <label htmlFor={name} className='flex items-center'>
             <span className='grow'>{`${label}${required ? '*' : ''}`}</span>
-            {helper && <span className='text-sm text-neutral-silver-300'>{helper}</span>}
-            <motion.span
-              className='text-sm text-error-red'
-              key={error}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}>
-              {error}
-            </motion.span>
+            <AnimatePresence>
+              {(helper && !error) && (
+                <motion.span
+                  className='text-sm text-neutral-silver-300'
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, transition: { delay: 0.5 } }}
+                  exit={{ opacity: 0 }}>
+                  {helper}
+                </motion.span>
+              )}
+            </AnimatePresence>
+            <ErrorMessage show={error} message={error} />
           </label>
         )}
         <div className='relative'>
-          {register 
+          {register
             ? (
               <input
-              type={inputType}
-              placeholder={placeholder}
-              id={name}
-              name={name}
-              {...register(name, { required })}
-              className={`transition duration-300 border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 w-full focus:outline-none focus:border-brand-gold leading-5 ${error && '!border-error-red'}`} />
+                type={inputType}
+                placeholder={placeholder}
+                id={name}
+                name={name}
+                {...register(name, { required })}
+                className={`transition duration-300 border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 w-full focus:outline-none focus:border-brand-gold leading-5 ${error && '!border-error-red'}`} />
             )
             : (
               <input
-              type={inputType}
-              placeholder={placeholder}
-              id={name}
-              name={name}
-              ref={inputRef}
-              value={value}
-              onChange={onChange}
-              disabled={disabled}
-              className={`border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 w-full 
+                type={inputType}
+                placeholder={placeholder}
+                id={name}
+                name={name}
+                ref={inputRef}
+                value={value}
+                onChange={onChange}
+                disabled={disabled}
+                className={`border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 w-full 
                           focus:outline-none focus:border-brand-gold leading-5 disabled:bg-neutral-silver-600 disabled:border-none 
-                        disabled:text-neutral-silver-300 transition duration-300 ${error && 'border-error-red'}`}/>
+                        disabled:text-neutral-silver-300 transition duration-300 ${error && 'border-error-red'}`} />
             )
           }
 
@@ -107,17 +112,17 @@ export default function Input({ type, placeholder, label, name, value, onChange,
               </button>
             </div>
           }
-         {showDelete &&
+          {showDelete &&
             <div className='absolute top-4 right-4'>
               <button type='button' onClick={onDelete}>
-                  <XMarkIcon className="h-5 w-5 text-error-red" />
+                <XMarkIcon className="h-5 w-5 text-error-red" />
               </button>
             </div>
           }
           {showMore &&
             <div className='absolute top-4 right-4 '>
               <button type='button' onClick={toggleOpen}>
-                {isOpen  ?
+                {isOpen ?
                   <ChevronUpIcon className='h-5 w-5 text-neutral-silver-200' /> :
                   <ChevronDownIcon className='h-5 w-5 text-neutral-silver-200' />
                 }

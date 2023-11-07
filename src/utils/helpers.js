@@ -49,6 +49,8 @@ function formatBytes(bytes, decimals = 2) {
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
 }
 function bytesToSize(bytes) {
+  if (!bytes) return '0 MB'
+
   const units = ['byte', 'kilobyte', 'megabyte', 'gigabyte', 'terabyte'];
 
   const navigatorLocal = navigator.languages && navigator.languages.length >= 0 ? navigator.languages[0] : 'en-US'
