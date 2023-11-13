@@ -60,7 +60,7 @@ footer select {
 }
 
 h1, h2, h3, h4, h5 {
-  @apply font-thunder-bold text-white uppercase text-center md:text-left;
+  @apply !font-thunder-bold text-white uppercase text-center md:text-left;
 }
 
 h2 {
@@ -73,7 +73,7 @@ h3 {
 }
 
 h4 {
-  @apply text-5xl md:text-5xl;
+  @apply text-5xl md:text-5xl !uppercase;
 }
 
 h5 {
@@ -370,12 +370,20 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked {
+  background-image: url('/src/assets/images/icon-check.svg');
   @apply bg-brand-uva border-brand-uva;
 }
 
 input[type="checkbox"]:checked::before {
   @apply z-10;
-  background-image: url('/src/assets/images/icon-check.svg');
+}
+
+input[type="checkbox"]:disabled {
+  @apply bg-neutral-silver-500 border-neutral-silver-400;
+}
+
+input[type="checkbox"]:focus {
+  @apply border-brand-uva;
 }
 
 .custom-select {

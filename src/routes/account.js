@@ -28,6 +28,7 @@ const Account = () => {
     axios.delete(apiUrl+'account/', { 
       headers: { Authorization: `Bearer ${token}` }
     }).then((response) => {
+      console.log(response)
       window.location.reload()
     })
   }

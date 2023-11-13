@@ -137,14 +137,20 @@ function App() {
    //
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
+      console.log(user);
+
       if (user) {
         getIdToken(user).then(async (token) => {
           const response = await axios.get('account/', {
             headers: { Authorization: `Bearer ${token}` }
           });
+          const provider = user.providerData[0].providerId;
+
           dispatch(saveUser({
             data: response.data,
-            token: token
+            token: token,
+            email: user.email,
+            signInMethod: provider === 'google.com' ? 'google' : 'locale'
           }));
         });
       } else {

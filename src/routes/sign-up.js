@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, redirect, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { auth, provider } from 'utils/firebase';
 import { useForm } from 'react-hook-form';
@@ -16,6 +16,7 @@ export default function SignUp() {
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -26,7 +27,7 @@ export default function SignUp() {
     setLoading(true);
 
     createUserWithEmailAndPassword(auth, data.email, data.password)
-      .then()
+      .then(() => { navigate('/setup') })
       .catch((error) => {
         handleFirebaseErrors(error.code);
       })
@@ -39,7 +40,7 @@ export default function SignUp() {
     setLoadingGoogle(true);
 
     signInWithPopup(auth, provider)
-      .then()
+      .then(() => { navigate('/setup') })
       .catch((error) => {
         handleFirebaseErrors(error.code);
       })
