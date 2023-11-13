@@ -13,25 +13,26 @@ const Circle = ({ colour, pct }) => {
       r={r}
       cx={100}
       cy={100}
-      fill="transparent"
-      stroke={strokePct !== circ ? colour : ""} // remove colour as 0% sets full circumference
-      strokeWidth={".6rem"}
+      fill='transparent'
+      stroke={strokePct !== circ ? colour : ""}
+      strokeWidth='.6rem'
       strokeDasharray={circ}
       strokeDashoffset={pct ? strokePct : 0}
+      className='transition-all duration-300'
     ></circle>
   );
 };
 
-const Text = ({ percentage }) => {
+const Text = ({ colour, percentage }) => {
   return (
     <text
-      fontFamily="Thunder"
-      x="50%"
-      y="52%"
-      dominantBaseline="central"
-      textAnchor="middle"
-      fontSize={"56px"}
-      fill="#B296FF"
+      fontFamily='Thunder'
+      x='50%'
+      y='52%'
+      dominantBaseline='central'
+      textAnchor='middle'
+      fontSize='56px'
+      fill={colour}
       fontWeight='normal'
     >
       {percentage.toFixed(0)}%
@@ -47,7 +48,7 @@ const ProgressCircle = ({ percentage, colour }) => {
         <Circle colour="#25292E" />
         <Circle colour={colour} pct={pct} />
       </g>
-      <Text percentage={pct} />
+      <Text percentage={pct} colour={colour} />
     </svg>
   );
 };

@@ -1,7 +1,12 @@
-import axios from "axios"
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+import axios from 'axios';
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
+
 export default axios.create({
   baseURL: 'https://chest-api-stg.cexar.io/web/v1/'
+});
+
+export const upload = axios.create({
+  baseURL: 'https://upload.chestmusic.com/'
 });
 
 export const apiUrl = 'https://chest-api-stg.cexar.io/web/v1/'
@@ -30,5 +35,3 @@ export const resetPassword = (email, callback) => {
        console.error("Error al enviar el correo de restablecimiento de contraseña:", errorCode, errorMessage);
     });
 }
-
-

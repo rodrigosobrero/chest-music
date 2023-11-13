@@ -11,5 +11,6 @@
   "language": [
     { "code": "es", "name": "english", "icon": "🇪🇸" },
     { "code": "en", "name": "spanish", "icon": "🇺🇸", "default": true }
-  ]
+  ],
+  "accepted_files": ".mp3,.wav"
 }
