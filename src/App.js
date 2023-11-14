@@ -131,7 +131,7 @@ function App() {
    //
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      console.log(user);
+      console.log(user, 'user');
 
       if (user) {
         getIdToken(user).then(async (token) => {
