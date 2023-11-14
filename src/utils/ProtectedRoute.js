@@ -16,7 +16,7 @@ export default function ProtectedRoute({ children, redirectPath = '/sign-in' }) 
     if (!auth) {
       setIsUserLoaded(true);
     } else {
-      if (user !== undefined) { // Verificar si el usuario no es null o undefined
+      if (user !== undefined) { // gVerificar si el usuario no es null o undefined
         setIsUserLoaded(true);
       }
     }

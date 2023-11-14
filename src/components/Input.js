@@ -7,12 +7,7 @@ import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { AnimatePresence, motion } from 'framer-motion';
 import ErrorMessage from './ErrorMessage';
 export default function Input({ type, placeholder, label, name, value, onChange, showHide, helper, required, register, error,
-<<<<<<< HEAD
                                 showClipboard, disabled, onlyNumeric, showDelete, showMore, onDelete, isOpen, toggleOpen }) {
-=======
-      showClipboard, disabled, onlyNumeric, showDelete, showMore, onDelete, isOpen, toggleOpen }) {
-
->>>>>>> e278ea9634b3e7dc7a878445e232d48190529e47
   const [inputType, setInputType] = useState(type);
   const [copied, setCopied] = useState(false)
   const inputRef = useRef(null);
@@ -41,8 +36,9 @@ export default function Input({ type, placeholder, label, name, value, onChange,
       setInputType('password');
     }
   }
+
   const copyToClipboard = () => {
-    navigator.clipboard.writeText('blabla')
+    navigator.clipboard.writeText(value)
       .then(() => {
         setCopied(true);
       })
@@ -94,7 +90,7 @@ export default function Input({ type, placeholder, label, name, value, onChange,
                 disabled={disabled}
                 className={`border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 w-full 
                           focus:outline-none focus:border-brand-gold leading-5 disabled:bg-neutral-silver-600 disabled:border-none 
-                        disabled:text-neutral-silver-300 transition duration-300 ${error && 'border-error-red'}`} />
+                        disabled:text-neutral-silver-300 transition duration-300 ${error && 'border-error-red' } ${showClipboard && '!pr-16'}`} />
             )
           }
 

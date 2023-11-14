@@ -148,7 +148,7 @@ input[type=number] {
 }
 
 .btn-third {
-  @apply  bg-neutral-silver-600 text-white disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300;
+  @apply  bg-neutral-silver-600 text-white disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300 hover:bg-brand-uva-light active:bg-brand-uva;
 }
 
 .cover-preview {
@@ -542,7 +542,8 @@ input[type="checkbox"]:focus {
   flex flex-col items-start md:items-center;
 }
 .share-button {
-  @apply py-3 px-4 text-base font-semibold font-archivo flex items-center justify-center gap-2 rounded-xl bg-neutral-silver-700 text-neutral-silver-200 transition-colors duration-200;
+  @apply py-3 px-4 text-base font-semibold font-archivo flex items-center justify-center gap-2 rounded-xl 
+       bg-neutral-silver-700 text-neutral-silver-200 transition-colors duration-200;
   transition: transform 0.3s ease; /* Agregamos una transición de transformación para suavizar la animación. */
   transform: translateX(0); /* Restablecemos la transformación a su posición original. */
   align-items: center; /* Centramos verticalmente el contenido en el botón. */
@@ -550,4 +551,40 @@ input[type="checkbox"]:focus {
 }
 .share-button.isActive {
   @apply bg-brand-gold  text-neutral-black;
+}
+
+
+/* probando tab */
+.contenedor-boton {
+  perspective: 800px;
+}
+
+
+.boton-sobresaliente {
+  font-size: 16px;
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  background-color: #f0ad4e; /* Color de 'btn-warning' de Bootstrap */
+  color: white;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  transform: translateZ(30px);
+  transition: transform 0.25s ease-out;
+}
+
+.boton-sobresaliente::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  background: rgba(0,0,0,0.1);
+  z-index: -1;
+}
+
+.boton-sobresaliente:hover {
+  transform: translateZ(50px) scale(1.05);
 }

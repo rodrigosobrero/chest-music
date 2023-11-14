@@ -29,7 +29,7 @@ const Share = () => {
   }, [user?.token, trackId])
   return (
     <>
-      <div className='md:container md:p-[60px]  md:rounded-3xl  w-full  pt-8 pb-10  bg-neutral-black md:my-10 md:gap-y-8'>
+      <div className='md:w-[1200px] md:p-[60px]  md:rounded-3xl  w-full  pt-8 pb-10  bg-neutral-black md:my-10 md:gap-y-8'>
         <div className='flex flex-col items-center md:gap-y-6 gap-y-4'>
            <h3 className='md:text-[64px] text-[48px] text-center'> SHARE YOUR TREASURE </h3>
            <img src={track.cover} alt='track cover' className='md:w-[200px] md:h-[200px] w-[140px] h-[140px]'/>
@@ -42,10 +42,10 @@ const Share = () => {
           <div className='flex flex-col w-full md:items-center md:mt-0 mt-4'>
           <OptionSectionDesktop status={status} changeStatus={changeStatus} />
           <OptionSectionMobile status={status} changeStatus={changeStatus} />
-              {status === 'generate' && <LinkGenerate toggleUnlimited={toggleUnlimited} />}
+              {status === 'generate' && <LinkGenerate versionId={track?.versions?.length > 0 && track?.versions[0].id} token={user?.token}/>}
               {status === 'post' && <PostTwitter toggleUnlimited={toggleUnlimited}/>}
-              {status === 'story' && <Story />}
-              {status === 'send' && <SendDM toggleUnlimited={toggleUnlimited}/>}
+              {status === 'story' && <Story token={user?.token} />}
+              {status === 'send' && <SendDM toggleUnlimited={toggleUnlimited} token={user?.token} versionId={track?.versions?.length > 0 && track?.versions[0].id}/>}
               {status === 'reel' && <Reel />}
           </div>
         </div>
