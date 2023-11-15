@@ -1,11 +1,6 @@
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-import slideOne from 'assets/images/cover-slide-1.jpeg';
-import slideTwo from 'assets/images/cover-slide-2.png';
-import slideThree from 'assets/images/cover-slide-3.jpeg';
-import slideFour from 'assets/images/cover-slide-4.jpeg';
-import slideFive from 'assets/images/cover-slide-5.jpeg';
 import arrowLeft from 'assets/images/icon-arrow-sm-left.svg';
 import arrowRight from 'assets/images/icon-arrow-sm-right.svg';
 
@@ -14,21 +9,8 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { useTranslation } from 'react-i18next';
 import InputFile from './InputFile';
 
-export default function TrackCoverSelector({ preview, updatePreview }) {
+export default function TrackCoverSelector({ preview, updatePreview, covers }) {
   const { t } = useTranslation();
-
-  const slides = [
-    { image: slideOne, author: 'david.todo.ok' },
-    { image: slideTwo, author: 'sarah.creative' },
-    { image: slideThree, author: 'tom.illustrator' },
-    { image: slideFour, author: 'emily.artistic' },
-    { image: slideFive, author: 'michael.draughtsman' },
-    { image: slideOne, author: 'david.todo.ok' },
-    { image: slideTwo, author: 'sarah.creative' },
-    { image: slideThree, author: 'tom.illustrator' },
-    { image: slideFour, author: 'emily.artistic' },
-    { image: slideFive, author: 'michael.draughtsman' },
-  ]
   const [selectedFile, setSelectedFile] = useState();
   const [coverIndex, setCoverIndex] = useState(0);
   const [swiper, setSwiper] = useState();
@@ -40,7 +22,13 @@ export default function TrackCoverSelector({ preview, updatePreview }) {
     }
 
     const objectURL = URL.createObjectURL(selectedFile);
-    updatePreview(objectURL);
+    // updatePreview(objectURL);
+
+    updatePreview({
+      url: objectURL,
+      local: true,
+      filename: selectedFile.name
+    });
 
     return () => URL.revokeObjectURL(objectURL);
   }, [selectedFile]);
@@ -56,14 +44,14 @@ export default function TrackCoverSelector({ preview, updatePreview }) {
 
   const savePreview = (swiper) => {
     setCoverIndex(swiper.realIndex);
-    updatePreview(slides[swiper.realIndex].image);
+    updatePreview(covers[swiper.realIndex]);
   }
 
   return (
     <>
       <div
         className={`flex items-center justify-center rounded-lg bg-neutral-silver-300 w-[140px] md:w-[160px] h-[140px] md:h-[160px] relative bg-cover mb-3 ${preview && 'bg-cover'}`}
-        style={{ backgroundImage: `url("${preview ? preview : slides[coverIndex].image}")` }}>
+        style={{ backgroundImage: `url("${preview ? preview : covers[coverIndex].url}")` }}>
       </div>
       <span className='text-neutral-silver-200 mb-4'>{t('upload.preview')}</span>
       <div className='w-full flex flex-row mb-[13px]'>
@@ -84,8 +72,8 @@ export default function TrackCoverSelector({ preview, updatePreview }) {
         <Swiper
           centeredSlides={true}
           slidesPerView={5}
-          loop={true}
           slidesPerGroup={1}
+          loop={true}
           onInit={(swiper) => setSwiper(swiper)}
           onSlideChange={savePreview}
           breakpoints={{
@@ -97,18 +85,22 @@ export default function TrackCoverSelector({ preview, updatePreview }) {
             }
           }}>
           {
-            slides.map((slide, index) => (
+            covers.map((cover, index) => (
               <SwiperSlide key={index}>
                 <div
                   className='w-14 md:w-[78px] h-14 md:h-[78px] bg-cover rounded-lg'
-                  style={{ backgroundImage: `url("${slide.image}")` }}></div>
+                  style={{ backgroundImage: `url("${cover.url}")` }}></div>
               </SwiperSlide>
             ))
           }
         </Swiper>
       </div>
       <div className='w-full text-center mb-10'>
-        <span className='text-sm text-neutral-silver-300'>{t('global.by')} {slides[coverIndex].author}</span>
+        <span className='text-sm text-neutral-silver-300'>
+          {covers[coverIndex].author 
+            ? t('global.by') + ' ' + covers[coverIndex].author 
+            : ''}
+        </span>
       </div>
       <div className='flex flex-row w-full gap-5'>
         <div className='flex flex-col text-left grow'>

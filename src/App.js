@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { RouterProvider, createBrowserRouter, redirect } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import axios from 'utils/api';
 import { auth } from 'utils/firebase';
 import { saveUser } from 'app/auth';
@@ -22,6 +22,7 @@ import Help from 'routes/help';
 import Shared from 'routes/shared';
 import Profile from 'routes/profile';
 import Setup from 'routes/setup';
+import Upload from 'routes/upload';
 import Share from 'routes/share';
 
 function App() {
@@ -31,6 +32,10 @@ function App() {
       path: '/',
       element: <Root />,
       children: [
+        {
+          path: '/test',
+          element: <Test />
+        },
         {
           path: '/sign-in',
           element:
@@ -47,6 +52,13 @@ function App() {
           element: 
             <ProtectedRoute>
               <MyChest />
+            </ProtectedRoute>,
+        },
+        {
+          path: '/my-chest/upload',
+          element:
+            <ProtectedRoute>
+              <Upload />
             </ProtectedRoute>
         },
         {
