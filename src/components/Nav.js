@@ -52,9 +52,11 @@ export default function Nav() {
                 </button>
               </li>
               <li className='flex items-center'>
-                <a href='/notifications' className='p-1 hover:!text-white text-gray-500'>
-                  <BellIcon className='h-6 w-6' />
-                </a>
+                <NavLink to='/notifications'>
+                  <a className='p-1 hover:!text-white text-gray-500'>
+                    <BellIcon className='h-6 w-6' />
+                  </a>
+                </NavLink>
               </li>
             </ul>
           </div>

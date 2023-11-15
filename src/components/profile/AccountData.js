@@ -25,7 +25,7 @@ const AccountData = ({ data, token }) => {
       patchData('account/', { full_name: input }, token)
       .then((response) => dispatch(updateUserData(response)))
       .catch((err) => console.log('error', err))
-      .finally(() => {toggle();})
+      .finally(() => { toggle();})
   }
   const inputData = [
     {
