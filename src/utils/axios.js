@@ -5,7 +5,7 @@ const api = axios.create({
 });
 
 const upload = axios.create({
-  baseURL: 'https://upload.chestmusic.com/'
+  baseURL: 'https://upload.chestmusic.com/upload/'
 });
 
 export { api, upload }

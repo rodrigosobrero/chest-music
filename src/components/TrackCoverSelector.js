@@ -22,7 +22,13 @@ export default function TrackCoverSelector({ preview, updatePreview, covers }) {
     }
 
     const objectURL = URL.createObjectURL(selectedFile);
-    updatePreview(objectURL);
+    // updatePreview(objectURL);
+
+    updatePreview({
+      url: objectURL,
+      local: true,
+      filename: selectedFile.name
+    });
 
     return () => URL.revokeObjectURL(objectURL);
   }, [selectedFile]);
