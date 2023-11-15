@@ -33,10 +33,6 @@ function App() {
       element: <Root />,
       children: [
         {
-          path: '/test',
-          element: <Test />
-        },
-        {
           path: '/sign-in',
           element:
            <DisconnectedRoute>
