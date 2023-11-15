@@ -1,13 +1,13 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next';
-import GeneralRow from './notifications/GeneralRow'
+import GeneralRow from './GeneralRow'
 import empty from 'assets/images/empty-chest.svg';
 
 const GeneralList = ({data}) => {
   const { t } = useTranslation()
   return (
     <>
-      <div className='space-y-[12px]'>
+    <div className='flex flex-col md:gap-y-4 gap-y-3 '>
           {data.length > 0 ? data.map((el) => (
               <GeneralRow notification={el}/> 
           )) : 

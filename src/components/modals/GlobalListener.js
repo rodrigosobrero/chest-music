@@ -5,19 +5,20 @@ import DropdownSearch from 'components/profile/DropdownSearch'
 import check from 'assets/images/icon-check-28.svg'
 const GlobalListener = ({ handleChange, options = [], handleOptionSelect, listeners, 
                          toggle, onClick, selected, handleDeleteSelected, input, checked, handleCheck }) => {
-                            console.log(listeners)
   return (
     <>
         <div className='md:w-[520px] text-center flex flex-col  h-96'>
             <div className='flex gap-4 items-end'>
                 <div className='w-full'>
+                <DropdownSearch filteredOptions={options} handleOptionSelect={handleOptionSelect}>
                     <Input key={`input-34}`} label={'Global listener'}
-                        placeholder={'Write user or email...'}  
-                        disabled={selected.hasOwnProperty('full_name') ? true : false} 
-                        showDelete={(input !== '' || selected.hasOwnProperty('full_name') ) && !checked}
-                        onDelete={handleDeleteSelected}
-                        value={selected.full_name ? selected.full_name : input}
-                        type={'text'} onChange={handleChange}/>
+                            placeholder={'Write user or email...'}  
+                            disabled={selected.hasOwnProperty('full_name') ? true : false} 
+                            showDelete={(input !== '' || selected.hasOwnProperty('full_name') ) && !checked}
+                            onDelete={handleDeleteSelected}
+                            value={selected.full_name ? selected.full_name : input}
+                            type={'text'} onChange={handleChange}/>
+                </DropdownSearch>
                 </div>
                 <button className='p-3 bg-brand-gold disabled:bg-neutral-silver-500  rounded-xl text-neutral-black disabled:text-neutral-silver-300'
                         disabled={!selected.hasOwnProperty('full_name')} onClick={handleCheck}>

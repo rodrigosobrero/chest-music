@@ -148,7 +148,7 @@ input[type=number] {
 }
 
 .btn-third {
-  @apply  bg-neutral-silver-600 text-white disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300;
+  @apply  bg-neutral-silver-600 text-white disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300 hover:bg-brand-uva-light active:bg-brand-uva;
 }
 
 .cover-preview {
@@ -446,7 +446,7 @@ input[type="checkbox"]:focus {
   @apply text-center
 }
 .notification .row {
-  @apply bg-neutral-silver-600 w-full rounded-lg space-y-2 pr-5 pl-3 py-3  
+  @apply bg-neutral-silver-600 w-full rounded-lg md:space-y-3 space-y-4 p-3 md:pr-4 md:pl-3 md:py-3  
 }
 .notification .over {
   @apply bg-neutral-black !important
@@ -454,7 +454,7 @@ input[type="checkbox"]:focus {
 @media screen and (min-width: 1024px) {
   /* … */
   .notification .reply-btn {
-   @apply flex uppercase text-sm items-center rounded-lg px-2 py-1  bg-neutral-silver-700 text-brand-uva-light;
+   @apply flex uppercase text-base items-center rounded-lg px-2 py-1  bg-neutral-silver-700 text-brand-uva-light;
   }
   .notification .isOpen  {
     @apply bg-neutral-silver-500 !important
@@ -465,13 +465,15 @@ input[type="checkbox"]:focus {
   
 }
 .notification .options {
- @apply flex justify-center space-x-2
+ @apply flex justify-center space-x-2 w-full
 }
 .notification .options button {
-  @apply py-3 px-4 flex gap-x-2 items-center  rounded-xl font-archivo font-semibold bg-neutral-silver-700 text-neutral-silver-200 text-xl;
+  @apply py-3 px-4 flex gap-x-2 items-center
+         rounded-xl font-archivo font-semibold 
+         bg-neutral-silver-700 text-neutral-silver-200 text-[18px];
 }
 .notification .options button span {
- @apply bg-neutral-silver-600 rounded-full px-1  capitalize text-sm;
+ @apply bg-neutral-silver-600 rounded-full px-1 capitalize text-sm;
 }
 .notification .options .isActive {
  @apply bg-brand-gold  text-neutral-black
@@ -540,7 +542,8 @@ input[type="checkbox"]:focus {
   flex flex-col items-start md:items-center;
 }
 .share-button {
-  @apply py-3 px-4 text-base font-semibold font-archivo flex items-center justify-center gap-2 rounded-xl bg-neutral-silver-700 text-neutral-silver-200 transition-colors duration-200;
+  @apply py-3 px-4 text-base font-semibold font-archivo flex items-center justify-center gap-2 rounded-xl 
+       bg-neutral-silver-700 text-neutral-silver-200 transition-colors duration-200;
   transition: transform 0.3s ease; /* Agregamos una transición de transformación para suavizar la animación. */
   transform: translateX(0); /* Restablecemos la transformación a su posición original. */
   align-items: center; /* Centramos verticalmente el contenido en el botón. */
@@ -548,4 +551,40 @@ input[type="checkbox"]:focus {
 }
 .share-button.isActive {
   @apply bg-brand-gold  text-neutral-black;
+}
+
+
+/* probando tab */
+.contenedor-boton {
+  perspective: 800px;
+}
+
+
+.boton-sobresaliente {
+  font-size: 16px;
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  background-color: #f0ad4e; /* Color de 'btn-warning' de Bootstrap */
+  color: white;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  transform: translateZ(30px);
+  transition: transform 0.25s ease-out;
+}
+
+.boton-sobresaliente::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  background: rgba(0,0,0,0.1);
+  z-index: -1;
+}
+
+.boton-sobresaliente:hover {
+  transform: translateZ(50px) scale(1.05);
 }

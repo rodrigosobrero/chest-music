@@ -10,8 +10,8 @@ import { isMobile, isDesktop } from 'react-device-detect';
 import ControlsMobile from './ControlsMobile';
 
 export default function Player() {
-  const playlist = useSelector(state => state.playlist);
-
+  const { playlist } = useSelector(state => state.playlist);
+  console.log(playlist.length)
   /* states */
   const [timeProgress, setTimeProgress] = useState(0);
   const [duration, setDuration] = useState(0);

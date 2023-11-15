@@ -40,7 +40,8 @@ i18next
             placeholder: {
               write_here: 'Write here...',
               search: 'Search...',
-              select_one: 'Select one...'
+              select_one: 'Select one...',
+              only_numbers: 'Only numbers..'
             },
             edit: 'Edit',
             confirm: 'Confirm',
@@ -244,6 +245,13 @@ i18next
                   "text": "Quis semper diam vehicula odio quam urna vitae porttitor. Varius pretium semper condimentum diam in. Eget massa nibh imperdiet tortor odio dui. Vitae odio adipiscing imperdiet commodo placerat eleifend nunc. Non hendrerit gravida habitasse velit lacus venenatis praesent nisl. Condimentum pharetra in elit elementum ultricies pellentesque. Nullam placerat tempor pretium egestas massa nullam gravida. Suspendisse vel tortor quis dui posuere. Vestibulum malesuada risus est erat lectus risus neque sagittis eleifend. Vitae enim gravida turpis metus sit purus laoreet. Sem nec pretium sit maecenas morbi morbi. Urna quis proin aliquet sed fames turpis suspendisse. Sed quam volutpat vestibulum dictum habitant scelerisque ullamcorper orci amet. Enim et faucibus sed pellentesque risus id morbi urna. Blandit ut nisl sagittis maecenas. Turpis sed nunc egestas justo sem adipiscing eleifend semper ultrices. Sit etiam mi et viverra orci id. Suspendisse accumsan dui bibendum turpis posuere pharetra. Mollis in sem tellus accumsan. Suscipit non morbi pretium donec malesuada elementum vitae. Amet morbi eu donec ac hac senectus. Morbi tempor orci tristique ac. In porta a viverra hendrerit. Ornare neque turpis egestas neque dis aliquam semper ultricies scelerisque. Dictum in amet amet enim tempus. Sem dui pharetra sed et risus cursus fermentum et feugiat. Lorem diam duis cras nunc. Nulla imperdiet laoreet sagittis ipsum morbi leo. Tristique nisi cursus amet iaculis ac facilisis odio faucibus semper. Condimentum orci augue lectus aenean adipiscing eu vitae. In neque sit id aenean id. In nibh dolor odio in et tellus."
               }
           ]
+          },
+          share: {
+            play_limit: 'Play limit',
+            unlimited: 'Unlimited',
+            allow_web_play: 'Allow web play',
+            message: 'Message',
+            message_example: 'For example: “Check out my new track”'
           },
           footer: {
             rights: 'All rights reserved.'

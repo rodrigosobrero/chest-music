@@ -15,11 +15,11 @@ const ChangeDataModal = ({ title , subtitle, inputsData ,toggle, primaryButton, 
           })}
         </div>
         <div className='font-archivo font-semibold flex gap-4'>
-          <button onClick={toggle} className='w-full bg-neutral-silver-600 text-white py-2.5 px-6 rounded-lg'>
+          <button onClick={toggle} className='w-full bg-neutral-silver-600 text-white py-3 px-6 rounded-lg'>
             {secondaryButton}
           </button>
           <button onClick={onClick} className='w-full disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300
-           bg-brand-gold text-black py-2.5 px-6 rounded-lg' disabled={!isAvailable}>
+           bg-brand-gold text-black py-3 px-6 rounded-lg' disabled={!isAvailable}>
               {primaryButton}
           </button>
        </div>
