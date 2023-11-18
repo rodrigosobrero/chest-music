@@ -2,7 +2,7 @@ import React from 'react';
 import { timeDifference } from 'utils/helpers';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
-const ManageRow = ({ data, isMobile }) => {  
+const ManageRow = ({ data, isMobile, deleteListener }) => {  
   const renderDesktopRow = () => (
     <tr className={!data.accepted && 'opacity-50'}>
       <td className='text-lg'>{data.name}</td>
@@ -10,7 +10,7 @@ const ManageRow = ({ data, isMobile }) => {
       <td>{data.plays}</td>
       <td>{timeDifference(data.date_added)}</td>
       <td>
-        <button className='p-2.5 '>
+        <button className='p-2.5 ' onClick={() => deleteListener(data.id)}>
            <XMarkIcon className='h-6 w-6 text-white' />
         </button>
       </td>
@@ -27,7 +27,13 @@ const ManageRow = ({ data, isMobile }) => {
           </div>
         </div>
       </td>
-      <td>X</td>
+      <td >
+        <div className='justify-end flex w-full'>
+         <button onClick={() => deleteListener(data.id)}>
+            <XMarkIcon className='h-5 w-5 text-white' />
+          </button>
+        </div>
+      </td>
     </tr>
   );
 
