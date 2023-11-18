@@ -1,13 +1,13 @@
 import React from 'react';
 import { timeDifference } from 'utils/helpers';
 
-const ManageRow = ({ data, isMobile }) => {
+const ManageRow = ({ data, isMobile, onDelete }) => {
   const renderDesktopRow = () => (
     <tr>
       <td>{data.name}</td>
       <td>@{data.username}</td>
       <td className='md:flex hidden'>{timeDifference(data.date)}</td>
-      <td>X</td>
+      <td onClick={() => onDelete(data.id)}>X</td>
     </tr>
   );
 
@@ -21,7 +21,7 @@ const ManageRow = ({ data, isMobile }) => {
           </div>
         </div>
       </td>
-      <td>X</td>
+      <td onClick={() => onDelete(data.id)}>X</td>
     </tr>
   );
 

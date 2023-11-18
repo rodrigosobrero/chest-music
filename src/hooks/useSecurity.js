@@ -1,55 +1,55 @@
 import { useState, useEffect } from "react"
-const useSecurity = () => {
+const useSecurity = (pincode) => {
   const [ isOpenPassword, setIsOpenPassword ] = useState(false)
   const [ isOpenPin, setIsOpenPin ] = useState(false)
-  const [ newPin, setNewPin ] = useState({ password: '', passwordRepeat: '', isAvailable: false})
-//   const [ newPasswordConfirm, setNewPassordConfirm ] = useState('')
+  const [ pin, setPin ] = useState({ currentValue: '', new: '', isAvailable: false})
   const togglePassword = () => setIsOpenPassword(!isOpenPassword)
   const togglePin = () => { 
     setIsOpenPin(!isOpenPin);
     clearPin();
   };
   const clearPin = () => {
-        setNewPin({ password: '', passwordRepeat: '', isAvailable:false})
+    setPin({ currentValue: '', new: '', isAvailable:false})
   }
   const handlePinChange = (e) => {
     e.preventDefault()
-    console.log(e.target.name, e.target.value)
-    setNewPin((prevState) => {
-        return {
-          ...prevState,
-          [e.target.name]: e.target.value,
-        };
-      });
+    setPin((prevState) => {
+          return {
+            ...prevState,
+            [e.target.name]:  e.target.value,
+          };
+    });
   }
-  useEffect(()=> {
-    if(newPin.password === '' || newPin.passwordRepeat === '') {
-        setNewPin((prevState) => {
-            return {
-              ...prevState,
-              isAvailable: false,
-            };
-        });
+  const checkPin =  (pincode) => {
+    return pincode === pin.currentValue
+  }
+  useEffect(() => {
+    if(pincode !== ''){
+      setPin((prevState) => ({
+        ...prevState,
+        isAvailable: pin.currentValue.length === 4 && pin.new.length === 4,
+      }));
+    } 
+    else{
+      setPin((prevState) => ({
+        ...prevState,
+        isAvailable: pin.new.length === 4,
+      }));
     }
-    else {
-        setNewPin((prevState) => {
-            return {
-              ...prevState,
-              isAvailable: true,
-            };
-        });
-    }
-  }, [newPin.password, newPin.passwordRepeat])
-  console.log(newPin.isAvailable)
+  }, [pin.currentValue, pin.new, pincode]);
+
   return {
     isOpenPassword,
+    setIsOpenPassword,
     isOpenPin,
+    setIsOpenPin,
     togglePassword,
     togglePin,
     clearPin,
     handlePinChange,
-    newPin,
-    isAvailable: newPin.isAvailable
+    pin,
+    isAvailable: pin.isAvailable,
+    checkPin,
   }
 }
 export { useSecurity }

@@ -60,7 +60,7 @@ footer select {
 }
 
 h1, h2, h3, h4, h5 {
-  @apply font-thunder-bold text-white uppercase text-center md:text-left;
+  @apply !font-thunder-bold text-white uppercase text-center md:text-left;
 }
 
 h2 {
@@ -73,7 +73,7 @@ h3 {
 }
 
 h4 {
-  @apply text-5xl md:text-5xl;
+  @apply text-5xl md:text-5xl !uppercase;
 }
 
 h5 {
@@ -148,7 +148,7 @@ input[type=number] {
 }
 
 .btn-third {
-  @apply  bg-neutral-silver-600 text-white disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300;
+  @apply  bg-neutral-silver-600 text-white disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300 hover:bg-brand-uva-light active:bg-brand-uva;
 }
 
 .cover-preview {
@@ -370,38 +370,49 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked {
+  background-image: url('/src/assets/images/icon-check.svg');
   @apply bg-brand-uva border-brand-uva;
 }
 
 input[type="checkbox"]:checked::before {
   @apply z-10;
-  background-image: url('/src/assets/images/icon-check.svg');
+}
+
+input[type="checkbox"]:disabled {
+  @apply bg-neutral-silver-500 border-neutral-silver-400;
+}
+
+input[type="checkbox"]:focus {
+  @apply border-brand-uva;
 }
 
 .custom-select {
   background: url('/src/assets/images/icon-arrow-down.svg') no-repeat center right 20px;
-  @apply rounded-xl p-4 bg-transparent border border-neutral-silver-400 bg-neutral-silver-700 w-full appearance-none focus:outline-none focus:border-brand-gold;
+  background-size: 16px;
+  @apply rounded-xl p-3.5 bg-transparent border border-neutral-silver-400 bg-neutral-silver-700 w-full appearance-none focus:outline-none focus:border-brand-gold;
 }
 
 .custom-select:focus {
+  background-size: 16px;
   background: url('/src/assets/images/icon-arrow-up-gold.svg') no-repeat center right 20px;
 }
 
 .swiper {
-  @apply w-full h-full md:hidden;
+  @apply w-full h-full;
 }
 
 /*
 .swiper-slide {
   @apply text-center flex justify-center items-center max-w-[320px];
 }
+*/
 
 .swiper {
   mask-image: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 30%, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
-} */
+}
 
 .custom-input {
-  @apply border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 w-full focus:outline-none focus:border-brand-gold leading-5;
+  @apply border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 w-full hover:border-neutral-300 focus:bg-neutral-black focus:outline-none focus:border-brand-gold leading-5 transition-colors duration-300;
 }
 
 .dropdown-list {
@@ -438,7 +449,7 @@ input[type="checkbox"]:checked::before {
   @apply text-center
 }
 .notification .row {
-  @apply bg-neutral-silver-600 w-full rounded-lg space-y-2 pr-5 pl-3 py-3  
+  @apply bg-neutral-silver-600 w-full rounded-lg md:space-y-3 space-y-4 p-3 md:pr-4 md:pl-3 md:py-3  
 }
 .notification .over {
   @apply bg-neutral-black !important
@@ -446,7 +457,7 @@ input[type="checkbox"]:checked::before {
 @media screen and (min-width: 1024px) {
   /* … */
   .notification .reply-btn {
-   @apply flex uppercase text-sm items-center rounded-lg px-2 py-1  bg-neutral-silver-700 text-brand-uva-light;
+   @apply flex uppercase text-base items-center rounded-lg px-2 py-1  bg-neutral-silver-700 text-brand-uva-light;
   }
   .notification .isOpen  {
     @apply bg-neutral-silver-500 !important
@@ -457,13 +468,15 @@ input[type="checkbox"]:checked::before {
   
 }
 .notification .options {
- @apply flex justify-center space-x-2
+ @apply flex justify-center space-x-2 w-full
 }
 .notification .options button {
-  @apply py-3 px-4 flex gap-x-2 items-center  rounded-xl font-archivo font-semibold bg-neutral-silver-700 text-neutral-silver-200 text-xl;
+  @apply py-3 px-4 flex gap-x-2 items-center
+         rounded-xl font-archivo font-semibold 
+         bg-neutral-silver-700 text-neutral-silver-200 text-[18px];
 }
 .notification .options button span {
- @apply bg-neutral-silver-600 rounded-full px-1  capitalize text-sm;
+ @apply bg-neutral-silver-600 rounded-full px-1 capitalize text-sm;
 }
 .notification .options .isActive {
  @apply bg-brand-gold  text-neutral-black
@@ -506,4 +519,97 @@ input[type="checkbox"]:checked::before {
 }
 .container-accountPlan h5, h4, span {
   @apply font-archivo normal-case	text-left ;
+}
+/* CARROUCEL */
+.button-carousel-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.button {
+  border: none;
+  background-color: transparent;
+  padding: 10px;
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.3s ease;
+}
+
+.button.active {
+  transform: scale(1.1); /* Agranda el botón activo */
+}
+
+/* SHARE */
+.share-container {
+  @apply bg-neutral-silver-700 w-full md:w-[680px] px-6 py-8 gap-y-5 md:px-8 md:py-12 md:gap-y-6 rounded-2xl 
+  flex flex-col items-start md:items-center;
+}
+.share-button {
+  @apply py-3 px-4 text-base font-semibold font-archivo flex items-center justify-center gap-2 rounded-xl 
+       bg-neutral-silver-700 text-neutral-silver-200 transition-colors duration-200;
+  transition: transform 0.3s ease; /* Agregamos una transición de transformación para suavizar la animación. */
+  transform: translateX(0); /* Restablecemos la transformación a su posición original. */
+  align-items: center; /* Centramos verticalmente el contenido en el botón. */
+  min-width:160px;
+}
+.share-button.isActive {
+  @apply bg-brand-gold  text-neutral-black;
+}
+
+.autocomplete-container {
+  @apply absolute mt-1 border border-neutral-silver-500 rounded-xl w-full divide-y divide-neutral-silver-600 z-30;
+}
+
+.autocomplete-container div:first-child {
+  @apply rounded-t-xl;
+}
+
+.autocomplete-container div:last-child {
+  @apply rounded-b-xl;
+}
+
+.autocomplete-item { 
+  @apply flex gap-2 items-center px-4 py-3 transition-colors duration-500 bg-neutral-black hover:bg-neutral-silver-600 hover:cursor-pointer;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance:none;
+}
+
+/* probando tab */
+.contenedor-boton {
+  perspective: 800px;
+}
+
+
+.boton-sobresaliente {
+  font-size: 16px;
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  background-color: #f0ad4e; /* Color de 'btn-warning' de Bootstrap */
+  color: white;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  transform: translateZ(30px);
+  transition: transform 0.25s ease-out;
+}
+
+.boton-sobresaliente::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  background: rgba(0,0,0,0.1);
+  z-index: -1;
+}
+
+.boton-sobresaliente:hover {
+  transform: translateZ(50px) scale(1.05);
 }

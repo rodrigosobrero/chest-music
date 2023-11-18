@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { RouterProvider, createBrowserRouter, redirect } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import axios from 'utils/api';
 import { auth } from 'utils/firebase';
 import { saveUser } from 'app/auth';
@@ -9,6 +9,7 @@ import MyChest from 'routes/my-chest';
 import Root from 'routes/root';
 import SignIn from 'routes/sign-in';
 import ProtectedRoute from 'utils/ProtectedRoute';
+import DisconnectedRoute from 'utils/DisconnectedRoute';
 import SignUp from 'routes/sign-up';
 import Manage from 'routes/manage';
 import Notifications from 'routes/notifications'
@@ -20,6 +21,9 @@ import Terms from 'routes/terms';
 import Help from 'routes/help'; 
 import Shared from 'routes/shared';
 import Profile from 'routes/profile';
+import Setup from 'routes/setup';
+import Upload from 'routes/upload';
+import Share from 'routes/share';
 
 function App() {
   const dispatch = useDispatch();
@@ -30,7 +34,10 @@ function App() {
       children: [
         {
           path: '/sign-in',
-          element: <SignIn />
+          element:
+           <DisconnectedRoute>
+             <SignIn />
+           </DisconnectedRoute>
         },
         {
           path: '/sign-up',
@@ -41,6 +48,13 @@ function App() {
           element: 
             <ProtectedRoute>
               <MyChest />
+            </ProtectedRoute>,
+        },
+        {
+          path: '/my-chest/upload',
+          element:
+            <ProtectedRoute>
+              <Upload />
             </ProtectedRoute>
         },
         {
@@ -112,22 +126,38 @@ function App() {
             <ProtectedRoute>
               <Manage />
             </ProtectedRoute>
+        },
+        {
+          path: 'setup',
+          element: 
+          <ProtectedRoute>
+            <Setup/>
+          </ProtectedRoute>
+        },
+        {
+          path: 'share/:trackId',
+          element: <Share />
         }
       ]
     }
   ]);
-
+   //
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
+      console.log(user, 'user');
+      
       if (user) {
         getIdToken(user).then(async (token) => {
           const response = await axios.get('account/', {
             headers: { Authorization: `Bearer ${token}` }
           });
+          const provider = user.providerData[0].providerId;
 
           dispatch(saveUser({
             data: response.data,
-            token: token
+            token: token,
+            email: user.email,
+            signInMethod: provider === 'google.com' ? 'google' : 'locale'
           }));
         });
       } else {

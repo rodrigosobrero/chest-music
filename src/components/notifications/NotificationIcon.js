@@ -6,7 +6,7 @@ const NotificationIcon = ({ type, iconStyle, containerStyle }) => {
     invite_accepted: LinkIcon,
     invite_denied: XMarkIcon,
     track_uploaded: CheckCircleIcon,
-    track_shared: MusicalNoteIcon
+    version_shared: MusicalNoteIcon
   };
   const IconComponent = notificationIcons[type] || MusicalNoteIcon;
   return (

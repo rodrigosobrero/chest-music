@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { bytesToSize } from 'utils/helpers';
 import axios from 'utils/api';
 import ProgressBar from 'components/ProgressBar';
@@ -8,9 +8,11 @@ import Tag from 'components/Tag';
 import TrackList from 'components/TrackList';
 import cloud from 'assets/images/icon-cloud.svg';
 import empty from 'assets/images/empty-chest.svg';
+import { updateUser } from 'app/auth';
 
 export default function Chest() {
   const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
   const [tracks, setTracks] = useState([]);
   const [searchValue, setSearchValue] = useState('');
 
@@ -24,6 +26,9 @@ export default function Chest() {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setTracks(response.data.projects);
+      dispatch(updateUser({
+        chest: response.data
+      }));
     } catch (error) {
       console.log(error);
     }

@@ -1,4 +1,4 @@
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 export default function ProtectedRoute({ auth, children, redirectPath = '/sign-in' }) {
@@ -10,3 +10,4 @@ export default function ProtectedRoute({ auth, children, redirectPath = '/sign-i
     return children
   }
 }
+
