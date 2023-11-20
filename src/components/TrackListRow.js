@@ -8,7 +8,7 @@ import { isMobile, isDesktop } from 'react-device-detect';
 export default function TrackListRow({ track, onClick }) {
   const [show, setShow] = useState(false);
 
-  console.log('track:', track)
+  // console.log('track:', track)
 
   return (
     <>

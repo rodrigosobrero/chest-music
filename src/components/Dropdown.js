@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { ChevronUpIcon } from '@heroicons/react/20/solid';
 import { CheckIcon } from '@heroicons/react/20/solid';
+import { firstLetterUpperCase } from 'utils/helpers';
 
 export default function Dropdown({ list, selected, set, remove }) {
   const { t } = useTranslation();
@@ -24,7 +25,7 @@ export default function Dropdown({ list, selected, set, remove }) {
       <div className='relative'>
         <div>
           <button type='button' className='flex flex-row items-center gap-1 capitalize p-1' onClick={toggleList}>
-            <span className='text-sm md:text-base'>{selected}</span>
+            <span className='text-sm md:text-base'>{firstLetterUpperCase(selected)}</span>
             {listOpen
               ? <ChevronUpIcon className='h-5 w-5 text-white' />
               : <ChevronDownIcon className='h-5 w-5 text-white' />}
