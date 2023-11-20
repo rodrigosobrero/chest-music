@@ -18,7 +18,7 @@ import Permissions from 'routes/permissions';
 import Account from 'routes/account';
 import Security from 'routes/security';
 import Terms from 'routes/terms';
-import Help from 'routes/help'; 
+import Help from 'routes/help';
 import Shared from 'routes/shared';
 import Profile from 'routes/profile';
 import Setup from 'routes/setup';
@@ -26,6 +26,7 @@ import Upload from 'routes/upload';
 import Share from 'routes/share';
 import Treasure from 'routes/treasure';
 import api from 'utils/api';
+import Trash from 'routes/trash';
 
 function App() {
   const user = useSelector((state) => state.auth.user);
@@ -38,9 +39,9 @@ function App() {
         {
           path: '/sign-in',
           element:
-           <DisconnectedRoute>
-             <SignIn />
-           </DisconnectedRoute>
+            <DisconnectedRoute>
+              <SignIn />
+            </DisconnectedRoute>
         },
         {
           path: '/sign-up',
@@ -48,7 +49,7 @@ function App() {
         },
         {
           path: '/my-chest',
-          element: 
+          element:
             <ProtectedRoute>
               <MyChest />
             </ProtectedRoute>,
@@ -62,7 +63,7 @@ function App() {
         },
         {
           path: '/my-chest/treasure/:id',
-          element: 
+          element:
             <ProtectedRoute>
               <Treasure />
             </ProtectedRoute>,
@@ -73,81 +74,93 @@ function App() {
           }
         },
         {
+          path: '/my-chest/treasure/:id/trash',
+          element:
+            <ProtectedRoute>
+              <Trash />
+            </ProtectedRoute>,
+          loader: async ({ params }) => {
+            return api.get(`project/${params.id}/trash/`, {
+              headers: { Authorization: `Bearer ${user.token}` }
+            });
+          }
+        },
+        {
           path: 'shared',
-          element: 
+          element:
             <ProtectedRoute>
               <Shared />
             </ProtectedRoute>
         },
         {
           path: 'profile',
-          element: 
+          element:
             <ProtectedRoute>
               <Profile />
             </ProtectedRoute>
         },
         {
           path: 'profile/played',
-          element: 
+          element:
             <ProtectedRoute>
               <RecentlyPlayed />
             </ProtectedRoute>
         },
         {
           path: 'profile/permissions',
-          element: 
+          element:
             <ProtectedRoute>
               <Permissions />
             </ProtectedRoute>
         },
         {
           path: 'profile/account',
-          element: 
+          element:
             <ProtectedRoute>
               <Account />
             </ProtectedRoute>
         },
         {
           path: 'profile/help',
-          element: 
+          element:
             <ProtectedRoute>
               <Help />
             </ProtectedRoute>
         },
         {
           path: 'profile/terms',
-          element: 
+          element:
             <ProtectedRoute>
               <Terms />
             </ProtectedRoute>
         },
         {
           path: 'profile/security',
-          element: 
+          element:
             <ProtectedRoute>
               <Security />
             </ProtectedRoute>
         },
         {
           path: 'notifications',
-          element: 
+          element:
             <ProtectedRoute>
               <Notifications />
             </ProtectedRoute>
         },
         {
           path: 'notifications/manage',
-          element: 
+          element:
             <ProtectedRoute>
               <Manage />
             </ProtectedRoute>
         },
         {
           path: 'setup',
-          element: 
-          <ProtectedRoute>
-            <Setup/>
-          </ProtectedRoute>
+          element:
+            <ProtectedRoute>
+              <Setup />
+            </ProtectedRoute>
         },
         {
           path: 'share/:trackId',
