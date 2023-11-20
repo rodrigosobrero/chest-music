@@ -10,4 +10,3 @@ export default function ProtectedRoute({ auth, children, redirectPath = '/sign-i
     return children
   }
 }
-

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import axios from 'utils/api';
 import { auth } from 'utils/firebase';
@@ -24,8 +24,11 @@ import Profile from 'routes/profile';
 import Setup from 'routes/setup';
 import Upload from 'routes/upload';
 import Share from 'routes/share';
+import Treasure from 'routes/treasure';
+import api from 'utils/api';
 
 function App() {
+  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const router = createBrowserRouter([
     {
@@ -56,6 +59,18 @@ function App() {
             <ProtectedRoute>
               <Upload />
             </ProtectedRoute>
+        },
+        {
+          path: '/my-chest/treasure/:id',
+          element: 
+            <ProtectedRoute>
+              <Treasure />
+            </ProtectedRoute>,
+          loader: async ({ params }) => {
+            return api.get(`project/${params.id}`, {
+              headers: { Authorization: `Bearer ${user.token}` }
+            });
+          }
         },
         {
           path: 'shared',
@@ -141,11 +156,9 @@ function App() {
       ]
     }
   ]);
-   //
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      console.log(user, 'user');
-      
       if (user) {
         getIdToken(user).then(async (token) => {
           const response = await axios.get('account/', {

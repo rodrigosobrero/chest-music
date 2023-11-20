@@ -32,7 +32,7 @@ export default function Modal({ children, show, setShow }) {
               exit={{ opacity: 0 }}
             />
             <div className='flex justify-center items-end md:items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none'>
-              <div className='relative w-full md:w-auto md:my-6 mx-auto md:max-w-3xl'>
+              <div className='relative w-full md:w-auto md:my-6 mx-auto md:min-w-[520px] md:max-w-3xl'>
                 <motion.div
                   className='border-0 rounded-t-[20px] md:rounded-[20px] relative flex flex-col w-full bg-neutral-silver-700 outline-none focus:outline-none p-6 md:p-10'
                   initial={{ opacity: 0, y: 20 }}
