@@ -248,7 +248,7 @@ input[type=number] {
 }
 
 .breadcrumb {
-  @apply bg-neutral-silver-600 px-4 py-2 rounded-full h-fit;
+  @apply py-2 rounded-full h-fit;
 }
 
 .breadcrumb ul {
