@@ -1,43 +1,39 @@
-import { firstLetterUpperCase, formatDate } from 'utils/helpers';
+import { useEffect, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 
-import ParticipantsActionsButtons from './ParticipantsActionsButton';
+import TrashCanRow from './TrashCanRow';
 
-export default function TrashCanTable({ data, headers, user }) {
-  const Rows = ({ cell }) => {
-    return (
-      <>
-        <td className='text-lg'>
-          {cell.full_name}
-          {user.data.user_id === cell.user_id &&
-            <span className='text-neutral-silver-300 ml-1'>
-              (you)
-            </span>
-          }
-          {cell.is_global &&
-            <span className='text-neutral-silver-300 ml-1'>
-              (global)
-            </span>
-          }
-        </td>
-        <td>{cell.role && firstLetterUpperCase(cell.role)}</td>
-        <td>{cell.plays}</td>
-        <td>{formatDate(cell.date_added)}</td>
-        <td className='flex justify-end'>
-          <ParticipantsActionsButtons participant={cell} />
-        </td>
-      </>
-    )
-  }
+export default function TrashCanTable({ data }) {
+  const [titles, setTitles] = useState([]);
+
+  useEffect(() => {
+    if (isMobile) {
+      setTitles([
+        'title',
+        '',
+      ])
+    } else {
+      setTitles([
+        'title',
+        'version',
+        'date moved',
+        'days remaning',
+        '',
+      ])
+    }
+  }, []);
 
   return (
     <>
-      <table className='custom-table'>
+      <table>
         <thead>
           <tr>
             {
-              headers.map((header, index) =>
-                <th key={index}>
-                  {header}
+              titles.map((title, index) =>
+                <th
+                  key={index}
+                  className={`${!title && 'cursor-default'}`}>
+                  {title}
                 </th>
               )
             }
@@ -45,11 +41,11 @@ export default function TrashCanTable({ data, headers, user }) {
         </thead>
         <tbody>
           {
-            data.map((cell, index) => (
-              <tr key={index}>
-                <Rows cell={cell} />
-              </tr>
-            ))
+            data?.map((item, index) =>
+              <TrashCanRow
+                key={index}
+                item={item} />
+            )
           }
         </tbody>
       </table>
