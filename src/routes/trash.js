@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react"
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData } from 'react-router-dom';
 import Breadcrumb from 'components/Breadcrumb';
 import TrashCanTable from "components/treasure/TrashCanTable";
 
