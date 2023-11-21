@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -24,6 +24,7 @@ import { ReactComponent as Empty } from 'assets/images/empty-chest.svg';
 import Input from 'components/Input';
 
 export default function Treasure() {
+  const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { chest } = useSelector((state) => state.auth.user);
   const { data } = useLoaderData();
@@ -195,7 +196,7 @@ export default function Treasure() {
     setShowEditTrack(false);
   }
 
-  useEffect(async () => {
+  useEffect(() => {
     setProject(data);
     setPermissionsView(permissionsOptions[0]);
   }, [data]);
@@ -245,7 +246,7 @@ export default function Treasure() {
               <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { setShowEditTrack(true); }}>
                 <Pencil width={28} height={28} />
               </button>
-              <button type='button' className='p-2 rounded-full bg-neutral-silver-600'>
+              <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { navigate(`trash/`) }}>
                 <Trash width={28} height={28} />
               </button>
             </div>
