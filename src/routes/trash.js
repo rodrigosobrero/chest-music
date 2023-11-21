@@ -1,25 +1,39 @@
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import api from 'utils/api';
+
 import Breadcrumb from 'components/Breadcrumb';
-import TrashCanTable from "components/treasure/TrashCanTable";
+import TrashCanTable from 'components/treasure/TrashCanTable';
 
 import { ReactComponent as Empty } from 'assets/images/empty-chest.svg';
+import { useEffect, useState } from 'react';
 
 export default function Trash() {
+  const { user } = useSelector((state) => state.auth);
   const { data } = useLoaderData();
+  const { id } = useParams();
+  const [project, setProject] = useState('');
+
+  const getProject = async () => {
+    try {
+      const response = await api.get(`project/${id}/`, {
+        headers: { Authorization: `Bearer ${user.token}` }
+      });
+      setProject(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const breadcrumb = [
     { name: 'My chest', link: '/my-chest' },
-    { name: 'Test', link: '/my-chest/' },
+    { name: project.name, link: `/my-chest/treasure/${project.id}` },
     { name: 'Trash can', link: '' },
   ];
 
-  const headers = [
-    'Title',
-    'Version',
-    'Date moved',
-    'Days remeaning',
-    ''
-  ];
+  useEffect(() => {
+    getProject();
+  }, []);
 
   return (
     <>
@@ -29,7 +43,7 @@ export default function Trash() {
           <h2 className='text-[64px] md:text-[76px]'>trash can</h2>
         </div>
         {data.length > 0
-          ? <TrashCanTable headers={headers} data={data} />
+          ? <TrashCanTable data={data} />
           : (
             <div className='flex flex-col items-center'>
               <span className='text-[28px] font-semibold mb-2'>Nothing here</span>

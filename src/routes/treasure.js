@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { Link, useLoaderData, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -49,6 +49,8 @@ export default function Treasure() {
     { name: 'My chest', link: '/my-chest' },
     { name: project.name, link: '' },
   ];
+
+  const urlParams = { id: project.id };
 
   const permissionsOptions = [
     'participants',
@@ -247,7 +249,9 @@ export default function Treasure() {
                 <Pencil width={28} height={28} />
               </button>
               <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { navigate(`trash/`) }}>
+              <Link to={`/my-chest/treasure/${urlParams.id}/trash/`}>
                 <Trash width={28} height={28} />
+              </Link>
               </button>
             </div>
           </div>
