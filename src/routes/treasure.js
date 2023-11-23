@@ -7,7 +7,7 @@ import config from 'data/config.json';
 import api from 'utils/api';
 
 import Breadcrumb from 'components/Breadcrumb';
-import VersionList from 'components/treasure/VersionList';
+import VersionsTable from 'components/treasure/VersionsTable';
 import ParticipantsTable from 'components/treasure/ParticipantsTable';
 import AddButton from 'components/treasure/AddButton';
 import Modal from 'components/Modal';
@@ -15,13 +15,13 @@ import Button from 'components/Button';
 import UserSelector from 'components/treasure/UserSelector';
 import LinksTable from 'components/treasure/LinksTable';
 import AutoCompleteAlbum from 'components/AutoCompleteAlbum';
+import Input from 'components/Input';
 
 import { ReactComponent as Upload } from 'assets/images/icon-upload.svg';
 import { ReactComponent as Plus } from 'assets/images/icon-plus.svg';
 import { ReactComponent as Pencil } from 'assets/images/icon-pencil.svg';
 import { ReactComponent as Trash } from 'assets/images/icon-trash.svg';
 import { ReactComponent as Empty } from 'assets/images/empty-chest.svg';
-import Input from 'components/Input';
 
 export default function Treasure() {
   const navigate = useNavigate();
@@ -267,7 +267,7 @@ export default function Treasure() {
               </div>
             </div>
           </div>
-          <VersionList project={project} />
+          <VersionsTable project={project} />
           <div className='flex flex-col gap-1'>
             <div className='flex flex-col gap-2 bg-neutral-black rounded-t-3xl rounded-b-lg px-5 pt-6 md:px-[60px] md:pt-10'>
               <div className='flex w-full'>
@@ -424,9 +424,6 @@ export default function Treasure() {
             loading={loading}
             onClick={saveEditTrack} />
         </div>
-      </Modal>
-      <Modal show={showEditVersion}>
-        
       </Modal>
     </>
   )
