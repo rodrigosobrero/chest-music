@@ -1,22 +1,15 @@
-import { useState } from 'react';
 import { formatDate } from 'utils/helpers';
-import { formatTime, bytesToSize } from 'utils/helpers';
-import { isMobile, isDesktop } from 'react-device-detect';
+import { formatTime } from 'utils/helpers';
+import { isDesktop } from 'react-device-detect';
 
-import TrackListOptions from 'components/TrackListOptions';
+import VersionsActionsButton from './VersionsActionsButton';
 
 import { PlayIcon } from '@heroicons/react/24/solid';
-import upload from 'assets/images/icon-upload.svg';
 
-export default function VersionListRow({ project, version, onClick }) {
-  const [show, setShow] = useState(false);
-
+export default function VersionsRow({ project, version }) {
   return (
     <>
-      <tr
-        onMouseEnter={() => { setShow(true) }}
-        onMouseOut={() => { setShow(false) }}
-        onClick={onClick}>
+      <tr>
         <td>
           <div className='flex flex-row gap-3 md:gap-4'>
             <div className='relative rounded flex items-center'>
@@ -46,7 +39,7 @@ export default function VersionListRow({ project, version, onClick }) {
         )}
         <td>
           <div className='flex justify-end'>
-            <TrackListOptions id={version.id} />
+            <VersionsActionsButton version={version} />
           </div>
         </td>
       </tr>
