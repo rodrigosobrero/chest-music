@@ -4,6 +4,7 @@ import api from 'utils/api';
 
 import Breadcrumb from 'components/Breadcrumb';
 import TrashCanTable from 'components/treasure/TrashCanTable';
+import Modal from 'components/Modal';
 
 import { ReactComponent as Empty } from 'assets/images/empty-chest.svg';
 import { useEffect, useState } from 'react';
@@ -13,6 +14,12 @@ export default function Trash() {
   const { data } = useLoaderData();
   const { id } = useParams();
   const [project, setProject] = useState('');
+
+  const breadcrumb = [
+    { name: 'My chest', link: '/my-chest' },
+    { name: project.name, link: `/my-chest/treasure/${project.id}` },
+    { name: 'Trash can', link: '' },
+  ];
 
   const getProject = async () => {
     try {
@@ -24,12 +31,6 @@ export default function Trash() {
       console.log(error);
     }
   }
-
-  const breadcrumb = [
-    { name: 'My chest', link: '/my-chest' },
-    { name: project.name, link: `/my-chest/treasure/${project.id}` },
-    { name: 'Trash can', link: '' },
-  ];
 
   useEffect(() => {
     getProject();

@@ -1,5 +1,5 @@
 import { isDesktop } from 'react-device-detect';
-import { ArrowUpIcon } from '@heroicons/react/24/outline';
+import TrashCanActionsButton from './TrashCanActionsButton';
 
 export default function TrashCanRow({ item }) {
   return (
@@ -14,9 +14,9 @@ export default function TrashCanRow({ item }) {
           </>
         )}
         <td>
-          <button type='button' className='p-2.5'>
-            <ArrowUpIcon className='h-6 w-6 text-white' />
-          </button>
+          <div className='flex justify-end'>
+            <TrashCanActionsButton id={item.id} />
+          </div>
         </td>
       </tr>
     </>
