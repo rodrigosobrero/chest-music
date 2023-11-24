@@ -70,6 +70,7 @@ export default function VersionsActionsButton({ version }) {
     }
 
     setLoading(false);
+    setShowRemoveVersion(false);
   }
 
   const updateVersionName = async () => {
@@ -129,7 +130,7 @@ export default function VersionsActionsButton({ version }) {
                     </div>
                     <div className='flex flex-row gap-1'>
                       <CustomButton
-                        onMouseEnter={() => { setDescription('Upload') }}
+                        onMouseEnter={() => { setDescription('Share') }}
                         onMouseLeave={() => { setDescription('') }}>
                         <ArrowUpTrayIcon className='h-6 w-6' />
                       </CustomButton>
