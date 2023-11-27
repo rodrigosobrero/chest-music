@@ -1,19 +1,31 @@
 import { addFile } from 'app/upload';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { upload } from 'utils/api';
 import config from 'data/config.json';
 import InputFile from 'components/InputFile';
 import Modal from 'components/Modal';
 import Button from 'components/Button';
+import ProgressCircle from './ProgressCircle';
+import { AnimatePresence, motion } from 'framer-motion';
+import { bytesToSize } from 'utils/helpers';
+import { CheckIcon } from '@heroicons/react/20/solid';
 
-export default function Uploader() {
+export default function Uploader({ title = true, self, id }) {
   const { t } = useTranslation();
+  const { file } = useSelector((state) => state.upload);
+  const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [show, setShow] = useState(false);
+  const [showLoader, setShowLoader] = useState(false);
+  const [progress, setProgress] = useState({
+    loaded: 0,
+    total: 0
+  });
 
   const handleFile = (e) => {
     handleDragOver(e);
@@ -36,7 +48,12 @@ export default function Uploader() {
           blob: localFileURL
         }));
 
-        navigate('upload');
+        if (self) {
+          handleUpload();
+          setShowLoader(true);
+        } else {
+          navigate('upload');
+        }
       } else {
         setShow(true);
       }
@@ -48,22 +65,75 @@ export default function Uploader() {
     e.stopPropagation();
   }
 
+  const handleUpload = async () => {
+    const formData = new FormData();
+    const blob = await fetch(file.blob).then(r => r.blob());
+    const getFile = new File([blob], file.filename);
+
+    formData.append('files', getFile, file.filename);
+
+    try {
+      const response = await upload.post('audio', formData, {
+        headers: { Authorization: `Bearer ${user.token}` },
+        onUploadProgress: (progressEvent) => {
+          setProgress({
+            loaded: progressEvent.loaded,
+            total: progressEvent.total,
+          });
+        }
+      });
+
+      id(response.data);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
-      <div 
-        className='uploader py-[60px] px-5' 
-        onDrop={handleFile} 
-        onDragOver={handleDragOver}>
-        <h5 className='hidden md:block mb-4'>{t('mychest.uploader.title')}</h5>
-        <h5 className='block md:hidden mb-2'>{t('mychest.uploader.title_mobile')}</h5>
-        <p className='hidden md:block'>{t('mychest.uploader.description')}</p>
-        <p className='block md:hidden text-base'>{t('mychest.uploader.description_mobile')}</p>
-        <div>
-          <InputFile 
-            accept={config.accepted_files} 
-            text={t('global.upload')}
-            onChange={handleFile} />
-        </div>
+      <div className='uploader py-[60px] px-5'>
+        {showLoader
+          ? <>
+              <ProgressCircle
+                percentage={(progress.loaded * 100) / progress.total}
+                colour={progress.loaded > 0 && progress.loaded === progress.total ? '#FFB447' : '#7C59DE'} />
+              <div className='flex flex-col gap-1'>
+                <AnimatePresence>
+                  {progress.loaded > 0 && progress.loaded === progress.total
+                    ? <motion.div
+                      className='flex items-center justify-center gap-1.5 text-brand-gold'
+                      initial={{ opacity: 0, y: -20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}>
+                      Uploaded <CheckIcon className='h-4 w-4 text-brand-gold' />
+                    </motion.div>
+                    : <motion.span
+                      className='font-archivo text-center'
+                      exit={{ opacity: 0 }}>
+                      {bytesToSize(progress.loaded)} {t('global.of')} {bytesToSize(progress.total, 1)}
+                    </motion.span>}
+                </AnimatePresence>
+                <span className='font-archivo text-neutral-silver-300 text-sm text-center'>{file.filename}</span>
+              </div>
+            </>
+          : <div
+            className='flex flex-col items-center w-full h-full'
+            onDrop={handleFile}
+            onDragOver={handleDragOver}>
+            {title && (
+              <h5 className='hidden md:block mb-4'>{t('mychest.uploader.title')}</h5>
+            )}
+            <h5 className='block md:hidden mb-2'>{t('mychest.uploader.title_mobile')}</h5>
+            <p className='hidden md:block'>{t('mychest.uploader.description')}</p>
+            <p className='block md:hidden text-base'>{t('mychest.uploader.description_mobile')}</p>
+            <div className='w-1/2'>
+              <InputFile
+                accept={config.accepted_files}
+                text={t('global.upload')}
+                onChange={handleFile} />
+            </div>
+          </div>
+        }
       </div>
       <Modal show={show}>
         <div className='flex flex-col items-center text-center max-w-[440px]'>

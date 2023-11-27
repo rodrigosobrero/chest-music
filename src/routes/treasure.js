@@ -16,6 +16,7 @@ import UserSelector from 'components/treasure/UserSelector';
 import LinksTable from 'components/treasure/LinksTable';
 import AutoCompleteAlbum from 'components/AutoCompleteAlbum';
 import Input from 'components/Input';
+import Uploader from 'components/Uploader';
 
 import { ReactComponent as Upload } from 'assets/images/icon-upload.svg';
 import { ReactComponent as Plus } from 'assets/images/icon-plus.svg';
@@ -44,6 +45,12 @@ export default function Treasure() {
   const [album, setAlbum] = useState(project.album);
   const [trackName, setTrackName] = useState(project.name);
   const [showEditVersion, setShowEditVersion] = useState(false);
+  const [showEditLink, setShowEditLink] = useState(false);
+  const [showAddVersion, setShowAddVersion] = useState(false);
+  const [newVersion, setNewVersion] = useState({
+    file: '',
+    name: ''
+  });
 
   const breadcrumb = [
     { name: 'My chest', link: '/my-chest' },
@@ -198,6 +205,31 @@ export default function Treasure() {
     setShowEditTrack(false);
   }
 
+  const updateFileId = (e) => {
+    setNewVersion({ ...newVersion, file: e });
+  }
+
+  const saveNewVersion = async () => {
+    setLoading(true);
+
+    const data = {
+      project: project.id,
+      name: newVersion.name,
+      audio: newVersion.file
+    }
+
+    try {
+      await api.post('project/version/', data, {
+        headers: { Authorization: `Bearer ${user.token}` }
+      })
+    } catch (error) {
+      console.log(error);
+    }
+
+    setLoading(false);
+    setShowAddVersion(false);
+  }
+
   useEffect(() => {
     setProject(data);
     setPermissionsView(permissionsOptions[0]);
@@ -229,7 +261,11 @@ export default function Treasure() {
         setPermissionsData(project.shared_versions.users);
         break;
     }
-  }, [permissionsView])
+  }, [permissionsView]);
+
+  useEffect(() => {
+    console.log(newVersion);
+  }, [newVersion]);
 
   return (
     <>
@@ -242,16 +278,16 @@ export default function Treasure() {
               <button type='button' className='p-2 rounded-full bg-neutral-silver-600'>
                 <Upload width={28} height={28} />
               </button>
-              <button type='button' className='p-2 rounded-full bg-neutral-silver-600'>
+              <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { setShowAddVersion(true) }}>
                 <Plus width={28} height={28} />
               </button>
-              <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { setShowEditTrack(true); }}>
+              <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { setShowEditTrack(true) }}>
                 <Pencil width={28} height={28} />
               </button>
               <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { navigate(`trash/`) }}>
-              <Link to={`/my-chest/treasure/${urlParams.id}/trash/`}>
-                <Trash width={28} height={28} />
-              </Link>
+                <Link to={`/my-chest/treasure/${urlParams.id}/trash/`}>
+                  <Trash width={28} height={28} />
+                </Link>
               </button>
             </div>
           </div>
@@ -423,6 +459,55 @@ export default function Treasure() {
             disabled={loading}
             loading={loading}
             onClick={saveEditTrack} />
+        </div>
+      </Modal>
+      <Modal show={showAddVersion}>
+        <div className='flex flex-col items-center text-center mb-8'>
+          <h4 className='mb-3 !text-5xl'>add new version</h4>
+          <p className='text-white'>
+            {project.name}
+          </p>
+          <p className='!text-sm text-neutral-silver-200'>
+            {project.participants?.map((participant, index) => (index ? ', ' : '') + participant.full_name)}
+          </p>
+        </div>
+        <div className='flex flex-col gap-8'>
+          <Uploader
+            title={false}
+            self={true}
+            id={updateFileId} />
+          <Input
+            type='text'
+            label='Version name'
+            value={newVersion.name}
+            onChange={(e) => { setNewVersion({ ...newVersion, name: e.target.value }) }}
+            placeholder=''
+            helper='Must be different from previous.' />
+        </div>
+        <div className='grid grid-cols-2 gap-4 mt-8'>
+          <Button
+            text={t('global.cancel')}
+            style='third'
+            onClick={() => { setShowAddVersion(false) }} />
+          <Button
+            text='Confirm'
+            style='primary'
+            disabled={loading || (!newVersion.name || !newVersion.file)}
+            loading={loading}
+            onClick={saveNewVersion} />
+        </div>
+      </Modal>
+      <Modal show={showEditLink}>
+        <div className='grid grid-cols-2 gap-4 mt-8'>
+          <Button
+            text={t('global.cancel')}
+            style='third'
+            onClick={() => { setShowAddVersion(false) }} />
+          <Button
+            text={t('global.save')}
+            style='primary'
+            disabled={loading}
+            loading={loading} />
         </div>
       </Modal>
     </>
