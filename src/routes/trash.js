@@ -18,7 +18,7 @@ export default function Trash() {
   const breadcrumb = [
     { name: 'My chest', link: '/my-chest' },
     { name: project.name, link: `/my-chest/treasure/${project.id}` },
-    { name: 'Trash can', link: '' },
+    { name: 'Trash can', link: '' }
   ];
 
   const getProject = async () => {
