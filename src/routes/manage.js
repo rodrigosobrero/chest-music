@@ -67,7 +67,7 @@ export default function Manage() {
 
   return (
     <>
-      <Modal show={show}>
+      <Modal show={show} setShow={setShow}>
         <div className=' w-full md:max-w-[32rem]'>
           <div className='text-center'>
             <h3 className='text-center'>{isOpen ? t('global.close') : t('global.open')} {t('global.notifications')}</h3>

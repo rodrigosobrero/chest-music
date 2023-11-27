@@ -8,6 +8,8 @@ import DeleteModal from 'components/modals/DeleteModal'
 import { apiUrl } from 'utils/api'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
+import { signOut } from 'firebase/auth';
+import { auth } from 'utils/firebase';
 const Account = () => {
   const { t } = useTranslation() 
   const [show, setShow] = useState(false)
@@ -29,7 +31,7 @@ const Account = () => {
       headers: { Authorization: `Bearer ${token}` }
     }).then((response) => {
       console.log(response)
-      window.location.reload()
+      signOut(auth)
     })
   }
 
@@ -48,7 +50,7 @@ const Account = () => {
   let paths = [{ name:'Profile', link: '/profile' }, { name: items[2].title }]
   return (
     <>
-        <Modal show={show}>
+        <Modal show={show} setShow={setShow}>
             <DeleteModal title={t('account.modals.delete_account')} subtitle={t('account.modals.delete_subtitle')}
                          confirmText={t('account.modals.delete_confirm')} primaryButton={t('global.confirm')}
                          secondaryButton={t('global.cancel')} placeholder={t('global.placeholder.write_here')}  onClick={deleteAccount}
