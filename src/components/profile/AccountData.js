@@ -6,6 +6,7 @@ import ChangeDataModal from 'components/modals/ChangeDataModal'
 import { patchData } from 'utils/api'
 import { useDispatch } from 'react-redux'
 import { updateUserData } from 'app/auth'
+
 const AccountData = ({ data, token }) => {
   console.log(token)
   const dispatch = useDispatch()
@@ -35,7 +36,7 @@ const AccountData = ({ data, token }) => {
     }]
   return (
     <> 
-      <Modal show={show} >
+      <Modal show={show} setShow={setShow} >
         <ChangeDataModal title={t('account.modals.change_name')}  toggle={toggle} onClick={changeName}
                         subtitle={t('account.modals.change_subtitle')} primaryButton={t('global.save')}
                         secondaryButton={t('global.cancel')} inputsData={inputData} handleChange={handleChange} isAvailable={input !== ''} />

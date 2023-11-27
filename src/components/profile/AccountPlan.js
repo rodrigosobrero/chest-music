@@ -32,7 +32,7 @@ const AccountPlan = ({ data }) => {
   }, [input, selected])
   return (
     <>
-      <Modal show={show} >
+      <Modal show={show} setShow={setShow} >
         <UpgradeStorage  toggle={closeModal} countries={countries} toggleList={toggleList} selected={selected}
         isOpen={isOpen} handleChange={handleChange} handleSelectOption={handleSelectOption} disabled={!isAvailable}/>
       </Modal>

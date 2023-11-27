@@ -37,7 +37,7 @@ const ProfileHead = ({ data, token }) => {
     }]
   return (
     <>
-        <Modal show={show} >
+        <Modal show={show} setShow={setShow}>
             <ChangeDataModal title={t('account.modals.change_name')}  toggle={toggle} onClick={changeName}
                             subtitle={t('account.modals.change_subtitle')} primaryButton={t('global.save')}
                             secondaryButton={t('global.cancel')} inputsData={inputData} handleChange={handleChange} isAvailable={input !== ''} />
