@@ -153,7 +153,7 @@ export default function Treasure() {
       }
 
       const response = await api.post('project/participant/', participantData, {
-        headers: { Authorization: `Bearer ${user.token}` }
+        headers: { Authorization: `Bearer ${user?.token}` }
       });
     } catch (error) {
       console.log(error);
@@ -174,7 +174,7 @@ export default function Treasure() {
 
     try {
       await api.post('shared/link/', data, {
-        headers: { Authorization: `Bearer ${user.token}` }
+        headers: { Authorization: `Bearer ${user?.token}` }
       });
     } catch (error) {
       console.log(error);
@@ -195,7 +195,7 @@ export default function Treasure() {
 
     try {
       await api.patch(`project/${project.id}/`, data, {
-        headers: { Authorization: `Bearer ${user.token}` }
+        headers: { Authorization: `Bearer ${user?.token}` }
       });
     } catch (error) {
       console.log(error)
@@ -220,7 +220,7 @@ export default function Treasure() {
 
     try {
       await api.post('project/version/', data, {
-        headers: { Authorization: `Bearer ${user.token}` }
+        headers: { Authorization: `Bearer ${user?.token}` }
       })
     } catch (error) {
       console.log(error);

@@ -9,7 +9,7 @@ import Loading from "components/Loading"
 export default function Shared() {
   const { t } = useTranslation()
   const user = useSelector((state) => state.auth.user )
-  const { data, isFetching, error } = useFetch(apiUrl + 'shared/', user.token)
+  const { data, isFetching, error } = useFetch(apiUrl + 'shared/', user?.token)
   const [ input, setInput ] = useState('')
   const handleChange = (e) => setInput(e.target.value.toLowerCase())
   const filteredTracks = data.filter(track => {

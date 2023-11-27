@@ -16,7 +16,7 @@ import { useSelector } from 'react-redux'
 const Permissions = () => {
   const { t } = useTranslation() 
   const user = useSelector((state) => state.auth.user)
-  const { data, handleToggle , isFetching } = useFetch(apiUrl + 'globalpermission/', user.token )
+  const { data, handleToggle , isFetching } = useFetch(apiUrl + 'globalpermission/', user?.token )
   const { handleChange, filteredArtists, handleOptionSelect, selected, handleDeleteSelected, input, checked, handleCheck, reset } = useSearch(3, data)
   const [ show, setShow ] = useState(false)
   
@@ -24,12 +24,12 @@ const Permissions = () => {
 
   const addListener = () => {
     if(!selected.hasOwnProperty('full_name')) return;
-    axios.post(apiUrl + 'globalpermission/', { user: selected.id }, { headers: {  Authorization: `Bearer ${user.token}`}, })
+    axios.post(apiUrl + 'globalpermission/', { user: selected.id }, { headers: {  Authorization: `Bearer ${user?.token}`}, })
          .then((response) => { console.log(response.data); handleToggle(); toggle() })
   }
   
   const deleteListener = (id) => {
-    axios.delete(apiUrl + 'globalpermission/' + id + '/', { headers: {  Authorization: `Bearer ${user.token}`}, })
+    axios.delete(apiUrl + 'globalpermission/' + id + '/', { headers: {  Authorization: `Bearer ${user?.token}`}, })
     .then((response) => {console.log(response.data); handleToggle()})
     .catch((err) => console.log(err))
     console.log(data)

@@ -69,7 +69,7 @@ export default function LinksActionsButton({ link }) {
 
     try {
       await api.patch(`shared/link/${link.id}/`, data, {
-        headers: { Authorization: `Bearer ${user.token}` }
+        headers: { Authorization: `Bearer ${user?.token}` }
       });
     } catch (error) {
       console.log(error);
@@ -84,7 +84,7 @@ export default function LinksActionsButton({ link }) {
 
     try {
       await api.delete(`shared/link/${link.id}/`, {
-        headers: { Authorization: `Bearer ${user.token}` }
+        headers: { Authorization: `Bearer ${user?.token}` }
       });
     } catch (error) {
       console.log(error);

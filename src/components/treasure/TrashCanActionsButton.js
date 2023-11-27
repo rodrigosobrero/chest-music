@@ -19,7 +19,7 @@ export default function TrashCanActionsButton({ id }) {
 
     try {
       await api.get(`project/version/${id}/restore/`, {
-        headers: { Authorization: `Bearer ${user.token}` }
+        headers: { Authorization: `Bearer ${user?.token}` }
       });
     } catch (error) {
       console.log(error);

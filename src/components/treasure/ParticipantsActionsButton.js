@@ -60,7 +60,7 @@ export default function ParticipantsActionsButtons({ participant }) {
     try {
       await api.patch(`project/participant/${participant.relation_id}/`, 
         { 'role': role }, {
-        headers: { Authorization: `Bearer ${user.token}` }
+        headers: { Authorization: `Bearer ${user?.token}` }
       });
     } catch (error) {
       console.log(error);
@@ -76,7 +76,7 @@ export default function ParticipantsActionsButtons({ participant }) {
     try {
       await api.delete(`project/participant/${participant.relation_id}/`, 
         { 'role': participant.role }, {
-        headers: { Authorization: `Bearer ${user.token}` }
+        headers: { Authorization: `Bearer ${user?.token}` }
       });
     } catch (error) {
       console.log(error);

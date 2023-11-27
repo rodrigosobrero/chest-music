@@ -63,7 +63,7 @@ export default function VersionsActionsButton({ version }) {
 
     try {
       await api.delete(`project/version/${version.id}/`, {
-        headers: { Authorization: `Bearer ${user.token}` }
+        headers: { Authorization: `Bearer ${user?.token}` }
       });
     } catch (error) {
       console.log(error);
@@ -82,7 +82,7 @@ export default function VersionsActionsButton({ version }) {
 
     try {
       const response = await api.get(`project/version/${version.id}/url/`, {
-        headers: { Authorization: `Bearer ${user.token}` }
+        headers: { Authorization: `Bearer ${user?.token}` }
       });
 
       link.download = 'download';

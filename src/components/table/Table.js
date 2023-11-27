@@ -4,11 +4,11 @@ export default function Table({ data, headers, user }) {
     let render;
 
     if (cell.property === 'user_id') {
-      console.log(user.data.user_id)
+      console.log(user?.data.user_id)
       console.log(row.user_id)
-      console.log(user.data.user_id == row.user_id)
+      console.log(user?.data.user_id == row.user_id)
 
-      if (user.data.user_id == row.user_id) {
+      if (user?.data.user_id == row.user_id) {
         console.log('si')
         // render = <><span className=' text-re'>{row[cell.property]}</span></>
         render = 'si';

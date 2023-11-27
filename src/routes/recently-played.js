@@ -9,7 +9,7 @@ import empty from 'assets/images/empty-chest.svg';
 
 const Played = () => {
   const user = useSelector((state) => state.auth.user) 
-  const { data, isFetching, error } = useFetch(apiUrl + 'recentlyplayed/', user.token )
+  const { data, isFetching, error } = useFetch(apiUrl + 'recentlyplayed/', user?.token )
   const { t } = useTranslation() 
   const items = t('profile.sections', { returnObjects: true });
   let paths = [{ name:'Profile', link: '/profile' }, { name: items[0].title }]

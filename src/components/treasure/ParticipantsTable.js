@@ -8,7 +8,7 @@ export default function ParticipantsTable({ data, headers, user }) {
       <>
         <td className='text-lg'>
           {cell.full_name}
-          {user.data.user_id === cell.user_id &&
+          {user?.data.user_id === cell.user_id &&
             <span className='text-neutral-silver-300 ml-1'>
               (you)
             </span>

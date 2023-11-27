@@ -74,7 +74,7 @@ export default function Uploader({ title = true, self, id }) {
 
     try {
       const response = await upload.post('audio', formData, {
-        headers: { Authorization: `Bearer ${user.token}` },
+        headers: { Authorization: `Bearer ${user?.token}` },
         onUploadProgress: (progressEvent) => {
           setProgress({
             loaded: progressEvent.loaded,

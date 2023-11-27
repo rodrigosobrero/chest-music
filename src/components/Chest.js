@@ -23,7 +23,7 @@ export default function Chest() {
   const fetchData = async () => {
     try {
       const response = await axios.get('mychest/', {
-        headers: { Authorization: `Bearer ${user.token}` }
+        headers: { Authorization: `Bearer ${user?.token}` }
       });
       setTracks(response.data.projects);
       dispatch(updateUser({
@@ -67,19 +67,19 @@ export default function Chest() {
           <div className='flex items-center justify-end gap-3 md:gap-4'>
             <div className='hidden md:flex flex-col items-end justify-center gap-1.5'>
               <div className='flex flex-row gap-1 text-sm font-archivo'>
-                <span className='text-neutral-silver-100'>{bytesToSize(user.data.used_storage)}</span>
+                <span className='text-neutral-silver-100'>{bytesToSize(user?.data.used_storage)}</span>
                 <span className='text-neutral-silver-300'>of</span>
-                <span className='text-neutral-silver-100'>{bytesToSize(user.data.total_space)}</span>
+                <span className='text-neutral-silver-100'>{bytesToSize(user?.data.total_space)}</span>
               </div>
               <ProgressBar 
-                progress={100 * user.data.used_storage / user.data.total_space} 
+                progress={100 * user?.data.used_storage / user?.data.total_space} 
                 color='violet'
                 size='150'
                 direction='right'
                 background='gray' />
             </div>
             <div className='text-brand-uva-light font-thunder text-4xl flex items-center justify-center'>
-              {Math.round(100 * user.data.used_storage / user.data.total_space)}%
+              {Math.round(100 * user?.data.used_storage / user?.data.total_space)}%
             </div>
             <div className='bg-neutral-silver-700 p-2 rounded-[10px]'>
               <img src={cloud} alt='' width={28} height={28} />

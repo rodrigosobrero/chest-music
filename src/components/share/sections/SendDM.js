@@ -48,7 +48,7 @@ const SendDM = ({ token , versionId }) => {
     .then((response) => {
         let users = response.data;
         if (selecteds.length > 0) {
-            users = users.filter(user => !selecteds.some(selected => selected.id === user.id));
+            users = users.filter(user => !selecteds.some(selected => selected.id === user?.id));
         }
         setFilteredUsers(users)
     })

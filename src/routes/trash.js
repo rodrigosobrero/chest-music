@@ -24,7 +24,7 @@ export default function Trash() {
   const getProject = async () => {
     try {
       const response = await api.get(`project/${id}/`, {
-        headers: { Authorization: `Bearer ${user.token}` }
+        headers: { Authorization: `Bearer ${user?.token}` }
       });
       setProject(response.data);
     } catch (error) {

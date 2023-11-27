@@ -11,7 +11,7 @@ export default function UserSelector({ roles, users, selected }) {
   const [userList, setUserList] = useState(users);
 
   const updateUser = (user, role) => {
-    const itemIndex = userList.findIndex(saved => saved.id === user.id);
+    const itemIndex = userList.findIndex(saved => saved.id === user?.id);
     const list = [...userList];
 
     list[itemIndex] = {
@@ -47,7 +47,7 @@ export default function UserSelector({ roles, users, selected }) {
             <div className='flex flex-row items-center gap-3'>
               <div className='p-2 bg-black rounded-full'>
                 {(() => {
-                  switch (user.role) {
+                  switch (user?.role) {
                     case 'artist':
                       return <MicrophoneIcon className='h-5 w-5 text-brand-gold' />
                     case 'listener':
@@ -62,13 +62,13 @@ export default function UserSelector({ roles, users, selected }) {
               <div className='flex flex-row w-full items-center justify-center'>
                 <div className='grow flex items-center'>
                   <span className='!mb-0 text-ellipsis !text-white'>
-                    {user.full_name}
+                    {user?.full_name}
                   </span>
                 </div>
                 <Dropdown
                   list={roles}
                   remove={() => removeUser(user)}
-                  selected={user.role}
+                  selected={user?.role}
                   set={(role) => { updateUser(user, role) }} />
               </div>
             </div>
