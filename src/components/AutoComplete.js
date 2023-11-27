@@ -115,7 +115,7 @@ export default function AutoComplete({ options, handleAdd }) {
           type='button'
           className='rounded-xl p-3 w-[54px] bg-brand-gold text-black disabled:text-neutral-silver-300 disabled:bg-neutral-silver-500 flex justify-center'
           disabled={!selectedUser}
-          onClick={() => { handleAdd(selecteduser?.full_name, selectedRole, selecteduser?.id); setSearchValue(''); setSelectedUser(''); }}>
+          onClick={() => { handleAdd(selectedUser?.full_name, selectedRole, selectedUser?.id); setSearchValue(''); setSelectedUser(''); }}>
           <CheckIcon className='h-7 w-7' />
         </button>
       </div>
