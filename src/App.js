@@ -24,7 +24,6 @@ import Profile from 'routes/profile';
 import Setup from 'routes/setup';
 import Upload from 'routes/upload';
 import Share from 'routes/share';
-
 function App() {
   const dispatch = useDispatch();
   const router = createBrowserRouter([
@@ -144,15 +143,12 @@ function App() {
    //
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      console.log(user, 'user');
-      
       if (user) {
         getIdToken(user).then(async (token) => {
           const response = await axios.get('account/', {
             headers: { Authorization: `Bearer ${token}` }
           });
           const provider = user.providerData[0].providerId;
-
           dispatch(saveUser({
             data: response.data,
             token: token,

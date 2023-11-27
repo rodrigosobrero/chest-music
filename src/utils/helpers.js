@@ -17,23 +17,33 @@ function formatDate(date) {
 function formatTime(seconds) {
   return (seconds / 60).toFixed(2).toString().replace('.', ':');
 }
-function timeDifference(previous) {
+function timeDifference(previousTimestamp) {
+  
   var current = new Date();
-  var previousDate = new Date(parseInt(previous));
-  var elapsed = current - previousDate;
-  var months = Math.floor(elapsed / 2629746000); // Aproximadamente 30.44 días en un mes
-  var days = Math.floor((elapsed % 2629746000) / 86400000); // 24 horas en un día
-  if (months > 3 ) {
-    var options = { year: 'numeric', month: 'short', day: 'numeric' };
-    return previousDate.toLocaleDateString('en-US', options);
-  } else if (months >= 1) {
-    return months + ' month ago';
-  } else if (days >= 2) {
-    return days + ' days ago';
-  } else if (days === 1) {
-    return '1 day ago';
-  } 
+  var previousDate = new Date(previousTimestamp*1000);
+  var elapsed = current.getTime() - previousDate.getTime(); // Diferencia en milisegundos
+  var seconds = Math.floor(elapsed / 1000); // Total de segundos
+  var minutes = Math.floor(seconds / 60); // Total de minutos
+  var hours = Math.floor(minutes / 60); // Total de horas
+  var days = Math.floor(hours / 24); // Total de días
+  var months = Math.floor(days / 30.44); // Aproximadamente 30.44 días en un mes
+  var years = Math.floor(months / 12); // Total de años
+
+  if (years > 0) {
+    return years + (years === 1 ? ' year' : ' years') + ' ago';
+  } else if (months > 0) {
+    return months + (months === 1 ? ' month' : ' months') + ' ago';
+  } else if (days > 0) {
+    return days + (days === 1 ? ' day' : ' days') + ' ago';
+  } else if (hours > 0) {
+    return hours + (hours === 1 ? ' hour' : ' hours') + ' ago';
+  } else if (minutes > 0) {
+    return minutes + (minutes === 1 ? ' minute' : ' minutes') + ' ago';
+  } else {
+    return seconds + (seconds === 1 ? ' second' : ' seconds') + ' ago';
+  }
 }
+
 function firstLetterUpperCase(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }

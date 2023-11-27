@@ -18,7 +18,7 @@ export default function Manage() {
   const user = useSelector((state) => state.auth.user)
   const dispatch = useDispatch()
 
-  const { data, isFetching, handleToggle } = useFetch(apiUrl + 'notification/permission/', user.token)
+  const { data, isFetching, handleToggle } = useFetch(apiUrl + 'notification/permission/', user?.token)
   console.log(data)
   const { filteredArtists, handleChange , handleOptionSelect, input, selected, handleDeleteSelected, reset} = useSearch(3, data)
 

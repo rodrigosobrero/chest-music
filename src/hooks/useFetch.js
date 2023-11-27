@@ -6,13 +6,14 @@ const useFetch = (url, token) => {
     const [error, setError] = useState();
     const [toggle, setToggle] = useState();
     useEffect(() => {
+      if(!token) return;
       if(!url) return;
       setIsFetching(true);
       axios.get(url, { headers: { Authorization: `Bearer ${token}` }})
         .then(response => setData(response.data))
         .catch(error => setError(error.response.data))
         .finally(() => setIsFetching(false));
-    }, [url, toggle]);
+    }, [url, toggle,token]);
     const handleToggle = () => {
       setToggle(!toggle)
     }

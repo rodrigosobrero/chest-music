@@ -8,7 +8,7 @@ import { apiUrl } from 'utils/api'
 import Loading from 'components/Loading'
 const Notification = () => {
   const { t } = useTranslation() 
-  const { token } = useSelector((state) => state.auth.user)
+  const user = useSelector((state) => state.auth.user)
   const [status, setStatus] = useState('invites')
   const [generalNotifications, setGeneralNotifications] = useState(false)
   const [invites, setInvites] = useState(false)
@@ -17,21 +17,23 @@ const Notification = () => {
   console.log(invites)
 
   useEffect(() => {
+    if(!user.token) return
     if(!invites){
       setIsLoading(true)
       axios.get(apiUrl + 'notification/?type=invites' , { 
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${user.token}` }
       }).then((response) => setInvites(response.data.invites.notifications))
       .finally(() => setIsLoading(false))
     }
-  }, [invites, token])
+  }, [invites, user?.token])
 
   useEffect(() => {
+    if(!user.token) return
     if(status === 'general'){
       if(!generalNotifications){
         setIsLoading(true)
         axios.get(apiUrl + 'notification/?type=general' , { 
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${user.token}` }
         }).then((response) => {
           console.log('volvi a entrar')
           setGeneralNotifications(response.data.general.notifications)
@@ -41,12 +43,13 @@ const Notification = () => {
         console.log('volvi a salir')
       }
     }
-  }, [generalNotifications, status, token])
+  }, [generalNotifications, status, user?.token])
 
   useEffect(() => {
+    if(!user.token) return
     if(status === 'general' && isChanged === true){
       axios.get(apiUrl + 'notification/?type=invites' , { 
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${user.token}` }
       }).then((response) => setInvites(response.data.invites.notifications))
       .finally(() => setIsChanged(false))
     }
@@ -56,7 +59,7 @@ const Notification = () => {
     axios.post(apiUrl + 'notification/permission', 
        {  "user": id,
           "permission": "blocked"}, 
-       { headers: {  Authorization: `Bearer ${token}`}, })
+       { headers: {  Authorization: `Bearer ${user.token}`}, })
        .then((response) => {
           console.log(response)
        })
@@ -68,7 +71,7 @@ const Notification = () => {
     console.log('entre')
     axios.patch(apiUrl + `notification/invite/${invite_id}/reply/`, 
                 { response: type},
-                { headers: { Authorization: `Bearer ${token}`}})
+                { headers: { Authorization: `Bearer ${user.token}`}})
                 .then((response) => { setIsChanged(true); return true})
                 .catch(() => { return false })
                 
