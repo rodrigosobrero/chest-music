@@ -8,6 +8,8 @@ import DeleteModal from 'components/modals/DeleteModal'
 import { apiUrl } from 'utils/api'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
+import { signOut } from 'firebase/auth';
+import { auth } from 'utils/firebase';
 const Account = () => {
   const { t } = useTranslation() 
   const [show, setShow] = useState(false)
@@ -29,7 +31,7 @@ const Account = () => {
       headers: { Authorization: `Bearer ${token}` }
     }).then((response) => {
       console.log(response)
-      window.location.reload()
+      signOut(auth)
     })
   }
 
