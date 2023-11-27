@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import useMediaQuery from 'hooks/useMediaQuery';
 import PermissionRow from './PermissionRow'
-const PermissionsList = ({data }) => {
+const PermissionsList = ({data, deleteListener }) => {
     const isMobile = useMediaQuery('(max-width: 1024px)')
     const handleSortingChange = (index) => {
         console.log(index);
@@ -29,7 +29,7 @@ const PermissionsList = ({data }) => {
             <tbody>
             {
                 data?.map((track, index) =>
-                <PermissionRow data={track} isMobile={isMobile}/>
+                <PermissionRow data={track} isMobile={isMobile} deleteListener={deleteListener}/>
                 )
             }
             </tbody>

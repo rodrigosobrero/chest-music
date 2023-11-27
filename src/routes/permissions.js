@@ -27,6 +27,15 @@ const Permissions = () => {
     axios.post(apiUrl + 'globalpermission/', { user: selected.id }, { headers: {  Authorization: `Bearer ${user.token}`}, })
          .then((response) => { console.log(response.data); handleToggle(); toggle() })
   }
+  
+  const deleteListener = (id) => {
+    axios.delete(apiUrl + 'globalpermission/' + id + '/', { headers: {  Authorization: `Bearer ${user.token}`}, })
+    .then((response) => {console.log(response.data); handleToggle()})
+    .catch((err) => console.log(err))
+    console.log(data)
+    console.log('id')
+  }
+
   const items = t('profile.sections', { returnObjects: true });
   let paths = [{ name:'Profile', link: '/profile' }, { name: items[1].title }]
   return (
@@ -47,7 +56,7 @@ const Permissions = () => {
         </div>
         <div className='bg-neutral-black flex flex-col items-center w-full rounded-2xl md:rounded-3xl px-4 pt-3 pb-6 md:py-10 md:px-[60px]'>
                 {isFetching ? 
-                  <img src={spinner} alt='' width={20} height={20} className='animate-spin' /> : data.length >  0 ? <PermissionsList data={data} /> :            
+                  <img src={spinner} alt='' width={20} height={20} className='animate-spin' /> : data.length >  0 ? <PermissionsList data={data} deleteListener={deleteListener}/> :            
                     <div className='flex flex-col items-center gap-2'>
                         <h4>{t('notification.nothing_here')}</h4>
                         <p className='text-lg text-neutral-silver-200 font-light mb-10'>
@@ -56,7 +65,7 @@ const Permissions = () => {
                         <img src={empty} alt='' width={240} height={128} className='mb-5' />
                     </div> 
                 }
-                <PermissionsButton toggle={toggle} />
+                <PermissionsButton toggle={toggle}  />
         </div>
       </div>
       <Modal show={show} setShow={setShow}>
