@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -29,8 +29,16 @@ export default function Setup() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors }
   } = useForm();
+
+  const validate = {
+    username: watch('username'),
+    name: watch('name'),
+    plan: watch('plan'),
+    terms: watch('terms')
+  }
 
   const options = [
     {
@@ -216,7 +224,7 @@ export default function Setup() {
               style='primary'
               type='submit'
               text={t('setup.step_two.create_button')}
-              disabled={loading}
+              disabled={loading || !validate.username || !validate.name || !validate.plan || !validate.terms}
               loading={loading} />
           </form>
         </div>
