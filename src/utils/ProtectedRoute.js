@@ -11,6 +11,7 @@ export default function ProtectedRoute({ children, redirectPath = '/sign-in' }) 
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      console.log(currentUser)
       if (currentUser) {
         setIsAuthenticated(true);
       } else {
