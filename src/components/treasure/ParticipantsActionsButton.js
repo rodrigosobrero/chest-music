@@ -31,7 +31,7 @@ export default function ParticipantsActionsButtons({ participant }) {
       await animation.start({ width: 0 });
       animation.start({ opacity: 0 });
     } else {
-      await animation.start({ width: 96, opacity: 100 });
+      await animation.start({ width: participant.removable ? 96 : 52, opacity: 100 });
       animation.start({ height: 80 });
     }
   }
@@ -58,7 +58,7 @@ export default function ParticipantsActionsButtons({ participant }) {
     setLoading(true);
 
     try {
-      await api.patch(`project/participant/${participant.relation_id}/`, 
+      await api.patch(`project/participant/${participant.relation_id}/`,
         { 'role': role }, {
         headers: { Authorization: `Bearer ${user?.token}` }
       });
@@ -74,7 +74,7 @@ export default function ParticipantsActionsButtons({ participant }) {
     setLoading(true);
 
     try {
-      await api.delete(`project/participant/${participant.relation_id}/`, 
+      await api.delete(`project/participant/${participant.relation_id}/`,
         { 'role': participant.role }, {
         headers: { Authorization: `Bearer ${user?.token}` }
       });
@@ -123,12 +123,14 @@ export default function ParticipantsActionsButtons({ participant }) {
                         onClick={() => { setShowEditUser(true) }}>
                         <PencilSquareIcon className="h-6 w-6 text-gray-500" />
                       </CustomButton>
-                      <CustomButton
-                        onMouseEnter={() => { setDescription('Delete') }}
-                        onMouseLeave={() => { setDescription('') }}
-                        onClick={() => { setShowDeleteUser(true) }}>
-                        <XCircleIcon className="h-6 w-6 text-gray-500" />
-                      </CustomButton>
+                      {participant.removable &&
+                        <CustomButton
+                          onMouseEnter={() => { setDescription('Delete') }}
+                          onMouseLeave={() => { setDescription('') }}
+                          onClick={() => { setShowDeleteUser(true) }}>
+                          <XCircleIcon className="h-6 w-6 text-gray-500" />
+                        </CustomButton>
+                      }
                     </div>
                   </motion.div>
                 }
@@ -145,9 +147,9 @@ export default function ParticipantsActionsButtons({ participant }) {
             {participant.full_name} <span className=' text-neutral-silver-300'>@{participant.username}</span>
           </p>
         </div>
-        <Select 
-          options={config.roles} 
-          name='role' 
+        <Select
+          options={config.roles}
+          name='role'
           label='Role'
           value={role}
           onChange={(e) => { setRole(e.target.value) }} />
