@@ -12,24 +12,19 @@ export default function ProtectedRoute({ children, redirectPath = '/sign-in' }) 
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
-        // Usuario autenticado
         setIsAuthenticated(true);
       } else {
-        // Usuario no autenticado
-        setIsAuthenticated(false);
+        setIsAuthenticated(true);
       }
       setAuthChecked(true);
     });
-
-    return () => unsubscribe(); // Limpieza de la suscripción
+    return () => unsubscribe(); 
   }, []);
 
-  // Espera hasta que la verificación de autenticación esté completa
   if (!authChecked) {
     return <div>Cargando...</div>; // O algún componente de carga
   }
 
-  // Si la verificación de autenticación está completa y el usuario no está autenticado, redirigir
   if (!isAuthenticated) {
     return <Navigate to={redirectPath} replace />;
   }

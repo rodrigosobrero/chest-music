@@ -6,7 +6,12 @@ function classNames(classes) {
 }
 
 function formatDate(date) {
-  const dateFormat = new Date(date);
+  if (date && typeof date === 'string')
+    date = parseInt(date);
+
+  console.log(date);
+
+  const dateFormat = new Date(date * 1000);
   const month = dateFormat.toLocaleString('default', { month: 'short' });
   const day = dateFormat.getDay();
   const year = dateFormat.getFullYear();

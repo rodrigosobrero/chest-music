@@ -38,7 +38,7 @@ export default function TrackListOptions({ id }) {
       <div className='relative'>
         <button
           type='button'
-          className={`p-[7px] rounded-[10px] transition duration-500 hover:bg-neutral-silver-700 border-[3px] border-transparent active:border-gray-700 ${open && 'bg-neutral-silver-700 border-neutral-silver-600'}`}
+          className={`p-[7px] rounded-[10px] transition duration-500 hover:bg-neutral-silver-700 border-[3px] border-transparent active:border-gray-700 hover:border-neutral-silver-600 ${open && 'bg-neutral-silver-700 border-neutral-silver-600'}`}
           onClick={toggleOpen}>
           <img src={dots} alt='' width={24} height={24} />
         </button>
@@ -68,7 +68,7 @@ export default function TrackListOptions({ id }) {
                         icon={eye} 
                         onMouseEnter={() => { setDescription('View details') }} 
                         onMouseLeave={() => { setDescription('') }}
-                        onClick={ () => { navigate(`track/${id}`) }} />
+                        onClick={ () => { navigate(`treasure/${id}`) }} />
                       <TrackListButton 
                         icon={download} 
                         onMouseEnter={() => { setDescription('Download') }} 
