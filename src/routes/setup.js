@@ -152,7 +152,7 @@ export default function Setup() {
                 name='username'
                 label={t('setup.step_two.username')}
                 helper={t('setup.step_two.helper')}
-                required={true}
+                required
                 register={register}
                 error={errors.username && 'This field is required'} />
               {userType === 'artist' &&
@@ -160,7 +160,7 @@ export default function Setup() {
                   type='text'
                   name='name'
                   label={t('setup.step_two.artist_name')}
-                  required={true}
+                  required
                   register={register}
                   error={errors.name && 'This field is required'} />
               }
@@ -168,7 +168,9 @@ export default function Setup() {
                 type='number'
                 name='pin'
                 label={t('setup.step_two.pin')}
-                showHide={true}
+                onlyNumeric
+                maxLength={4}
+                showHide
                 register={register} />
             </div>
             <div className='flex flex-col gap-4'>
