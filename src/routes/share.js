@@ -24,7 +24,7 @@ const Share = () => {
   useEffect(() => {
     if(!user?.token)return
     axios.get(apiUrl + 'project/' + trackId, 
-    { headers: { Authorization: `Bearer ${user.token}` } })
+    { headers: { Authorization: `Bearer ${user?.token}` } })
     .then(({data}) => setTrack(data))
   }, [user?.token, trackId])
   return (

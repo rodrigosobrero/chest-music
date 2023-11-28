@@ -19,13 +19,12 @@ export default function Manage() {
   const dispatch = useDispatch()
 
   const { data, isFetching, handleToggle } = useFetch(apiUrl + 'notification/permission/', user?.token)
-  console.log(data)
   const { filteredArtists, handleChange , handleOptionSelect, input, selected, handleDeleteSelected, reset} = useSearch(3, data)
 
   const [isOpen, setIsOpen] = useState(false)
 
   const togglePermissions = () => {
-    axios.get(apiUrl+'notification/permission/toggle', { headers: { Authorization: `Bearer ${user.token}` }})
+    axios.get(apiUrl+'notification/permission/toggle', { headers: { Authorization: `Bearer ${user?.token}` }})
     .then((response) => {
       dispatch(updateUserData(response.data))
       handleToggle()
@@ -37,14 +36,14 @@ export default function Manage() {
     const permission = user?.data.notifications_privacy === 'open' ? 'blocked' : 'allowed';
     axios.post(apiUrl + 'notification/permission/',
      { permission: permission, user: selected.id  },
-     { headers: { Authorization: `Bearer ${user.token}` } })
+     { headers: { Authorization: `Bearer ${user?.token}` } })
      .then(() => { handleToggle(); callback(); reset() })
      .catch((err) => console.log(err))
   }
 
   const deletePermission = (id) => {
     axios.delete(apiUrl + 'notification/permission/' + id,
-    { headers: { Authorization: `Bearer ${user.token}` } })
+    { headers: { Authorization: `Bearer ${user?.token}` } })
     .then(() => handleToggle())
     .catch((err) => console.log(err))
   }
@@ -52,7 +51,7 @@ export default function Manage() {
   useEffect(() => {
     console.log('entre')
     setIsOpen(user?.data.notifications_privacy === 'open')
-  },[user.data])
+  },[user?.data])
 
   const [show, setShow] = useState()
 

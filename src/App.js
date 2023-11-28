@@ -148,11 +148,11 @@ function App() {
           const response = await axios.get('account/', {
             headers: { Authorization: `Bearer ${token}` }
           });
-          const provider = user.providerData[0].providerId;
+          const provider = user?.providerData[0].providerId;
           dispatch(saveUser({
             data: response.data,
             token: token,
-            email: user.email,
+            email: user?.email,
             signInMethod: provider === 'google.com' ? 'google' : 'locale'
           }));
         });

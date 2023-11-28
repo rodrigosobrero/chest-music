@@ -15,7 +15,7 @@ const Account = () => {
   const [show, setShow] = useState(false)
   const [input, setInput] = useState('')
   const [isAvailable, setIsAvailable] = useState(false)
-  const { data, token } = useSelector((state) => state.auth.user);
+  const user = useSelector((state) => state.auth.user);
   const handleChange = (e) =>  {
     setInput(e.target.value)
     console.log(e.target.value)
@@ -28,7 +28,7 @@ const Account = () => {
 
   const deleteAccount = () => {
     axios.delete(apiUrl+'account/', { 
-      headers: { Authorization: `Bearer ${token}` }
+      headers: { Authorization: `Bearer ${user?.token}` }
     }).then((response) => {
       console.log(response)
       signOut(auth)
@@ -66,8 +66,8 @@ const Account = () => {
                 </div>
             </div>
             <div className='w-full bg-neutral-black md:p-8 p-3 flex flex-col md:flex-row gap-y-3 gap-x-8 rounded-3xl'>
-                <AccountData data={data} token={token}/>
-                <AccountPlan data={data}/>
+                <AccountData data={user?.data} token={user?.token}/>
+                <AccountPlan data={user?.data}/>
             </div>
             <div className='w-full flex justify-center md:justify-start items-center'>
                 <button onClick={toggle} className='px-6 py-3  bg-neutral-silver-600 rounded-[10px] text-[#FF3636] mt-8'>Delete account</button>
