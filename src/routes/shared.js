@@ -27,7 +27,7 @@ export default function Shared() {
   const dispatch = useDispatch()
   return (
     <>     
-       <div className='flex flex-col  md:container px-3 py-10 md:p-[60px] gap-y-6 md:gap-y-10 text-center font-archivo '>
+       <div className='flex flex-col md:container px-3 py-10 md:p-[60px] gap-y-6 md:gap-y-10 text-center font-archivo '>
           <div className='flex flex-col items-center gap-y-2 px-3 md:px-0 '>
               <h3 className="text-[64px] leading-[44px] md:leading-[58px]">
                  {t('shared.title')}
@@ -39,7 +39,7 @@ export default function Shared() {
                <SearchBar className='!border-[1.5px] placeholder:text-center focus:border-brand-gold' onChange={handleChange}/>
               </div>
           </div>
-          <div className='flex flex-col gap-y-1 items-center text-center'>
+          <div className={`${isFetching && 'items-center'} flex flex-col gap-y-1 text-center`}>
           {isFetching ? <Loading />  : data.length > 0 ? 
             filteredTracks?.map((el) => (
               <SharedTable artist={el.artist} data={el.tracks} dispatch={dispatch}/>
