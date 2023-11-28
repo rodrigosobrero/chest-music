@@ -19,7 +19,6 @@ export default function Manage() {
   const dispatch = useDispatch()
 
   const { data, isFetching, handleToggle } = useFetch(apiUrl + 'notification/permission/', user?.token)
-  console.log(data)
   const { filteredArtists, handleChange , handleOptionSelect, input, selected, handleDeleteSelected, reset} = useSearch(3, data)
 
   const [isOpen, setIsOpen] = useState(false)

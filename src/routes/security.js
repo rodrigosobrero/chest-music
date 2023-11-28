@@ -14,17 +14,17 @@ import { updateUserData } from 'app/auth';
 import { resetPassword } from 'utils/api';
 const Security = () => {
     const { t } = useTranslation() 
-    const { data, token } = useSelector((state) => state.auth.user);
+    const user = useSelector((state) => state.auth.user);
     const dispatch = useDispatch()
     const { isOpenPassword, isOpenPin, togglePassword, togglePin, handlePinChange, 
-            isAvailable, pin, setIsOpenPin, setIsOpenPassword, checkPin }= useSecurity(data.pincode)
+            isAvailable, pin, setIsOpenPin, setIsOpenPassword, checkPin }= useSecurity(user?.data.pincode)
     const items = t('profile.sections', { returnObjects: true });
     let paths = [{ name:'Profile', link: '/profile' }, { name: items[3].title }]
     const changePinCode = () => {
-      const isEqual = checkPin(data.pincode)
+      const isEqual = checkPin(user?.data.pincode)
       if(!isEqual) { console.log('no es igual al pincode original'); return; }
       const parsed = parseInt(pin.new)
-      patchData('account/', { pincode: parsed }, token )
+      patchData('account/', { pincode: parsed }, user?.token )
       .then((response) => {
         dispatch(updateUserData(response))
         togglePin()
@@ -68,13 +68,13 @@ const Security = () => {
         { label:t('global.email'), 
           placeholder:t('global.placeholder.write_here'),
           type: 'email',
-          value: data?.email,
+          value: user?.data?.email,
           disabled: true,
         }
     ]
 
     const inputsDataPin = useMemo(() => { 
-      if(!data.pincode || data.pincode === '') {
+      if(!user?.data.pincode || user?.data.pincode === '') {
         return [    
         { label:t('security.pin_modal.new_pin'), 
           placeholder:t('global.placeholder.write_here'), 
@@ -99,14 +99,14 @@ const Security = () => {
           name: 'new',
           onlyNumeric: true,
         }]
-    }, [data, t])
+    }, [user?.data, t])
 
     return (
       <>
       <Modal show={isOpenPassword} setShow={setIsOpenPassword}>
         <ChangeDataModal toggle={togglePassword} primaryButton={t('global.send')} secondaryButton={t('global.cancel')}
                          title={t('security.password_modal.title')} subtitle={t('security.password_modal.subtitle')}
-                         inputsData={inputsDataPassword}  isAvailable={true} onClick={() => resetPassword(data.email, () => setIsOpenPassword(false))}/>
+                         inputsData={inputsDataPassword}  isAvailable={true} onClick={() => resetPassword(user?.data.email, () => setIsOpenPassword(false))}/>
       </Modal>
       <Modal show={isOpenPin} setShow={setIsOpenPin}>
         <ChangeDataModal toggle={togglePin} primaryButton={t('global.confirm')} secondaryButton={t('global.cancel')}
@@ -124,9 +124,9 @@ const Security = () => {
          <div className='w-full px-1 md:px-0 flex flex-col gap-y-4 md:gap-y-6'>
             <div className='w-full flex flex-col md:flex-row gap-x-6 gap-y-4'>
               <Casillero title={t('security.pin')} icon={<ViewGrid className="h-8 w-8 " />} type='pin' 
-              quantity={data?.pincode !== '' ? 4 : 0} onClick={() => togglePin()}/>
+              quantity={user?.data?.pincode !== '' ? 4 : 0} onClick={() => togglePin()}/>
               <Casillero title={t('global.password')} icon={<KeyIcon className="h-8 w-8 text-gray-500" />} type='password'
-              quantity={data.login_method === 'local' ? 8 : 0} onClick={() => togglePassword()}/>
+              quantity={user?.data.login_method === 'local' ? 8 : 0} onClick={() => togglePassword()}/>
             </div>
             <div className='w-full bg-neutral-black p-6 md:p-8 rounded-3xl'>
                 <h4 className='font-archivo font-semibold text-[22px]'>
