@@ -34,7 +34,7 @@ export const NotificationList = ({ invites, blockUser, replyNotification}) => {
 
   return (
     <>
-      <Modal show={isOpen}>
+      <Modal show={isOpen} setShow={setIsOpen}>
         <ModalContent />
       </Modal>
       <div className='flex flex-col md:gap-y-4 gap-y-3'>

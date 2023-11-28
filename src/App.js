@@ -178,7 +178,6 @@ function App() {
             headers: { Authorization: `Bearer ${token}` }
           });
           const provider = user?.providerData[0].providerId;
-
           dispatch(saveUser({
             data: response.data,
             token: token,

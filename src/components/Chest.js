@@ -58,7 +58,7 @@ export default function Chest() {
             <h3 className='hidden md:block'>my chest</h3>
             <h4 className='block md:hidden'>my chest</h4>
             <div className='hidden md:block'>
-              <Tag>{tracks.length} tracks</Tag>
+              <Tag>{tracks?.length} tracks</Tag>
             </div>
           </div>
           <div className='hidden md:flex items-center justify-center grow'>
@@ -88,7 +88,7 @@ export default function Chest() {
         </div>
         <div className='bg-neutral-black rounded-t-lg rounded-b-3xl pl-5 pr-4 pt-3 pb-8 md:px-[60px] md:pb-[60px] md:pt-10'>
           {
-            tracks.length > 0 ?
+            tracks?.length > 0 ?
               <TrackList tracks={filteredTracks} /> :
               <div className='flex flex-col items-center gap-2'>
                 <h4>Your chest is empty</h4>

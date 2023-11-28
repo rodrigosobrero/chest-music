@@ -5,6 +5,8 @@ import ProfileRow from './ProfileRow'
 import { KeyIcon, ClockIcon, CloudIcon, QuestionMarkCircleIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";
 import { ReactComponent as Unlocked } from 'assets/images/icon-unlocked-alt.svg';
 import ProfileHead from './ProfileHead';
+import { signOut } from 'firebase/auth';
+import { auth } from 'utils/firebase';
 const ProfileView = () => {
   const user = useSelector((state) => state.auth.user);
   const { t } = useTranslation() 
@@ -22,7 +24,7 @@ const ProfileView = () => {
                             <ProfileRow title={el.title} subtitle={el.subtitle} to={to[i]} icon={icons[i]}/>
                     ))}
             </div>
-            <button className='w-[142.667px] bg-neutral-silver-600 py-3 px-6 rounded-[10px]'>Log out</button>
+            <button className='w-[142.667px] bg-neutral-silver-600 py-3 px-6 rounded-[10px]' onClick={() => signOut(auth)}>Log out</button>
        </div>
     </>
   )

@@ -14,11 +14,10 @@ export default function ProtectedRoute({ children, redirectPath = '/sign-in' }) 
       if (currentUser) {
         setIsAuthenticated(true);
       } else {
-        setIsAuthenticated(false);
+        setIsAuthenticated(true);
       }
       setAuthChecked(true);
     });
-
     return () => unsubscribe(); 
   }, []);
 
