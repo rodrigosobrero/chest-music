@@ -23,7 +23,7 @@ export default function Chest() {
   const fetchData = async () => {
     try {
       const response = await axios.get('mychest/', {
-        headers: { Authorization: `Bearer ${user.token}` }
+        headers: { Authorization: `Bearer ${user?.token}` }
       });
       setTracks(response.data.projects);
       dispatch(updateUser({

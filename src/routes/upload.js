@@ -92,7 +92,7 @@ export default function Upload() {
 
     try {
       const response = await upload.post('audio', formData, {
-        headers: { Authorization: `Bearer ${user.token}` },
+        headers: { Authorization: `Bearer ${user?.token}` },
         onUploadProgress: (progressEvent) => {
           setProgress({
             loaded: progressEvent.loaded,
@@ -120,7 +120,7 @@ export default function Upload() {
 
     try {
       const response = await upload.post('image', formData, {
-        headers: { Authorization: `Bearer ${user.token}` }
+        headers: { Authorization: `Bearer ${user?.token}` }
       });
 
       setCover(response.data.url);
@@ -156,7 +156,7 @@ export default function Upload() {
 
     try {
       await api.post('project/', data, {
-        headers: { Authorization: `Bearer ${user.token}` }
+        headers: { Authorization: `Bearer ${user?.token}` }
       });
 
       navigate('/my-chest');
@@ -195,7 +195,7 @@ export default function Upload() {
   }
 
   const addOrUpdateParticipant = (user) => {
-    const itemIndex = participants.findIndex(participant => participant.id === user.id);
+    const itemIndex = participants.findIndex(participant => participant.id === user?.id);
     let list;
 
     if (itemIndex >= 0) {
@@ -374,7 +374,7 @@ export default function Upload() {
             <div className='flex flex-col gap-4'>
               {participants.map((user, index) =>
                 <div key={index}>
-                  <Participant user={user.user} role={user.role} />
+                  <Participant user={user?.user} role={user?.role} />
                 </div>
               )}
             </div>

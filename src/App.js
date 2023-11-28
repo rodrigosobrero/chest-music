@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import axios from 'utils/api';
 import { auth } from 'utils/firebase';
@@ -18,13 +18,18 @@ import Permissions from 'routes/permissions';
 import Account from 'routes/account';
 import Security from 'routes/security';
 import Terms from 'routes/terms';
-import Help from 'routes/help'; 
+import Help from 'routes/help';
 import Shared from 'routes/shared';
 import Profile from 'routes/profile';
 import Setup from 'routes/setup';
 import Upload from 'routes/upload';
 import Share from 'routes/share';
+import Treasure from 'routes/treasure';
+import api from 'utils/api';
+import Trash from 'routes/trash';
+
 function App() {
+  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const router = createBrowserRouter([
     {
@@ -34,9 +39,9 @@ function App() {
         {
           path: '/sign-in',
           element:
-           <DisconnectedRoute>
-             <SignIn />
-           </DisconnectedRoute>
+            <DisconnectedRoute>
+              <SignIn />
+            </DisconnectedRoute>
         },
         {
           path: '/sign-up',
@@ -44,7 +49,7 @@ function App() {
         },
         {
           path: '/my-chest',
-          element: 
+          element:
             <ProtectedRoute>
               <MyChest />
             </ProtectedRoute>,
@@ -57,81 +62,105 @@ function App() {
             </ProtectedRoute>
         },
         {
+          path: '/my-chest/treasure/:id',
+          element:
+            <ProtectedRoute>
+              <Treasure />
+            </ProtectedRoute>,
+          loader: async ({ params }) => {
+            return api.get(`project/${params.id}`, {
+              headers: { Authorization: `Bearer ${user?.token}` }
+            });
+          }
+        },
+        {
+          path: '/my-chest/treasure/:id/trash',
+          element:
+            <ProtectedRoute>
+              <Trash />
+            </ProtectedRoute>,
+          loader: async ({ params }) => {
+            return api.get(`project/${params.id}/trash/`, {
+              headers: { Authorization: `Bearer ${user?.token}` }
+            });
+          }
+        },
+        {
           path: 'shared',
-          element: 
+          element:
             <ProtectedRoute>
               <Shared />
             </ProtectedRoute>
         },
         {
           path: 'profile',
-          element: 
+          element:
             <ProtectedRoute>
               <Profile />
             </ProtectedRoute>
         },
         {
           path: 'profile/played',
-          element: 
+          element:
             <ProtectedRoute>
               <RecentlyPlayed />
             </ProtectedRoute>
         },
         {
           path: 'profile/permissions',
-          element: 
+          element:
             <ProtectedRoute>
               <Permissions />
             </ProtectedRoute>
         },
         {
           path: 'profile/account',
-          element: 
+          element:
             <ProtectedRoute>
               <Account />
             </ProtectedRoute>
         },
         {
           path: 'profile/help',
-          element: 
+          element:
             <ProtectedRoute>
               <Help />
             </ProtectedRoute>
         },
         {
           path: 'profile/terms',
-          element: 
+          element:
             <ProtectedRoute>
               <Terms />
             </ProtectedRoute>
         },
         {
           path: 'profile/security',
-          element: 
+          element:
             <ProtectedRoute>
               <Security />
             </ProtectedRoute>
         },
         {
           path: 'notifications',
-          element: 
+          element:
             <ProtectedRoute>
               <Notifications />
             </ProtectedRoute>
         },
         {
           path: 'notifications/manage',
-          element: 
+          element:
             <ProtectedRoute>
               <Manage />
             </ProtectedRoute>
         },
         {
           path: 'setup',
-          element: 
-          <ProtectedRoute>
-            <Setup/>
-          </ProtectedRoute>
+          element:
+            <ProtectedRoute>
+              <Setup />
+            </ProtectedRoute>
         },
         {
           path: 'share/:trackId',
@@ -140,7 +169,7 @@ function App() {
       ]
     }
   ]);
-   //
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -148,11 +177,11 @@ function App() {
           const response = await axios.get('account/', {
             headers: { Authorization: `Bearer ${token}` }
           });
-          const provider = user.providerData[0].providerId;
+          const provider = user?.providerData[0].providerId;
           dispatch(saveUser({
             data: response.data,
             token: token,
-            email: user.email,
+            email: user?.email,
             signInMethod: provider === 'google.com' ? 'google' : 'locale'
           }));
         });

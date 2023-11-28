@@ -53,11 +53,11 @@ export default function Setup() {
         username: data.username,
         full_name: data.name,
         plan: data.plan,
-        email: user.email,
+        email: user?.email,
         pincode: data.pin,
-        login_method: user.signInMethod
+        login_method: user?.signInMethod
       }, {
-        headers: { Authorization: `Bearer ${user.token}` }
+        headers: { Authorization: `Bearer ${user?.token}` }
       });
 
       navigate('/my-chest')

@@ -24,12 +24,12 @@ const Permissions = () => {
 
   const addListener = () => {
     if(!selected.hasOwnProperty('full_name')) return;
-    axios.post(apiUrl + 'globalpermission/', { user: selected.id }, { headers: {  Authorization: `Bearer ${user.token}`}, })
+    axios.post(apiUrl + 'globalpermission/', { user: selected.id }, { headers: {  Authorization: `Bearer ${user?.token}`}, })
          .then((response) => { console.log(response.data); handleToggle(); toggle() })
   }
   
   const deleteListener = (id) => {
-    axios.delete(apiUrl + 'globalpermission/' + id + '/', { headers: {  Authorization: `Bearer ${user.token}`}, })
+    axios.delete(apiUrl + 'globalpermission/' + id + '/', { headers: {  Authorization: `Bearer ${user?.token}`}, })
     .then((response) => {console.log(response.data); handleToggle()})
     .catch((err) => console.log(err))
     console.log(data)

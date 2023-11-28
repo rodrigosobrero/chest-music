@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import ProgressBar from 'components/player/ProgressBar';
@@ -11,19 +11,25 @@ import ControlsMobile from './ControlsMobile';
 
 export default function Player() {
   const { playlist } = useSelector(state => state.playlist);
-  console.log(playlist.length)
+
   /* states */
   const [timeProgress, setTimeProgress] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [trackList, setTrackList] = useState([]);
 
   /* reference */
   const audioRef = useRef();
   const progressBarRef = useRef();
 
+  useEffect(() => {
+    console.log(playlist);
+    // playlist[0]
+  }, [playlist])
+
   return (
     <>
       <AnimatePresence>
-        {playlist.length > 0 && (
+        {trackList.length > 0 && (
           <>
             {isDesktop ? (
               <motion.div
@@ -35,7 +41,7 @@ export default function Player() {
                   transition: { delay: 0.7, duration: 1, ease: 'easeIn' }
                 }}>
                 <Track {...{
-                  currentTrack: playlist[0],
+                  currentTrack: trackList,
                   audioRef,
                   setDuration,
                   progressBarRef
