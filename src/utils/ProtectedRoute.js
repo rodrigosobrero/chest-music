@@ -1,23 +1,28 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, redirect, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 export default function ProtectedRoute({ children, redirectPath = '/sign-in' }) {
   const user = useSelector((state) => state.auth.user);
+  const navigate = useNavigate()
   const [authChecked, setAuthChecked] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+ console.log('estoy aca')
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      console.log('current', currentUser)
       if (currentUser) {
         setIsAuthenticated(true);
+        console.log('entre al true')
       } else {
-        setIsAuthenticated(true);
+        console.log('entre a false')
+        setIsAuthenticated(false);
       }
       setAuthChecked(true);
     });
+
     return () => unsubscribe(); 
   }, []);
 
@@ -26,7 +31,7 @@ export default function ProtectedRoute({ children, redirectPath = '/sign-in' }) 
   }
 
   if (!isAuthenticated) {
-    return <Navigate to={redirectPath} replace />;
+    return navigate("/sign-in");
   }
 
   return children;
