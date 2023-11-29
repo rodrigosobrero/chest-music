@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { bytesToSize } from 'utils/helpers';
 import { upload, api } from 'utils/axios';
 import config from 'data/config.json';
@@ -24,12 +24,16 @@ import { MegaphoneIcon } from '@heroicons/react/24/outline';
 import { ComputerDesktopIcon } from '@heroicons/react/24/outline';
 import { CheckIcon } from '@heroicons/react/20/solid';
 import { AnimatePresence, motion } from 'framer-motion';
+import axios from 'axios';
+import { updateUserData } from 'app/auth';
+import { apiUrl } from 'utils/api';
 
 export default function Upload() {
   const { t } = useTranslation();
   const { chest, data } = useSelector((state) => state.auth.user);
   const { file } = useSelector((state) => state.upload);
   const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch()
   const navigate = useNavigate();
 
   const [step, setStep] = useState(0);
@@ -160,6 +164,10 @@ export default function Upload() {
       await api.post('project/', data, {
         headers: { Authorization: `Bearer ${user?.token}` }
       });
+      
+      const response = await axios.get(apiUrl + '/account/', {  headers: { Authorization: `Bearer ${user?.token}` } })
+
+      dispatch(updateUserData(response.data))
 
       navigate('/my-chest');
     } catch (error) {
@@ -290,7 +298,7 @@ export default function Upload() {
             <AutoCompleteAlbum
               searchValue={album}
               setSearchValue={setAlbum}
-              options={chest.albums ? chest.albums : []}
+              options={chest?.albums ? chest.albums : []}
               label={t('upload.album')}
               placeholder={t('global.write_here')}
               helper={t('upload.leave_empty')} />
