@@ -44,11 +44,17 @@ export default function Uploader({ title = true, self, id }) {
       if (type === 'audio/mpeg' || type === 'audio/wav') {
         const localFileURL = window.URL.createObjectURL(files[0])
 
-        dispatch(addFile({
-          filename: files[0].name,
-          size: files[0].size,
-          blob: localFileURL
-        }));
+        if (self) {
+          handleUpload(files[0], localFileURL);
+        } else {
+          dispatch(addFile({
+            filename: files[0].name,
+            size: files[0].size,
+            blob: localFileURL
+          }));
+
+          navigate('upload');
+        }
 
         setShowLoader(true);
       } else {
@@ -62,14 +68,12 @@ export default function Uploader({ title = true, self, id }) {
     e.stopPropagation();
   }
 
-  const handleUpload = async () => {
-    if (!file?.blob) return
-
+  const handleUpload = async (file, fileBlob) => {
     const formData = new FormData();
-    const blob = await fetch(file.blob).then(r => r.blob());
-    const getFile = new File([blob], file.filename);
+    const blob = await fetch(fileBlob).then(r => r.blob());
+    const getFile = new File([blob], file.name);
 
-    formData.append('files', getFile, file.filename);
+    formData.append('files', getFile, file.name);
 
     try {
       const response = await upload.post('audio', formData, {
@@ -87,16 +91,6 @@ export default function Uploader({ title = true, self, id }) {
       console.log(error)
     }
   }
-
-  useEffect(() => {
-    if (!file) return
-
-    if (self) {
-      handleUpload();
-    } else {
-      navigate('upload');
-    }
-  }, [file])
 
   return (
     <>

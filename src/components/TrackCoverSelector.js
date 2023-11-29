@@ -71,6 +71,7 @@ export default function TrackCoverSelector({ preview, updatePreview, covers }) {
         <div className='absolute m-auto left-0 right-0 w-14 md:w-[78px] h-14 md:h-[78px] rounded-lg border-2 border-white z-10'></div>
         <Swiper
           centeredSlides={true}
+          slideToClickedSlide={true}
           slidesPerView={5}
           slidesPerGroup={1}
           loop={true}
@@ -88,7 +89,7 @@ export default function TrackCoverSelector({ preview, updatePreview, covers }) {
             covers.map((cover, index) => (
               <SwiperSlide key={index}>
                 <div
-                  className='w-14 md:w-[78px] h-14 md:h-[78px] bg-cover rounded-lg'
+                  className='w-14 md:w-[78px] h-14 md:h-[78px] bg-cover rounded-lg cursor-pointer'
                   style={{ backgroundImage: `url("${cover.url}")` }}></div>
               </SwiperSlide>
             ))
