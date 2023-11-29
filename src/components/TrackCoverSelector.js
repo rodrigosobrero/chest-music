@@ -95,7 +95,7 @@ export default function TrackCoverSelector({ preview, updatePreview, covers }) {
           }
         </Swiper>
       </div>
-      <div className='w-full text-center mb-10'>
+      <div className='w-full text-center mb-10 h-6'>
         <span className='text-sm text-neutral-silver-300'>
           {covers[coverIndex].author 
             ? t('global.by') + ' ' + covers[coverIndex].author 
