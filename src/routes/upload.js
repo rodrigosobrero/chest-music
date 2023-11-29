@@ -73,13 +73,15 @@ export default function Upload() {
     if (chest.covers) {
       setDefaultCover(chest.covers.find(cover => cover.default));
       
-      let filtered = chest.covers.filter(cover => !cover.default);
+      // let filtered = chest.covers.filter(cover => !cover.default);
 
-      filtered.map(cover => {
-        filtered.push(cover);
-      });
+      // filtered.map(cover => {
+      //   filtered.push(cover);
+      // });
 
-      setCovers(filtered);
+      // setCovers(filtered);
+
+      setCovers(chest.covers);
     }
   }, [chest]);
 
@@ -146,7 +148,7 @@ export default function Upload() {
     const data = {
       'name': track.name,
       'album': album,
-      'cover': track.cover,
+      'cover': track.cover ? track.cover : defaultCover.id,
       'version': {
         'name': track.version,
         'audio': track.fileId
@@ -357,7 +359,7 @@ export default function Upload() {
           <div className='flex flex-col items-center justify-center bg-neutral-silver-700 rounded-2xl w-full px-4 py-8 md:p-8'>
             <div
               className='bg-neutral-silver-300 w-[140px] md:w-[200px] h-[140px] md:h-[200px] rounded-lg bg-no-repeat bg-center bg-cover'
-              style={{ backgroundImage: `url("${cover}")` }}>
+              style={{ backgroundImage: `url("${cover ? cover : defaultCover.url}")` }}>
             </div>
             <h4 className='mt-8'>
               {track.name ? track.name : 'track name'}
