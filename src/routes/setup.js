@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import { useForm } from 'react-hook-form';
@@ -17,12 +17,13 @@ import { MicrophoneIcon } from '@heroicons/react/24/solid';
 import artist from 'assets/images/sign-up-artist.png';
 import fan from 'assets/images/sign-up-fan.png';
 import ErrorMessage from 'components/ErrorMessage';
+import { updateUserData } from 'app/auth';
 
 export default function Setup() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
-
+  const dispatch = useDispatch()
   const [userType, setUserType] = useState('');
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -55,9 +56,8 @@ export default function Setup() {
 
   const handleSetup = async (data) => {
     setLoading(true);
-
     try {
-      await axios.post(`/account/${userType}/`, {
+      let response = await axios.post(`/account/${userType}/`, {
         username: data.username,
         full_name: data.name,
         plan: data.plan,
@@ -67,7 +67,9 @@ export default function Setup() {
       }, {
         headers: { Authorization: `Bearer ${user?.token}` }
       });
-
+      response = await axios.get('/account/', {  headers: { Authorization: `Bearer ${user?.token}` } })
+      dispatch(updateUserData(response.data))
+      console.log('dataaaa', response.data)
       navigate('/my-chest')
     } catch (error) {
       console.log(error);

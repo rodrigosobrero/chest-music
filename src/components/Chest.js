@@ -12,13 +12,15 @@ import { updateUser } from 'app/auth';
 
 export default function Chest() {
   const user = useSelector((state) => state.auth.user);
+  console.log(user)
   const dispatch = useDispatch();
   const [tracks, setTracks] = useState([]);
   const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {
+    if(!user?.token) return;
     fetchData();
-  }, []);
+  }, [user?.token]);
 
   const fetchData = async () => {
     try {
@@ -72,14 +74,14 @@ export default function Chest() {
                 <span className='text-neutral-silver-100'>{bytesToSize(user?.data.total_space)}</span>
               </div>
               <ProgressBar 
-                progress={100 * user?.data.used_storage / user?.data.total_space} 
+                progress={100 * user?.data?.used_storage / user?.data?.total_space} 
                 color='violet'
                 size='150'
                 direction='right'
                 background='gray' />
             </div>
             <div className='text-brand-uva-light font-thunder text-4xl flex items-center justify-center'>
-              {Math.round(100 * user?.data.used_storage / user?.data.total_space)}%
+              {Math.round(100 * user?.data?.used_storage / user?.data?.total_space)}%
             </div>
             <div className='bg-neutral-silver-700 p-2 rounded-[10px]'>
               <img src={cloud} alt='' width={28} height={28} />
