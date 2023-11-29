@@ -18,9 +18,8 @@ export default function Chest() {
   const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {
-    if(!user?.token) return;
     fetchData();
-  }, [user?.token]);
+  }, []);
 
   const fetchData = async () => {
     try {
