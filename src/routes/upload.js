@@ -77,15 +77,13 @@ export default function Upload() {
     if (chest.covers) {
       setDefaultCover(chest.covers.find(cover => cover.default));
       
-      // let filtered = chest.covers.filter(cover => !cover.default);
+      let filtered = chest.covers.filter(cover => !cover.default);
 
-      // filtered.map(cover => {
-      //   filtered.push(cover);
-      // });
+      filtered.map(cover => {
+        filtered.push(cover);
+      });
 
-      // setCovers(filtered);
-
-      setCovers(chest.covers);
+      setCovers(filtered);
     }
   }, [chest]);
 
@@ -418,7 +416,7 @@ export default function Upload() {
           <TrackCoverSelector
             preview={preview?.url}
             updatePreview={updatePreview}
-            covers={covers} />
+            covers={covers.concat(covers).sort()} />
         </div>
         <div className='grid grid-cols-2 gap-4'>
           <Button 
