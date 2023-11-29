@@ -20,7 +20,12 @@ function formatDate(date) {
 }
 
 function formatTime(seconds) {
-  return (seconds / 60).toFixed(2).toString().replace('.', ':');
+    // Calculate the whole minutes
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    const formattedSeconds = remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds;
+    return `${minutes}:${formattedSeconds}`;
+
 }
 function timeDifference(previousTimestamp) {
   
