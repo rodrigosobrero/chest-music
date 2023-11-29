@@ -39,7 +39,9 @@ export default function Uploader({ title = true, self, id }) {
     }
 
     if (files && files.length) {
-      if (files[0].type === 'audio/mpeg') {
+      const { type } = files[0];
+
+      if (type === 'audio/mpeg' || type === 'audio/wav') {
         const localFileURL = window.URL.createObjectURL(files[0])
 
         dispatch(addFile({

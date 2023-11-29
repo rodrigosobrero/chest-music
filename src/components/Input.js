@@ -7,7 +7,8 @@ import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { AnimatePresence, motion } from 'framer-motion';
 import ErrorMessage from './ErrorMessage';
 export default function Input({ type, placeholder, label, name, value, onChange, showHide, helper, required, register, error,
-                                showClipboard, disabled, onlyNumeric, showDelete, showMore, onDelete, isOpen, toggleOpen }) {
+      showClipboard, disabled, onlyNumeric, showDelete, showMore, onDelete, isOpen, toggleOpen, maxLength }) {
+
   const [inputType, setInputType] = useState(type);
   const [copied, setCopied] = useState(false)
   const inputRef = useRef(null);
@@ -75,7 +76,14 @@ export default function Input({ type, placeholder, label, name, value, onChange,
                 placeholder={placeholder}
                 id={name}
                 name={name}
-                {...register(name, { required })}
+                {...register(name, { required, pattern: onlyNumeric && '/[0-9]{4}/' })}
+                maxLength={maxLength}
+                onInput={(e) => {
+                  if (maxLength) {
+                    if (e.target.value.length > e.target.maxLength)
+                      e.target.value = e.target.value.slice(0, e.target.maxLength);
+                  }
+                }}
                 className={`transition duration-300 border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 w-full focus:outline-none focus:border-brand-gold leading-5 ${error && '!border-error-red'}`} />
             )
             : (
@@ -90,7 +98,7 @@ export default function Input({ type, placeholder, label, name, value, onChange,
                 disabled={disabled}
                 className={`border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 w-full 
                           focus:outline-none focus:border-brand-gold leading-5 disabled:bg-neutral-silver-600 disabled:border-none 
-                        disabled:text-neutral-silver-300 transition duration-300 ${error && 'border-error-red' } ${showClipboard && '!pr-16'}`} />
+                        disabled:text-neutral-silver-300 transition duration-300 ${error && 'border-error-red'} ${showClipboard && '!pr-16'}`} />
             )
           }
 
