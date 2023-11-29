@@ -7,7 +7,8 @@ import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { AnimatePresence, motion } from 'framer-motion';
 import ErrorMessage from './ErrorMessage';
 export default function Input({ type, placeholder, label, name, value, onChange, showHide, helper, required, register, error,
-  showClipboard, disabled, onlyNumeric, showDelete, showMore, onDelete, isOpen, toggleOpen, maxLength }) {
+      showClipboard, disabled, onlyNumeric, showDelete, showMore, onDelete, isOpen, toggleOpen, maxLength }) {
+
   const [inputType, setInputType] = useState(type);
   const [copied, setCopied] = useState(false)
   const inputRef = useRef(null);
