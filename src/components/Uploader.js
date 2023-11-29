@@ -63,6 +63,8 @@ export default function Uploader({ title = true, self, id }) {
   }
 
   const handleUpload = async () => {
+    if (!file?.blob) return
+
     const formData = new FormData();
     const blob = await fetch(file.blob).then(r => r.blob());
     const getFile = new File([blob], file.filename);
@@ -87,6 +89,8 @@ export default function Uploader({ title = true, self, id }) {
   }
 
   useEffect(() => {
+    if (!file) return
+
     if (self) {
       handleUpload();
     } else {
