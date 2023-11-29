@@ -298,7 +298,7 @@ export default function Upload() {
             <AutoCompleteAlbum
               searchValue={album}
               setSearchValue={setAlbum}
-              options={chest.albums ? chest.albums : []}
+              options={chest?.albums ? chest.albums : []}
               label={t('upload.album')}
               placeholder={t('global.write_here')}
               helper={t('upload.leave_empty')} />
