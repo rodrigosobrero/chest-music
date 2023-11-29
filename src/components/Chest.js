@@ -30,6 +30,7 @@ export default function Chest() {
       dispatch(updateUser({
         chest: response.data
       }));
+      console.log('fetch')
     } catch (error) {
       console.log(error);
     }
