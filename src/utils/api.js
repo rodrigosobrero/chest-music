@@ -7,7 +7,7 @@ export default axios.create({
 });
 
 export const upload = axios.create({
-  baseURL: 'https://upload.chestmusic.com/'
+  baseURL: 'https://upload.chestmusic.com/upload/'
 });
 
 export const apiUrl = 'https://chest-api-stg.cexar.io/web/v1/'

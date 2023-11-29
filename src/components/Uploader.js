@@ -2,7 +2,7 @@ import { addFile } from 'app/upload';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { upload } from 'utils/api';
 import config from 'data/config.json';
 import InputFile from 'components/InputFile';
@@ -50,12 +50,7 @@ export default function Uploader({ title = true, self, id }) {
           blob: localFileURL
         }));
 
-        if (self) {
-          handleUpload();
-          setShowLoader(true);
-        } else {
-          navigate('upload');
-        }
+        setShowLoader(true);
       } else {
         setShow(true);
       }
@@ -90,6 +85,14 @@ export default function Uploader({ title = true, self, id }) {
       console.log(error)
     }
   }
+
+  useEffect(() => {
+    if (self) {
+      handleUpload();
+    } else {
+      navigate('upload');
+    }
+  }, [file])
 
   return (
     <>

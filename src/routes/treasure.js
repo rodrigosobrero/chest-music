@@ -215,7 +215,7 @@ export default function Treasure() {
     const data = {
       project: project.id,
       name: newVersion.name,
-      audio: newVersion.file
+      audio: newVersion.file.id
     }
 
     try {
@@ -262,10 +262,6 @@ export default function Treasure() {
         break;
     }
   }, [permissionsView]);
-
-  useEffect(() => {
-    console.log(newVersion);
-  }, [newVersion]);
 
   return (
     <>
