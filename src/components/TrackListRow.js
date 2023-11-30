@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { formatDate } from 'utils/helpers';
+import { format } from 'utils/helpers';
 import TrackListOptions from 'components/TrackListOptions';
 import upload from 'assets/images/icon-upload.svg';
-import { formatTime, bytesToSize } from 'utils/helpers';
+import { formatTime, bytesToSize, dateFormat } from 'utils/helpers';
 import { isMobile, isDesktop } from 'react-device-detect';
 
 export default function TrackListRow({ track, onClick }) {
@@ -39,9 +39,7 @@ export default function TrackListRow({ track, onClick }) {
             <td>{track.album}</td>
             <td>{track.last_version}</td>
             <td>
-              <span className='capitalize'>
-                {formatDate(track.date_added)}
-              </span>
+              {format.date(track.date_added)}
             </td>
             <td>{formatTime(track.duration)}</td>
             <td>{bytesToSize(track.size)}</td>
