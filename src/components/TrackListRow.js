@@ -2,13 +2,11 @@ import { useState } from 'react';
 import { format } from 'utils/helpers';
 import TrackListOptions from 'components/TrackListOptions';
 import upload from 'assets/images/icon-upload.svg';
-import { formatTime, bytesToSize, dateFormat } from 'utils/helpers';
-import { isMobile, isDesktop } from 'react-device-detect';
+import { formatTime, bytesToSize } from 'utils/helpers';
+import { isDesktop } from 'react-device-detect';
 
 export default function TrackListRow({ track, onClick }) {
   const [show, setShow] = useState(false);
-
-  // console.log('track:', track)
 
   return (
     <>

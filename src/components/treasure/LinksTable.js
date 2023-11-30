@@ -1,5 +1,5 @@
+import { format } from 'utils/helpers';
 import LinksActionsButton from './LinksActionsButton';
-import ParticipantsActionsButtons from './ParticipantsActionsButton';
 
 export default function LinksTable({ data, headers, user }) {
   const Rows = ({ cell }) => {
@@ -14,7 +14,7 @@ export default function LinksTable({ data, headers, user }) {
         <td>
           {cell.play_limit ? `${cell.plays}/${cell.play_limit}`  : 'unlimited'}
         </td>
-        <td>{cell.date_shared}</td>
+        <td>{format.date(cell.date_shared)}</td>
         <td className='flex justify-end'>
           <LinksActionsButton link={cell} />
         </td>

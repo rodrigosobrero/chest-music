@@ -1,4 +1,5 @@
 import { isDesktop } from 'react-device-detect';
+import { format } from 'utils/helpers';
 import TrashCanActionsButton from './TrashCanActionsButton';
 
 export default function TrashCanRow({ item }) {
@@ -10,7 +11,7 @@ export default function TrashCanRow({ item }) {
           <>
             <td>{item.version}</td>
             <td>{item.date_moved}</td>
-            <td>{item.days_remaining}</td>
+            <td>{format.date(item.days_remaining)}</td>
           </>
         )}
         <td>
