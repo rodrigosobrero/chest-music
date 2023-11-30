@@ -116,7 +116,7 @@ const format = {
       const hoursDiff = Math.abs(today - dateObj) / 36e5;
 
       return `${i18next.t("global.hours", { count: Math.floor(hoursDiff) })}`
-    } else if (daysDiff < 7 ) {
+    } else if (daysDiff >= 1 && daysDiff < 7) {
       return `${i18next.t("global.days", { count: Math.floor(daysDiff) })}`
     } else {
       const month = dateObj.getMonth();
