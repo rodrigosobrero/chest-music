@@ -13,6 +13,7 @@ export default function AutoComplete({ options, handleAdd }) {
   const [searchResult, setSearchResult] = useState([]);
   const [selectedUser, setSelectedUser] = useState('');
   const [selectedRole, setSelectedRole] = useState(options[0]);
+  const [focus, setFocus] = useState(false);
 
   const handleOnChange = (event) => {
     const lowerCase = event.target.value.toLowerCase();
@@ -63,6 +64,8 @@ export default function AutoComplete({ options, handleAdd }) {
                 ref={inputRef}
                 onChange={handleOnChange}
                 className='custom-input !pr-16 md:!pr-40'
+                onFocus={() => { setFocus(true) }}
+                onBlur={() => { setFocus(false) }}
                 placeholder='Write user or email...' />
               <select
                 className='custom-select absolute top-0 right-0 !w-auto !pr-12 !text-right !border-0 !bg-transparent'
@@ -73,7 +76,7 @@ export default function AutoComplete({ options, handleAdd }) {
               </select>
             </div>
             <AnimatePresence>
-              {searchValue && (
+              {(searchValue && focus) && (
                 <motion.button
                   type='button'
                   initial={{ opacity: 0, y: -20 }}
