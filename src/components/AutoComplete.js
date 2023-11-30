@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
-import axios from 'utils/api';
+import { api } from 'utils/axios';
 import { firstLetterUpperCase } from 'utils/helpers';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { CheckIcon } from '@heroicons/react/20/solid';
@@ -39,7 +39,7 @@ export default function AutoComplete({ options, handleAdd }) {
 
   const getAccounts = async () => {
     try {
-      const response = await axios.get('/user', {
+      const response = await api.get('/user', {
         headers: { Authorization: `Bearer ${user?.token}` },
         params: {
           search: searchValue

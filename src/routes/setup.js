@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import { useForm } from 'react-hook-form';
 import { firstLetterUpperCase } from 'utils/helpers';
-import axios from 'utils/api';
+import { api } from 'utils/axios';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import Button from 'components/Button';
@@ -57,7 +57,7 @@ export default function Setup() {
   const handleSetup = async (data) => {
     setLoading(true);
     try {
-      let response = await axios.post(`/account/${userType}/`, {
+      let response = await api.post(`/account/${userType}/`, {
         username: data.username,
         full_name: data.name,
         plan: data.plan,

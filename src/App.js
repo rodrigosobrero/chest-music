@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import axios from 'utils/api';
+import { api } from 'utils/axios';
 import { auth } from 'utils/firebase';
 import { saveUser } from 'app/auth';
 import { onAuthStateChanged, getIdToken } from 'firebase/auth';
@@ -25,7 +25,6 @@ import Setup from 'routes/setup';
 import Upload from 'routes/upload';
 import Share from 'routes/share';
 import Treasure from 'routes/treasure';
-import api from 'utils/api';
 import Trash from 'routes/trash';
 
 function App() {
@@ -174,7 +173,7 @@ function App() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         getIdToken(user).then(async (token) => {
-          const response = await axios.get('account/', {
+          const response = await api.get('account/', {
             headers: { Authorization: `Bearer ${token}` }
           });
           const provider = user?.providerData[0].providerId;
