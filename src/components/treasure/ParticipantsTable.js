@@ -1,4 +1,4 @@
-import { firstLetterUpperCase, formatDate } from 'utils/helpers';
+import { firstLetterUpperCase, format } from 'utils/helpers';
 
 import ParticipantsActionsButtons from './ParticipantsActionsButton';
 
@@ -21,7 +21,7 @@ export default function ParticipantsTable({ data, headers, user }) {
         </td>
         <td>{cell.role && firstLetterUpperCase(cell.role)}</td>
         <td>{cell.plays}</td>
-        <td>{formatDate(cell.date_added)}</td>
+        <td>{format.date(cell.date_added)}</td>
         <td className='flex justify-end'>
           <ParticipantsActionsButtons participant={cell} />
         </td>

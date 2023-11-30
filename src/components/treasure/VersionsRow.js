@@ -1,4 +1,4 @@
-import { formatDate } from 'utils/helpers';
+import { format } from 'utils/helpers';
 import { formatTime } from 'utils/helpers';
 import { isDesktop } from 'react-device-detect';
 
@@ -31,7 +31,7 @@ export default function VersionsRow({ project, version }) {
             <td>{version.plays ? version.plays : 0}</td>
             <td>
               <span className='capitalize'>
-                {formatDate(version.date_added)}
+                {format.date(version.date_added)}
               </span>
             </td>
             <td>{formatTime(version.duration)}</td>
