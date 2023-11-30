@@ -67,7 +67,7 @@ export default function Setup() {
       }, {
         headers: { Authorization: `Bearer ${user?.token}` }
       });
-      response = await axios.get('/account/', {  headers: { Authorization: `Bearer ${user?.token}` } })
+      response = await api.get('/account/', {  headers: { Authorization: `Bearer ${user?.token}` } })
       dispatch(updateUserData(response.data))
       console.log('dataaaa', response.data)
       navigate('/my-chest')
