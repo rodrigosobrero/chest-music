@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import i18next from 'i18next';
+
 function classNames(classes) {
   const toBeClasses = Object.keys(classes).map((key) =>
     classes[key] === true ? key : '',
@@ -28,9 +31,9 @@ function formatTime(seconds) {
 
 }
 function timeDifference(previousTimestamp) {
-  
+
   var current = new Date();
-  var previousDate = new Date(previousTimestamp*1000);
+  var previousDate = new Date(previousTimestamp * 1000);
   var elapsed = current.getTime() - previousDate.getTime(); // Diferencia en milisegundos
   var seconds = Math.floor(elapsed / 1000); // Total de segundos
   var minutes = Math.floor(seconds / 60); // Total de minutos
@@ -99,4 +102,44 @@ function bytesToSize(bytes) {
   return parseFloat(k).toFixed(2) + ' MB';
 }
 
-export { classNames, formatDate, formatTime, firstLetterUpperCase, bytesToSize, timeDifference, formatBytes }
+const format = {
+  /**
+   * Format date to Mon D, YYYY
+   * @param {number} date - Timestamp (1701282568)
+   */
+  date: (date) => {
+    if (!date) return;
+    if (typeof date === 'string') date = parseInt(date);
+  
+    const dateObj = new Date(date * 1000);
+    const today = new Date();
+
+    const timeDiff = today.getTime() - dateObj.getTime();
+    const daysDiff = timeDiff / (1000 * 3600 * 24);
+
+    if (daysDiff < 1) {
+      const hoursDiff = Math.abs(today - dateObj) / 36e5;
+
+      return `${i18next.t("global.hours", { count: Math.floor(hoursDiff) })}`
+    } else if (daysDiff < 7 ) {
+      return `${i18next.t("global.days", { count: Math.floor(daysDiff) })}`
+    } else {
+      const month = dateObj.getMonth();
+      const day = dateObj.getDate();
+      const year = dateObj.getFullYear();
+    
+      return `${i18next.t(`global.months.${month}`)} ${day}, ${year}`;
+    }
+  }
+}
+
+export {
+  bytesToSize,
+  classNames,
+  firstLetterUpperCase,
+  format,
+  formatBytes,
+  formatDate,
+  formatTime,
+  timeDifference,
+}

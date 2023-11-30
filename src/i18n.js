@@ -47,7 +47,25 @@ i18next
             confirm: 'Confirm',
             user: 'User', 
             send: 'Send',
-            generate: 'Generate'
+            generate: 'Generate',
+            months: {
+              0: 'jan',
+              1: 'feb',
+              2: 'mar',
+              3: 'apr',
+              4: 'may',
+              5: 'jun',
+              6: 'jul',
+              7: 'aug',
+              8: 'sep',
+              9: 'oct',
+              10: 'nov',
+              11: 'dec'
+            },
+            hours_one: '{{count}} hour ago',
+            hours_other: '{{count}} hours ago',
+            days_one: '{{ count }} day ago',
+            days_other: '{{ count }} days ago'
           },
           signin: {
             title: 'open your chest',
@@ -277,6 +295,24 @@ i18next
             remove: 'Remover',
             back: 'Ir atrás',
             confirm: 'Confirmar',
+            months: {
+              0: 'ene',
+              1: 'feb',
+              2: 'mar',
+              3: 'abr',
+              4: 'may',
+              5: 'jun',
+              6: 'jul',
+              7: 'ago',
+              8: 'sep',
+              9: 'oct',
+              10: 'nov',
+              11: 'dic'
+            },
+            hours_one: 'hace {{count}} hora',
+            hours_other: 'hace {{count}} horas',
+            days_one: 'hace {{ count }} día',
+            days_other: 'hace {{ count }} días'
           },
           signin: {
             title: 'abre tu cofre',
