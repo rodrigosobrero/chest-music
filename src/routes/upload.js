@@ -24,6 +24,7 @@ import { MegaphoneIcon } from '@heroicons/react/24/outline';
 import { ComputerDesktopIcon } from '@heroicons/react/24/outline';
 import { CheckIcon } from '@heroicons/react/20/solid';
 import { AnimatePresence, motion } from 'framer-motion';
+
 import { updateUserData } from 'app/auth';
 import { apiUrl } from 'utils/api';
 
@@ -300,7 +301,7 @@ export default function Upload() {
               placeholder={t('global.write_here')}
               helper={t('upload.leave_empty')} />
             <Select
-              options={chest.roles}
+              options={chest.roles.filter(role => role !== 'listener')}
               label={t('upload.your_role')}
               name='role'
               register={register} />
