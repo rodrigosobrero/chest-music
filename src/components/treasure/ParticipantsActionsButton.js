@@ -3,7 +3,7 @@ import { motion, useAnimationControls } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import config from 'data/config.json';
-import api from 'utils/api';
+import { api } from 'utils/axios';
 
 import dots from 'assets/images/icon-dots-horizontal.svg';
 import { XCircleIcon } from '@heroicons/react/24/outline';
@@ -58,10 +58,14 @@ export default function ParticipantsActionsButtons({ participant }) {
     setLoading(true);
 
     try {
+      const data = {
+        'role': role
+      }
+
       await api.patch(`project/participant/${participant.relation_id}/`,
-        { 'role': role }, {
-        headers: { Authorization: `Bearer ${user?.token}` }
-      });
+        { headers: { Authorization: `Bearer ${user?.token}` } },
+        { data }
+      );
     } catch (error) {
       console.log(error);
     }
@@ -74,10 +78,14 @@ export default function ParticipantsActionsButtons({ participant }) {
     setLoading(true);
 
     try {
-      await api.delete(`project/participant/${participant.relation_id}/`,
-        { 'role': participant.role }, {
-        headers: { Authorization: `Bearer ${user?.token}` }
-      });
+      const data = {
+        'role': participant.role
+      }
+
+      await api.delete(`project/participant/${participant.relation_id}/`, 
+        { headers: { Authorization: `Bearer ${user?.token}` } },
+        { data }
+      );
     } catch (error) {
       console.log(error);
     }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { bytesToSize } from 'utils/helpers';
-import axios from 'utils/api';
+import { api } from 'utils/axios';
 import ProgressBar from 'components/ProgressBar';
 import SearchBar from 'components/SearchBar';
 import Tag from 'components/Tag';
@@ -22,7 +22,7 @@ export default function Chest() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('mychest/', {
+      const response = await api.get('mychest/', {
         headers: { Authorization: `Bearer ${user?.token}` }
       });
       setTracks(response.data.projects);
