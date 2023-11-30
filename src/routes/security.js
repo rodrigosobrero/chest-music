@@ -17,12 +17,16 @@ const Security = () => {
     const user = useSelector((state) => state.auth.user);
     const dispatch = useDispatch()
     const { isOpenPassword, isOpenPin, togglePassword, togglePin, handlePinChange, 
-            isAvailable, pin, setIsOpenPin, setIsOpenPassword, checkPin }= useSecurity(user?.data.pincode)
+            isAvailable, pin, setIsOpenPin, setIsOpenPassword, checkPin, error, setError }= useSecurity(user?.data.pincode)
+
     const items = t('profile.sections', { returnObjects: true });
+
     let paths = [{ name:'Profile', link: '/profile' }, { name: items[3].title }]
+
     const changePinCode = () => {
-      const isEqual = checkPin(user?.data.pincode)
-      if(!isEqual) { console.log('no es igual al pincode original'); return; }
+      const isEqual = checkPin(user?.data.pincode, 'Incorrect current pincode')
+      if(!isEqual) { 
+       return; }
       const parsed = parseInt(pin.new)
       patchData('account/', { pincode: parsed }, user?.token )
       .then((response) => {
@@ -64,6 +68,7 @@ const Security = () => {
                 </button>
             </div>
     )}
+
     const inputsDataPassword = [
         { label:t('global.email'), 
           placeholder:t('global.placeholder.write_here'),
@@ -82,6 +87,7 @@ const Security = () => {
           showHide: true,
           name: 'new',
           onlyNumeric: true,
+          error: error
         }]}
       else return [
         { label:t('security.pin_modal.current_pin'), 
@@ -90,6 +96,7 @@ const Security = () => {
           name: 'currentValue',
           showHide: true,
           onlyNumeric: true,
+          error: error
         },
         { 
           label:t('security.pin_modal.new_pin'), 
@@ -99,7 +106,7 @@ const Security = () => {
           name: 'new',
           onlyNumeric: true,
         }]
-    }, [user?.data, t])
+    }, [user?.data, t, error])
 
     return (
       <>

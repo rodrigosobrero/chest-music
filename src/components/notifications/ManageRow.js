@@ -4,7 +4,7 @@ import { timeDifference } from 'utils/helpers';
 const ManageRow = ({ data, isMobile, onDelete }) => {
   const renderDesktopRow = () => (
     <tr>
-      <td>{data.name}</td>
+      <td>{data?.name}</td>
       <td>@{data.username}</td>
       <td className='md:flex hidden'>{timeDifference(data.date)}</td>
       <td onClick={() => onDelete(data.id)}>X</td>
