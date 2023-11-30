@@ -15,9 +15,8 @@ const SharedRow = ({ track, isMobile, onClick }) => {
       onMouseEnter={() => { setShow(true) }}
       onMouseLeave={() => { setShow(false) }}
      >
-      <td>
-        <div className='flex flex-row gap-4'>
-             
+      <td className='md:w-[35%] mr-3'>
+      <div className='flex flex-row gap-3 md:gap-4'>
           <div className='relative rounded flex items-center'>
             {track.cover ? 
               <img src={track.cover} alt='' width={44} height={44} className='' /> 
@@ -29,9 +28,8 @@ const SharedRow = ({ track, isMobile, onClick }) => {
               <div className='play-hover'></div>
             }
           </div>
-          
           <div>
-            <div className='text-lg'>{track.title}</div>
+            <div className='text-lg line-clamp-1'>{track.title}</div>
             <div className='text-sm text-neutral-silver-200'>
               {track.authors.join(', ')}
             </div>
@@ -40,15 +38,15 @@ const SharedRow = ({ track, isMobile, onClick }) => {
       </td>
       {!isMobile &&
           <>
-            <td>{track.album}</td>
-            <td>{track.version}</td>
-            <td>
-              <span className='capitalize'>
+            <td className='md:w-[240px] md:mr-3'>{track.album ? track.album : 'any'}</td>
+            <td className='md:w-[140px] md:mr-3'>{track.version}</td>
+            <td className='md:w-[160px] md:mr-3'>
+              <span className='capitalize text-base'>
                 {timeDifference(track.date_shared ?  track.date_shared : track.date_played)}
               </span>
             </td>
-            <td>{formatTime(track.length)}</td>
-            <td>{track.plays}</td>
+            <td className='w-[100px] md:mr-3'>{formatTime(track.length)}</td>
+            <td className='w-[64px] md:mr-3'>{track.plays}</td>
           </>}
       <td>
         <SharedToast />
