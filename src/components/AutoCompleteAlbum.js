@@ -4,7 +4,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import Input from './Input';
 
 export default function AutoCompleteAlbum({ options, label, placeholder, helper, searchValue, setSearchValue }) {
-  // const [searchValue, setSearchValue] = useState('');
+  const [focus, setFocus] = useState(false);
 
   const handleOnChange = (event) => {
     const lowerCase = event.target.value.toLowerCase();
@@ -38,11 +38,13 @@ export default function AutoCompleteAlbum({ options, label, placeholder, helper,
               label={label}
               value={searchValue}
               onChange={handleOnChange}
+              onFocus={() => { setFocus(true) }}
+              onBlur={() => { setFocus(false) }}
               className='custom-input !pr-10'
               helper={helper}
               placeholder={placeholder} />
             <AnimatePresence>
-              {searchValue && (
+              {(searchValue && focus) && (
                 <motion.button
                   type='button'
                   initial={{ opacity: 0, y: -20 }}
