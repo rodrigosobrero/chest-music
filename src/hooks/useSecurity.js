@@ -3,10 +3,12 @@ const useSecurity = (pincode) => {
   const [ isOpenPassword, setIsOpenPassword ] = useState(false)
   const [ isOpenPin, setIsOpenPin ] = useState(false)
   const [ pin, setPin ] = useState({ currentValue: '', new: '', isAvailable: false})
+  const [ error, setError ] = useState('')
   const togglePassword = () => setIsOpenPassword(!isOpenPassword)
   const togglePin = () => { 
     setIsOpenPin(!isOpenPin);
     clearPin();
+    setError(false)
   };
   const clearPin = () => {
     setPin({ currentValue: '', new: '', isAvailable:false})
@@ -20,7 +22,8 @@ const useSecurity = (pincode) => {
           };
     });
   }
-  const checkPin =  (pincode) => {
+  const checkPin =  (pincode, message) => {
+    if(pincode !== pin.currentValue) setError(message);
     return pincode === pin.currentValue
   }
   useEffect(() => {
@@ -50,6 +53,8 @@ const useSecurity = (pincode) => {
     pin,
     isAvailable: pin.isAvailable,
     checkPin,
+    error,
+    setError
   }
 }
 export { useSecurity }
