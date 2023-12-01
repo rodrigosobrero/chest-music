@@ -4,8 +4,10 @@ import TrackListOptions from 'components/TrackListOptions';
 import upload from 'assets/images/icon-upload.svg';
 import { formatTime, bytesToSize } from 'utils/helpers';
 import { isDesktop } from 'react-device-detect';
+import { useNavigate } from 'react-router-dom';
 
 export default function TrackListRow({ track, onClick }) {
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
 
   return (
@@ -46,7 +48,10 @@ export default function TrackListRow({ track, onClick }) {
         <td>
           <div className='flex'>
             {isDesktop && (
-              <button type='button' className='p-[7px] rounded-[10px] transition duration-500 hover:bg-neutral-silver-700 border-[3px] border-transparent active:border-gray-600'>
+              <button 
+                type='button' 
+                className='p-[7px] rounded-[10px] transition duration-500 hover:bg-neutral-silver-700 border-[3px] border-transparent active:border-gray-600'
+                onClick={() => { navigate(`/share/${track.id}`) }}>
                 <img src={upload} alt='' width={24} height={24} />
               </button>
             )}
