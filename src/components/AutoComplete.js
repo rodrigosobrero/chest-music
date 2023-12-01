@@ -6,7 +6,7 @@ import { firstLetterUpperCase } from 'utils/helpers';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { CheckIcon } from '@heroicons/react/20/solid';
 
-export default function AutoComplete({ options, handleAdd }) {
+export default function AutoComplete({ options, handleAdd, filter }) {
   const user = useSelector((state) => state.auth.user);
   const inputRef = useRef(null);
   const [searchValue, setSearchValue] = useState('');
@@ -46,7 +46,16 @@ export default function AutoComplete({ options, handleAdd }) {
           search: searchValue
         }
       });
-      setSearchResult(response.data);
+
+      let result;
+      
+      if (filter) {
+        result = response.data.filter(user => user.type !== filter);
+      } else {
+        result = response.data;
+      }
+
+      setSearchResult(result);
     } catch (error) {
       console.log(error);
     }
