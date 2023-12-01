@@ -186,6 +186,7 @@ export default function Setup() {
                   id='free'
                   value='free'
                   name='plan'
+                  checked
                   {...register('plan', { required: true })} />
                 <label htmlFor='free'>
                   <span className='text-lg'>{t('setup.step_two.free')}</span>
