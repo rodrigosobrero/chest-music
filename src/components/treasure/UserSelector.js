@@ -40,7 +40,8 @@ export default function UserSelector({ roles, users, selected }) {
     <>
       <AutoComplete
         options={roles}
-        handleAdd={addUser} />
+        handleAdd={addUser}
+        filter={'fan'} />
       <div className='flex flex-col gap-4'>
         {userList.map((user, index) =>
           <div key={index}>
