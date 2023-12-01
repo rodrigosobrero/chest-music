@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { api } from 'utils/axios';
@@ -17,13 +17,8 @@ export default function AutoComplete({ options, handleAdd, filter }) {
 
   const handleOnChange = (event) => {
     const lowerCase = event.target.value.toLowerCase();
-    setSearchValue(lowerCase);
 
-    if (lowerCase.length > 2) {
-      getAccounts();
-    } else {
-      setSearchResult([]);
-    }
+    setSearchValue(lowerCase);
   }
 
   const handleOnClick = (value) => {
@@ -60,6 +55,14 @@ export default function AutoComplete({ options, handleAdd, filter }) {
       console.log(error);
     }
   }
+
+  useEffect(() => {
+    if (searchValue.length >= 3) {
+      getAccounts();
+    } else {
+      setSearchResult([]);
+    }
+  }, [searchValue]);
 
   return (
     <>
