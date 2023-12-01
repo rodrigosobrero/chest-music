@@ -137,7 +137,7 @@ export default function Treasure() {
         )
       case 'users':
         return (
-          <AddButton text='Share to user' />
+          <AddButton text='Share to user' onClick={() => { navigate(`/share/${project.id}?=sendDM`) }} />
         )
     }
   }
@@ -271,7 +271,7 @@ export default function Treasure() {
             <Breadcrumb
               items={breadcrumb} />
             <div className='grow flex items-center justify-end gap-3'>
-              <button type='button' className='p-2 rounded-full bg-neutral-silver-600'>
+              <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { navigate(`/share/${project.id}?=sendDM`) }}>
                 <Upload width={28} height={28} />
               </button>
               <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { setShowAddVersion(true) }}>
@@ -280,10 +280,8 @@ export default function Treasure() {
               <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { setShowEditTrack(true) }}>
                 <Pencil width={28} height={28} />
               </button>
-              <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { navigate(`trash/`) }}>
-                <Link to={`/my-chest/treasure/${urlParams.id}/trash/`}>
-                  <Trash width={28} height={28} />
-                </Link>
+              <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { navigate(`/my-chest/treasure/${project.id}/trash/`) }}>
+                <Trash width={28} height={28} />
               </button>
             </div>
           </div>
