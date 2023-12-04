@@ -7,7 +7,7 @@ import TagInput from '../TagInput';
 import axios from 'axios';
 import { apiUrl } from 'utils/api';
 import { useTranslation } from 'react-i18next';
-const SendDM = ({ token , versionId }) => {
+const SendDM = ({ token , versionId, onCancel }) => {
   const { t } = useTranslation()
   const [input, setInput] = useState('')
   const [message, setMessage] = useState('')
@@ -103,7 +103,10 @@ const SendDM = ({ token , versionId }) => {
                 <Input label={'Message'} placeholder={t('share.message_example')} onChange={handleMessageChange} value={message}/>
             </div>
         </div>
-        <ButtonsContainer primaryButton={'Generate'} onClick={sendToUsers} disabled={(input === '' && !isToggled) || selecteds.length < 1 || message === ''} />
+        <ButtonsContainer   primaryButton={'Generate'} 
+                            onClick={sendToUsers} 
+                            disabled={(input === '' && !isToggled) || selecteds.length < 1 || message === ''} 
+                            onCancel={onCancel}/>
      </>
   )
 }

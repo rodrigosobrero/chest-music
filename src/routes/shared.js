@@ -6,6 +6,8 @@ import { useFetch } from "hooks/useFetch"
 import { useDispatch, useSelector } from "react-redux"
 import { apiUrl } from "utils/api"
 import Loading from "components/Loading"
+import empty from 'assets/images/empty-chest.svg';
+
 export default function Shared() {
   const { t } = useTranslation()
   const user = useSelector((state) => state.auth.user )
@@ -45,7 +47,15 @@ export default function Shared() {
               <SharedTable artist={el.artist} data={el.tracks} dispatch={dispatch}/>
             )) 
             : 
-            <h3>Any yet</h3>
+            <div className='bg-neutral-black rounded-3xl px-4 pt-6 pb-8 md:p-[80px]  md:pt-[60px]'>
+                <div className='flex flex-col items-center gap-2'>
+                    <p className='!font-archivo !text-[28px] transof'>{t('notification.nothing_here')}</p>
+                    <p className='text-lg text-neutral-silver-200 font-light mb-10'>
+                      {t('shared.any')}
+                    </p>
+                    <img src={empty} alt='' width={240} height={128} className='mb-5' />
+                </div>
+            </div>
           }
           </div>
       </div>

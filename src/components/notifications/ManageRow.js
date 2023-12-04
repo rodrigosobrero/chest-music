@@ -1,5 +1,7 @@
 import React from 'react';
 import { timeDifference } from 'utils/helpers';
+import { XCircleIcon } from "@heroicons/react/24/outline";
+
 
 const ManageRow = ({ data, isMobile, onDelete }) => {
   const renderDesktopRow = () => (
@@ -7,12 +9,16 @@ const ManageRow = ({ data, isMobile, onDelete }) => {
       <td>{data?.name}</td>
       <td>@{data.username}</td>
       <td className='md:flex hidden'>{timeDifference(data.date)}</td>
-      <td onClick={() => onDelete(data.id)}>X</td>
+      <td>
+        <button className='flex items-center' onClick={() => onDelete(data.id)}>
+          <XCircleIcon className="h-6 w-6 text-white" />
+        </button>
+      </td>
     </tr>
   );
 
   const renderMobileRow = () => (
-    <tr>
+    <tr className='flex justify-between items-center'>
       <td>
         <div>
           <div className='text-lg'>{data.name}</div>
@@ -21,7 +27,11 @@ const ManageRow = ({ data, isMobile, onDelete }) => {
           </div>
         </div>
       </td>
-      <td onClick={() => onDelete(data.id)}>X</td>
+      <td className=' '>
+        <button className='flex ' onClick={() => onDelete(data.id)}>
+         <XCircleIcon className="h-5 w-5 text-white" />
+        </button>
+      </td>
     </tr>
   );
 
