@@ -57,7 +57,7 @@ export default function AutoComplete({ options, handleAdd, filter }) {
   }
 
   useEffect(() => {
-    if (searchValue.length >= 3) {
+    if (searchValue.length >= 2) {
       getAccounts();
     } else {
       setSearchResult([]);
