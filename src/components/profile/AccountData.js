@@ -41,21 +41,21 @@ const AccountData = ({ data, token }) => {
                         subtitle={t('account.modals.change_subtitle')} primaryButton={t('global.save')}
                         secondaryButton={t('global.cancel')} inputsData={inputData} handleChange={handleChange} isAvailable={input !== ''} />
       </Modal>
-      <div className='container-accountData'>
-        <h4 className='text-[22px] font-archivo font-semibold'>{t('account.personal_data')}</h4>
+      <div className='container-accountData !font-archivo'>
+        <h4 className='text-[22px] !font-archivo !font-semibold !normal-case	'>{t('account.personal_data')}</h4>
         <div className='item'>
-            <h5 className='text-neutral-silver-200  text-base'>{t('account.artist_name')}</h5>
+            <h5 className='text-neutral-silver-200  !text-base !font-archivo'>{t('account.artist_name')}</h5>
             <div className='flex gap-x-3 items-center'>
-               <h5 className='text-lg'>{data?.full_name} </h5> <Pencil className='cursor-pointer h-4 w-4' onClick={toggle}/>
+               <h5 className='text-lg !font-archivo'>{data?.full_name} </h5> <Pencil className='cursor-pointer h-4 w-4' onClick={toggle}/>
             </div> 
         </div>
         <div>
-            <h5 className='text-neutral-silver-200 text-base'>{t('account.artist_username')}</h5>
-            <h5 className='text-lg'>@{data?.username}</h5>
+            <h5 className='text-neutral-silver-200 !text-base !font-archivo'>{t('account.artist_username')}</h5>
+            <h5 className='!text-lg !font-archivo'>@{data?.username}</h5>
         </div>
         <div >
-            <h5 className='text-neutral-silver-200 text-base'>Email</h5>
-            <h5 className='text-lg'>{data?.email}</h5>
+            <h5 className='text-neutral-silver-200 !text-base !font-archivo'>Email</h5>
+            <h5 className='!text-lg !font-archivo'>{data?.email}</h5>
         </div>
       </div>
     </>
