@@ -37,15 +37,15 @@ const AccountPlan = ({ data }) => {
         isOpen={isOpen} handleChange={handleChange} handleSelectOption={handleSelectOption} disabled={!isAvailable}/>
       </Modal>
       <div className='container-accountPlan'>
-         <h4 className='text-[22px] font-archivo font-semibold'>{t('account.my_plan')}</h4>
+         <h4 className='text-[22px] !font-archivo !font-semibold !normal-case'>{t('account.my_plan')}</h4>
          <div className='flex gap-y-8 md:gap-x-14 flex-col md:flex-row'>
             <div className='space-y-4'>
-               <h5 className='text-neutral-silver-200 text-base'>{t('account.storage')}</h5>
+               <h5 className='text-neutral-silver-200 !text-base !font-archivo'>{t('account.storage')}</h5>
                <div className='flex gap-x-4'>
-                    <span className='text-brand-uva text-4xl'>{Math.round((data?.used_storage / data?.total_space) * 100)}%</span>
+                    <span className='text-brand-uva !font-archivo !text-4xl'>{Math.round((data?.used_storage / data?.total_space) * 100)}%</span>
                     <div className='flex flex-col items-start '>
-                        <span className='text-left text-neutral-silver-100'>{formatBytes(data?.used_storage)} 
-                            <span className='text-neutral-silver-300'> of </span> {formatBytes(data?.total_space)}
+                        <span className='!text-left !font-archivo text-neutral-silver-100'>{formatBytes(data?.used_storage)} 
+                            <span className='!text-neutral-silver-300 !font-archivo'> of </span> {formatBytes(data?.total_space)}
                         </span>
                         <ProgressBar 
                         progress={(data?.used_storage / data?.total_space) * 100} 
@@ -56,17 +56,17 @@ const AccountPlan = ({ data }) => {
                     </div>
                </div>
                <button className='py-1.5' onClick={toggle}>
-                  <h5 className='text-brand-gold font-archivo text-lg'>
+                  <h5 className='text-brand-gold !font-archivo !text-lg'>
                     {t('account.upgrade')}
                   </h5>
                </button>
             </div>
             <div className='space-y-4'>
-               <h5 className='text-neutral-silver-200 text-base'>{t('account.current_plan')}</h5>
+               <h5 className='text-neutral-silver-200 !font-archivo !text-base'>{t('account.current_plan')}</h5>
                <div className='flex flex-col md:flex-row gap-4'>
                     <div className='md:w-3/5 '>
-                        <h5 className='mb-1 text-xl !capitalize'>{data?.plan}</h5>
-                        <span className='text-neutral-silver-300 text-sm'>
+                        <h5 className='mb-1 !text-xl !capitalize !font-archivo'>{data?.plan}</h5>
+                        <span className='text-neutral-silver-300 !text-sm'>
                             Amet pretium 1 GB scelerisque leo ut non lorem neque.
                         </span>
                     </div>

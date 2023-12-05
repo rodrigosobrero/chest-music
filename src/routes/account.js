@@ -62,10 +62,10 @@ const Account = () => {
             <div className='container-head-account'>
                 <div className='container-items-account'>
                     <h4 className='font-thunder-bold text-5xl uppercase font-bold'>{items[2].title}</h4>
-                    <h5>{t('account.subtitle')}</h5>
+                    <h5 className='!font-archivo'>{t('account.subtitle')}</h5>
                 </div>
             </div>
-            <div className='w-full bg-neutral-black md:p-8 p-3 flex flex-col md:flex-row gap-y-3 gap-x-8 rounded-3xl'>
+            <div className='w-full bg-neutral-black md:p-8 p-3 flex flex-col md:flex-row gap-y-3 gap-x-8 rounded-3xl !font-archivo'>
                 <AccountData data={user?.data} token={user?.token}/>
                 <AccountPlan data={user?.data}/>
             </div>

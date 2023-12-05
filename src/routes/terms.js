@@ -10,8 +10,8 @@ const Terms = () => {
   const Item = ({ title, text }) => {
     return (
       <div className='flex flex-col gap-y-3'>
-        <h4 className='text-lg font-archivo'>{title}</h4>
-        <p className='text-base text-neutral-silver-200 text-left'>{text}</p>
+        <h4 className='!text-lg !font-archivo !normal-case'>{title}</h4>
+        <p className='!text-base text-neutral-silver-200 !font-archivo !text-left'>{text}</p>
       </div>
     )
   }
@@ -21,8 +21,8 @@ const Terms = () => {
        <Breadcrumb className='px-3 md:px-0' items={paths}/>
         <div className='container-head-account'>
             <div className='container-items-account'>
-                <h3 className='font-thunder-bold text-5xl font-bold'>{t('terms.title')}</h3>
-                <h5 className='text-neutral-silver-200 text-lg'>{t('terms.subtitle')}</h5>
+                <h3 className='font-thunder-bold !text-5xl !font-bold'>{t('terms.title')}</h3>
+                <h5 className='text-neutral-silver-200 !text-lg !font-archivo'>{t('terms.subtitle')}</h5>
             </div>
         </div>
         <div className='bg-neutral-black rounded-3xl md:p-8 py-8 px-6 flex flex-col gap-y-6'>
