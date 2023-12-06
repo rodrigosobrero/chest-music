@@ -181,7 +181,7 @@ function App() {
             data: response.data,
             token: token,
             email: user?.email,
-            signInMethod: provider === 'google.com' ? 'google' : 'locale'
+            signInMethod: provider === 'google.com' ? 'google' : 'local'
           }));
         });
       } else {
