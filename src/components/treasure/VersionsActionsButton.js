@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { motion, useAnimationControls } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { useDeleteVersionMutation, useUpdateVersionMutation } from 'store/api';
 import api from 'utils/api';
 
 import Modal from 'components/Modal';
 import Button from 'components/Button';
+import Input from 'components/Input';
 
 import dots from 'assets/images/icon-dots-horizontal.svg';
 
@@ -14,20 +15,19 @@ import { ArrowUpTrayIcon } from '@heroicons/react/24/outline';
 import { ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { TrashIcon } from '@heroicons/react/24/outline';
-import Input from 'components/Input';
 
 export default function VersionsActionsButton({ version }) {
+  const animation = useAnimationControls();
   const { t } = useTranslation();
   const { user } = useSelector((state) => state.auth);
   const [open, setOpen] = useState(false);
   const [description, setDescription] = useState('');
   const [showRemoveVersion, setShowRemoveVersion] = useState(false);
   const [showEditVersion, setShowEditVersion] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [versionName, setVersionName] = useState('');
 
-  const navigate = useNavigate();
-  const animation = useAnimationControls();
+  const [deleteVersion, { isLoading: loadingDelete }] = useDeleteVersionMutation();
+  const [updateVersion, { isLoading: loadingUpdate }] = useUpdateVersionMutation();
 
   const sequence = async () => {
     if (open) {
@@ -58,23 +58,26 @@ export default function VersionsActionsButton({ version }) {
     sequence();
   }
 
-  const deleteVersion = async () => {
-    setLoading(true);
+  const handleDelete = async () => {
+    const result = await deleteVersion(version.id);
 
-    try {
-      await api.delete(`project/version/${version.id}/`, {
-        headers: { Authorization: `Bearer ${user?.token}` }
-      });
-    } catch (error) {
-      console.log(error);
+    if ('error' in result) {
+      console.log('Error');
+    } else {
+      setShowRemoveVersion(false);
     }
-
-    setLoading(false);
-    setShowRemoveVersion(false);
   }
 
-  const updateVersionName = async () => {
-    console.log('')
+  const handleUpdate = async () => {
+    console.log(versionName);
+
+    const result = await updateVersion(version.id, versionName);
+
+    if ('error' in result) {
+      console.log('Error');
+    } else {
+      setShowEditVersion(false);
+    }
   }
 
   const downloadVersion = async () => {
@@ -179,9 +182,9 @@ export default function VersionsActionsButton({ version }) {
           <Button
             text='Move to trash'
             style='primary'
-            disabled={loading}
-            loading={loading}
-            onClick={deleteVersion} />
+            disabled={loadingDelete}
+            loading={loadingDelete}
+            onClick={handleDelete} />
         </div>
       </Modal>
       <Modal show={showEditVersion}>
@@ -202,11 +205,11 @@ export default function VersionsActionsButton({ version }) {
             style='third'
             onClick={() => { setShowEditVersion(false) }} />
           <Button
-            text='Move to trash'
+            text='Save'
             style='primary'
-            disabled={loading || version.name === versionName || versionName.length === 0}
-            loading={loading}
-            onClick={updateVersionName} />
+            disabled={loadingUpdate || version.name === versionName || versionName.length === 0}
+            loading={loadingUpdate}
+            onClick={handleUpdate} />
         </div>
       </Modal>
     </>

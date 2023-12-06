@@ -65,24 +65,14 @@ function App() {
           element:
             <ProtectedRoute>
               <Treasure />
-            </ProtectedRoute>,
-          loader: async ({ params }) => {
-            return api.get(`project/${params.id}`, {
-              headers: { Authorization: `Bearer ${user?.token}` }
-            });
-          }
+            </ProtectedRoute>
         },
         {
           path: '/my-chest/treasure/:id/trash',
           element:
             <ProtectedRoute>
               <Trash />
-            </ProtectedRoute>,
-          loader: async ({ params }) => {
-            return api.get(`project/${params.id}/trash/`, {
-              headers: { Authorization: `Bearer ${user?.token}` }
-            });
-          }
+            </ProtectedRoute>
         },
         {
           path: 'shared',

@@ -23,11 +23,11 @@ function formatDate(date) {
 }
 
 function formatTime(seconds) {
-    // Calculate the whole minutes
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = Math.floor(seconds % 60);
-    const formattedSeconds = remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds;
-    return `${minutes}:${formattedSeconds}`;
+  // Calculate the whole minutes
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = Math.floor(seconds % 60);
+  const formattedSeconds = remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds;
+  return `${minutes}:${formattedSeconds}`;
 
 }
 function timeDifference(previousTimestamp) {
@@ -110,7 +110,7 @@ const format = {
   date: (date) => {
     if (!date) return;
     if (typeof date === 'string') date = parseInt(date);
-  
+
     const dateObj = new Date(date * 1000);
     const today = new Date();
 
@@ -127,15 +127,46 @@ const format = {
       const month = dateObj.getMonth();
       const day = dateObj.getDate();
       const year = dateObj.getFullYear();
-    
+
       return `${i18next.t(`global.months.${month}`)} ${day}, ${year}`;
     }
+  },
+  bytes: (bytes) => {
+    if (!bytes) return '0 MB';
+    if (typeof bytes === 'string') bytes = parseInt(bytes);
+
+    const mb = bytes / (1024 ** 2);
+    const gb = bytes / (1024 ** 3);
+
+    if (mb < 1024) {
+      return `${mb.toFixed(2)} MB`;
+    } else {
+      return `${gb.toFixed(2)} GB`;
+    }
   }
+}
+
+const filter = (list, key) => {
+  if (!list) return;
+
+  key = key.toLowerCase();
+
+  list.filter(item => {
+    if (key === '') {
+      return item;
+    } else {
+      return Object.values(item)
+        .join(' ')
+        .toLocaleLowerCase()
+        .includes(key)
+    }
+  })
 }
 
 export {
   bytesToSize,
   classNames,
+  filter,
   firstLetterUpperCase,
   format,
   formatBytes,

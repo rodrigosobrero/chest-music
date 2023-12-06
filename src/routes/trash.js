@@ -11,7 +11,6 @@ import { useEffect, useState } from 'react';
 
 export default function Trash() {
   const { user } = useSelector((state) => state.auth);
-  const { data } = useLoaderData();
   const { id } = useParams();
   const [project, setProject] = useState('');
 
@@ -33,8 +32,10 @@ export default function Trash() {
   }
 
   useEffect(() => {
+    if (user?.token) return
+
     getProject();
-  }, []);
+  }, [user]);
 
   return (
     <>
@@ -43,8 +44,8 @@ export default function Trash() {
           <Breadcrumb items={breadcrumb} />
           <h2 className='text-[64px] md:text-[76px]'>trash can</h2>
         </div>
-        {data.length > 0
-          ? <TrashCanTable data={data} />
+        {project.length > 0
+          ? <TrashCanTable data={project} />
           : (
             <div className='flex flex-col items-center'>
               <span className='text-[28px] font-semibold mb-2'>Nothing here</span>

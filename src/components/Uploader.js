@@ -116,7 +116,7 @@ export default function Uploader({ title = true, self, id }) {
                       {bytesToSize(progress.loaded)} {t('global.of')} {bytesToSize(progress.total, 1)}
                     </motion.span>}
                 </AnimatePresence>
-                <span className='font-archivo text-neutral-silver-300 text-sm text-center'>{file.filename}</span>
+                <span className='font-archivo text-neutral-silver-300 text-sm text-center'>{file?.filename}</span>
               </div>
             </>
           : <div
