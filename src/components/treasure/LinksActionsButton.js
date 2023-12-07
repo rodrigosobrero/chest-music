@@ -1,34 +1,32 @@
 import { useState } from 'react';
 import { motion, useAnimationControls } from 'framer-motion';
-import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import config from 'data/config.json';
-import api from 'utils/api';
+import { useDeleteLinkMutation, useUpdateLinkMutation } from 'store/api';
+
+import Modal from 'components/Modal';
+import Button from 'components/Button';
+import Input from 'components/Input';
+import Toggle from 'components/share/Toggle';
 
 import dots from 'assets/images/icon-dots-horizontal.svg';
 import { XCircleIcon } from '@heroicons/react/24/outline';
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 
-import Modal from 'components/Modal';
-import Select from 'components/Select';
-import Button from 'components/Button';
-import Input from 'components/Input';
-import Toggle from 'components/share/Toggle';
-
 export default function LinksActionsButton({ link }) {
   const { t } = useTranslation();
-  const { user } = useSelector((state) => state.auth);
   const animation = useAnimationControls();
 
   const [open, setOpen] = useState(false);
   const [description, setDescription] = useState('');
-  const [loading, setLoading] = useState('');
   const [showEditLink, setShowEditLink] = useState(false);
   const [showDeleteLink, setShowDeleteLink] = useState(false);
   const [playLimit, setPlayLimit] = useState('');
   const [unlimited, setUnlimited] = useState(false);
   const [allowWebPlay, setAllowWebPlay] = useState(false);
   const [disablePlayLimit, setDisablePlayLimit] = useState(true);
+
+  const [updateLink, { isLoading: isLoadingUpdate }] = useUpdateLinkMutation();
+  const [deleteLink, { isLoading: isLoadingDelete }] = useDeleteLinkMutation();
 
   const sequence = async () => {
     if (open) {
@@ -59,39 +57,35 @@ export default function LinksActionsButton({ link }) {
     )
   }
 
-  const editLink = async () => {
-    setLoading(true);
+  const handleEditLink = async () => {
+    let data = { allow_web_play: allowWebPlay }
 
-    const data = {
-      allow_web_play: allowWebPlay,
-      play_limit: playLimit
+    if (playLimit) { 
+      data.playLimit = playLimit 
+    } else {
+      data.playLimit = 0
     }
 
-    try {
-      await api.patch(`shared/link/${link.id}/`, data, {
-        headers: { Authorization: `Bearer ${user?.token}` }
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    const result = await updateLink({
+      id: link.id,
+      data
+    });
 
-    setLoading(false);
-    setShowEditLink(false);
+    if ('error' in result) {
+      console.log('Error');
+    } else {
+      setShowEditLink(false);
+    }
   }
 
-  const deleteLink = async () => {
-    setLoading(true);
+  const handleDeleteLink = async () => {
+    const result = await deleteLink(link.id);
 
-    try {
-      await api.delete(`shared/link/${link.id}/`, {
-        headers: { Authorization: `Bearer ${user?.token}` }
-      });
-    } catch (error) {
-      console.log(error);
+    if ('error' in result) {
+      console.log('Error');
+    } else {
+      setShowDeleteLink(false);
     }
-
-    setLoading(false);
-    setShowDeleteLink(false);
   }
 
   const handleWebPlay = () => {
@@ -186,14 +180,14 @@ export default function LinksActionsButton({ link }) {
         <div className='grid grid-cols-2 gap-4 mt-8'>
           <Button
             text={t('global.cancel')}
-            style='third'
+            style={'third'}
             onClick={() => { setShowEditLink(false) }} />
           <Button
             text={t('global.save')}
-            style='primary'
-            disabled={loading}
-            loading={loading}
-            onClick={editLink} />
+            style={'primary'}
+            disabled={isLoadingUpdate}
+            loading={isLoadingUpdate}
+            onClick={handleEditLink} />
         </div>
       </Modal>
       <Modal show={showDeleteLink}>
@@ -203,14 +197,14 @@ export default function LinksActionsButton({ link }) {
         <div className='grid grid-cols-2 gap-4 mt-8'>
           <Button
             text={t('global.cancel')}
-            style='third'
+            style={'third'}
             onClick={() => { setShowDeleteLink(false) }} />
           <Button
             text='Remove'
-            style='error'
-            disabled={loading}
-            loading={loading}
-            onClick={deleteLink} />
+            style={'error'}
+            disabled={isLoadingDelete}
+            loading={isLoadingDelete}
+            onClick={handleDeleteLink} />
         </div>
       </Modal>
     </>

@@ -71,7 +71,10 @@ export default function VersionsActionsButton({ version }) {
   const handleUpdate = async () => {
     console.log(versionName);
 
-    const result = await updateVersion(version.id, versionName);
+    const result = await updateVersion({
+      id: version.id, 
+      name: versionName
+    });
 
     if ('error' in result) {
       console.log('Error');

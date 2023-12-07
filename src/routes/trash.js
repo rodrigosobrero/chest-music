@@ -1,18 +1,23 @@
-import { useLoaderData, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import api from 'utils/api';
+import { useParams } from 'react-router-dom';
+import { useGetTrashQuery, useGetProjectQuery } from 'store/api';
 
 import Breadcrumb from 'components/Breadcrumb';
 import TrashCanTable from 'components/treasure/TrashCanTable';
-import Modal from 'components/Modal';
 
 import { ReactComponent as Empty } from 'assets/images/empty-chest.svg';
-import { useEffect, useState } from 'react';
 
 export default function Trash() {
-  const { user } = useSelector((state) => state.auth);
   const { id } = useParams();
-  const [project, setProject] = useState('');
+
+  const {
+    data,
+    isLoading,
+    isFetching,
+  } = useGetTrashQuery(id);
+
+  const {
+    data: project = [],
+  } = useGetProjectQuery(id);
 
   const breadcrumb = [
     { name: 'My chest', link: '/my-chest' },
@@ -20,22 +25,16 @@ export default function Trash() {
     { name: 'Trash can', link: '' }
   ];
 
-  const getProject = async () => {
-    try {
-      const response = await api.get(`project/${id}/`, {
-        headers: { Authorization: `Bearer ${user?.token}` }
-      });
-      setProject(response.data);
-    } catch (error) {
-      console.log(error);
-    }
+  if (isLoading || isFetching) {
+    return (
+      <>
+        <div className='flex flex-col gap-1 animate-pulse'>
+          <div className='bg-neutral-black rounded-t-3xl rounded-b-lg h-[124px]'></div>
+          <div className='bg-neutral-black rounded-t-lg rounded-b-3xl h-[300px]'></div>
+        </div>
+      </>
+    )
   }
-
-  useEffect(() => {
-    if (user?.token) return
-
-    getProject();
-  }, [user]);
 
   return (
     <>
@@ -44,8 +43,8 @@ export default function Trash() {
           <Breadcrumb items={breadcrumb} />
           <h2 className='text-[64px] md:text-[76px]'>trash can</h2>
         </div>
-        {project.length > 0
-          ? <TrashCanTable data={project} />
+        {data
+          ? <TrashCanTable data={data} />
           : (
             <div className='flex flex-col items-center'>
               <span className='text-[28px] font-semibold mb-2'>Nothing here</span>

@@ -4,7 +4,13 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import config from 'data/config.json';
-import api from 'utils/api';
+import { 
+  useCreateLinkMutation, 
+  useCreateParticipantMutation, 
+  useCreateVersionMutation, 
+  useGetChestQuery, 
+  useGetProjectQuery, 
+  useUpdateProjectMutation } from 'store/api';
 
 import Breadcrumb from 'components/Breadcrumb';
 import VersionsTable from 'components/treasure/VersionsTable';
@@ -23,14 +29,16 @@ import { ReactComponent as Plus } from 'assets/images/icon-plus.svg';
 import { ReactComponent as Pencil } from 'assets/images/icon-pencil.svg';
 import { ReactComponent as Trash } from 'assets/images/icon-trash.svg';
 import { ReactComponent as Empty } from 'assets/images/empty-chest.svg';
-import { useCreateVersionMutation, useGetProjectQuery } from 'store/api';
 
 export default function Treasure() {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
-  const { chest } = useSelector((state) => state.auth.user);
   const { id } = useParams();
   const { t } = useTranslation();
+
+  const {
+    data: chest,
+  } = useGetChestQuery();
 
   const {
     data: project = [],
@@ -39,10 +47,13 @@ export default function Treasure() {
   } = useGetProjectQuery(id);
 
   const [createVersion, { isLoading: isLoadingCreate }] = useCreateVersionMutation();
+  const [createParticipant, { isLoading: isLoadingCreateParticipant }] = useCreateParticipantMutation();
+  const [createLink, { isLoading: isLoadingCreateLink }] = useCreateLinkMutation();
+  const [updateProject, { isLoading: isLoadingUpdateProject }] = useUpdateProjectMutation();
 
   const [breadcrumb, setBreadcrums] = useState([]);
   const [headers, setHeaders] = useState([]);
-  const [permissionsView, setPermissionsView] = useState('');
+  const [permissionsView, setPermissionsView] = useState();
   const [permissionsData, setPermissionsData] = useState('');
   const [showAddParticipant, setShowAddParticipant] = useState(false);
   const [newParticipant, setNewParticipant] = useState('');
@@ -143,67 +154,46 @@ export default function Treasure() {
     }
   }
 
-  const saveParticipant = async () => {
-    setLoading(true);
+  const handleAddParticipant = async () => {
+    const result = await createParticipant({
+      'project': id,
+      'user': newParticipant.id,
+      'role': newParticipant.role
+    });
 
-    try {
-      const participantData = {
-        'project': id,
-        'user': newParticipant.id,
-        'role': newParticipant.role
-      }
-
-      const response = await api.post('project/participant/', participantData, {
-        headers: { Authorization: `Bearer ${user?.token}` }
-      });
-    } catch (error) {
-      console.log(error);
+    if ('error' in result) {
+      console.log('Error');
+    } else {
+      setNewParticipant('');
+      setShowAddParticipant(false);
     }
-
-    setLoading(false);
-    setNewParticipant('');
-    setShowEditParticipant(false);
   }
 
-  const newShareLink = async () => {
-    setLoading(true);
-
-    const data = {
+  const handleAddLink = async () => {
+    const result = await createLink({
       'version': versionId,
       'allow_web_play': true
-    }
+    });
 
-    try {
-      await api.post('shared/link/', data, {
-        headers: { Authorization: `Bearer ${user?.token}` }
-      });
-    } catch (error) {
-      console.log(error);
+    if ('error' in result) {
+      console.log('Error');
+    } else {
+      setVersionId('');
+      setShowShareLink(false);
     }
-
-    setLoading(false);
-    setShowShareLink(false);
-    setVersionId('');
   }
 
-  const saveEditTrack = async () => {
-    setLoading(true);
-
-    const data = {
+  const handleUpdateProject = async () => {
+    const result = await updateProject({
       'album': album,
       'name': trackName
-    }
+    });
 
-    try {
-      await api.patch(`project/${project.id}/`, data, {
-        headers: { Authorization: `Bearer ${user?.token}` }
-      });
-    } catch (error) {
-      console.log(error)
+    if ('error' in result) {
+      console.log('Error');
+    } else {
+      setShowEditTrack(false);
     }
-
-    setLoading(false);
-    setShowEditTrack(false);
   }
 
   const updateFileId = (e) => {
@@ -224,42 +214,22 @@ export default function Treasure() {
     } else {
       setShowAddVersion(false);
     }
-
-    // setLoading(true);
-
-    // const data = {
-    //   project: project.id,
-    //   name: newVersion.name,
-    //   audio: newVersion.file.id
-    // }
-
-    // try {
-    //   await api.post('project/version/', data, {
-    //     headers: { Authorization: `Bearer ${user?.token}` }
-    //   })
-    // } catch (error) {
-    //   console.log(error);
-    // }
-
-    // setLoading(false);
-    // setShowAddVersion(false);
   }
 
   useEffect(() => {
-    if (!project.length) return
-
     setPermissionsView(permissionsOptions[0]);
     setAlbum(project.album);
     setTrackName(project.name);
     setBreadcrums([
       { name: 'My chest', link: '/my-chest' },
-      { name: project.name, link: '' },
+      { name: project?.name, link: '' },
     ]);
   }, [project]);
 
   useEffect(() => {
     switch (permissionsView) {
       case 'participants':
+        console.log('permissions:', project.participants)
         setPermissionsData(project.participants);
         setHeaders([
           'Name',
@@ -293,8 +263,7 @@ export default function Treasure() {
     <>
       <div className='md:container flex flex-col gap-6 md:gap-10 py-8 md:py-[60px] px-3 md:px-0'>
         <div className='toolbar'>
-          {/* <Breadcrumb
-            items={breadcrumb} /> */}
+          <Breadcrumb items={breadcrumb} />
           <div className='grow flex items-center justify-end gap-3'>
             <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { navigate(`/share/${project.id}?=sendDM`) }}>
               <Upload width={28} height={28} />
@@ -391,9 +360,9 @@ export default function Treasure() {
           <Button
             text={t('global.save')}
             style='primary'
-            disabled={loading || !newParticipant}
-            loading={loading}
-            onClick={saveParticipant} />
+            disabled={isLoadingCreateParticipant || !newParticipant}
+            loading={isLoadingCreateParticipant}
+            onClick={handleAddParticipant} />
         </div>
       </Modal>
       <Modal show={showEditParticipant}>
@@ -408,13 +377,13 @@ export default function Treasure() {
           <Button
             text={t('global.save')}
             style='primary'
-            disabled={loading || !newParticipant}
-            loading={loading}
-            onClick={saveParticipant} />
+            disabled={isLoadingCreateParticipant || !newParticipant}
+            loading={isLoadingCreateParticipant}
+            onClick={handleAddParticipant} />
         </div>
       </Modal>
       <Modal show={showShareLink}>
-        <div className='flex flex-col items-center text-center mb-4 max-w-[440px]'>
+        <div className='flex flex-col items-center text-center mb-8 max-w-[440px]'>
           <h4 className='mb-3 !text-5xl'>choose version</h4>
           <p className='text-white text-lg'>
             Choose a version of this track to share
@@ -425,16 +394,18 @@ export default function Treasure() {
             project?.versions && (
               project.versions.map((version, index) =>
                 <>
-                  <input
-                    key={index}
-                    type='radio'
-                    id={version.id}
-                    value={version.id}
-                    name='plan'
-                    onChange={(e) => { setVersionId(e.target.value) }} />
-                  <label htmlFor={version.id}>
-                    <span className='text-lg'>{version.name}</span>
-                  </label>
+                  <div className='relative'>
+                    <input
+                      key={index}
+                      type='radio'
+                      id={version.id}
+                      value={version.id}
+                      name='plan'
+                      onChange={(e) => { setVersionId(e.target.value) }} />
+                    <label htmlFor={version.id}>
+                      <span className='text-lg'>{version.name}</span>
+                    </label>
+                  </div>
                 </>
               ))
           }
@@ -447,9 +418,9 @@ export default function Treasure() {
           <Button
             text='Confirm'
             style='primary'
-            disabled={loading || !versionId}
-            loading={loading}
-            onClick={newShareLink} />
+            disabled={isLoadingCreateLink || !versionId}
+            loading={isLoadingCreateLink}
+            onClick={handleAddLink} />
         </div>
       </Modal>
       <Modal show={showEditTrack}>
@@ -474,9 +445,9 @@ export default function Treasure() {
           <Button
             text={t('global.save')}
             style='primary'
-            disabled={loading}
-            loading={loading}
-            onClick={saveEditTrack} />
+            disabled={isLoadingUpdateProject}
+            loading={isLoadingUpdateProject}
+            onClick={handleUpdateProject} />
         </div>
       </Modal>
       <Modal show={showAddVersion}>

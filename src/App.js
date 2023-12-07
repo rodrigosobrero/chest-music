@@ -1,10 +1,14 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { api } from 'utils/axios';
+import { api as service } from 'utils/axios';
 import { auth } from 'utils/firebase';
 import { saveUser } from 'app/auth';
 import { onAuthStateChanged, getIdToken } from 'firebase/auth';
+import { api } from 'store/api';
+import { store } from 'app/store';
+import { persistStore } from 'redux-persist';
+
 import MyChest from 'routes/my-chest';
 import Root from 'routes/root';
 import SignIn from 'routes/sign-in';
@@ -28,7 +32,6 @@ import Treasure from 'routes/treasure';
 import Trash from 'routes/trash';
 
 function App() {
-  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const router = createBrowserRouter([
     {
@@ -163,7 +166,7 @@ function App() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         getIdToken(user).then(async (token) => {
-          const response = await api.get('account/', {
+          const response = await service.get('account/', {
             headers: { Authorization: `Bearer ${token}` }
           });
           const provider = user?.providerData[0].providerId;
@@ -176,6 +179,8 @@ function App() {
         });
       } else {
         dispatch(saveUser(undefined));
+        api.util.resetApiState();
+        persistStore(store).purge();
       }
     })
   }, []);

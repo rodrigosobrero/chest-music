@@ -687,7 +687,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .version-options {
-  @apply relative transition duration-150;
+  @apply relative transition duration-150 flex flex-col gap-3;
 }
 
 .version-options label {
