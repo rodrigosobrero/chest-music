@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { isDesktop } from 'react-device-detect';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import ProgressBar from 'components/player/ProgressBar';
 import Controls from 'components/player/Controls';
 import VolumeControls from 'components/player/VolumeControls';
 import Track from 'components/player/Track';
-import { AnimatePresence, motion } from 'framer-motion';
-import { isMobile, isDesktop } from 'react-device-detect';
-import ControlsMobile from './ControlsMobile';
+
+// import ControlsMobile from './ControlsMobile';
 
 export default function Player() {
   const { playlist } = useSelector(state => state.playlist);
@@ -22,8 +23,8 @@ export default function Player() {
   const progressBarRef = useRef();
 
   useEffect(() => {
-    console.log(playlist);
     // playlist[0]
+    setTrackList([]);
   }, [playlist])
 
   return (

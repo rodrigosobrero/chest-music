@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { motion, useAnimationControls } from 'framer-motion';
-import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useDeleteParticipantMutation, useUpdateParticipantMutation } from 'store/api';
 import config from 'data/config.json';
-import { api } from 'utils/axios';
 
 import dots from 'assets/images/icon-dots-horizontal.svg';
 import { XCircleIcon } from '@heroicons/react/24/outline';
@@ -15,15 +14,16 @@ import Button from 'components/Button';
 
 export default function ParticipantsActionsButtons({ participant }) {
   const { t } = useTranslation();
-  const { user } = useSelector((state) => state.auth);
   const animation = useAnimationControls();
 
   const [open, setOpen] = useState(false);
   const [description, setDescription] = useState('');
-  const [loading, setLoading] = useState('');
   const [showEditUser, setShowEditUser] = useState(false);
   const [showDeleteUser, setShowDeleteUser] = useState(false);
   const [role, setRole] = useState(participant.role);
+
+  const [updateParticipant, { isLoading: isLoadingUpdate }] = useUpdateParticipantMutation();
+  const [deleteParticipant, { isLoading: isLoadingDelete }] = useDeleteParticipantMutation();
 
   const sequence = async () => {
     if (open) {
@@ -54,44 +54,30 @@ export default function ParticipantsActionsButtons({ participant }) {
     )
   }
 
-  const editUser = async () => {
-    setLoading(true);
+  const handleEditUser = async () => {
+    const result = await updateParticipant({
+      id: participant.relation_id,
+      role: role
+    });
 
-    try {
-      const data = {
-        'role': role
-      }
-
-      await api.patch(`project/participant/${participant.relation_id}/`,
-        { headers: { Authorization: `Bearer ${user?.token}` } },
-        { data }
-      );
-    } catch (error) {
-      console.log(error);
+    if ('error' in result) {
+      console.log('Error')
+    } else {
+      setShowEditUser(false);
     }
-
-    setLoading(false);
-    setShowEditUser(false);
   }
 
-  const deleteUser = async () => {
-    setLoading(true);
+  const handleDeleteUser = async () => {
+    const result = await deleteParticipant({
+      id: participant.relation_id, 
+      role: participant.role
+    });
 
-    try {
-      const data = {
-        'role': participant.role
-      }
-
-      await api.delete(`project/participant/${participant.relation_id}/`, 
-        { headers: { Authorization: `Bearer ${user?.token}` } },
-        { data }
-      );
-    } catch (error) {
-      console.log(error);
+    if ('error' in result) {
+      console.log('Error')
+    } else {
+      setShowDeleteUser();
     }
-
-    setLoading(false);
-    setShowDeleteUser(false);
   }
 
   return (
@@ -147,7 +133,6 @@ export default function ParticipantsActionsButtons({ participant }) {
           </motion.div>
         </motion.div>
       </div>
-      {/* edit user */}
       <Modal show={showEditUser}>
         <div className='flex flex-col items-center text-center mb-8 max-w-[440px]'>
           <h4 className='mb-3 !text-5xl'>edit participant permissions</h4>
@@ -169,12 +154,11 @@ export default function ParticipantsActionsButtons({ participant }) {
           <Button
             text={t('global.save')}
             style='primary'
-            disabled={loading || role === participant.role}
-            loading={loading}
-            onClick={editUser} />
+            disabled={isLoadingUpdate || role === participant.role}
+            loading={isLoadingUpdate}
+            onClick={handleEditUser} />
         </div>
       </Modal>
-      {/* remove user */}
       <Modal show={showDeleteUser}>
         <div className='flex flex-col items-center text-center mb-4 max-w-[440px]'>
           <h4 className='mb-3 !text-5xl'>remove from track</h4>
@@ -190,9 +174,9 @@ export default function ParticipantsActionsButtons({ participant }) {
           <Button
             text='Remove'
             style='error'
-            disabled={loading}
-            loading={loading}
-            onClick={deleteUser} />
+            disabled={isLoadingDelete}
+            loading={isLoadingDelete}
+            onClick={handleDeleteUser} />
         </div>
       </Modal>
     </>

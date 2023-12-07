@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import api from 'utils/api';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useGetRestoreTrashMutation } from 'store/api';
 
 import Modal from 'components/Modal';
 import Button from 'components/Button';
@@ -9,24 +8,18 @@ import Button from 'components/Button';
 import { ArrowUpIcon } from '@heroicons/react/24/outline';
 
 export default function TrashCanActionsButton({ id }) {
-  const { user } = useSelector((state) => state.auth);
   const { t } = useTranslation();
   const [show, setShow] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [restoreTrash, { isLoading }] = useGetRestoreTrashMutation();
 
-  const restoreVersion = async () => {
-    setLoading(true);
+  const handleRestore = async () => {
+    const result = await restoreTrash(id);
 
-    try {
-      await api.get(`project/version/${id}/restore/`, {
-        headers: { Authorization: `Bearer ${user?.token}` }
-      });
-    } catch (error) {
-      console.log(error);
+    if ('error' in result) {
+      console.log('Error');
+    } else {
+      setShow(false);
     }
-
-    setLoading(false);
-    setShow(false);
   }
 
   return (
@@ -52,9 +45,9 @@ export default function TrashCanActionsButton({ id }) {
           <Button
             text='Restore'
             style='primary'
-            disabled={loading}
-            loading={loading}
-            onClick={restoreVersion} />
+            disabled={isLoading}
+            loading={isLoading}
+            onClick={handleRestore} />
         </div>
       </Modal>
     </>

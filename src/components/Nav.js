@@ -9,7 +9,6 @@ import { BellIcon } from '@heroicons/react/24/outline';
 import logo from 'assets/images/logo.svg';
 import menuIcon from 'assets/images/icon-menu.svg';
 import closeIcon from 'assets/images/icon-close.svg';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useSelector } from 'react-redux';
 export default function Nav() {
   /* state */
@@ -18,7 +17,6 @@ export default function Nav() {
   const [isLogged, setIsLogged] = useState(false)
   const user = useSelector((state) => state.auth.user)
   /* replace with session */
-  console.log(user)
   useEffect(() => {
 
       if (user?.token) {
@@ -67,10 +65,8 @@ export default function Nav() {
               </li>}
               {location.pathname !== '/setup' &&
               <li className='flex items-center'>
-                <NavLink to='/notifications'>
-                  <a className='p-1 hover:!text-white text-gray-500'>
-                    <BellIcon className='h-6 w-6' />
-                  </a>
+                <NavLink to='/notifications' className='p-1 hover:!text-white text-gray-500'>
+                  <BellIcon className='h-6 w-6' />
                 </NavLink>
               </li>
               }
