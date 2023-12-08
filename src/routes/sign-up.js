@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { NavLink, redirect, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { auth, provider } from 'utils/firebase';
 import { useForm } from 'react-hook-form';
 import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+
 import Input from 'components/Input';
 import Modal from 'components/Modal';
 import Button from 'components/Button';
+
 import google from 'assets/images/logo-google.png';
 import spinner from 'assets/images/icon-loading-claim.png';
 

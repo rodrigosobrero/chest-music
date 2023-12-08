@@ -155,6 +155,7 @@ export default function Setup() {
                 label={t('setup.step_two.username')}
                 helper={t('setup.step_two.helper')}
                 required
+                noWhiteSpace
                 register={register}
                 error={errors.username && 'This field is required'} />
               {userType === 'artist' &&
