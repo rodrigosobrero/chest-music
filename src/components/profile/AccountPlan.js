@@ -26,6 +26,25 @@ const AccountPlan = ({ data }) => {
       setSelected()
       setInput('')
   }
+  const upgrade = () => {
+    let url = 'https://api.sheety.co/a329cce276a4ae0e684665a2b23b0a3d/contactsFreeTrial/contacts';
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'  // Asegúrate de que este encabezado está presente
+      },
+      body: JSON.stringify( {contact:{
+        name: input,
+        country: selected.code,
+      }})
+    })
+    .then((response) => response.json()
+    .then(json => {
+      console.log(json);
+      closeModal();
+    }));
+  }
   useEffect(() => {
    if(input !== '' && selected && selected.hasOwnProperty('country')) setIsAvailable(true)
    else setIsAvailable(false)
@@ -33,7 +52,7 @@ const AccountPlan = ({ data }) => {
   return (
     <>
       <Modal show={show} setShow={setShow} >
-        <UpgradeStorage  toggle={closeModal} countries={countries} toggleList={toggleList} selected={selected}
+        <UpgradeStorage  toggle={closeModal} countries={countries} toggleList={toggleList} selected={selected}  onClick={upgrade}
         isOpen={isOpen} handleChange={handleChange} handleSelectOption={handleSelectOption} disabled={!isAvailable}/>
       </Modal>
       <div className='container-accountPlan'>
