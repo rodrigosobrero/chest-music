@@ -27,9 +27,7 @@ const AccountPlan = ({ data }) => {
       setInput('')
   }
   const upgrade = () => {
-
-    let url = proccess.env.REACT_APP_SHEETY_API;
-
+    let url = process.env.REACT_APP_SHEETY_API;
     fetch(url, {
       method: 'POST',
       headers: {
@@ -42,7 +40,6 @@ const AccountPlan = ({ data }) => {
     })
     .then((response) => response.json()
     .then(json => {
-      console.log(json);
       closeModal();
     }));
   }
