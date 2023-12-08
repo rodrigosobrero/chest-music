@@ -27,12 +27,13 @@ const AccountPlan = ({ data }) => {
       setInput('')
   }
   const upgrade = () => {
-    let url = 'https://api.sheety.co/a329cce276a4ae0e684665a2b23b0a3d/contactsFreeTrial/contacts';
+
+    let url = proccess.env.REACT_APP_SHEETY_API;
 
     fetch(url, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'  // Asegúrate de que este encabezado está presente
+        'Content-Type': 'application/json' 
       },
       body: JSON.stringify( {contact:{
         name: input,
