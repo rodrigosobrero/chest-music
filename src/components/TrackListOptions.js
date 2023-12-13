@@ -8,11 +8,21 @@ import { ReactComponent as plus} from 'assets/images/icon-plus.svg';
 import { ReactComponent as pencil} from 'assets/images/icon-pencil.svg';
 import { ReactComponent as trash} from 'assets/images/icon-trash.svg';
 import TrackListButton from 'components/TrackListButton';
+import { useModal } from 'hooks/useModal';
+import { useGetProjectQuery } from 'store/api';
 
-export default function TrackListOptions({ id }) {
-  /* states */
+export default function TrackListOptions({ track }) {
+  const { onOpen: openEditModal } = useModal('EditTrackModal');
+  const { onOpen: openUploadModal } = useModal('UploadVersionModal');
+  const { onOpen: openDeleteModal } = useModal('DeleteTrackModal');
+  const { onOpen: openDownloadModal } = useModal('DownloadVersionModal');
+
   const [open, setOpen] = useState(false);
   const [description, setDescription] = useState('');
+
+  const {
+    data: project = []
+  } = useGetProjectQuery(track.id);
   
   const navigate = useNavigate();
   const animation = useAnimationControls();
@@ -31,6 +41,43 @@ export default function TrackListOptions({ id }) {
   const toggleOpen = (e) => {
     setOpen(prev => !prev);
     sequence();
+  }
+
+  const handleEditTrack = () => {
+    const meta = {
+      id: track.id,
+      album: track.album,
+      name: track.name
+    }
+
+    openEditModal(meta)
+  }
+
+  const handleCreateVersion = () => {
+    const meta = {
+      name: track.name,
+      participants: track.authors
+    }
+
+    openUploadModal(meta);
+  }
+
+  const handleDeleteTrack = () => {
+    const meta = { 
+      id: track.id,
+      name: track.name
+    }
+
+    openDeleteModal(meta);
+  }
+
+  const handleDownloadVersion = () => {
+    const meta = {
+      versions: project.versions,
+      lastVersion: track.last_version_id
+    }
+
+    openDownloadModal(meta);
   }
 
   return (
@@ -68,23 +115,27 @@ export default function TrackListOptions({ id }) {
                         icon={eye} 
                         onMouseEnter={() => { setDescription('View details') }} 
                         onMouseLeave={() => { setDescription('') }}
-                        onClick={ () => { navigate(`treasure/${id}`) }} />
+                        onClick={ () => { navigate(`treasure/${track.id}`) }} />
                       <TrackListButton 
                         icon={download} 
                         onMouseEnter={() => { setDescription('Download') }} 
-                        onMouseLeave={() => { setDescription('') }} />
+                        onMouseLeave={() => { setDescription('') }}
+                        onClick={handleDownloadVersion} />
                       <TrackListButton 
                         icon={plus} 
                         onMouseEnter={() => { setDescription('Add') }} 
-                        onMouseLeave={() => { setDescription('') }} />
+                        onMouseLeave={() => { setDescription('') }}
+                        onClick={handleCreateVersion} />
                       <TrackListButton 
                         icon={pencil} 
                         onMouseEnter={() => { setDescription('Edit') }} 
-                        onMouseLeave={() => { setDescription('') }} />
+                        onMouseLeave={() => { setDescription('') }}
+                        onClick={handleEditTrack} />
                       <TrackListButton 
                         icon={trash} 
                         onMouseEnter={() => { setDescription('Delete') }} 
-                        onMouseLeave={() => { setDescription('') }} />
+                        onMouseLeave={() => { setDescription('') }}
+                        onClick={handleDeleteTrack} />
                     </div>
                   </motion.div>
                 }

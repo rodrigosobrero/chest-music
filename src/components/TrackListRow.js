@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { format } from 'utils/helpers';
 import TrackListOptions from 'components/TrackListOptions';
 import upload from 'assets/images/icon-upload.svg';
-import { formatTime, bytesToSize } from 'utils/helpers';
 import { isDesktop } from 'react-device-detect';
 import { useNavigate } from 'react-router-dom';
 
@@ -41,8 +40,8 @@ export default function TrackListRow({ track, onClick }) {
             <td>
               {format.date(track.date_added)}
             </td>
-            <td>{formatTime(track.duration)}</td>
-            <td>{bytesToSize(track.size)}</td>
+            <td>{format.time(track.duration)}</td>
+            <td>{format.bytes(track.size)}</td>
           </>
         )}
         <td>
@@ -55,7 +54,7 @@ export default function TrackListRow({ track, onClick }) {
                 <img src={upload} alt='' width={24} height={24} />
               </button>
             )}
-            <TrackListOptions id={track.id} />
+            <TrackListOptions track={track} />
           </div>
         </td>
       </tr>

@@ -1,12 +1,14 @@
 import { Outlet, useLocation } from 'react-router-dom';
+import { classNames } from 'utils/helpers';
+
 import Nav from 'components/Nav';
 import Footer from 'components/Footer';
 import Player from 'components/player/Player';
+
 export default function Root() {
-  /* replace with session */
   const location = useLocation();
-  const connected = location.pathname === '/sign-up' || location.pathname === '/sign-in' 
-                    || location.pathname.includes('/notifications') || location.pathname === '/shared'  || location.pathname === '/setup'  ? true : false;
+  const allowedPaths = ['/sign-up', '/sign-in', '/notifications', '/shared', '/setup'];
+  const connected = allowedPaths.includes(location.pathname);
 
   return (
     <>
@@ -14,12 +16,14 @@ export default function Root() {
         <header>
           <Nav />
         </header>
-        <main className={`
-          ${connected ? 'p-[0]' : ''}
-          ${location.pathname === '/setup' ? 'bg-black md:bg-neutral-silver-700 account-selector' : ''}`}>
+        <main className={
+          classNames({
+            'p-0': connected,
+            'bg-black md:bg-neutral-silver-700 account-selector': location.pathname === '/setup'
+          })}>
           <Outlet />
         </main>
-         <Footer />
+        <Footer />
         <Player />
       </div>
     </>

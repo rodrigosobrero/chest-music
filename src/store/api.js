@@ -15,8 +15,6 @@ const baseQuery = fetchBaseQuery({
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
 
-  console.log('result', result);
-
   if (result.error && result.error.status === 403) {
     api.dispatch(api.util.resetApiState());
     api.dispatch(saveUser(undefined));
@@ -39,12 +37,19 @@ export const api = createApi({
       providesTags: ['Project']
     }),
     updateProject: builder.mutation({
-      query: (id, body) => ({
+      query: ({ id, data }) => ({
         url: `project/${id}/`,
         method: 'PATCH',
-        body
+        body: data
       }),
-      invalidatesTags: ['Project']
+      invalidatesTags: ['Project', 'Chest']
+    }),
+    deleteProject: builder.mutation({
+      query: (id) => ({
+        url: `project/${id}/`,
+        method: 'DELETE'
+      }),
+      invalidatesTags: ['Chest']
     }),
     createVersion: builder.mutation({
       query: (body) => ({
@@ -127,6 +132,10 @@ export const api = createApi({
       }),
       invalidatesTags: ['Project']
     }),
+    getAudioUrl: builder.query({
+      query: (id) => `project/version/${id}/url/`,
+      providesTags: ['Audio']
+    })
   })
 });
 
@@ -134,6 +143,7 @@ export const {
   useGetChestQuery,
   useGetProjectQuery,
   useUpdateProjectMutation,
+  useDeleteProjectMutation,
   useCreateVersionMutation,
   useUpdateVersionMutation,
   useDeleteVersionMutation,
@@ -145,4 +155,5 @@ export const {
   useCreateLinkMutation,
   useUpdateLinkMutation,
   useDeleteLinkMutation,
+  useGetAudioUrlQuery,
 } = api;
