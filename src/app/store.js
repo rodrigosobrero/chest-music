@@ -7,15 +7,18 @@ import storage from 'redux-persist/lib/storage';
 import playlistReducer from 'app/playlist';
 import authReducer from 'app/auth';
 import fileReducer from 'app/upload';
+import { modalReducer } from './modals';
 
 const reducers = combineReducers({
   playlist: playlistReducer,
   auth: authReducer,
   upload: fileReducer,
+  modal: modalReducer,
   [api.reducerPath]: api.reducer
 })
 
 const persistConfig = {
+  blacklist: ['modal'],
   key: 'root',
   storage
 }

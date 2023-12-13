@@ -7,6 +7,7 @@ import { persistStore } from 'redux-persist';
 import App from 'App';
 import './i18n';
 import './index.css';
+import ModalProvider from 'components/ModalProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const persistor = persistStore(store);
@@ -14,7 +15,9 @@ const persistor = persistStore(store);
 root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <App />
+      <ModalProvider>
+        <App />
+      </ModalProvider>
     </PersistGate>
   </Provider>
 );

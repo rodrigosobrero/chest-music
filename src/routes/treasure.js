@@ -3,14 +3,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useModal } from 'hooks/useModal';
 import config from 'data/config.json';
 import { 
   useCreateLinkMutation, 
   useCreateParticipantMutation, 
-  useCreateVersionMutation, 
-  useGetChestQuery, 
-  useGetProjectQuery, 
-  useUpdateProjectMutation } from 'store/api';
+  useGetProjectQuery } from 'store/api';
 
 import Breadcrumb from 'components/Breadcrumb';
 import VersionsTable from 'components/treasure/VersionsTable';
@@ -20,9 +18,6 @@ import Modal from 'components/Modal';
 import Button from 'components/Button';
 import UserSelector from 'components/treasure/UserSelector';
 import LinksTable from 'components/treasure/LinksTable';
-import AutoCompleteAlbum from 'components/AutoCompleteAlbum';
-import Input from 'components/Input';
-import Uploader from 'components/Uploader';
 
 import { ReactComponent as Upload } from 'assets/images/icon-upload.svg';
 import { ReactComponent as Plus } from 'assets/images/icon-plus.svg';
@@ -37,19 +32,16 @@ export default function Treasure() {
   const { t } = useTranslation();
 
   const {
-    data: chest,
-  } = useGetChestQuery();
-
-  const {
     data: project = [],
     isLoading,
     isFetching
   } = useGetProjectQuery(id);
 
-  const [createVersion, { isLoading: isLoadingCreate }] = useCreateVersionMutation();
   const [createParticipant, { isLoading: isLoadingCreateParticipant }] = useCreateParticipantMutation();
   const [createLink, { isLoading: isLoadingCreateLink }] = useCreateLinkMutation();
-  const [updateProject, { isLoading: isLoadingUpdateProject }] = useUpdateProjectMutation();
+
+  const { onOpen: openEditModal } = useModal('EditTrackModal');
+  const { onOpen: openUploadModal } = useModal('UploadVersionModal');
 
   const [breadcrumb, setBreadcrums] = useState([]);
   const [headers, setHeaders] = useState([]);
@@ -59,17 +51,9 @@ export default function Treasure() {
   const [newParticipant, setNewParticipant] = useState('');
   const [showEditParticipant, setShowEditParticipant] = useState('');
   const [showShareLink, setShowShareLink] = useState(false);
-  const [showEditTrack, setShowEditTrack] = useState('');
   const [loading, setLoading] = useState(false);
   const [versionId, setVersionId] = useState('');
-  const [album, setAlbum] = useState('');
-  const [trackName, setTrackName] = useState('');
   const [showEditLink, setShowEditLink] = useState(false);
-  const [showAddVersion, setShowAddVersion] = useState(false);
-  const [newVersion, setNewVersion] = useState({
-    file: '',
-    name: ''
-  });
 
   const permissionsOptions = [
     'participants',
@@ -183,43 +167,27 @@ export default function Treasure() {
     }
   }
 
-  const handleUpdateProject = async () => {
-    const result = await updateProject({
-      'album': album,
-      'name': trackName
-    });
-
-    if ('error' in result) {
-      console.log('Error');
-    } else {
-      setShowEditTrack(false);
+  const handleUpdateProject = () => {
+    const meta = { 
+      id: project.id, 
+      name: project.name,
+      album: project.album
     }
+
+    openEditModal(meta);
   }
 
-  const updateFileId = (e) => {
-    setNewVersion({ ...newVersion, file: e });
-  }
-
-  const handleCreateVersion = async () => {
-    const data = {
-      project: project.id,
-      name: newVersion.name,
-      audio: newVersion.file.id
+  const handleCreateVersion = () => {
+    const meta = {
+      name: project.name,
+      participants: project.participants
     }
 
-    const result = await createVersion(data);
-
-    if ('error' in result) {
-      console.log('Error');
-    } else {
-      setShowAddVersion(false);
-    }
+    openUploadModal(meta);
   }
 
   useEffect(() => {
     setPermissionsView(permissionsOptions[0]);
-    setAlbum(project.album);
-    setTrackName(project.name);
     setBreadcrums([
       { name: 'My chest', link: '/my-chest' },
       { name: project?.name, link: '' },
@@ -268,10 +236,10 @@ export default function Treasure() {
             <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { navigate(`/share/${project.id}?=sendDM`) }}>
               <Upload width={28} height={28} />
             </button>
-            <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { setShowAddVersion(true) }}>
+            <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={handleCreateVersion}>
               <Plus width={28} height={28} />
             </button>
-            <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { setShowEditTrack(true) }}>
+            <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={handleUpdateProject}>
               <Pencil width={28} height={28} />
             </button>
             <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { navigate(`/my-chest/treasure/${project.id}/trash/`) }}>
@@ -423,75 +391,12 @@ export default function Treasure() {
             onClick={handleAddLink} />
         </div>
       </Modal>
-      <Modal show={showEditTrack}>
-        <div className='flex flex-col items-center text-center mb-4 max-w-[440px]'>
-          <h4 className='mb-3 !text-5xl'>edit track</h4>
-        </div>
-        <form className='flex flex-col gap-4'>
-          <Input type='text' label='Track name' value={trackName} onChange={(e) => { setTrackName(e.target.value) }} required />
-          <AutoCompleteAlbum
-            searchValue={album}
-            setSearchValue={setAlbum}
-            options={chest?.albums ? chest.albums : []}
-            label={t('upload.album')}
-            placeholder={t('global.write_here')}
-            helper={t('upload.leave_empty')} />
-        </form>
-        <div className='grid grid-cols-2 gap-4 mt-8'>
-          <Button
-            text={t('global.cancel')}
-            style='third'
-            onClick={() => { setShowEditTrack(false) }} />
-          <Button
-            text={t('global.save')}
-            style='primary'
-            disabled={isLoadingUpdateProject}
-            loading={isLoadingUpdateProject}
-            onClick={handleUpdateProject} />
-        </div>
-      </Modal>
-      <Modal show={showAddVersion}>
-        <div className='flex flex-col items-center text-center mb-8'>
-          <h4 className='mb-3 !text-5xl'>add new version</h4>
-          <p className='text-white'>
-            {project.name}
-          </p>
-          <p className='!text-sm text-neutral-silver-200'>
-            {project.participants?.map((participant, index) => (index ? ', ' : '') + participant.full_name)}
-          </p>
-        </div>
-        <div className='flex flex-col gap-8'>
-          <Uploader
-            title={false}
-            self={true}
-            id={updateFileId} />
-          <Input
-            type='text'
-            label='Version name'
-            value={newVersion.name}
-            onChange={(e) => { setNewVersion({ ...newVersion, name: e.target.value }) }}
-            placeholder=''
-            helper='Must be different from previous.' />
-        </div>
-        <div className='grid grid-cols-2 gap-4 mt-8'>
-          <Button
-            text={t('global.cancel')}
-            style='third'
-            onClick={() => { setShowAddVersion(false) }} />
-          <Button
-            text='Confirm'
-            style='primary'
-            disabled={isLoadingCreate || (!newVersion.name || !newVersion.file)}
-            loading={isLoadingCreate}
-            onClick={handleCreateVersion} />
-        </div>
-      </Modal>
       <Modal show={showEditLink}>
         <div className='grid grid-cols-2 gap-4 mt-8'>
           <Button
             text={t('global.cancel')}
             style='third'
-            onClick={() => { setShowAddVersion(false) }} />
+            onClick={() => {  }} />
           <Button
             text={t('global.save')}
             style='primary'
