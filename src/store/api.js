@@ -136,11 +136,13 @@ export const api = createApi({
       query: (type = 'invites') => `notification/?type=${type}`,
       providesTags: ['Notifications']
     }),
-    updateNotification: builder.mutation({
-      query: (id) => ({
+    updateNotifications: builder.mutation({
+      query: ({ id, response }) => ({
         url: `notification/invite/${id}/reply/`,
-        invalidatesTags: ['Chest', 'Notifications']
-      })
+        method: 'PATCH',
+        body: { response }
+      }),
+      invalidatesTags: ['Chest', 'Notifications']
     })
   })
 });
@@ -161,4 +163,6 @@ export const {
   useCreateLinkMutation,
   useUpdateLinkMutation,
   useDeleteLinkMutation,
+  useGetNotificationsQuery,
+  useUpdateNotificationsMutation,
 } = api;
