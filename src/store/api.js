@@ -132,9 +132,17 @@ export const api = createApi({
       }),
       invalidatesTags: ['Project']
     }),
-    getAudioUrl: builder.query({
-      query: (id) => `project/version/${id}/url/`,
-      providesTags: ['Audio']
+    getNotifications: builder.query({
+      query: (type = 'invites') => `notification/?type=${type}`,
+      providesTags: ['Notifications']
+    }),
+    updateNotifications: builder.mutation({
+      query: ({ id, response }) => ({
+        url: `notification/invite/${id}/reply/`,
+        method: 'PATCH',
+        body: { response }
+      }),
+      invalidatesTags: ['Chest', 'Notifications']
     })
   })
 });
@@ -155,5 +163,6 @@ export const {
   useCreateLinkMutation,
   useUpdateLinkMutation,
   useDeleteLinkMutation,
-  useGetAudioUrlQuery,
+  useGetNotificationsQuery,
+  useUpdateNotificationsMutation,
 } = api;
