@@ -35,7 +35,7 @@ nav ul {
 }
 
 nav li {
-  @apply transition-colors duration-300 text-neutral-silver-300 text-lg hover:text-white;
+  @apply transition-colors duration-300 text-neutral-silver-300 text-lg hover:text-brand-gold;
 }
 
 nav a.active {
