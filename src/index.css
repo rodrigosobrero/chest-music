@@ -26,10 +26,6 @@ body {
   @apply bg-neutral-silver-700 h-screen text-white font-archivo;
 }
 
-main {
-  @apply mt-20;
-}
-
 .main {
   @apply bg-neutral-black font-archivo flex justify-center h-14 md:h-20 pl-6 pr-4 md:px-0;
 }
@@ -47,7 +43,7 @@ nav a.active {
 }
 
 main {
-  @apply flex justify-center grow;
+  @apply grow mt-14 xl:mt-20;
 }
 
 footer {

@@ -57,7 +57,7 @@ const Account = () => {
                          label={t('global.email')} type={'email'} toggle={toggle} onChange={handleChange} disabled={isAvailable}
                         />
         </Modal>
-        <div className='px-3 pt-4 pb-10 md:container md:px-[120px] md:pb-[60px] md:pt-[40px]'>
+        <div className='px-3 pt-4 pb-10 container md:px-[120px] md:pb-[60px] md:pt-[40px]'>
             <Breadcrumb className='px-3 md:px-0' items={paths}/>
             <div className='container-head-account'>
                 <div className='container-items-account'>
