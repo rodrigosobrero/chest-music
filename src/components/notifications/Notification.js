@@ -18,7 +18,7 @@ const Notification = () => {
   const [updateNotifications] = useUpdateNotificationsMutation();
   const { data: notifications = {}, 
           isLoading } = useGetNotificationsQuery(status, { refetchOnMountOrArgChange: !isChanged })
-  const { refetch } = useGetChestQuery(); 
+  // const { refetch } = useGetChestQuery(); 
 
    // console.log(invites)
   //  useEffect(() => {
@@ -77,13 +77,14 @@ const Notification = () => {
        })
        .finally(() => callback())
   }
-  const replyNotification = (invite_id, type) => {
+  const replyNotification = async (invite_id, type) => {
     if(type !== 'denied' && type !== 'accepted') return;
-    axios.patch(apiUrl + `notification/invite/${invite_id}/reply/`, 
-                { response: type},
-                { headers: { Authorization: `Bearer ${user?.token}`}})
-                .then(() =>  refetch())
-                .catch(() => { return false })
+    await updateNotifications({ id: invite_id, response: type })
+    // axios.patch(apiUrl + `notification/invite/${invite_id}/reply/`, 
+    //             { response: type},
+    //             { headers: { Authorization: `Bearer ${user?.token}`}})
+    //             .then(() =>  refetch())
+    //             .catch(() => { return false })
   }
 
   return (
