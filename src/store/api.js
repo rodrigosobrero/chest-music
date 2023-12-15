@@ -5,9 +5,7 @@ const baseQuery = fetchBaseQuery({
   baseUrl: process.env.REACT_APP_API,
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.user.token;
-
     if (token) headers.set('Authorization', `Bearer ${token}`);
-
     return headers;
   }
 });
@@ -29,7 +27,7 @@ export const api = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: builder => ({
     getChest: builder.query({
-      query: () => 'mychest/',
+      query: () => 'mychest',
       providesTags: ['Chest']
     }),
     getProject: builder.query({
@@ -134,6 +132,7 @@ export const api = createApi({
     }),
     getNotifications: builder.query({
       query: (type = 'invites') => `notification/?type=${type}`,
+      refetchOnMountOrArgChange: true,
       providesTags: ['Notifications']
     }),
     updateNotifications: builder.mutation({

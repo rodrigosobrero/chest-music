@@ -8,7 +8,7 @@ const GeneralList = ({data}) => {
   return (
     <>
     <div className='flex flex-col md:gap-y-4 gap-y-3 '>
-          {data.length > 0 ? data.map((el) => (
+          {data?.length > 0 ? data.map((el) => (
               <GeneralRow notification={el}/> 
           )) : 
           <div className='flex flex-col items-center gap-2'>
