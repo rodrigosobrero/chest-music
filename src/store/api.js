@@ -132,7 +132,6 @@ export const api = createApi({
     }),
     getNotifications: builder.query({
       query: (type = 'invites') => `notification/?type=${type}`,
-      refetchOnMountOrArgChange: true,
       providesTags: ['Notifications']
     }),
     updateNotifications: builder.mutation({
@@ -141,7 +140,7 @@ export const api = createApi({
         method: 'PATCH',
         body: { response }
       }),
-      invalidatesTags: ['Chest', 'Notifications']
+      invalidatesTags: ['Chest']
     })
   })
 });
