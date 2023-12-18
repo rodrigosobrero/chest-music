@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import SearchBar from "components/SearchBar"
 import SharedTable from "components/shared/SharedTable"
 import { useTranslation } from "react-i18next"
@@ -12,20 +12,24 @@ export default function Shared() {
   const { t } = useTranslation()
   const user = useSelector((state) => state.auth.user )
   const { data, isFetching, error } = useFetch(apiUrl + 'shared/', user?.token)
+  const [filtered, setFiltered] = useState(data)
   const [ input, setInput ] = useState('')
-  const handleChange = (e) => setInput(e.target.value.toLowerCase())
-  const filteredTracks = data.filter(track => {
-    if (input === '') {
-      return track;
-    } else {
-      return Object.values(track)
-        .join(' ')
-        .toLowerCase()
-        .includes(input)
-      }
-    });
   
-  
+  const handleChange = (e) => {
+    setInput(e.target.value.toLowerCase())
+    setFiltered(data.filter(track => {
+      if (input === '') {
+        return track;
+      } else {
+        return Object.values(track)
+          .join(' ')
+          .toLowerCase()
+          .includes(input)
+        }
+      }));
+  }
+
+
   const dispatch = useDispatch()
   return (
     <>     
@@ -43,7 +47,7 @@ export default function Shared() {
           </div>
           <div className={`${isFetching && 'items-center'} flex flex-col gap-y-1 text-center`}>
           {isFetching ? <Loading />  : data.length > 0 ? 
-            filteredTracks?.map((el) => (
+            filtered?.map((el) => (
               <SharedTable artist={el.artist} data={el.tracks} dispatch={dispatch}/>
             )) 
             : 

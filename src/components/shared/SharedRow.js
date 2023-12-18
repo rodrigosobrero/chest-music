@@ -11,7 +11,7 @@ const SharedRow = ({ track, isMobile, onClick }) => {
     <>
     <tr
       onClick={onClick}
-      className='hover:rounded-xl hover:bg-neutral-silver-700 text-left'
+      className='hover:!rounded-xl hover:bg-neutral-silver-700 text-left '
       onMouseEnter={() => { setShow(true) }}
       onMouseLeave={() => { setShow(false) }}
      >
@@ -45,11 +45,12 @@ const SharedRow = ({ track, isMobile, onClick }) => {
                 {timeDifference(track.date_shared ?  track.date_shared : track.date_played)}
               </span>
             </td>
-            <td className='w-[100px] md:mr-3'>{formatTime(track.length)}</td>
-            <td className='w-[64px] md:mr-3'>{track.plays}</td>
+            <td className='w-[120px] md:!mr-3'>{formatTime(track.length)}</td>
+            <td className='w-[80px] md:!mr-3'>{track.plays}</td>
           </>}
       <td>
-        <SharedToast />
+        
+        {/* <SharedToast /> */}
       </td>
     </tr>
   </>
