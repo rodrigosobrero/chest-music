@@ -47,7 +47,7 @@ export default function Shared() {
           </div>
           <div className={`${isFetching && 'items-center'} flex flex-col gap-y-1 text-center`}>
           {isFetching ? <Loading />  : data.length > 0 ? 
-            filtered?.map((el) => (
+            data?.map((el) => (
               <SharedTable artist={el.artist} data={el.tracks} dispatch={dispatch}/>
             )) 
             : 
