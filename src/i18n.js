@@ -184,7 +184,7 @@ i18next
             storage: 'Storage',
             current_plan: 'Current plan',
             artist_name: 'Artist name',
-            artist_username: 'Artist username',
+            artist_username: 'Username',
             upgrade: 'Upgrade storage',
             delete_validation_text: 'delete my chest',
             modals:{

@@ -54,12 +54,12 @@ const AccountPlan = ({ data }) => {
         isOpen={isOpen} handleChange={handleChange} handleSelectOption={handleSelectOption} disabled={!isAvailable}/>
       </Modal>
       <div className='container-accountPlan'>
-         <h4 className='text-[22px] !font-archivo !font-semibold !normal-case'>{t('account.my_plan')}</h4>
-         <div className='flex gap-y-8 md:gap-x-14 flex-col md:flex-row'>
+         <h4 className='text-[22px] !font-archivo !font-semibold !normal-case xl:'>{t('account.my_plan')}</h4>
+         <div className='flex gap-y-8 md:gap-x-14 flex-wrap xl:flex-nowrap flex-col md:flex-row'>
             <div className='space-y-4'>
                <h5 className='text-neutral-silver-200 !text-base !font-archivo'>{t('account.storage')}</h5>
                <div className='flex gap-x-4'>
-                    <span className='text-brand-uva !font-archivo !text-4xl'>{Math.round((data?.used_storage / data?.total_space) * 100)}%</span>
+                    <span className='text-brand-uva !font-thunder !font-normal !text-4xl'>{Math.round((data?.used_storage / data?.total_space) * 100)}%</span>
                     <div className='flex flex-col items-start '>
                         <span className='!text-left !font-archivo text-neutral-silver-100'>{formatBytes(data?.used_storage)} 
                             <span className='!text-neutral-silver-300 !font-archivo'> of </span> {formatBytes(data?.total_space)}
@@ -73,7 +73,7 @@ const AccountPlan = ({ data }) => {
                     </div>
                </div>
                <button className='py-1.5' onClick={toggle}>
-                  <h5 className='text-brand-gold !font-archivo !text-lg'>
+                  <h5 className='text-brand-gold !font-archivo !text-lg !font-semibold'>
                     {t('account.upgrade')}
                   </h5>
                </button>

@@ -1,5 +1,6 @@
 import React from 'react'
 import Input from '../Input'
+import Button from 'components/Button'
 const ChangeDataModal = ({ title , subtitle, inputsData ,toggle, primaryButton, secondaryButton, handleChange, isAvailable, value, onClick }) => {
   return (
     <div className='w-full md:w-[520px] text-center flex flex-col gap-y-8'>
@@ -15,13 +16,8 @@ const ChangeDataModal = ({ title , subtitle, inputsData ,toggle, primaryButton, 
           })}
         </div>
         <div className='font-archivo font-semibold flex gap-4'>
-          <button onClick={toggle} className='w-full bg-neutral-silver-600 text-white py-3 px-6 rounded-lg'>
-            {secondaryButton}
-          </button>
-          <button onClick={onClick} className='w-full disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300
-           bg-brand-gold text-black py-3 px-6 rounded-lg' disabled={!isAvailable}>
-              {primaryButton}
-          </button>
+          <Button onClick={toggle} style='third' text={secondaryButton}/>
+          <Button onClick={onClick} style='primary' text={primaryButton} disabled={!isAvailable}/>
        </div>
     </div>
   )

@@ -45,8 +45,8 @@ const AccountData = ({ data, token }) => {
         <h4 className='text-[22px] !font-archivo !font-semibold !normal-case	'>{t('account.personal_data')}</h4>
         <div className='item'>
             <h5 className='text-neutral-silver-200  !text-base !font-archivo'>{t('account.artist_name')}</h5>
-            <div className='flex gap-x-3 items-center'>
-               <h5 className='text-lg !font-archivo'>{data?.full_name} </h5> <Pencil className='cursor-pointer h-4 w-4' onClick={toggle}/>
+            <div className='flex gap-x-3 items-center' onClick={toggle}>
+               <h5 className='text-lg !font-archivo'>{data?.full_name} </h5> <Pencil className='cursor-pointer h-5 w-5' />
             </div> 
         </div>
         <div>
