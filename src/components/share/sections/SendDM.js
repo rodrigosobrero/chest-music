@@ -112,7 +112,7 @@ const SendDM = ({ token , versionId, onCancel }) => {
                 <Input label={'Message'} placeholder={t('share.message_example')} onChange={handleMessageChange} value={message}/>
             </div>
         </div>
-        <ButtonsContainer   primaryButton={'Generate'} 
+        <ButtonsContainer   primaryButton={'Send'} 
                             onClick={sendToUsers} 
                             disabled={!(input === '' || !isToggled) || selecteds.length < 1 || message === ''} 
                             onCancel={onCancel}/>
