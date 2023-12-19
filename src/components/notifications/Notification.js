@@ -17,7 +17,8 @@ const Notification = () => {
   const [isChanged, setIsChanged] = useState(false)
   const [updateNotifications] = useUpdateNotificationsMutation();
   const { data: notifications = {}, 
-          isLoading } = useGetNotificationsQuery(status, { refetchOnMountOrArgChange: !isChanged })
+          isLoading, isFetching } = useGetNotificationsQuery(status, { refetchOnMountOrArgChange: !isChanged })
+
   // const { refetch } = useGetChestQuery(); 
 
    // console.log(invites)
@@ -105,8 +106,8 @@ const Notification = () => {
            </div>
         </div>
         <div className={`w-full md:w-[720px] bg-neutral-silver-700  flex 
-                        overflow-y-auto flex-col md:px-8 md:py-10 px-3 py-4 rounded-2xl ${isLoading && 'items-center'}`}>
-            {isLoading ? <Loading /> : status === 'general' 
+                        overflow-y-auto flex-col md:px-8 md:py-10 px-3 py-4 rounded-2xl ${(isLoading || isFetching) && 'items-center'}`}>
+            {(isLoading || isFetching) ? <Loading /> : status === 'general' 
                        ?  <GeneralList data={notifications?.general?.notifications} /> : 
                           <NotificationList invites={notifications?.invites?.notifications} blockUser={blockUser} replyNotification={replyNotification}/>}
         </div>

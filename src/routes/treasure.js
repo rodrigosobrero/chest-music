@@ -54,12 +54,7 @@ export default function Treasure() {
   const [loading, setLoading] = useState(false);
   const [versionId, setVersionId] = useState('');
   const [showEditLink, setShowEditLink] = useState(false);
-
-  const permissionsOptions = [
-    'participants',
-    'links',
-    'users'
-  ];
+  const [permissionsOptions] = useState([ 'participants', 'links', 'users'])
 
   const TabButton = ({ title }) => {
     return (
@@ -187,17 +182,18 @@ export default function Treasure() {
   }
 
   useEffect(() => {
+    if(!permissionsOptions || !project) return;
     setPermissionsView(permissionsOptions[0]);
     setBreadcrums([
       { name: 'My chest', link: '/my-chest' },
       { name: project?.name, link: '' },
     ]);
-  }, [project]);
+  }, [project, permissionsOptions]);
 
   useEffect(() => {
+    if (!project) return;
     switch (permissionsView) {
       case 'participants':
-        console.log('permissions:', project.participants)
         setPermissionsData(project.participants);
         setHeaders([
           'Name',
@@ -221,7 +217,7 @@ export default function Treasure() {
         setPermissionsData(project.shared_versions.users);
         break;
     }
-  }, [permissionsView]);
+  }, [permissionsView, project]);
 
   if (isLoading || isFetching) {
     return 'Loading...'
@@ -233,7 +229,7 @@ export default function Treasure() {
         <div className='toolbar'>
           <Breadcrumb items={breadcrumb} />
           <div className='grow flex items-center justify-end gap-3'>
-            <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { navigate(`/share/${project.id}?=sendDM`) }}>
+            <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { navigate(`/share/${project?.id}?=sendDM`) }}>
               <Upload width={28} height={28} />
             </button>
             <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={handleCreateVersion}>
@@ -242,7 +238,7 @@ export default function Treasure() {
             <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={handleUpdateProject}>
               <Pencil width={28} height={28} />
             </button>
-            <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { navigate(`/my-chest/treasure/${project.id}/trash/`) }}>
+            <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { navigate(`/my-chest/treasure/${project?.id}/trash/`) }}>
               <Trash width={28} height={28} />
             </button>
           </div>
@@ -252,10 +248,10 @@ export default function Treasure() {
             <img src={project.cover_url} alt='' width={220} height={220} className='rounded-lg h-full w-full' />
           </div>
           <div className='grow mb-3'>
-            <div className='uppercase text-neutral-silver-200 mb-6'>{project.album} ― {project.plays ? project.plays : 0} plays</div>
+            <div className='uppercase text-neutral-silver-200 mb-6'>{project?.album} ― {project?.plays ? project?.plays : 0} plays</div>
             <h2 className='mb-3 text-[76px]'>{project.name}</h2>
             <div className='text-[22px]'>
-              {project.participants?.map((participant, index) => (index ? ', ' : '') + participant.full_name)}
+              {project?.participants?.map((participant, index) => (index ? ', ' : '') + participant.full_name)}
             </div>
           </div>
         </div>
@@ -269,21 +265,21 @@ export default function Treasure() {
               </div>
               <div className='flex items-center gap-8'>
                 <div className='flex items-center gap-3'>
-                  <span className='font-normal text-4xl text-brand-uva font-thunder'>{project.participants.length}</span>
+                  <span className='font-normal text-4xl text-brand-uva font-thunder'>{project?.participants.length}</span>
                   <span className='text-lg text-neutral-silver-200'>Participants</span>
                 </div>
                 <div className='flex items-center gap-3'>
-                  <span className='font-normal text-4xl text-brand-uva font-thunder'>{project.shared_versions.links && 0}</span>
+                  <span className='font-normal text-4xl text-brand-uva font-thunder'>{project?.shared_versions.links && 0}</span>
                   <span className='text-lg text-neutral-silver-200'>Links</span>
                 </div>
                 <div className='flex items-center gap-3'>
-                  <span className='font-normal text-4xl text-brand-uva font-thunder'>{project.shared_versions.users && 0}</span>
+                  <span className='font-normal text-4xl text-brand-uva font-thunder'>{project?.shared_versions.users && 0}</span>
                   <span className='text-lg text-neutral-silver-200'>Users</span>
                 </div>
               </div>
             </div>
             <div className='flex flex-row gap-6'>
-              {permissionsOptions.map((button, index) => <TabButton key={index} title={button} />)}
+              {permissionsOptions?.map((button, index) => <TabButton key={index} title={button} />)}
             </div>
           </div>
           <div className='bg-neutral-black rounded-t-lg rounded-b-3xl pl-5 pr-4 pt-3 pb-8 md:px-[60px] md:pb-[60px] md:pt-10'>
