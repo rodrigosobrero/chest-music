@@ -1,36 +1,36 @@
 import { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import Tag from 'components/Tag';
+import { useSelector } from 'react-redux';
 import { signOut } from 'firebase/auth';
 import { auth } from 'utils/firebase';
+import { classNames } from 'utils/helpers';
 import navData from 'data/config.json';
+import Tag from 'components/Tag';
+
 import { BellIcon } from '@heroicons/react/24/outline';
+
 import logo from 'assets/images/logo.svg';
 import menuIcon from 'assets/images/icon-menu.svg';
 import closeIcon from 'assets/images/icon-close.svg';
-import { useSelector } from 'react-redux';
+
 export default function Nav() {
-  /* state */
-  const [open, setOpen] = useState(false);
-  const [data, setData] = useState([])
-  const [isLogged, setIsLogged] = useState(false)
   const user = useSelector((state) => state.auth.user)
-  /* replace with session */
-  useEffect(() => {
-
-      if (user?.token) {
-        setData(navData.nav.filter(item => item.private))
-        setIsLogged(true);
-        return;
-      }
-        setData(navData.nav.filter(item => !item.private) )
-
-  }, [user])
-
+  const [open, setOpen] = useState(false);
+  const [data, setData] = useState([]);
+  const [isLogged, setIsLogged] = useState(false);
   const location = useLocation();
 
-    
+  const excludedPaths = ['/sign-in', '/sign-up', '/setup'];
+
+  useEffect(() => {
+    if (user?.token) {
+      setData(navData.nav.filter(item => item.private))
+      setIsLogged(true);
+      return;
+    }
+    setData(navData.nav.filter(item => !item.private))
+  }, [user]);
 
   const toggleOpen = () => {
     setOpen(prev => !prev);
@@ -38,7 +38,7 @@ export default function Nav() {
 
   return (
     <>
-      <nav className='main z-10'>
+      <nav className='main z-10 fixed w-full'>
         <div className='md:container flex items-center justify-center w-full'>
           <div className='flex items-center gap-4 grow'>
             <img src={logo} alt="Chest" width={146} height={32} className='w-[110px] h-[24px] md:w-[146px] md:h-[32px]' />
@@ -57,18 +57,19 @@ export default function Nav() {
                   </li>
                 )
               }
-              {/* Test */}
-            {location.pathname !== '/sign-in' && location.pathname !== '/sign-up' &&  location.pathname !== '/setup' && isLogged && <li>
-                <button type='button' className='p-2' onClick={() => { signOut(auth) }}>
-                  logout
-                </button>
-              </li>}
+              {!excludedPaths.includes(location.pathname) && isLogged && (
+                <li>
+                  <button type='button' className='p-2' onClick={() => { signOut(auth) }}>
+                    logout
+                  </button>
+                </li>
+              )}
               {location.pathname !== '/setup' &&
-              <li className='flex items-center'>
-                <NavLink to='/notifications' className='p-1 hover:!text-white text-gray-500'>
-                  <BellIcon className='h-6 w-6' />
-                </NavLink>
-              </li>
+                <li className='flex items-center'>
+                  <NavLink to='/notifications' className='p-1 hover:!text-white text-gray-500'>
+                    <BellIcon className='h-6 w-6' />
+                  </NavLink>
+                </li>
               }
             </ul>
           </div>
@@ -82,7 +83,12 @@ export default function Nav() {
         </div>
       </nav>
       <motion.div
-        className={`absolute top-14 left-0 bg-neutral-black w-full h-auto pt-4 pb-8 ${open ? '' : 'hidden'}`}
+        className={
+          classNames({
+            'hidden': !open,
+            'absolute top-14 left-0 bg-neutral-black w-full h-auto pt-4 pb-8': true
+          })
+        }
         animate={{ opacity: open ? 1 : 0 }}>
         <ul>
           {
