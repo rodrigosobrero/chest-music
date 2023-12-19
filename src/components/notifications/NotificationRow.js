@@ -30,7 +30,7 @@ const NotificationRow = ({invite , blockUser, replyNotification }) => {
                       {timeDifference(invite.date)}
                   </span>
               </div>
-              <NotificationStatus status={invite.status} isOpen={isOpen} setIsOpen={setIsOpen}/>
+              <NotificationStatus status={invite.status} isOpen={isOpen} setIsOpen={setIsOpen} expired={invite.expired}/>
           </div>
         </div>
        {isOpen && <NotificationOption isOpen={isOpen} onDeny={() => { replyNotification(invite.id, 'denied'); setIsDenied(true)}} 

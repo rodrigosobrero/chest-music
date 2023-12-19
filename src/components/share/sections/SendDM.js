@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, version } from 'react'
 import Input from 'components/Input'
 import Toggle from '../Toggle'
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
@@ -7,8 +7,10 @@ import TagInput from '../TagInput';
 import axios from 'axios';
 import { apiUrl } from 'utils/api';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 const SendDM = ({ token , versionId, onCancel }) => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const [input, setInput] = useState('')
   const [message, setMessage] = useState('')
   const [filteredUsers, setFilteredUsers] = useState([])
@@ -29,6 +31,7 @@ const SendDM = ({ token , versionId, onCancel }) => {
     setInput('')
     setSelecteds(aux)
   }
+  
   const removeOption = (id) => {
     let aux = selecteds;
     aux = aux.filter((el) => el.id !== id)
@@ -37,9 +40,8 @@ const SendDM = ({ token , versionId, onCancel }) => {
 
 
   useEffect(() => {
-    console.log('entre effect', input)
     if(!token) return;
-    console.log('pase el token')
+
     if(input.length < 3) {
         if(filteredUsers.length > 0) setFilteredUsers([])
         return;
@@ -59,7 +61,8 @@ const SendDM = ({ token , versionId, onCancel }) => {
     let data = {
         "version": versionId,
         "allow_web_play": isChecked,
-        "users": usersIds
+        "users": usersIds,
+        "message": message
     }
     if(!isToggled) {
         data.play_limit = parseInt(limit)
@@ -67,12 +70,12 @@ const SendDM = ({ token , versionId, onCancel }) => {
 
     axios.post(apiUrl + 'shared/user/', data, { headers:{ Authorization: `Bearer ${token}` }})
     .then((response) => {
-        console.log(response.data)
+        navigate('/my-chest')
     })
     .finally(() => {
         setInput('')
         setMessage('')
-        setSelecteds({})
+        setSelecteds([])
         setLimit('')
         setIsChecked(false)
         setIsToggled(false)
@@ -84,7 +87,13 @@ const SendDM = ({ token , versionId, onCancel }) => {
         <div className='share-container'>
             <div className='hidden md:flex md:flex-row flex-col items-start md:items-center md:w-4/5 gap-5'>
                 <div className='w-full md:w-3/4'>
-                <Input label='Play limit' required={true} placeholder={t('global.placeholder.only_numbers')} type='number' value={limit} onChange={handleLimitChange} />
+                <Input label='Play limit' 
+                       required={true} 
+                       placeholder={t('global.placeholder.only_numbers')} 
+                       type='number' 
+                       value={limit} 
+                       disabled={isToggled}
+                       onChange={handleLimitChange} />
                 </div>
                 <div className='w-full md:w-1/4 flex items-center gap-2.5 '>
                     <Toggle onChange={handleToggle}/>
@@ -105,7 +114,7 @@ const SendDM = ({ token , versionId, onCancel }) => {
         </div>
         <ButtonsContainer   primaryButton={'Generate'} 
                             onClick={sendToUsers} 
-                            disabled={(input === '' && !isToggled) || selecteds.length < 1 || message === ''} 
+                            disabled={!(input === '' || !isToggled) || selecteds.length < 1 || message === ''} 
                             onCancel={onCancel}/>
      </>
   )

@@ -54,8 +54,7 @@ const Account = () => {
             <DeleteModal title={t('account.modals.delete_account')} subtitle={t('account.modals.delete_subtitle')}
                          confirmText={t('account.modals.delete_confirm')} primaryButton={t('global.confirm')}
                          secondaryButton={t('global.cancel')} placeholder={t('global.placeholder.write_here')}  onClick={deleteAccount}
-                         label={t('global.email')} type={'email'} toggle={toggle} onChange={handleChange} disabled={isAvailable}
-                        />
+                         label={t('global.email')} type={'email'} toggle={toggle} onChange={handleChange} disabled={isAvailable} />
         </Modal>
         <div className='px-3 pt-4 pb-10 lg:container lg:px-[120px] lg:pb-[60px] lg:pt-[40px]'>
             <Breadcrumb className='px-3 lg:px-0' items={paths}/>
