@@ -142,6 +142,10 @@ export const api = createApi({
         body: { response }
       }),
       invalidatesTags: ['Chest']
+    }),
+    getShareds: builder.query({
+      query: () => 'shared/',
+      invalidatesTags: ['Shared']
     })
   })
 });
@@ -164,4 +168,5 @@ export const {
   useDeleteLinkMutation,
   useGetNotificationsQuery,
   useUpdateNotificationsMutation,
+  useGetSharedsQuery
 } = api;

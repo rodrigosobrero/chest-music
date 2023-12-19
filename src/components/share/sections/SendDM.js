@@ -1,4 +1,4 @@
-import React, { useEffect, useState, version } from 'react'
+import React, { useEffect, useState } from 'react'
 import Input from 'components/Input'
 import Toggle from '../Toggle'
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
@@ -38,10 +38,8 @@ const SendDM = ({ token , versionId, onCancel }) => {
     setSelecteds(aux)
   }
 
-
   useEffect(() => {
     if(!token) return;
-
     if(input.length < 3) {
         if(filteredUsers.length > 0) setFilteredUsers([])
         return;
@@ -112,10 +110,10 @@ const SendDM = ({ token , versionId, onCancel }) => {
                 <Input label={'Message'} placeholder={t('share.message_example')} onChange={handleMessageChange} value={message}/>
             </div>
         </div>
-        <ButtonsContainer   primaryButton={'Send'} 
-                            onClick={sendToUsers} 
-                            disabled={!(input === '' || !isToggled) || selecteds.length < 1 || message === ''} 
-                            onCancel={onCancel}/>
+        <ButtonsContainer primaryButton={'Send'} 
+                          onClick={sendToUsers} 
+                          disabled={!(input === '' || !isToggled) || selecteds.length < 1 || message === ''} 
+                          onCancel={onCancel}/>
      </>
   )
 }
