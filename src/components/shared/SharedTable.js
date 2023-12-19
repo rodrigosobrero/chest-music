@@ -2,7 +2,7 @@ import React from 'react'
 import empty from 'assets/images/empty-chest.svg';
 import SharedList from './SharedList'
 const SharedTable = ({ artist, data, dispatch }) => {
-  console.log(data)
+  
   return (
     <>
       <div className='flex flex-col gap-1 py-3'>
