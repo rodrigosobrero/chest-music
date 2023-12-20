@@ -1,10 +1,9 @@
-import ProfileView from "components/profile/Profile"
-export default function Profile() {
+import ProfileView from 'components/profile/Profile';
 
+export default function Profile() {
   return (
-    
     <>
-      <div className="md:container px-4 pt-10 pb-8 md:p-[60px] gap-y-6 md:gap-y-10">
+      <div className='container gap-y-6 md:gap-y-10 py-10 lg:py-[60px]'>
          <ProfileView />
       </div>
     </>

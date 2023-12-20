@@ -40,7 +40,7 @@ const Permissions = () => {
   let paths = [{ name:'Profile', link: '/profile' }, { name: items[1].title }]
   return (
     <>
-      <div className='pt-4 pb-10 px-3 md:container md:pt-10 md:px-[120px] md:pb-[60px]'>
+      <div className='pt-4 pb-10 container md:pt-10 md:px-[120px] md:pb-[60px]'>
       <Breadcrumb className='px-3 md:px-0' items={paths}/>
         <div className='flex flex-col md:flex-row justify-between mt-5 mb-8 gap-y-6 px-1 md:px-0'>
                 <div className='md:px-0 px-3 container-items-account'>

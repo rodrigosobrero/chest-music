@@ -26,10 +26,6 @@ body {
   @apply bg-neutral-silver-700 h-screen text-white font-archivo;
 }
 
-main {
-  @apply mt-20;
-}
-
 .main {
   @apply bg-neutral-black font-archivo flex justify-center h-14 md:h-20 pl-6 pr-4 md:px-0;
 }
@@ -39,7 +35,7 @@ nav ul {
 }
 
 nav li {
-  @apply transition-colors duration-300 text-neutral-silver-300 text-lg hover:text-white;
+  @apply transition-colors duration-300 text-neutral-silver-300 text-lg hover:text-brand-gold;
 }
 
 nav a.active {
@@ -47,7 +43,7 @@ nav a.active {
 }
 
 main {
-  @apply flex justify-center grow;
+  @apply grow mt-14 xl:mt-20;
 }
 
 footer {
@@ -124,6 +120,10 @@ input[type=number] {
 
 .social {
   @apply bg-neutral-silver-700 rounded-xl p-3;
+}
+
+.social svg {
+  @apply hover:fill-brand-gold;
 }
 
 .uploader {

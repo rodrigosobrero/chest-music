@@ -4,11 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useModal } from 'hooks/useModal';
-import config from 'data/config.json';
-import { 
-  useCreateLinkMutation, 
-  useCreateParticipantMutation, 
-  useGetProjectQuery } from 'store/api';
+import { useCreateLinkMutation, useGetProjectQuery } from 'store/api';
 
 import Breadcrumb from 'components/Breadcrumb';
 import VersionsTable from 'components/treasure/VersionsTable';
@@ -16,7 +12,6 @@ import ParticipantsTable from 'components/treasure/ParticipantsTable';
 import AddButton from 'components/treasure/AddButton';
 import Modal from 'components/Modal';
 import Button from 'components/Button';
-import UserSelector from 'components/treasure/UserSelector';
 import LinksTable from 'components/treasure/LinksTable';
 
 import { ReactComponent as Upload } from 'assets/images/icon-upload.svg';
@@ -37,19 +32,16 @@ export default function Treasure() {
     isFetching
   } = useGetProjectQuery(id);
 
-  const [createParticipant, { isLoading: isLoadingCreateParticipant }] = useCreateParticipantMutation();
   const [createLink, { isLoading: isLoadingCreateLink }] = useCreateLinkMutation();
 
   const { onOpen: openEditModal } = useModal('EditTrackModal');
   const { onOpen: openUploadModal } = useModal('UploadVersionModal');
+  const { onOpen: openAddParticipantModal } = useModal('AddParticipantModal');
 
   const [breadcrumb, setBreadcrums] = useState([]);
   const [headers, setHeaders] = useState([]);
   const [permissionsView, setPermissionsView] = useState();
   const [permissionsData, setPermissionsData] = useState('');
-  const [showAddParticipant, setShowAddParticipant] = useState(false);
-  const [newParticipant, setNewParticipant] = useState('');
-  const [showEditParticipant, setShowEditParticipant] = useState('');
   const [showShareLink, setShowShareLink] = useState(false);
   const [loading, setLoading] = useState(false);
   const [versionId, setVersionId] = useState('');
@@ -120,7 +112,7 @@ export default function Treasure() {
     switch (view) {
       case 'participants':
         return (
-          <AddButton text='Add participant' onClick={() => { setShowAddParticipant(true) }} />
+          <AddButton text='Add participant' onClick={() => { openAddParticipantModal({ project }) }} />
         )
       case 'links':
         return (
@@ -130,21 +122,6 @@ export default function Treasure() {
         return (
           <AddButton text='Share to user' onClick={() => { navigate(`/share/${project.id}?=sendDM`) }} />
         )
-    }
-  }
-
-  const handleAddParticipant = async () => {
-    const result = await createParticipant({
-      'project': id,
-      'user': newParticipant.id,
-      'role': newParticipant.role
-    });
-
-    if ('error' in result) {
-      console.log('Error');
-    } else {
-      setNewParticipant('');
-      setShowAddParticipant(false);
     }
   }
 
@@ -225,7 +202,7 @@ export default function Treasure() {
 
   return (
     <>
-      <div className='md:container flex flex-col gap-6 md:gap-10 py-8 md:py-[60px] px-3 md:px-0'>
+      <div className='container flex flex-col gap-6 md:gap-10 py-8 md:py-10'>
         <div className='toolbar'>
           <Breadcrumb items={breadcrumb} />
           <div className='grow flex items-center justify-end gap-3'>
@@ -305,47 +282,6 @@ export default function Treasure() {
           </div>
         </div>
       </div>
-      <Modal show={showAddParticipant}>
-        <div className='flex flex-col items-center text-center mb-[41px] max-w-[440px]'>
-          <h4 className='mb-3 !text-5xl'>add participant</h4>
-        </div>
-        <UserSelector
-          roles={config.roles}
-          users={project.participants}
-          selected={setNewParticipant} />
-        <div className='grid grid-cols-2 gap-4 mt-8'>
-          <Button
-            text={t('global.cancel')}
-            style='third'
-            onClick={() => {
-              setShowAddParticipant(false);
-              setNewParticipant('');
-            }} />
-          <Button
-            text={t('global.save')}
-            style='primary'
-            disabled={isLoadingCreateParticipant || !newParticipant}
-            loading={isLoadingCreateParticipant}
-            onClick={handleAddParticipant} />
-        </div>
-      </Modal>
-      <Modal show={showEditParticipant}>
-        <div className='grid grid-cols-2 gap-4 mt-8'>
-          <Button
-            text={t('global.cancel')}
-            style='third'
-            onClick={() => {
-              setShowAddParticipant(false);
-              setNewParticipant('');
-            }} />
-          <Button
-            text={t('global.save')}
-            style='primary'
-            disabled={isLoadingCreateParticipant || !newParticipant}
-            loading={isLoadingCreateParticipant}
-            onClick={handleAddParticipant} />
-        </div>
-      </Modal>
       <Modal show={showShareLink}>
         <div className='flex flex-col items-center text-center mb-8 max-w-[440px]'>
           <h4 className='mb-3 !text-5xl'>choose version</h4>

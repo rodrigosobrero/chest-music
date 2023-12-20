@@ -143,10 +143,14 @@ export const api = createApi({
       }),
       invalidatesTags: ['Chest']
     }),
+    getUser: builder.query({
+      query: (keyword) => `user/?search=${keyword}`,
+      providesTags: ['Users']
+    }),
     getShareds: builder.query({
       query: () => 'shared/',
       invalidatesTags: ['Shared']
-    })
+    }),
   })
 });
 
@@ -168,5 +172,6 @@ export const {
   useDeleteLinkMutation,
   useGetNotificationsQuery,
   useUpdateNotificationsMutation,
-  useGetSharedsQuery
+  useGetUserQuery,
+  useGetSharedsQuery,
 } = api;
