@@ -7,6 +7,22 @@ import VersionsActionsButton from './VersionsActionsButton';
 import { PlayIcon } from '@heroicons/react/24/solid';
 
 export default function VersionsRow({ project, version }) {
+  const filteredParticipants = (participants) => {
+    let filtered = [];
+
+    participants.map((participant) => {
+      if (participant.accepted && participant.role !== 'listener') {
+        filtered.push(participant.full_name)
+      }
+    });
+
+    if (filtered.length > 0) {
+      return filtered.map((participant, index) => (
+        (index ? ', ' : '') + participant)
+      )
+    }
+  }
+
   return (
     <>
       <tr>
@@ -20,7 +36,7 @@ export default function VersionsRow({ project, version }) {
             <div>
               <span className='text-lg line-clamp-1'>{project.name}</span>
               <div className='text-sm text-neutral-silver-200'>
-                {project.participants?.map((participant, index) => (index ? ', ' : '') + participant.full_name)}
+                {filteredParticipants(project.participants)}
               </div>
             </div>
           </div>
