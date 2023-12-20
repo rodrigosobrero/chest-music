@@ -38,12 +38,12 @@ export default function Trash() {
 
   return (
     <>
-      <div className='md:container flex flex-col gap-6 md:gap-10 py-8 md:py-[60px] px-3 md:px-0'>
+      <div className='container flex flex-col gap-6 md:gap-10 py-8 lg:py-[40px]'>
         <div className='flex flex-col gap-4'>
           <Breadcrumb items={breadcrumb} />
           <h2 className='text-[64px] md:text-[76px]'>trash can</h2>
         </div>
-        {data
+        {data.length > 0
           ? <TrashCanTable data={data} />
           : (
             <div className='flex flex-col items-center'>

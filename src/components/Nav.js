@@ -13,6 +13,7 @@ import { BellIcon } from '@heroicons/react/24/outline';
 import logo from 'assets/images/logo.svg';
 import menuIcon from 'assets/images/icon-menu.svg';
 import closeIcon from 'assets/images/icon-close.svg';
+import Button from './Button';
 
 export default function Nav() {
   const user = useSelector((state) => state.auth.user)
@@ -39,19 +40,21 @@ export default function Nav() {
   return (
     <>
       <nav className='main z-10 fixed w-full'>
-        <div className='md:container flex items-center justify-center w-full'>
+        <div className='container flex items-center justify-center w-full'>
           <div className='flex items-center gap-4 grow'>
-            <img src={logo} alt="Chest" width={146} height={32} className='w-[110px] h-[24px] md:w-[146px] md:h-[32px]' />
+            <img src={logo} alt='Chest' width={146} height={32} className='w-[110px] h-[24px] md:w-[146px] md:h-[32px]' />
             <Tag>Web</Tag>
           </div>
-          <div className='hidden md:block'>
+          <div className='hidden lg:block'>
             <ul>
               {location.pathname !== '/setup' &&
                 data.map((item, index) =>
                   <li
                     key={index}
-                    className={`${item.button ? 'bg-brand-gold rounded-[10px] px-4 py-[9px]' : ''}`}>
-                    <NavLink to={item.link}>
+                    className={classNames({
+                      'bg-brand-gold rounded-[10px] px-4 py-[9px]': item.button
+                    })}>
+                    <NavLink to={item.link} className={classNames({ '!text-black font-semibold': item.button })}>
                       {item.name}
                     </NavLink>
                   </li>
@@ -59,21 +62,24 @@ export default function Nav() {
               }
               {!excludedPaths.includes(location.pathname) && isLogged && (
                 <li>
-                  <button type='button' className='p-2' onClick={() => { signOut(auth) }}>
+                  <button type='button' onClick={() => { signOut(auth) }}>
                     logout
                   </button>
                 </li>
               )}
               {location.pathname !== '/setup' &&
                 <li className='flex items-center'>
-                  <NavLink to='/notifications' className='p-1 hover:!text-white text-gray-500'>
+                  <NavLink to='/notifications' className='p-1'>
                     <BellIcon className='h-6 w-6' />
                   </NavLink>
                 </li>
               }
             </ul>
           </div>
-          <div className='md:hidden'>
+          <div className='flex lg:hidden flex-row items-center'>
+            <NavLink to='/notifications' className='p-1'>
+              <BellIcon className='h-6 w-6' />
+            </NavLink>
             <button type='button' className='p-2' onClick={toggleOpen}>
               {open ?
                 <img src={closeIcon} width={24} height={24} alt='' /> :

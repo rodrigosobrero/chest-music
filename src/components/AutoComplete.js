@@ -7,8 +7,8 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { CheckIcon } from '@heroicons/react/20/solid';
 
 export default function AutoComplete({ options, handleAdd, filter }) {
-  const user = useSelector((state) => state.auth.user);
   const inputRef = useRef(null);
+  const user = useSelector((state) => state.auth.user);
   const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [selectedUser, setSelectedUser] = useState('');
@@ -57,9 +57,9 @@ export default function AutoComplete({ options, handleAdd, filter }) {
   }
 
   useEffect(() => {
-    if (searchValue.length >= 2) {
+    if (searchValue.length === 2) {
       getAccounts();
-    } else {
+    } else if (searchValue.length === 0) {
       setSearchResult([]);
     }
   }, [searchValue]);
@@ -82,8 +82,8 @@ export default function AutoComplete({ options, handleAdd, filter }) {
               <select
                 className='custom-select absolute top-0 right-0 !w-auto !pr-12 !text-right !border-0 !bg-transparent'
                 onChange={(e) => { setSelectedRole(e.target.value) }}>
-                {options.map((option, index) =>
-                  <option value={option} key={index}>{firstLetterUpperCase(option)}</option>)
+                {options.map((option) =>
+                  <option value={option} key={option}>{firstLetterUpperCase(option)}</option>)
                 }
               </select>
             </div>
@@ -108,10 +108,10 @@ export default function AutoComplete({ options, handleAdd, filter }) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}>
-                {searchResult.map((item, index) => (
+                {searchResult.map((item) => (
                   <div
                     className='autocomplete-item'
-                    key={index}
+                    key={item.id}
                     onClick={() => { handleOnClick(item) }}>
                     <span>{item.full_name}</span>
                     <span className='text-sm text-neutral-silver-300'>{item.username}</span>

@@ -5,6 +5,13 @@ module.exports = {
   ],
   theme: {
     extend: {
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: '1rem',
+          xl: '0rem',
+        }
+      },
       colors: {
         'neutral-black': '#060606',
         'neutral-silver': {

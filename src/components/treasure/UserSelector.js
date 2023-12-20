@@ -7,7 +7,7 @@ import { MusicalNoteIcon } from '@heroicons/react/24/outline';
 import { MegaphoneIcon } from '@heroicons/react/24/outline';
 import { ComputerDesktopIcon } from '@heroicons/react/24/outline';
 
-export default function UserSelector({ roles, users, selected }) {
+export default function UserSelector({ roles, users, selected, editable }) {
   const [userList, setUserList] = useState(users);
 
   const updateUser = (user, role) => {
@@ -23,7 +23,7 @@ export default function UserSelector({ roles, users, selected }) {
   }
 
   const addUser = (user, role, id) => {
-    const newUser = { full_name: user, role: role, id: id };
+    const newUser = { full_name: user, role: role, id: id, editable: true };
     const list = [...userList, newUser];
 
     setUserList(list);
@@ -67,6 +67,7 @@ export default function UserSelector({ roles, users, selected }) {
                   </span>
                 </div>
                 <Dropdown
+                  disabled={!editable && !user.editable}
                   list={roles}
                   remove={() => removeUser(user)}
                   selected={user?.role}

@@ -56,8 +56,8 @@ const Account = () => {
                          secondaryButton={t('global.cancel')} placeholder={t('global.placeholder.write_here')}  onClick={deleteAccount}
                          label={t('global.email')} type={'email'} toggle={toggle} onChange={handleChange} disabled={isAvailable} />
         </Modal>
-        <div className='px-3 pt-4 pb-10 lg:container lg:px-[120px] lg:pb-[60px] lg:pt-[40px]'>
-            <Breadcrumb className='px-3 lg:px-0' items={paths}/>
+        <div className='px-3 pt-4 pb-10 container md:px-[120px] md:pb-[60px] md:pt-[40px]'>
+            <Breadcrumb className='px-3 md:px-0' items={paths}/>
             <div className='container-head-account'>
                 <div className='container-items-account'>
                     <h4 className='font-thunder-bold text-5xl uppercase font-bold'>{items[2].title}</h4>
