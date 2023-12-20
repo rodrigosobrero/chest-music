@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { NotificationList } from './NotificationList'
 import { useTranslation } from 'react-i18next'
-import { useGetChestQuery, useGetNotificationsQuery, useUpdateNotificationsMutation } from 'store/api';
+import {  useGetNotificationsQuery, useUpdateNotificationsMutation } from 'store/api';
 import { useSelector } from 'react-redux'
 import GeneralList from './GeneralList'
 import axios from 'axios'
@@ -11,65 +11,14 @@ const Notification = () => {
   const { t } = useTranslation() 
   const user = useSelector((state) => state.auth.user)
   const [status, setStatus] = useState('invites')
-  // const [generalNotifications, setGeneralNotifications] = useState(false)
-  // const [invites, setInvites] = useState(false)
-  // const [isLoading, setIsLoading] = useState(false)
   const [isChanged, setIsChanged] = useState(false)
   const [updateNotifications] = useUpdateNotificationsMutation();
   const { data: notifications = {}, 
-          isLoading, isFetching } = useGetNotificationsQuery(status, { refetchOnMountOrArgChange: !isChanged })
-
-  // const { refetch } = useGetChestQuery(); 
-
-   // console.log(invites)
-  //  useEffect(() => {
-  //   return () => {
-  //     if(isSuccess) {
-  //       refetchNotifications();
-  //     }
-  //   };
-
-  // }, [isSuccess, refetchNotifications]);
-  // useEffect(() => {
-  //   if(!user?.token) return
-  //   if(!invites){
-  //     setIsLoading(true)
-  //     axios.get(apiUrl + 'notification/?type=invites' , { 
-  //       headers: { Authorization: `Bearer ${user.token}` }
-  //     }).then((response) => setInvites(response.data.invites.notifications))
-  //     .finally(() => setIsLoading(false))
-  //   }
-  // }, [invites, user?.token])
-
-  // useEffect(() => {
-  //   if(!user?.token) return
-  //   if(status === 'general'){
-  //     if(!generalNotifications){
-  //       setIsLoading(true)
-  //       axios.get(apiUrl + 'notification/?type=general' , { 
-  //         headers: { Authorization: `Bearer ${user?.token}` }
-  //       }).then((response) => {
-  //         setGeneralNotifications(response.data.general.notifications)
-  //       } )
-  //       .finally(() => setIsLoading(false))
-  //     } else {
-  //       console.log('volvi a salir')
-  //     }
-  //   }
-  // }, [generalNotifications, status, user?.token])
-
-  // useEffect(() => {
-  //   if(!user?.token) return
-  //   if(status === 'general' && isChanged === true){
-  //     axios.get(apiUrl + 'notification/?type=invites' , { 
-  //       headers: { Authorization: `Bearer ${user?.token}` }
-  //     }).then((response) => setInvites(response.data.invites.notifications))
-  //     .finally(() => setIsChanged(false))
-  //   }
-  // }, [status, isChanged])
+          isLoading, 
+          isFetching } = useGetNotificationsQuery(status, { refetchOnMountOrArgChange: !isChanged })
 
   const blockUser = (id, callback) => {
-    axios.post(apiUrl + 'notification/permission', 
+    axios.post(apiUrl + 'notification/permission/', 
        {  "user": id,
           "permission": "blocked"}, 
        { headers: {  Authorization: `Bearer ${user?.token}`}, })
@@ -78,14 +27,10 @@ const Notification = () => {
        })
        .finally(() => callback())
   }
+
   const replyNotification = async (invite_id, type) => {
     if(type !== 'denied' && type !== 'accepted') return;
     await updateNotifications({ id: invite_id, response: type })
-    // axios.patch(apiUrl + `notification/invite/${invite_id}/reply/`, 
-    //             { response: type},
-    //             { headers: { Authorization: `Bearer ${user?.token}`}})
-    //             .then(() =>  refetch())
-    //             .catch(() => { return false })
   }
 
   return (
