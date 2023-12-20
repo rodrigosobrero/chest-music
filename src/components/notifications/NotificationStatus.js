@@ -3,10 +3,10 @@ import NotificationReplyButton from './NotificationReplyButton'
 import { CheckIcon, NoSymbolIcon } from "@heroicons/react/24/solid";
 
 
-const NotificationStatus = ({status , isOpen, setIsOpen}) => {
+const NotificationStatus = ({status , isOpen, setIsOpen, expired}) => {
   return (
     <>    
-      {status === 'pending' ? <NotificationReplyButton isOpen={isOpen} onClick={() => setIsOpen(!isOpen)}/> : 
+      {status === 'pending' ? <NotificationReplyButton isOpen={isOpen} onClick={() => !expired && setIsOpen(!isOpen)}/> : 
         status === 'accepted' ? 
           <p className='capitalize flex items-center text-brand-gold'>
                 <CheckIcon className="h-5 w-5 " />

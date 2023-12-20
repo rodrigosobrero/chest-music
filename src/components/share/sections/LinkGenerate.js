@@ -6,7 +6,7 @@ import ButtonsContainer from '../ButtonsContainer';
 import axios from 'axios';
 import { apiUrl } from 'utils/api';
 import { useTranslation } from 'react-i18next';
-const LinkGenerate = ({ versionId, token }) => {
+const LinkGenerate = ({ versionId, token, onCancel }) => {
   const { t } = useTranslation()
 
   const [input, setInput] =  useState('')
@@ -70,7 +70,7 @@ const LinkGenerate = ({ versionId, token }) => {
                   <Input label={'URL'} showClipboard={true} disabled={true} value={value}/>
               </div>
       </div>
-      <ButtonsContainer primaryButton={'Generate'} onClick={generateLink} disabled={input === '' && !isToggled}/>
+      <ButtonsContainer primaryButton={'Generate'} onClick={generateLink} disabled={input === '' && !isToggled} onCancel={onCancel}/>
      </>
   )
 }
