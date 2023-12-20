@@ -11,7 +11,7 @@ export default function Shared() {
   const [filtered, setFiltered] = useState([])
   const [ input, setInput ] = useState('')
   const {
-    data, 
+    data = [], 
     isLoading,
     isFetching
   } = useGetSharedsQuery({ refetchOnMountOrArgChange: true });  

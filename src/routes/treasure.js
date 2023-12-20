@@ -32,7 +32,7 @@ export default function Treasure() {
   const { t } = useTranslation();
 
   const {
-    data: project = [],
+    data: project = {},
     isLoading,
     isFetching
   } = useGetProjectQuery(id);
@@ -182,7 +182,7 @@ export default function Treasure() {
   }
 
   useEffect(() => {
-    if(!permissionsOptions || !project) return;
+    if(!permissionsOptions || Object.keys(project).length === 0) return;
     setPermissionsView(permissionsOptions[0]);
     setBreadcrums([
       { name: 'My chest', link: '/my-chest' },
@@ -265,15 +265,15 @@ export default function Treasure() {
               </div>
               <div className='flex items-center gap-8'>
                 <div className='flex items-center gap-3'>
-                  <span className='font-normal text-4xl text-brand-uva font-thunder'>{project?.participants.length}</span>
+                  <span className='font-normal text-4xl text-brand-uva font-thunder'>{project?.participants?.length}</span>
                   <span className='text-lg text-neutral-silver-200'>Participants</span>
                 </div>
                 <div className='flex items-center gap-3'>
-                  <span className='font-normal text-4xl text-brand-uva font-thunder'>{project?.shared_versions.links && 0}</span>
+                  <span className='font-normal text-4xl text-brand-uva font-thunder'>{project?.shared_versions?.links && 0}</span>
                   <span className='text-lg text-neutral-silver-200'>Links</span>
                 </div>
                 <div className='flex items-center gap-3'>
-                  <span className='font-normal text-4xl text-brand-uva font-thunder'>{project?.shared_versions.users && 0}</span>
+                  <span className='font-normal text-4xl text-brand-uva font-thunder'>{project?.shared_versions?.users && 0}</span>
                   <span className='text-lg text-neutral-silver-200'>Users</span>
                 </div>
               </div>
