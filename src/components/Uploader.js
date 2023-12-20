@@ -17,7 +17,7 @@ export default function Uploader({ title = true, self, id }) {
   const { t } = useTranslation();
   const { file } = useSelector((state) => state.upload);
   const { user } = useSelector((state) => state.auth);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [show, setShow] = useState(false);
@@ -53,7 +53,7 @@ export default function Uploader({ title = true, self, id }) {
             blob: localFileURL
           }));
 
-          // navigate('upload');
+          navigate('upload');
         }
 
         setShowLoader(true);
