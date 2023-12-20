@@ -142,7 +142,11 @@ export const api = createApi({
         method: 'PATCH',
         body: { response }
       }),
-      invalidatesTags: ['Chest', 'Notifications']
+      invalidatesTags: ['Chest']
+    }),
+    getUser: builder.query({
+      query: (keyword) => `user/?search=${keyword}`,
+      providesTags: ['Users']
     })
   })
 });
@@ -165,4 +169,5 @@ export const {
   useDeleteLinkMutation,
   useGetNotificationsQuery,
   useUpdateNotificationsMutation,
+  useGetUserQuery,
 } = api;
