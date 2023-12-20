@@ -305,7 +305,7 @@ input[type=number] {
 }
 
 .account-type-selector {
-  @apply p-8 bg-transparent rounded-3xl border-2 border-neutral-silver-600 text-center md:max-w-[328px] cursor-pointer transition duration-300 text-neutral-silver-300 hover:text-neutral-silver-200 hover:bg-neutral-black hover:border-neutral-black;
+  @apply p-8 bg-neutral-silver-700 md:bg-transparent rounded-3xl border-2 border-neutral-silver-600 text-center md:max-w-[328px] cursor-pointer transition duration-300 text-neutral-silver-300 hover:text-neutral-silver-200 hover:bg-neutral-black hover:border-neutral-black;
 }
 
 .account-type-selector p {
@@ -313,7 +313,7 @@ input[type=number] {
 }
 
 .account-type-selector img {
-  @apply grayscale;
+  @apply md:grayscale;
 }
 
 .account-type-selector:hover img {

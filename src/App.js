@@ -172,7 +172,7 @@ function App() {
           const provider = user?.providerData[0].providerId;
           dispatch(saveUser({
             data: response.data,
-            token: token,
+            token: 'eyJhbGciOiJSUzI1NiIsImtpZCI6IjNhM2JkODk4ZGE1MGE4OWViOWUxY2YwYjdhN2VmZTM1OTNkNDEwNjgiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiRHlsYW4gR2F2aWxhbiIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQ2c4b2NJOWNwVDRSRld0OTBxS1E2eUZMQ0sxNXVwX3BiNklwQ0NQcDdURC1MRTgwV2M9czk2LWMiLCJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vY2hlc3RtdXNpYy02MDEyMSIsImF1ZCI6ImNoZXN0bXVzaWMtNjAxMjEiLCJhdXRoX3RpbWUiOjE3MDE3MDQ0NDksInVzZXJfaWQiOiJhVkxTQWhCUTMyYnB2MlppOGswQk9mZWQ1T2MyIiwic3ViIjoiYVZMU0FoQlEzMmJwdjJaaThrMEJPZmVkNU9jMiIsImlhdCI6MTcwMTg5NDQ5MiwiZXhwIjoxNzAxODk4MDkyLCJlbWFpbCI6ImR5bGFuLmdhdmlsYW4zMkBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExNTM4ODY1MDgyNjY1MzMyNzA4OCJdLCJlbWFpbCI6WyJkeWxhbi5nYXZpbGFuMzJAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.O7igagYtv6BQrBzWXGWHF2GlQ0Y2Pu_B7kUmNDQ_eStZIRj_hUuxOFkQW24uQkk37bRHdjOZOQLUHVYVwRIjsATohHY5_0lYQIEXSOPw-eJVwJprGZXcaH1XNtY5Kbk3_HEODWPY6PXbwBt1o6n24FIrbSEnRPwr5uQIbDQj8yUWCvNV2XBJul8f-Sa4Qcysu38UBBGDj0ENug8qriJD2c-pj4pAo9SCCq_kpmaPtaBYMBk0cE8JxQND3OQ2xMyy34qw0eRUBXZ4SERW3hl6SnHCO3pMYsyBH16_bhwXWLSRFhgHOGXjhPOjzjFq2FHohDYIrOpRNBtnPeqpuE6mUg',
             email: user?.email,
             signInMethod: provider === 'google.com' ? 'google' : 'local'
           }));

@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { signOut } from "firebase/auth";
+import { auth } from "utils/firebase";
 const useFetch = (url, token) => {
     const [data, setData] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
@@ -11,7 +13,12 @@ const useFetch = (url, token) => {
       setIsFetching(true);
       axios.get(url, { headers: { Authorization: `Bearer ${token}` }})
         .then(response => setData(response.data))
-        .catch(error => setError(error.response.data))
+        .catch(({response}) => {
+          setError(response.data);
+          if(response.data.status === 403) {
+            signOut(auth)
+          } 
+        })
         .finally(() => setIsFetching(false));
     }, [url, toggle,token]);
     const handleToggle = () => {
