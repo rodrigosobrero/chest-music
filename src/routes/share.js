@@ -41,7 +41,7 @@ const Share = () => {
   }, [location])
   return (
     <>
-      <div className='md:w-[1200px] md:p-[60px]  md:rounded-3xl  w-full  pt-8 pb-10  bg-neutral-black md:my-10 md:gap-y-8'>
+      <div className='md:w-[1200px] md:p-[60px] mx-auto md:rounded-3xl  w-full  pt-8 pb-10  bg-neutral-black md:my-10 md:gap-y-8'>
         <div className='flex flex-col items-center md:gap-y-6 gap-y-4'>
            <h3 className='md:text-[64px] text-[48px] text-center'> SHARE YOUR TREASURE </h3>
            <img src={track.cover_url} alt='track cover' className='md:w-[200px] md:h-[200px] w-[140px] h-[140px]'/>
