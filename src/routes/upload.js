@@ -27,14 +27,17 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 import { updateUserData } from 'app/auth';
 import { apiUrl } from 'utils/api';
+import { useGetChestQuery } from 'store/api';
 
 export default function Upload() {
   const { t } = useTranslation();
-  const { chest, data } = useSelector((state) => state.auth.user);
+  const { data } = useSelector((state) => state.auth.user);
   const { file } = useSelector((state) => state.upload);
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch()
   const navigate = useNavigate();
+
+  const { data: chest = {} } = useGetChestQuery();
 
   const [step, setStep] = useState(0);
   const [open, setOpen] = useState(false);
@@ -74,7 +77,7 @@ export default function Upload() {
   }, []);
 
   useEffect(() => {
-    if (chest.covers) {
+    if (chest?.covers) {
       setDefaultCover(chest.covers.find(cover => cover.default));
       
       let filtered = chest.covers.filter(cover => !cover.default);
@@ -301,7 +304,7 @@ export default function Upload() {
               placeholder={t('global.write_here')}
               helper={t('upload.leave_empty')} />
             <Select
-              options={chest.roles.filter(role => role !== 'listener')}
+              options={chest?.roles.filter(role => role !== 'listener')}
               label={t('upload.your_role')}
               name='role'
               register={register} />
