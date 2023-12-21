@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { apiUrl } from "utils/api"
 import { auth } from "utils/firebase"
 
-const useSearch = (lengthToStartSearch, listeners) => {
+const useSearch = (lengthToStartSearch, listeners, token) => {
     const [input, setInput] = useState('')
     const [filteredArtists, setFilteredArtists] = useState([])
     const [selected, setSelected] = useState({})
@@ -37,12 +37,15 @@ const useSearch = (lengthToStartSearch, listeners) => {
     }
 
     useEffect(() =>{
+        if(!token) return;
         if(input.length < lengthToStartSearch) {
             if(filteredArtists.length > 0) setFilteredArtists([])
             return;
         }
-        axios.get(apiUrl + 'user/?search=' + input, { headers: { 'TEST-USER-ID': 'f1' }})
-        .then((response) =>  {
+        axios.get(apiUrl + 'user/?search=' + input, {        
+            headers: { Authorization: `Bearer ${token}` },
+           })
+           .then((response) =>  {
             let artists = response.data;
             artists = response.data.filter(artist => artist.type !== 'fan')
             if (listeners && listeners.length > 0) {
@@ -51,12 +54,12 @@ const useSearch = (lengthToStartSearch, listeners) => {
             setFilteredArtists(artists)
         })
         .catch(({response}) => {
-            if(response.data.code === 'firebase-expired-token') {
+            if(response?.data?.code === 'firebase-expired-token') {
                 signOut(auth)
               } 
         })
         // eslint-disable-next-line
-    }, [input, lengthToStartSearch, listeners])
+    }, [input, lengthToStartSearch, listeners, token])
     return {
         handleChange,
         input,

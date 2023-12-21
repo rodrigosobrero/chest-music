@@ -1,19 +1,20 @@
 import { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signOut } from 'firebase/auth';
 import { auth } from 'utils/firebase';
 import { classNames } from 'utils/helpers';
 import navData from 'data/config.json';
 import Tag from 'components/Tag';
-
+import { apiSlice } from 'store/api';
 import { BellIcon } from '@heroicons/react/24/outline';
 
 import logo from 'assets/images/logo.svg';
 import menuIcon from 'assets/images/icon-menu.svg';
 import closeIcon from 'assets/images/icon-close.svg';
 import Button from './Button';
+import { saveUser } from 'app/auth';
 
 export default function Nav() {
   const user = useSelector((state) => state.auth.user)
@@ -21,9 +22,8 @@ export default function Nav() {
   const [data, setData] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
   const location = useLocation();
-
   const excludedPaths = ['/sign-in', '/sign-up', '/setup'];
-
+  const dispatch = useDispatch()
   useEffect(() => {
     if (user?.token) {
       setData(navData.nav.filter(item => item.private))
@@ -36,6 +36,7 @@ export default function Nav() {
   const toggleOpen = () => {
     setOpen(prev => !prev);
   }
+  console.log(apiSlice)
 
   return (
     <>
@@ -62,7 +63,7 @@ export default function Nav() {
               }
               {!excludedPaths.includes(location.pathname) && isLogged && (
                 <li>
-                  <button type='button' onClick={() => { signOut(auth) }}>
+                  <button type='button' onClick={() => { signOut(auth); dispatch(apiSlice.util.resetApiState()); dispatch(saveUser(undefined))}}>
                     logout
                   </button>
                 </li>

@@ -3,19 +3,24 @@ import { saveUser } from 'app/auth';
 import { signOut } from 'firebase/auth';
 import { auth } from 'utils/firebase';
 
+
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.REACT_APP_API,
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.user.token;
+
     if (token) headers.set('Authorization', `Bearer ${token}`);
     return headers;
   }
 });
 
+
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
+  
   if (result.error && result.error.status === 403) {
-    signOut(auth);
+    api.dispatch(saveUser(undefined));
+    signOut(auth)
   }
   return result;
 }
@@ -140,6 +145,12 @@ export const api = createApi({
       }),
       invalidatesTags: ['Chest']
     }),
+    updateBlockedUsers: builder.mutation({
+      query: (id) => ({
+        url: `notification/permission/block/`,
+        body: { user: id }
+      })
+    }),
     getUser: builder.query({
       query: (keyword) => `user/?search=${keyword}`,
       providesTags: ['Users']
@@ -202,3 +213,5 @@ export const {
   useCreatePermissionMutation,
   useUpdatePermissionMutation
 } = api;
+
+export { api as apiSlice}

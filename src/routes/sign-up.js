@@ -113,6 +113,7 @@ export default function SignUp() {
                 error={errors.password && 'This field is required'} />
               <Button
                 text={t('signup.button')}
+                textStyle='!font-semibold'
                 style='primary'
                 type='submit'
                 disabled={loading}

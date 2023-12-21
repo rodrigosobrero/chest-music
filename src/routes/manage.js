@@ -21,7 +21,7 @@ export default function Manage() {
   const [deletePermission] = useDeletePermissionMutation()
   const [createPermission] = useCreatePermissionMutation()
   const [updatePermission] = useUpdatePermissionMutation()
-  const { filteredArtists, handleChange , handleOptionSelect, input, selected, handleDeleteSelected, reset} = useSearch(3, data)
+  const { filteredArtists, handleChange , handleOptionSelect, input, selected, handleDeleteSelected, reset} = useSearch(3, data, user?.token)
 
   const togglePermissions = async() => {
       const { data } = await updatePermission()
