@@ -14,12 +14,8 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
-  // console.log('before', result)
   if (result.error && result.error.status === 403) {
-    console.log('result', result.error)
-    // api.dispatch(api.util.resetApiState());
-    // api.dispatch(saveUser(undefined));
-    signOut(auth)
+    signOut(auth);
   }
   return result;
 }
