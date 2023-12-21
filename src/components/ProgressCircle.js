@@ -26,14 +26,13 @@ const Circle = ({ colour, pct }) => {
 const Text = ({ colour, percentage }) => {
   return (
     <text
-      fontFamily='Thunder'
       x='50%'
       y='52%'
       dominantBaseline='central'
       textAnchor='middle'
       fontSize='56px'
       fill={colour}
-      fontWeight='normal'
+      className='font-thunder font-normal'
     >
       {percentage.toFixed(0)}%
     </text>

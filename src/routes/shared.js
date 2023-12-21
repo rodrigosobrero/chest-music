@@ -45,7 +45,7 @@ export default function Shared() {
               <h3 className="text-[64px] leading-[44px] md:leading-[58px]">
                  {t('shared.title')}
               </h3>
-              <span className='text-neutral-silver-200 text-base  leading-[22px] md:text-lg'>
+              <span className='text-neutral-silver-200 text-base text-center leading-[22px] md:text-lg'>
                  {t('shared.subtitle')}
               </span>
               <div className='mt-4'>

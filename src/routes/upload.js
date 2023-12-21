@@ -274,7 +274,7 @@ export default function Upload() {
   const stepOne = () => {
     return (
       <div className='flex flex-col md:flex-row w-full gap-4 md:gap-0'>
-        <div className='bg-neutral-silver-700 rounded-2xl px-8 py-[37px] w-full order-2 md:order-1'>
+        <div className='bg-neutral-silver-700 rounded-2xl px-4 md:px-8 py-[37px] w-full order-2 md:order-1'>
           <h3 className='mb-8 text-center'>{t('upload.title')}</h3>
           <form
             id='first-step'
@@ -312,7 +312,7 @@ export default function Upload() {
         </div>
         <div className='flex flex-col items-center justify-center md:px-[72px] order-1 md:order-2 p-5 md:p-0 gap-4 md:gap-0'>
           <ProgressCircle percentage={(progress.loaded * 100) / progress.total} colour={progress.loaded > 0 && progress.loaded === progress.total ? '#FFB447' : '#7C59DE'} />
-          <div className='flex flex-col gap-1'>
+          <div className='flex flex-col gap-1 md:-mt-0 -mt-6'>
             <AnimatePresence>
               {progress.loaded > 0 && progress.loaded === progress.total
                 ? <motion.div

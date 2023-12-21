@@ -18,9 +18,8 @@ const Notification = () => {
           isFetching } = useGetNotificationsQuery(status, { refetchOnMountOrArgChange: !isChanged })
 
   const blockUser = (id, callback) => {
-    axios.post(apiUrl + 'notification/permission/', 
-       {  "user": id,
-          "permission": "blocked"}, 
+    axios.post(apiUrl + 'notification/permission/block/', 
+       {  "user": id }, 
        { headers: {  Authorization: `Bearer ${user?.token}`}, })
        .then((response) => {
           console.log(response)

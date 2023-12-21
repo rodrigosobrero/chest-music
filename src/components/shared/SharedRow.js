@@ -27,7 +27,7 @@ const SharedRow = ({ track, isMobile, onClick }) => {
             }
           </div>
           <div>
-            <div className='text-lg line-clamp-1'>{track.title}</div>
+            <div className='text-base md:text-lg line-clamp-1 hover:underline'>{track.title}</div>
             <div className='text-sm text-neutral-silver-200'>
               {track.authors.join(', ')}
             </div>
@@ -36,18 +36,17 @@ const SharedRow = ({ track, isMobile, onClick }) => {
       </td>
       {!isMobile &&
           <>
-            <td className='md:w-[240px] md:mr-3'>{track.album ? track.album : 'any'}</td>
-            <td className='md:w-[140px] md:mr-3'>{track.version}</td>
-            <td className='md:w-[160px] md:mr-3'>
+            <td className='md:w-[20%] md:mr-3 hover:underline'>{track.album ? track.album : 'any'}</td>
+            <td className='md:w-[15%] md:mr-3'>{track.version}</td>
+            <td className='md:w-[15%] md:mr-3'>
               <span className='capitalize text-base'>
                 {timeDifference(track.date_shared ?  track.date_shared : track.date_played)}
               </span>
             </td>
-            <td className='w-[120px] md:!mr-3'>{formatTime(track.length)}</td>
-            <td className='w-[80px] md:!mr-3'>{track.plays}</td>
+            <td className='w-[10%] md:!mr-3'>{formatTime(track.length)}</td>
+            <td className='w-[10%] md:!mr-3'>{track.plays}</td>
           </>}
-      <td>
-        
+      <td className='md:w-[10%]'>
         {/* <SharedToast /> */}
       </td>
     </tr>

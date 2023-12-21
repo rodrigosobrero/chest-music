@@ -14,8 +14,8 @@ const useFetch = (url, token) => {
       axios.get(url, { headers: { Authorization: `Bearer ${token}` }})
         .then(response => setData(response.data))
         .catch(({response}) => {
-          setError(response.data);
-          if(response.data.status === 403) {
+          setError(response?.data);
+          if(response?.data?.status === 403) {
             signOut(auth)
           } 
         })

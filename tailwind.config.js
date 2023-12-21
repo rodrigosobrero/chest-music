@@ -24,6 +24,7 @@ module.exports = {
           700: '#15181C',
         },
         'brand-gold': '#FFB447',
+        'brand-bronze': '#C58831',
         'brand-uva': '#7C59DE',
         'brand-uva-light': '#B296FF',
         'error-red': '#FF3636'

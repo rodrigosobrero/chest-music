@@ -6,6 +6,7 @@ const baseQuery = fetchBaseQuery({
   baseUrl: process.env.REACT_APP_API,
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.user.token;
+
     if (token) headers.set('Authorization', `Bearer ${token}`);
     return headers;
   }
@@ -13,8 +14,10 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
+  
   if (result.error && result.error.status === 403) {
-    signOut(auth);
+    api.dispatch(saveUser(undefined));
+    signOut(auth)
   }
   return result;
 }
@@ -139,13 +142,19 @@ export const api = createApi({
       }),
       invalidatesTags: ['Chest']
     }),
+    updateBlockedUsers: builder.mutation({
+      query: (id) => ({
+        url: `notification/permission/block/`,
+        body: { user: id }
+      })
+    }),
     getUser: builder.query({
       query: (keyword) => `user/?search=${keyword}`,
       providesTags: ['Users']
     }),
     getShareds: builder.query({
       query: () => 'shared/',
-      invalidatesTags: ['Shared']
+      providesTags: ['Shared']
     }),
     updateSharedUser: builder.mutation({
       query: ({ id, data }) => ({
@@ -161,6 +170,32 @@ export const api = createApi({
         method: 'DELETE'
       }),
       invalidatesTags: ['Project']
+    }),
+    getPermissions: builder.query({
+      query: () => 'notification/permission/',
+      providesTags: ['Permissions']
+    }),
+    createPermission: builder.mutation({
+      query: (body) => ({
+        url: `notification/permission/`,
+        method: 'POST',
+        body: body
+      }),
+      invalidatesTags: ['Permissions']
+    }),
+    deletePermission: builder.mutation({
+      query: (id) => ({
+        url: `notification/permission/${id}/`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Permissions']
+    }),
+    updatePermission: builder.mutation({
+      query: () => ({
+        url: 'notification/permission/toggle/',
+        method: 'GET'
+      }),
+      invalidatesTags: ['Permissions']
     })
   })
 });
@@ -187,4 +222,10 @@ export const {
   useGetSharedsQuery,
   useUpdateSharedUserMutation,
   useDeleteSharedUserMutation,
+  useGetPermissionsQuery,
+  useDeletePermissionMutation,
+  useCreatePermissionMutation,
+  useUpdatePermissionMutation,
 } = api;
+
+export { api as apiSlice}
