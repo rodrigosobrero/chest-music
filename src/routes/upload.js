@@ -304,7 +304,7 @@ export default function Upload() {
               placeholder={t('global.write_here')}
               helper={t('upload.leave_empty')} />
             <Select
-              options={chest?.roles.filter(role => role !== 'listener')}
+              options={chest?.roles?.filter(role => role !== 'listener')}
               label={t('upload.your_role')}
               name='role'
               register={register} />
