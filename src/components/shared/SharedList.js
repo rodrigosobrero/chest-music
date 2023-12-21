@@ -27,7 +27,7 @@ const SharedList = ({ tracks, dispatch }) => {
                     <th 
                       key={index} 
                       // onClick={() => { title && handleSortingChange(index) }} 
-                      className={`${ !title && 'cursor-default' }`}>
+                      className={`${ !title && 'cursor-default' } font-semibold`}>
                         {title} 
                     </th>
                   )
