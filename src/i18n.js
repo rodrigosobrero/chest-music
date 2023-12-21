@@ -371,7 +371,7 @@ i18next
             presets: 'Presets',
             upload_file: 'Subir archivo',
             upload_filetype: 'En formato .jpg o .png, tamaño máximo 10 MB',
-            browse: 'Buscar archivo',
+            browse: 'Examinar',
             participants: 'Participantes',
             participant: 'Participante'
           },

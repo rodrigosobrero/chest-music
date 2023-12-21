@@ -112,10 +112,10 @@ export default function SignIn() {
                 loading={loading} />
             </div>
           </form>
-          <NavLink to='/sign-up' className='text-brand-gold font-semibold text-lg'>
+          <NavLink to='/sign-up' className='text-brand-gold h-10 md:h-auto hover:text-brand-bronze font-semibold text-lg'>
             {t('signin.signup')}
           </NavLink>
-          <NavLink to='/sign-up' className='text-brand-uva font-normal'>
+          <NavLink to='/sign-up' className='hover:text-brand-uva h-10 md:h-auto text-brand-uva-light font-normal'>
             {t('signin.reset')} <span className='underline'>{t('global.click_here')}</span>
           </NavLink>
         </div>

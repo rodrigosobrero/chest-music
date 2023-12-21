@@ -10,7 +10,7 @@ export default function Trash() {
   const { id } = useParams();
 
   const {
-    data,
+    data = [],
     isLoading,
     isFetching,
   } = useGetTrashQuery(id);
