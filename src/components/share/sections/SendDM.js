@@ -74,7 +74,7 @@ const SendDM = ({ token , versionId, onCancel }) => {
 
     axios.post(apiUrl + 'shared/user/', data, { headers:{ Authorization: `Bearer ${token}` }})
     .then((response) => {
-        navigate('/my-chest')
+        navigate(-1)
     })
     .finally(() => {
         setInput('')
