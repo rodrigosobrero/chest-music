@@ -4,8 +4,12 @@ import TrackListOptions from 'components/TrackListOptions';
 import upload from 'assets/images/icon-upload.svg';
 import { isDesktop } from 'react-device-detect';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { playing } from 'app/playlist';
 
 export default function TrackListRow({ track, onClick }) {
+  const dispatch = useDispatch();
+  const playlist = useSelector(state => state.playlist);
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
 
@@ -17,7 +21,7 @@ export default function TrackListRow({ track, onClick }) {
         onClick={onClick}>
         <td>
           <div className='flex flex-row gap-3 md:gap-4'>
-            <div className='relative rounded flex items-center'>
+            <div className='relative rounded flex items-center' onClick={() => { dispatch(playing(track))}}>
               {track.cover_url &&
                 <img src={track.cover_url} alt='' width={44} height={44} className='w-10 md:w-11 h-10 md:h-11' />
               }

@@ -196,6 +196,9 @@ export const api = createApi({
         method: 'GET'
       }),
       invalidatesTags: ['Permissions']
+    }),
+    getTrackSource: builder.query({
+      query: (id) => `project/version/${id}/url/`
     })
   })
 });
@@ -226,6 +229,7 @@ export const {
   useDeletePermissionMutation,
   useCreatePermissionMutation,
   useUpdatePermissionMutation,
+  useLazyGetTrackSourceQuery,
 } = api;
 
 export { api as apiSlice}

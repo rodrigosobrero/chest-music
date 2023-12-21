@@ -54,7 +54,7 @@ export default function TrackList({ tracks }) {
         <tbody>
           {
             tracks.map((track, index) =>
-              <TrackListRow key={index} track={track} onClick={() => { dispatch(playing(track)) }} />
+              <TrackListRow key={index} track={track} />
             )
           }
         </tbody>

@@ -7,30 +7,43 @@ import ProgressBar from 'components/player/ProgressBar';
 import Controls from 'components/player/Controls';
 import VolumeControls from 'components/player/VolumeControls';
 import Track from 'components/player/Track';
+import { useLazyGetTrackSourceQuery } from 'store/api';
 
 // import ControlsMobile from './ControlsMobile';
 
 export default function Player() {
-  const { playlist } = useSelector(state => state.playlist);
+  const [trigger, result] = useLazyGetTrackSourceQuery()
+
+  const { playlist } = useSelector(state => state);
 
   /* states */
   const [timeProgress, setTimeProgress] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [trackList, setTrackList] = useState([]);
+  const [trackList, setTrackList] = useState();
 
   /* reference */
   const audioRef = useRef();
   const progressBarRef = useRef();
 
   useEffect(() => {
-    // playlist[0]
-    setTrackList([]);
+    if (playlist) trigger(playlist[0].last_version_id);
+
+    const { data } = result;
+
+    if (data) {
+      setTrackList({
+        url: data.url,
+        cover_url: playlist[0].cover_url,
+        name: playlist[0].name,
+        authors: playlist[0].authors
+      })
+    }
   }, [playlist])
 
   return (
     <>
       <AnimatePresence>
-        {trackList.length > 0 && (
+        {trackList && (
           <>
             {isDesktop ? (
               <motion.div

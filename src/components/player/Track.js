@@ -14,14 +14,14 @@ export default function Track({
   }
 
   useEffect(() => {
-    console.log(currentTrack)
+    console.log('currentTrack:', currentTrack)
   }, [currentTrack]);
 
   return (
     <>
       <div className='flex items-center'>
         <audio
-          src={currentTrack.audio_url}
+          src={currentTrack.url}
           ref={audioRef}
           onLoadedMetadata={onLoadedMetadata}
         />
@@ -32,7 +32,7 @@ export default function Track({
           <div>
             <h5>{currentTrack.name}</h5>
             <h6 className='text-sm text-neutral-silver-200'>
-              {currentTrack?.authors.join(', ')}
+              {currentTrack?.authors?.join(', ')}
             </h6>
           </div>
         </div>
