@@ -1,57 +1,40 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
 import { useModal } from 'hooks/useModal';
-import { useCreateLinkMutation, useGetProjectQuery } from 'store/api';
+import { useGetProjectQuery } from 'store/api';
 
 import Breadcrumb from 'components/Breadcrumb';
 import VersionsTable from 'components/treasure/VersionsTable';
 import ParticipantsTable from 'components/treasure/ParticipantsTable';
 import AddButton from 'components/treasure/AddButton';
-import Modal from 'components/Modal';
-import Button from 'components/Button';
-import LinksTable from 'components/treasure/LinksTable';
 
 import { ReactComponent as Upload } from 'assets/images/icon-upload.svg';
 import { ReactComponent as Plus } from 'assets/images/icon-plus.svg';
 import { ReactComponent as Pencil } from 'assets/images/icon-pencil.svg';
 import { ReactComponent as Trash } from 'assets/images/icon-trash.svg';
 import { ReactComponent as Empty } from 'assets/images/empty-chest.svg';
+import LinksTable from 'components/treasure/LinksTable';
 
 export default function Treasure() {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { id } = useParams();
-  const { t } = useTranslation();
 
-  const {
-    data: project = [],
-    isLoading,
-    isFetching
-  } = useGetProjectQuery(id);
-
-  const [createLink, { isLoading: isLoadingCreateLink }] = useCreateLinkMutation();
-
+  const { data: project = {}, isLoading } = useGetProjectQuery(id);
   const { onOpen: openEditModal } = useModal('EditTrackModal');
   const { onOpen: openUploadModal } = useModal('UploadVersionModal');
   const { onOpen: openAddParticipantModal } = useModal('AddParticipantModal');
-
-  const [breadcrumb, setBreadcrums] = useState([]);
-  const [headers, setHeaders] = useState([]);
-  const [permissionsView, setPermissionsView] = useState();
-  const [permissionsData, setPermissionsData] = useState('');
-  const [showShareLink, setShowShareLink] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [versionId, setVersionId] = useState('');
-  const [showEditLink, setShowEditLink] = useState(false);
+  const { onOpen: openShareLinkModal } = useModal('ShareLinkModal');
 
   const permissionsOptions = [
     'participants',
     'links',
     'users'
   ];
+
+  const [breadcrumb, setBreadcrums] = useState([]);
+  const [permissionsView, setPermissionsView] = useState(permissionsOptions[0]);
 
   const TabButton = ({ title }) => {
     return (
@@ -81,38 +64,6 @@ export default function Treasure() {
     )
   }
 
-  const switchTable = (view) => {
-    switch (view) {
-      case 'participants':
-        return (
-          <>
-            <ParticipantsTable
-              data={permissionsData}
-              headers={headers}
-              user={user} />
-          </>
-        )
-      case 'links':
-        return (
-          <>
-            <LinksTable
-              data={permissionsData}
-              headers={headers}
-              user={user} />
-          </>
-        )
-      case 'users':
-        return (
-          <>
-            <ParticipantsTable
-              data={permissionsData}
-              headers={headers}
-              user={user} />
-          </>
-        )
-    }
-  }
-
   const switchAddButton = (view) => {
     switch (view) {
       case 'participants':
@@ -121,7 +72,7 @@ export default function Treasure() {
         )
       case 'links':
         return (
-          <AddButton text='Share new link' onClick={() => { setShowShareLink(true) }} />
+          <AddButton text='Share new link' onClick={() => { openShareLinkModal({ project }) }} />
         )
       case 'users':
         return (
@@ -130,23 +81,9 @@ export default function Treasure() {
     }
   }
 
-  const handleAddLink = async () => {
-    const result = await createLink({
-      'version': versionId,
-      'allow_web_play': true
-    });
-
-    if ('error' in result) {
-      console.log('Error');
-    } else {
-      setVersionId('');
-      setShowShareLink(false);
-    }
-  }
-
   const handleUpdateProject = () => {
-    const meta = { 
-      id: project.id, 
+    const meta = {
+      id: project.id,
       name: project.name,
       album: project.album
     }
@@ -163,44 +100,86 @@ export default function Treasure() {
     openUploadModal(meta);
   }
 
+  const renderView = () => {
+    switch (permissionsView) {
+      case 'participants':
+        return (
+          <>
+            {project.participants.length > 0
+              ? <div>
+                <ParticipantsTable
+                  data={project.participants}
+                  headers={[
+                    'Name',
+                    'Role',
+                    'Plays',
+                    'Date added',
+                    ''
+                  ]}
+                  user={user} />
+              </div>
+              : <EmptyMessage />
+            }
+            <div className='flex flex-col items-center'>
+              {switchAddButton(permissionsView)}
+            </div>
+          </>
+        )
+      case 'links':
+        return (
+          <>
+            {project.shared_versions.links.length > 0
+              ? <div>
+                <LinksTable
+                  data={project.shared_versions.links}
+                  headers={[
+                    'Link',
+                    'Web Play',
+                    'Plays',
+                    'Date added',
+                    ''
+                  ]}
+                  user={user} />
+              </div>
+              : <EmptyMessage />}
+            <div className='flex flex-col items-center'>
+              {switchAddButton(permissionsView)}
+            </div>
+          </>
+        )
+      case 'users':
+        return (
+          <>
+            {project.shared_versions.users.length > 0
+              ? <div>
+                <LinksTable
+                  data={project.shared_versions.users}
+                  headers={[
+                    'Link',
+                    'Web Play',
+                    'Plays',
+                    'Date added',
+                    ''
+                  ]}
+                  user={user} />
+              </div>
+              : <EmptyMessage />}
+            <div className='flex flex-col items-center'>
+              {switchAddButton(permissionsView)}
+            </div>
+          </>
+        )
+    }
+  }
+
   useEffect(() => {
-    setPermissionsView(permissionsOptions[0]);
     setBreadcrums([
       { name: 'My chest', link: '/my-chest' },
       { name: project?.name, link: '' },
     ]);
   }, [project]);
 
-  useEffect(() => {
-    switch (permissionsView) {
-      case 'participants':
-        console.log('permissions:', project.participants)
-        setPermissionsData(project.participants);
-        setHeaders([
-          'Name',
-          'Role',
-          'Plays',
-          'Date added',
-          ''
-        ]);
-        break;
-      case 'links':
-        setPermissionsData(project.shared_versions.links);
-        setHeaders([
-          'Link',
-          'Web Play',
-          'Plays',
-          'Date added',
-          ''
-        ]);
-        break;
-      case 'users':
-        setPermissionsData(project.shared_versions.users);
-        break;
-    }
-  }, [permissionsView]);
-
-  if (isLoading || isFetching) {
+  if (isLoading) {
     return 'Loading...'
   }
 
@@ -264,82 +243,10 @@ export default function Treasure() {
             </div>
           </div>
           <div className='bg-neutral-black rounded-t-lg rounded-b-3xl pl-5 pr-4 pt-3 pb-8 md:px-[60px] md:pb-[60px] md:pt-10'>
-            <AnimatePresence>
-              {permissionsData?.length > 0
-                ? <motion.span
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}>
-                  {switchTable(permissionsView)}
-                </motion.span>
-                : <motion.div
-                  initial={{ opacity: 0, y: -30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}>
-                  <EmptyMessage />
-                </motion.div>
-              }
-              <div className='flex flex-col items-center'>
-                {switchAddButton(permissionsView)}
-              </div>
-            </AnimatePresence>
+            {renderView()}
           </div>
         </div>
       </div>
-      <Modal show={showShareLink}>
-        <div className='flex flex-col items-center text-center mb-8 max-w-[440px]'>
-          <h4 className='mb-3 !text-5xl'>choose version</h4>
-          <p className='text-white text-lg'>
-            Choose a version of this track to share
-          </p>
-        </div>
-        <div className='version-options'>
-          {
-            project?.versions && (
-              project.versions.map((version, index) =>
-                <>
-                  <div className='relative'>
-                    <input
-                      key={index}
-                      type='radio'
-                      id={version.id}
-                      value={version.id}
-                      name='plan'
-                      onChange={(e) => { setVersionId(e.target.value) }} />
-                    <label htmlFor={version.id}>
-                      <span className='text-lg'>{version.name}</span>
-                    </label>
-                  </div>
-                </>
-              ))
-          }
-        </div>
-        <div className='grid grid-cols-2 gap-4 mt-8'>
-          <Button
-            text={t('global.cancel')}
-            style='third'
-            onClick={() => { setShowShareLink(false) }} />
-          <Button
-            text='Confirm'
-            style='primary'
-            disabled={isLoadingCreateLink || !versionId}
-            loading={isLoadingCreateLink}
-            onClick={handleAddLink} />
-        </div>
-      </Modal>
-      <Modal show={showEditLink}>
-        <div className='grid grid-cols-2 gap-4 mt-8'>
-          <Button
-            text={t('global.cancel')}
-            style='third'
-            onClick={() => {  }} />
-          <Button
-            text={t('global.save')}
-            style='primary'
-            disabled={loading}
-            loading={loading} />
-        </div>
-      </Modal>
     </>
   )
 }

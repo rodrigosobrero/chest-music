@@ -18,7 +18,6 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   if (result.error && result.error.status === 403) {
     api.dispatch(api.util.resetApiState());
     api.dispatch(saveUser(undefined));
-    window.location.replace = '/sign-in';
   }
 
   return result;
