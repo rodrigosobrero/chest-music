@@ -26,7 +26,9 @@ export default function Player() {
   const progressBarRef = useRef();
 
   useEffect(() => {
-    if (playlist) trigger(playlist[0].last_version_id);
+    console.log('playlist:', playlist)
+
+    if (playlist[0]) trigger(playlist[0].last_version_id);
 
     const { data } = result;
 
