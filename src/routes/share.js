@@ -7,31 +7,28 @@ import OptionSectionMobile from 'components/share/OptionSectionMobile';
 import Story from 'components/share/sections/Story';
 import OptionSectionDesktop from 'components/share/OptionSectionDesktop';
 import Reel from 'components/share/sections/ReelTiktok';
-import axios from 'axios';
-import { apiUrl } from 'utils/api';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useGetProjectQuery } from 'store/api';
 const Share = () => {
   const navigate = useNavigate()
   const goBack = () => {
     navigate(-1)
-  }
+  }  
+  const { trackId } = useParams()
+  const {data: track = {}} = useGetProjectQuery(trackId)
   const [ status, setStatus ] = React.useState('generate');
   const location = useLocation()
   const [ isUnlimited, setIsUnlimited ] = React.useState(false)
   const user = useSelector((state) => state.auth.user);
-  const [track, setTrack] = useState({})
+
   const toggleUnlimited = () => setIsUnlimited(!isUnlimited)
+
   const changeStatus = (status) => {
     setStatus(status);
   };
-  const { trackId } = useParams()
-  useEffect(() => {
-    if(!user?.token)return
-    axios.get(apiUrl + 'project/' + trackId, 
-    { headers: { Authorization: `Bearer ${user?.token}` } })
-    .then(({data}) => setTrack(data))
-  }, [user?.token, trackId])
+
+
   useEffect(() => {
     if(location?.search) {
       let method = location.search.split('?=')
@@ -39,6 +36,7 @@ const Share = () => {
       setStatus(method)
     }
   }, [location])
+
   return (
     <>
       <div className='md:w-[1200px] md:p-[60px] mx-auto md:rounded-3xl  w-full  pt-8 pb-10  bg-neutral-black md:my-10 md:gap-y-8'>

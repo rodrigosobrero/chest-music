@@ -8,6 +8,8 @@ import axios from 'axios';
 import { apiUrl } from 'utils/api';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
+import { auth } from 'utils/firebase';
 const SendDM = ({ token , versionId, onCancel }) => {
   const { t } = useTranslation()
   const navigate = useNavigate()
@@ -40,7 +42,7 @@ const SendDM = ({ token , versionId, onCancel }) => {
 
   useEffect(() => {
     if(!token) return;
-    if(input.length < 3) {
+    if(input.length < 2) {
         if(filteredUsers.length > 0) setFilteredUsers([])
         return;
     }
@@ -51,6 +53,10 @@ const SendDM = ({ token , versionId, onCancel }) => {
             users = users.filter(user => !selecteds.some(selected => selected.id === user?.id));
         }
         setFilteredUsers(users)
+    }).catch(({response}) => {
+        if(response.data.code === 'firebase-expired-token') {
+            signOut(auth)
+          } 
     })
   }, [input, token])
   
