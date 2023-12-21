@@ -9,7 +9,7 @@ export default function Select({ options, label, value, onChange, name, register
             onChange={onChange}
             className='custom-select capitalize'
             {...register(name, { required })}>
-            {options.map((option, index) => <option key={index} value={option}>{option}</option>)}
+            {options?.map((option, index) => <option key={index} value={option}>{option}</option>)}
           </select>
           : <select
             value={value}
