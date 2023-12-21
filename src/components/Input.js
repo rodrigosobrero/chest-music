@@ -51,7 +51,7 @@ export default function Input({ type, placeholder, label, name, value, onChange,
     <>
       <div className='flex flex-col gap-1.5 text-left'>
         {label && (
-          <label htmlFor={name} className='flex items-center'>
+          <label htmlFor={name} className='flex items-center !font-semibold'>
             <span className='grow'>{`${label}${required ? '*' : ''}`}</span>
             <AnimatePresence>
               {(helper && !error) && (
@@ -112,8 +112,8 @@ export default function Input({ type, placeholder, label, name, value, onChange,
             <div className='absolute top-4 right-4'>
               <button type='button' onClick={showHidePassword}>
                 {inputType === 'password' ?
-                  <EyeSlashIcon className='h-5 w-5 text-neutral-silver-500' /> :
-                  <EyeIcon className='h-5 w-5 text-brand-gold' />
+                  <EyeIcon className='h-5 w-5 text-brand-gold' /> :
+                  <EyeSlashIcon className='h-5 w-5 text-neutral-silver-500' />
                 }
               </button>
             </div>
