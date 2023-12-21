@@ -17,7 +17,7 @@ const Permissions = () => {
   const { t } = useTranslation() 
   const user = useSelector((state) => state.auth.user)
   const { data, handleToggle , isFetching } = useFetch(apiUrl + 'globalpermission/', user?.token )
-  const { handleChange, filteredArtists, handleOptionSelect, selected, handleDeleteSelected, input, checked, handleCheck, reset } = useSearch(3, data)
+  const { handleChange, filteredArtists, handleOptionSelect, selected, handleDeleteSelected, input, checked, handleCheck, reset } = useSearch(3, data, user?.token)
   const [ show, setShow ] = useState(false)
   
   const toggle = () => {setShow(!show); reset()}

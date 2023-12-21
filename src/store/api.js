@@ -145,6 +145,12 @@ export const api = createApi({
       }),
       invalidatesTags: ['Chest']
     }),
+    updateBlockedUsers: builder.mutation({
+      query: (id) => ({
+        url: `notification/permission/block/`,
+        body: { user: id }
+      })
+    }),
     getUser: builder.query({
       query: (keyword) => `user/?search=${keyword}`,
       providesTags: ['Users']
