@@ -7,6 +7,7 @@ import { useGetProjectQuery } from 'store/api';
 import Breadcrumb from 'components/Breadcrumb';
 import VersionsTable from 'components/treasure/VersionsTable';
 import ParticipantsTable from 'components/treasure/ParticipantsTable';
+import LinksTable from 'components/treasure/LinksTable';
 import AddButton from 'components/treasure/AddButton';
 
 import { ReactComponent as Upload } from 'assets/images/icon-upload.svg';
@@ -14,14 +15,15 @@ import { ReactComponent as Plus } from 'assets/images/icon-plus.svg';
 import { ReactComponent as Pencil } from 'assets/images/icon-pencil.svg';
 import { ReactComponent as Trash } from 'assets/images/icon-trash.svg';
 import { ReactComponent as Empty } from 'assets/images/empty-chest.svg';
-import LinksTable from 'components/treasure/LinksTable';
 
 export default function Treasure() {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { id } = useParams();
 
-  const { data: project = {}, isLoading } = useGetProjectQuery(id);
+  const { data: project = {}, isLoading } = useGetProjectQuery(id, { 
+    refetchOnMountOrArgChange: true 
+  });
   const { onOpen: openEditModal } = useModal('EditTrackModal');
   const { onOpen: openUploadModal } = useModal('UploadVersionModal');
   const { onOpen: openAddParticipantModal } = useModal('AddParticipantModal');
