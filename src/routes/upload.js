@@ -37,7 +37,7 @@ export default function Upload() {
   const dispatch = useDispatch()
   const navigate = useNavigate();
 
-  const { data: chest = {} } = useGetChestQuery();
+  const { data: chest = {}, isLoading } = useGetChestQuery();
 
   const [step, setStep] = useState(0);
   const [open, setOpen] = useState(false);
@@ -402,6 +402,10 @@ export default function Upload() {
         </div>
       </>
     )
+  }
+
+  if (isLoading) {
+    return 'Loading...'
   }
 
   return (

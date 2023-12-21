@@ -1,7 +1,7 @@
 import { addFile } from 'app/upload';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, redirect } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { upload } from 'utils/api';
 import config from 'data/config.json';
@@ -17,7 +17,7 @@ export default function Uploader({ title = true, self, id }) {
   const { t } = useTranslation();
   const { file } = useSelector((state) => state.upload);
   const { user } = useSelector((state) => state.auth);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [show, setShow] = useState(false);
@@ -53,7 +53,8 @@ export default function Uploader({ title = true, self, id }) {
             blob: localFileURL
           }));
 
-          navigate('upload');
+          // navigate('upload');
+          redirect('/upload')
         }
 
         setShowLoader(true);
