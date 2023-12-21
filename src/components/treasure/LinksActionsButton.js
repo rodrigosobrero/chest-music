@@ -58,12 +58,9 @@ export default function LinksActionsButton({ link }) {
   }
 
   const handleEditLink = async () => {
-    let data = { allow_web_play: allowWebPlay }
-
-    if (playLimit) { 
-      data.playLimit = playLimit 
-    } else {
-      data.playLimit = 0
+    const data = { 
+      'allow_web_play': allowWebPlay,
+      'play_limit': playLimit || null
     }
 
     const result = await updateLink({
