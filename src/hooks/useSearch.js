@@ -1,6 +1,8 @@
 import axios from "axios"
+import { signOut } from "firebase/auth"
 import { useEffect, useState } from "react"
 import { apiUrl } from "utils/api"
+import { auth } from "utils/firebase"
 
 const useSearch = (lengthToStartSearch, listeners) => {
     const [input, setInput] = useState('')
@@ -47,6 +49,11 @@ const useSearch = (lengthToStartSearch, listeners) => {
                 artists = artists.filter(artist => !listeners.some(listener => listener.user_id === artist.id));
             }
             setFilteredArtists(artists)
+        })
+        .catch(({response}) => {
+            if(response.data.code === 'firebase-expired-token') {
+                signOut(auth)
+              } 
         })
         // eslint-disable-next-line
     }, [input, lengthToStartSearch, listeners])
