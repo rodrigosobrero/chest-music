@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink, redirect } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
@@ -9,13 +9,26 @@ import Button from 'components/Button';
 import google from 'assets/images/logo-google.png';
 import spinner from 'assets/images/icon-loading-claim.png';
 import Modal from 'components/Modal';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { apiSlice } from 'store/api';
+import { saveUser } from 'app/auth';
 export default function SignIn() {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
+  const dispatch = useDispatch()
+  
+  const clearCache = () => {
+    dispatch(apiSlice.util.resetApiState())
+    dispatch(saveUser(undefined))
+  }
+
+  useEffect(() => {
+    clearCache()
+  }, [])
+
   const {
     register,
     handleSubmit,
@@ -106,6 +119,7 @@ export default function SignIn() {
                 error={errors.password && 'This field is required'} />
               <Button
                 text={t('signin.button')}
+                textStyle='!font-semibold'
                 style='primary'
                 type='submit'
                 disabled={loading}
