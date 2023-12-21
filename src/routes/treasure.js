@@ -102,7 +102,8 @@ export default function Treasure() {
   const handleCreateVersion = () => {
     const meta = {
       name: project.name,
-      participants: project.participants
+      participants: project.participants,
+      project: project.id
     }
 
     openUploadModal(meta);

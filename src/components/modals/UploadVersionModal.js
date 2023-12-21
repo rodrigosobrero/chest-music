@@ -27,8 +27,6 @@ export default function UploadVersionModal(props) {
   }
 
   const handleOnFileChange = (e) => {
-    console.log('SI', e)
-
     setVersion({
       ...version,
       file: e.id
@@ -36,8 +34,10 @@ export default function UploadVersionModal(props) {
   }
 
   const handleOnConfirm = async () => {
+
+
     const data = {
-      project: props.meta.id,
+      project: props.meta.project,
       name: version.name,
       audio: version.file
     }
