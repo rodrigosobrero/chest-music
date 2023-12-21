@@ -27,9 +27,11 @@ export default function UploadVersionModal(props) {
   }
 
   const handleOnFileChange = (e) => {
+    console.log('SI', e)
+
     setVersion({
       ...version,
-      file: e.target.value
+      file: e.id
     });
   }
 
