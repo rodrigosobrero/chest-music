@@ -14,6 +14,8 @@ import axios from 'axios';
 import { updateUserData } from 'app/auth';
 import Loading from 'components/Loading';
 import { useSearch } from 'hooks/useSearch';
+import { signOut } from 'firebase/auth';
+import { auth } from 'utils/firebase';
 export default function Manage() {
   const user = useSelector((state) => state.auth.user)
   const dispatch = useDispatch()
@@ -29,6 +31,11 @@ export default function Manage() {
       dispatch(updateUserData(response.data))
       handleToggle()
     })
+    .catch(({response}) => {
+      if(response.data.code === 'firebase-expired-token') {
+          signOut(auth)
+        } 
+  })
     .finally(() => toggle())
   }
 
