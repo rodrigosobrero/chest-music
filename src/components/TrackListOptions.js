@@ -56,7 +56,8 @@ export default function TrackListOptions({ track }) {
   const handleCreateVersion = () => {
     const meta = {
       name: track.name,
-      participants: track.authors
+      participants: track.authors,
+      project: track.id
     }
 
     openUploadModal(meta);
