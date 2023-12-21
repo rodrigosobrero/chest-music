@@ -34,8 +34,6 @@ export default function UploadVersionModal(props) {
   }
 
   const handleOnConfirm = async () => {
-
-
     const data = {
       project: props.meta.project,
       name: version.name,

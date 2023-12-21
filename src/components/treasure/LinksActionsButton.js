@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { motion, useAnimationControls } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import { useDeleteLinkMutation, useUpdateLinkMutation } from 'store/api';
+import { useDeleteLinkMutation } from 'store/api';
+import { useModal } from 'hooks/useModal';
 
 import Modal from 'components/Modal';
 import Button from 'components/Button';
-import Input from 'components/Input';
-import Toggle from 'components/share/Toggle';
 
 import dots from 'assets/images/icon-dots-horizontal.svg';
 import { XCircleIcon } from '@heroicons/react/24/outline';
@@ -18,15 +17,9 @@ export default function LinksActionsButton({ link }) {
 
   const [open, setOpen] = useState(false);
   const [description, setDescription] = useState('');
-  const [showEditLink, setShowEditLink] = useState(false);
   const [showDeleteLink, setShowDeleteLink] = useState(false);
-  const [playLimit, setPlayLimit] = useState('');
-  const [unlimited, setUnlimited] = useState(false);
-  const [allowWebPlay, setAllowWebPlay] = useState(false);
-  const [disablePlayLimit, setDisablePlayLimit] = useState(true);
-
-  const [updateLink, { isLoading: isLoadingUpdate }] = useUpdateLinkMutation();
   const [deleteLink, { isLoading: isLoadingDelete }] = useDeleteLinkMutation();
+  const { onOpen: openEditModal } = useModal('EditPermissionsLinkModal');
 
   const sequence = async () => {
     if (open) {
@@ -57,24 +50,6 @@ export default function LinksActionsButton({ link }) {
     )
   }
 
-  const handleEditLink = async () => {
-    const data = { 
-      'allow_web_play': allowWebPlay,
-      'play_limit': playLimit || null
-    }
-
-    const result = await updateLink({
-      id: link.id,
-      data
-    });
-
-    if ('error' in result) {
-      console.log('Error');
-    } else {
-      setShowEditLink(false);
-    }
-  }
-
   const handleDeleteLink = async () => {
     const result = await deleteLink(link.id);
 
@@ -85,14 +60,8 @@ export default function LinksActionsButton({ link }) {
     }
   }
 
-  const handleWebPlay = () => {
-    setAllowWebPlay(!allowWebPlay);
-  }
-
-  const handleUnlimited = () => {
-    setUnlimited(!unlimited);
-    setDisablePlayLimit(!disablePlayLimit);
-    setPlayLimit('');
+  const handleEdit = () => {
+    openEditModal(link);
   }
 
   return (
@@ -129,7 +98,7 @@ export default function LinksActionsButton({ link }) {
                       <CustomButton
                         onMouseEnter={() => { setDescription('Edit') }}
                         onMouseLeave={() => { setDescription('') }}
-                        onClick={() => { setShowEditLink(true) }}>
+                        onClick={handleEdit}>
                         <PencilSquareIcon className="h-6 w-6 text-gray-500" />
                       </CustomButton>
                       <CustomButton
@@ -146,47 +115,6 @@ export default function LinksActionsButton({ link }) {
           </motion.div>
         </motion.div>
       </div>
-      <Modal show={showEditLink}>
-        <div className='flex flex-col items-center text-center mb-8 max-w-[440px]'>
-          <h4 className='mb-3 !text-5xl'>edit link permissions</h4>
-          <p className='text-white text-lg'>
-            /{link.token}
-          </p>
-        </div>
-        <div className='flex flex-row gap-5 items-center mb-6'>
-          <div className='grow'>
-            <Input onlyNumeric value={playLimit} disabled={!disablePlayLimit} onChange={(e) => { setPlayLimit(e.target.value) }} label='Play limit' />
-          </div>
-          <div className='flex items-center justify-center gap-2.5'>
-            <div className='flex items-center'>
-              <Toggle onChange={handleUnlimited} />
-            </div>
-            <span className='pt-6'>Unlimited</span>
-          </div>
-        </div>
-        <div className='flex items-center gap-3'>
-          <input
-            type='checkbox'
-            name='terms'
-            id='webplay'
-            onChange={handleWebPlay} />
-          <label htmlFor='webplay'>
-            Allow web play
-          </label>
-        </div>
-        <div className='grid grid-cols-2 gap-4 mt-8'>
-          <Button
-            text={t('global.cancel')}
-            style={'third'}
-            onClick={() => { setShowEditLink(false) }} />
-          <Button
-            text={t('global.save')}
-            style={'primary'}
-            disabled={isLoadingUpdate}
-            loading={isLoadingUpdate}
-            onClick={handleEditLink} />
-        </div>
-      </Modal>
       <Modal show={showDeleteLink}>
         <div className='flex flex-col items-center text-center mb-4 max-w-[440px]'>
           <h4 className='mb-3 !text-5xl'>remove link</h4>

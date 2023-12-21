@@ -36,7 +36,7 @@ export default function EditPermissionsUserModal(props) {
   const handleSave = async () => {
     const data = {
       'allow_web_play': webPlay,
-      'play_limit': playLimit
+      'play_limit': playLimit || null
     }
 
     const result = await updateUserPermissions({
