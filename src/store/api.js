@@ -1,8 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { saveUser } from 'app/auth';
 import { signOut } from 'firebase/auth';
 import { auth } from 'utils/firebase';
-
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.REACT_APP_API,
@@ -13,7 +11,6 @@ const baseQuery = fetchBaseQuery({
     return headers;
   }
 });
-
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
@@ -159,6 +156,21 @@ export const api = createApi({
       query: () => 'shared/',
       providesTags: ['Shared']
     }),
+    updateSharedUser: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `shared/user/${id}/`,
+        method: 'PATCH',
+        body: data
+      }),
+      invalidatesTags: ['Project']
+    }),
+    deleteSharedUser: builder.mutation({
+      query: (id) => ({
+        url: `shared/user/${id}/`,
+        method: 'DELETE'
+      }),
+      invalidatesTags: ['Project']
+    }),
     getPermissions: builder.query({
       query: () => 'notification/permission/',
       providesTags: ['Permissions']
@@ -208,10 +220,12 @@ export const {
   useUpdateNotificationsMutation,
   useGetUserQuery,
   useGetSharedsQuery,
+  useUpdateSharedUserMutation,
+  useDeleteSharedUserMutation,
   useGetPermissionsQuery,
   useDeletePermissionMutation,
   useCreatePermissionMutation,
-  useUpdatePermissionMutation
+  useUpdatePermissionMutation,
 } = api;
 
 export { api as apiSlice}

@@ -17,7 +17,7 @@ export default function Chest() {
     data: chest = [],
     isLoading,
     isFetching,
-  } = useGetChestQuery();
+  } = useGetChestQuery('', { refetchOnMountOrArgChange: true });
   
   useEffect(() => {
     setUsedSpace(Math.round(100 * chest.used_space / chest.total_space));

@@ -750,3 +750,19 @@ input[type="search"]::-webkit-search-results-decoration {
 .modal-panel {
   @apply border-0 rounded-t-[20px] md:rounded-[20px] relative flex flex-col gap-3 w-full bg-neutral-silver-700 outline-none focus:outline-none p-6 md:p-10
 }
+
+.toolbar-button {
+  @apply p-2 rounded-full bg-neutral-silver-600;
+}
+
+.toolbar-button path {
+  @apply stroke-white transition duration-500;
+}
+
+.primary:hover path {
+  @apply stroke-brand-gold;
+}
+
+.alert:hover path {
+  @apply stroke-error-red;
+}
