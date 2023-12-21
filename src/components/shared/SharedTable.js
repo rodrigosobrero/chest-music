@@ -17,7 +17,7 @@ const SharedTable = ({ artist, data, dispatch }) => {
             </div>
           }
         </div>
-        <div className='bg-neutral-black rounded-b-[32px] rounded-t-xl px-[12px]  pl-5 md:px-[60px] md:pt-10 pb-[60px]'>
+        <div className='bg-neutral-black rounded-b-[32px] rounded-t-xl pr-4 pt-3  pl-5 md:px-[60px] md:pt-10 pb-[32px]'>
              {data.length > 0 ? <SharedList tracks={data} dispatch={dispatch}/> :               
                       <div className='flex flex-col items-center gap-2'>
                          <h4 className='font-bold'>Nothing here</h4>
