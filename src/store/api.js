@@ -16,7 +16,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
   
   if (result.error && result.error.status === 403) {
-    api.dispatch(saveUser(undefined));
+    // api.dispatch(saveUser(undefined));
     signOut(auth)
   }
   return result;
