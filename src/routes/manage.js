@@ -4,63 +4,46 @@ import Modal from 'components/Modal';
 import ManageButton from 'components/notifications/ManageButton';
 import unlocked from 'assets/images/icon-unlocked.svg';
 import locked from 'assets/images/icon-lock.svg'
-import manage from 'data/manage.json'
 import Breadcrumb from 'components/Breadcrumb';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { useFetch } from 'hooks/useFetch';
-import { apiUrl } from 'utils/api';
-import axios from 'axios';
 import { updateUserData } from 'app/auth';
 import Loading from 'components/Loading';
 import { useSearch } from 'hooks/useSearch';
-import { signOut } from 'firebase/auth';
-import { auth } from 'utils/firebase';
+import { useCreatePermissionMutation, useDeletePermissionMutation, useGetPermissionsQuery, useUpdatePermissionMutation } from 'store/api';
+
 export default function Manage() {
   const user = useSelector((state) => state.auth.user)
   const dispatch = useDispatch()
-
-  const { data, isFetching, handleToggle } = useFetch(apiUrl + 'notification/permission/', user?.token)
+  const [show, setShow] = useState()
+  const [isOpen, setIsOpen] = useState(false)
+  const { data = [], isFetching, isLoading }= useGetPermissionsQuery()
+  const [deletePermission] = useDeletePermissionMutation()
+  const [createPermission] = useCreatePermissionMutation()
+  const [updatePermission] = useUpdatePermissionMutation()
   const { filteredArtists, handleChange , handleOptionSelect, input, selected, handleDeleteSelected, reset} = useSearch(3, data)
 
-  const [isOpen, setIsOpen] = useState(false)
-
-  const togglePermissions = () => {
-    axios.get(apiUrl+'notification/permission/toggle', { headers: { Authorization: `Bearer ${user?.token}` }})
-    .then((response) => {
-      dispatch(updateUserData(response.data))
-      handleToggle()
-    })
-    .catch(({response}) => {
-      if(response.data.code === 'firebase-expired-token') {
-          signOut(auth)
-        } 
-  })
-    .finally(() => toggle())
+  const togglePermissions = async() => {
+      const { data } = await updatePermission()
+      dispatch(updateUserData(data))
+      toggle()
   }
 
-  const createPermission = (callback) => {
+  const onCreatePermission = async (callback) => {
     const permission = user?.data.notifications_privacy === 'open' ? 'blocked' : 'allowed';
-    axios.post(apiUrl + 'notification/permission/',
-     { permission: permission, user: selected.id  },
-     { headers: { Authorization: `Bearer ${user?.token}` } })
-     .then(() => { handleToggle(); callback(); reset() })
-     .catch((err) => console.log(err))
+    await createPermission({permission: permission, user: selected.id})
+    callback()
+    reset()
   }
 
-  const deletePermission = (id) => {
-    axios.delete(apiUrl + 'notification/permission/' + id,
-    { headers: { Authorization: `Bearer ${user?.token}` } })
-    .then(() => handleToggle())
-    .catch((err) => console.log(err))
+  const onDeletePermission = async (id) => {
+    await deletePermission(id)
   }
 
   useEffect(() => {
-    console.log('entre')
     setIsOpen(user?.data.notifications_privacy === 'open')
   },[user?.data])
 
-  const [show, setShow] = useState()
 
   const toggle = () => setShow(!show)
 
@@ -129,9 +112,9 @@ export default function Manage() {
             </div>
         </div>
         <div className='bg-neutral-black w-full flex flex-col items-center rounded-b-3xl rounded-t-md px-6 py-4 md:py-10 md:px-[60px]'>
-             {isFetching ? <Loading /> : data.length > 0 && <ManageList data={data} privacyIsOpen={isOpen} onDelete={deletePermission}/>} 
+             {isFetching ? <Loading /> : data.length > 0 && <ManageList data={data} privacyIsOpen={isOpen} onDelete={onDeletePermission}/>} 
              <ManageButton handleOptionSelect={handleOptionSelect} isOpen={isOpen} filteredArtists={filteredArtists} 
-                           createPermission={createPermission} handleDeleteSelected={handleDeleteSelected}
+                           createPermission={onCreatePermission} handleDeleteSelected={handleDeleteSelected}
                            handleChange={handleChange} input={input} selected={selected} />
         </div>
       </div>

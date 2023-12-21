@@ -150,8 +150,34 @@ export const api = createApi({
     }),
     getShareds: builder.query({
       query: () => 'shared/',
-      invalidatesTags: ['Shared']
+      providesTags: ['Shared']
     }),
+    getPermissions: builder.query({
+      query: () => 'notification/permission/',
+      providesTags: ['Permissions']
+    }),
+    createPermission: builder.mutation({
+      query: (body) => ({
+        url: `notification/permission/`,
+        method: 'POST',
+        body: body
+      }),
+      invalidatesTags: ['Permissions']
+    }),
+    deletePermission: builder.mutation({
+      query: (id) => ({
+        url: `notification/permission/${id}/`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Permissions']
+    }),
+    updatePermission: builder.mutation({
+      query: () => ({
+        url: 'notification/permission/toggle/',
+        method: 'GET'
+      }),
+      invalidatesTags: ['Permissions']
+    })
   })
 });
 
@@ -175,4 +201,8 @@ export const {
   useUpdateNotificationsMutation,
   useGetUserQuery,
   useGetSharedsQuery,
+  useGetPermissionsQuery,
+  useDeletePermissionMutation,
+  useCreatePermissionMutation,
+  useUpdatePermissionMutation
 } = api;
