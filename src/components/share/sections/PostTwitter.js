@@ -4,8 +4,10 @@ import Input from 'components/Input'
 import Toggle from '../Toggle'
 import ButtonsContainer from '../ButtonsContainer';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
-const PostTwitter = ({ toggleUnlimited }) => {
+const PostTwitter = ({ toggleUnlimited, onCancel }) => {
+  const navigate = useNavigate()
   const { t } = useTranslation()
   const [input, setInput] = useState('')
   const submit = () => {
@@ -38,7 +40,7 @@ const PostTwitter = ({ toggleUnlimited }) => {
                 <Input label={'URL'} showClipboard={true} disabled={true} value={'https://web.chestmusic.com/track/0xlwJmalM7b'}/>
             </div>
        </div>
-       <ButtonsContainer primaryButton={'Tweet'} disabled={input === ''} onClick={submit} />
+       <ButtonsContainer primaryButton={'Post'} disabled={input === ''} onClick={submit} onCancel={onCancel} />
      </>
   )
 }

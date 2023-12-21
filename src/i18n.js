@@ -184,7 +184,7 @@ i18next
             storage: 'Storage',
             current_plan: 'Current plan',
             artist_name: 'Artist name',
-            artist_username: 'Artist username',
+            artist_username: 'Username',
             upgrade: 'Upgrade storage',
             delete_validation_text: 'delete my chest',
             modals:{
@@ -201,7 +201,8 @@ i18next
           },
           shared: {
             title: 'Shared with me',
-            subtitle: 'Explore and play the tracks that other artists shared with you'
+            subtitle: 'Explore and play the tracks that other artists shared with you',
+            any: 'Nobody shared a track with you yet'
           },
           security: {
             pin: 'PIN Code',

@@ -86,8 +86,8 @@ export default function Setup() {
         onClick={() => { setUserType(option.type) }}>
         <div className='flex flex-col gap-6'>
           <h4 className='text-center'>{option.type}</h4>
-          <img src={option.image} alt={option.type} width={264} height={140} className={`rounded-xl ${option.type === userType ? '!grayscale-0' : ''}`} />
-          <p className='text-lg'>{option.description}</p>
+          <img src={option.image} alt={option.type} className={`md:w-[264px] md:h-[140px] rounded-xl ${option.type === userType ? '!grayscale-0' : ''}`} />
+          <p className='text-lg leading-6 font-light'>{option.description}</p>
         </div>
       </div>
     )

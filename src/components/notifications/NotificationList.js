@@ -21,7 +21,7 @@ export const NotificationList = ({ invites, blockUser, replyNotification}) => {
         </div>
         <div className='font-archivo font-semibold flex mt-8 gap-4'>
            <button className='w-[48%] bg-neutral-silver-600 text-white h-10 rounded-lg' onClick={() => setIsOpen(!isOpen)}>Cancel</button>
-           <button className='w-[48%] bg-brand-gold text-black h-10 rounded-lg' onClick={() => blockUser(selected.id, () => setIsOpen(!isOpen))}>Block</button>
+           <button className='w-[48%] bg-brand-gold text-black h-10 rounded-lg' onClick={() => blockUser(selected.user_id, () => setIsOpen(!isOpen))}>Block</button>
         </div>
       </div>
     )

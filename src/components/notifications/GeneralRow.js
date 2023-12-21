@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import NotificationIcon from './NotificationIcon'
 import { timeDifference } from 'utils/helpers'
 const GeneralRow = ({ notification }) => {
-    console.log(notification)
   const [toggle, setToggle] = useState(false)
   const handleChange = () => setToggle(!toggle)
   return (

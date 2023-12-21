@@ -9,7 +9,7 @@ function FAQItem({ answer, question, i }) {
   return (
       <div className="bg-neutral-silver-700 p-5 w-full mx-auto rounded-xl" onClick={toggle}>
         <div className={`flex justify-between md:items-center items-top ${i === 0 ? 'gap-x-2' : 'gap-x-10'}  md:gap-auto`}>
-          <p className="text-white text-left font-archivo text-lg">{question}</p>
+          <p className="text-white !text-left !font-archivo !text-lg">{question}</p>
             {show ? (
               <ChevronUpIcon className="h-6 w-6 text-brand-gold" />
             ) : (

@@ -1,25 +1,22 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { saveUser } from 'app/auth';
+import { signOut } from 'firebase/auth';
+import { auth } from 'utils/firebase';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.REACT_APP_API,
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.user.token;
-
     if (token) headers.set('Authorization', `Bearer ${token}`);
-
     return headers;
   }
 });
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
-
   if (result.error && result.error.status === 403) {
-    api.dispatch(api.util.resetApiState());
-    api.dispatch(saveUser(undefined));
+    signOut(auth);
   }
-
   return result;
 }
 
@@ -28,7 +25,7 @@ export const api = createApi({
   baseQuery: baseQueryWithReauth,
   endpoints: builder => ({
     getChest: builder.query({
-      query: () => 'mychest/',
+      query: () => 'mychest',
       providesTags: ['Chest']
     }),
     getProject: builder.query({
@@ -146,7 +143,11 @@ export const api = createApi({
     getUser: builder.query({
       query: (keyword) => `user/?search=${keyword}`,
       providesTags: ['Users']
-    })
+    }),
+    getShareds: builder.query({
+      query: () => 'shared/',
+      invalidatesTags: ['Shared']
+    }),
   })
 });
 
@@ -169,4 +170,5 @@ export const {
   useGetNotificationsQuery,
   useUpdateNotificationsMutation,
   useGetUserQuery,
+  useGetSharedsQuery,
 } = api;
