@@ -1,12 +1,16 @@
 import { format } from 'utils/helpers';
 import { formatTime } from 'utils/helpers';
 import { isDesktop } from 'react-device-detect';
+import { useDispatch, useSelector } from 'react-redux';
+import { playing } from 'app/playlist';
 
 import VersionsActionsButton from './VersionsActionsButton';
 
 import { PlayIcon } from '@heroicons/react/24/solid';
 
 export default function VersionsRow({ project, version }) {
+  const dispatch = useDispatch();
+  const playlist = useSelector(state => state.playlist);
   const filteredParticipants = (participants) => {
     let filtered = [];
 
@@ -29,7 +33,7 @@ export default function VersionsRow({ project, version }) {
         <td>
           <div className='flex flex-row gap-3 md:gap-4'>
             <div className='relative rounded flex items-center'>
-              <button type='button'>
+              <button type='button' onClick={() => { dispatch(playing(version)) }}>
                 <PlayIcon className="h-6 w-6 text-white" />
               </button>
             </div>
