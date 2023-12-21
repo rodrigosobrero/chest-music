@@ -42,7 +42,7 @@ export default function Nav() {
     <>
       <nav className='main z-10 fixed w-full'>
         <div className='container flex items-center justify-center w-full'>
-          <div className='flex items-center gap-4 grow'>
+          <div className={`flex items-center gap-4 grow ${location.pathname === '/setup' && 'justify-center'}`}>
             <img src={logo} alt='Chest' width={146} height={32} className='w-[110px] h-[24px] md:w-[146px] md:h-[32px]' />
             <Tag>Web</Tag>
           </div>
@@ -77,16 +77,18 @@ export default function Nav() {
               }
             </ul>
           </div>
-          <div className='flex lg:hidden flex-row items-center'>
-            <NavLink to='/notifications' className='p-1'>
-              <BellIcon className='h-6 w-6' />
-            </NavLink>
-            <button type='button' className='p-2' onClick={toggleOpen}>
-              {open ?
-                <img src={closeIcon} width={24} height={24} alt='' /> :
-                <img src={menuIcon} width={24} height={24} alt='' />}
-            </button>
-          </div>
+          {location.pathname !== '/setup' &&
+            <div className='flex lg:hidden flex-row items-center'>
+              <NavLink to='/notifications' className='p-1'>
+                <BellIcon className='h-6 w-6' />
+              </NavLink>
+              <button type='button' className='p-2' onClick={toggleOpen}>
+                {open ?
+                  <img src={closeIcon} width={24} height={24} alt='' /> :
+                  <img src={menuIcon} width={24} height={24} alt='' />}
+              </button>
+            </div>
+          }
         </div>
       </nav>
       <motion.div
