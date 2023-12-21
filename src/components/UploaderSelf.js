@@ -13,11 +13,10 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { bytesToSize } from 'utils/helpers';
 import { CheckIcon } from '@heroicons/react/20/solid';
 
-export default function Uploader({ title = true, self, id }) {
+export default function UploaderSelf({ title = true, id }) {
   const { t } = useTranslation();
   const { file } = useSelector((state) => state.upload);
   const { user } = useSelector((state) => state.auth);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [show, setShow] = useState(false);
@@ -44,17 +43,7 @@ export default function Uploader({ title = true, self, id }) {
       if (type === 'audio/mpeg' || type === 'audio/wav') {
         const localFileURL = window.URL.createObjectURL(files[0])
 
-        if (self) {
-          handleUpload(files[0], localFileURL);
-        } else {
-          dispatch(addFile({
-            filename: files[0].name,
-            size: files[0].size,
-            blob: localFileURL
-          }));
-
-          navigate('upload');
-        }
+        handleUpload(files[0], localFileURL);
 
         setShowLoader(true);
       } else {

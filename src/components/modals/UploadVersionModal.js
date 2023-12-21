@@ -3,9 +3,9 @@ import { useCreateVersionMutation } from 'store/api';
 import { useTranslation } from 'react-i18next';
 
 import { BaseModal } from 'components/BaseModal';
-import Uploader from 'components/Uploader';
 import Input from 'components/Input';
 import Button from 'components/Button';
+import UploaderSelf from 'components/UploaderSelf';
 
 export default function UploadVersionModal(props) {
   const { t } = useTranslation();
@@ -60,9 +60,7 @@ export default function UploadVersionModal(props) {
         </p>
       </div>
       <div className='flex flex-col gap-8'>
-        <Uploader
-          self
-          id={handleOnFileChange} />
+        <UploaderSelf id={handleOnFileChange} />
         <Input
           type='text'
           label='Version name'
