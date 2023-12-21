@@ -1,22 +1,19 @@
 import { format } from 'utils/helpers';
-import LinksActionsButton from './LinksActionsButton';
+import UsersActionsButton from './UsersActionsButton';
 
-export default function LinksTable({ data, headers }) {
+export default function UsersTable({ data, headers }) {
   const Rows = ({ cell }) => {
     return (
       <>
         <td className='text-lg'>
-          /{cell.token}
+          {cell.full_name}
         </td>
-        <td>
-          {cell.allow_web_play ? 'Yes': 'No'}
-        </td>
-        <td>
-          {cell.play_limit ? `${cell.plays}/${cell.play_limit}`  : 'unlimited'}
-        </td>
+        <td>{cell.version}</td>
+        <td>{cell.allow_web_play ? 'Yes' : 'No'}</td>
+        <td>{cell.play_limit ? `${cell.plays}/${cell.play_limit}` : 'unlimited'}</td>
         <td>{format.date(cell.date_shared)}</td>
         <td className='flex justify-end'>
-          <LinksActionsButton link={cell} />
+          <UsersActionsButton link={cell} />
         </td>
       </>
     )

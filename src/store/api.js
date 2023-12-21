@@ -1,5 +1,4 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { saveUser } from 'app/auth';
 import { signOut } from 'firebase/auth';
 import { auth } from 'utils/firebase';
 
@@ -148,6 +147,21 @@ export const api = createApi({
       query: () => 'shared/',
       invalidatesTags: ['Shared']
     }),
+    updateSharedUser: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `shared/user/${id}/`,
+        method: 'PATCH',
+        body: data
+      }),
+      invalidatesTags: ['Project']
+    }),
+    deleteSharedUser: builder.mutation({
+      query: (id) => ({
+        url: `shared/user/${id}/`,
+        method: 'DELETE'
+      }),
+      invalidatesTags: ['Project']
+    })
   })
 });
 
@@ -171,4 +185,6 @@ export const {
   useUpdateNotificationsMutation,
   useGetUserQuery,
   useGetSharedsQuery,
+  useUpdateSharedUserMutation,
+  useDeleteSharedUserMutation,
 } = api;

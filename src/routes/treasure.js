@@ -3,17 +3,20 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useModal } from 'hooks/useModal';
 import { useGetProjectQuery } from 'store/api';
+import { classNames } from 'utils/helpers';
 
 import Breadcrumb from 'components/Breadcrumb';
 import VersionsTable from 'components/treasure/VersionsTable';
 import ParticipantsTable from 'components/treasure/ParticipantsTable';
 import LinksTable from 'components/treasure/LinksTable';
+import UsersTable from 'components/treasure/UsersTable';
 import AddButton from 'components/treasure/AddButton';
 
-import { ReactComponent as Upload } from 'assets/images/icon-upload.svg';
-import { ReactComponent as Plus } from 'assets/images/icon-plus.svg';
-import { ReactComponent as Pencil } from 'assets/images/icon-pencil.svg';
-import { ReactComponent as Trash } from 'assets/images/icon-trash.svg';
+import { ArrowUpTrayIcon } from '@heroicons/react/24/outline';
+import { PlusIcon } from '@heroicons/react/24/outline';
+import { PencilSquareIcon } from '@heroicons/react/24/outline';
+import { TrashIcon } from '@heroicons/react/24/outline';
+
 import { ReactComponent as Empty } from 'assets/images/empty-chest.svg';
 
 export default function Treasure() {
@@ -21,8 +24,8 @@ export default function Treasure() {
   const { user } = useSelector((state) => state.auth);
   const { id } = useParams();
 
-  const { data: project = {}, isLoading } = useGetProjectQuery(id, { 
-    refetchOnMountOrArgChange: true 
+  const { data: project = {}, isLoading } = useGetProjectQuery(id, {
+    refetchOnMountOrArgChange: true
   });
   const { onOpen: openEditModal } = useModal('EditTrackModal');
   const { onOpen: openUploadModal } = useModal('UploadVersionModal');
@@ -43,7 +46,10 @@ export default function Treasure() {
       <>
         <button
           type='button'
-          className={`button-tab ${permissionsView === title && 'active'}`}
+          className={classNames({
+            'button-tab': true,
+            'active': permissionsView === title
+          })}
           disabled={permissionsView === title}
           onClick={() => { setPermissionsView(title) }}>
           {title}
@@ -103,76 +109,49 @@ export default function Treasure() {
   }
 
   const renderView = () => {
+    let data, headers;
+  
     switch (permissionsView) {
       case 'participants':
-        return (
-          <>
-            {project.participants.length > 0
-              ? <div>
-                <ParticipantsTable
-                  data={project.participants}
-                  headers={[
-                    'Name',
-                    'Role',
-                    'Plays',
-                    'Date added',
-                    ''
-                  ]}
-                  user={user} />
-              </div>
-              : <EmptyMessage />
-            }
-            <div className='flex flex-col items-center'>
-              {switchAddButton(permissionsView)}
-            </div>
-          </>
-        )
+        data = project.participants;
+        headers = ['Name', 'Role', 'Plays', 'Date added', ''];
+        break;
+  
       case 'links':
-        return (
-          <>
-            {project.shared_versions.links.length > 0
-              ? <div>
-                <LinksTable
-                  data={project.shared_versions.links}
-                  headers={[
-                    'Link',
-                    'Web Play',
-                    'Plays',
-                    'Date added',
-                    ''
-                  ]}
-                  user={user} />
-              </div>
-              : <EmptyMessage />}
-            <div className='flex flex-col items-center'>
-              {switchAddButton(permissionsView)}
-            </div>
-          </>
-        )
+        data = project.shared_versions.links;
+        headers = ['Link', 'Web Play', 'Plays', 'Date added', ''];
+        break;
+  
       case 'users':
-        return (
-          <>
-            {project.shared_versions.users.length > 0
-              ? <div>
-                <LinksTable
-                  data={project.shared_versions.users}
-                  headers={[
-                    'Link',
-                    'Web Play',
-                    'Plays',
-                    'Date added',
-                    ''
-                  ]}
-                  user={user} />
-              </div>
-              : <EmptyMessage />}
-            <div className='flex flex-col items-center'>
-              {switchAddButton(permissionsView)}
-            </div>
-          </>
-        )
+        data = project.shared_versions.users;
+        headers = ['Name', 'Version shared', 'Web play', 'Plays', 'Date shared', ''];
+        break;
+  
+      default:
+        return null;
     }
-  }
+  
+    return (
+      <>
+        {data.length > 0 ? (
+          <div>
+            {permissionsView === 'participants' ? (
+              <ParticipantsTable data={data} headers={headers} user={user} />
+            ) : permissionsView === 'links' ? (
+              <LinksTable data={data} headers={headers} />
+            ) : (
+              <UsersTable data={data} headers={headers} />
+            )}
+          </div>
+        ) : (
+          <EmptyMessage />
+        )}
+        <div className='flex flex-col items-center'>
+          {switchAddButton(permissionsView)}
+        </div>
+      </>
+    );
+  };
 
   useEffect(() => {
     setBreadcrums([
@@ -191,17 +170,30 @@ export default function Treasure() {
         <div className='toolbar'>
           <Breadcrumb items={breadcrumb} />
           <div className='grow flex items-center justify-end gap-3'>
-            <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { navigate(`/share/${project.id}?=sendDM`) }}>
-              <Upload width={28} height={28} />
+            <button 
+              type='button' 
+              className='toolbar-button primary' 
+              onClick={() => { navigate(`/share/${project.id}?=sendDM`) }}>
+              <ArrowUpTrayIcon className='h-7 w-7' />
             </button>
-            <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={handleCreateVersion}>
-              <Plus width={28} height={28} />
+            <button 
+              type='button' 
+              className='toolbar-button primary' 
+              onClick={handleCreateVersion}
+              style={{ color: 'blue' }}>
+              <PlusIcon className='h-7 w-7' />
             </button>
-            <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={handleUpdateProject}>
-              <Pencil width={28} height={28} />
+            <button 
+              type='button' 
+              className='toolbar-button primary'
+              onClick={handleUpdateProject}>
+              <PencilSquareIcon className='h-7 w-7' />
             </button>
-            <button type='button' className='p-2 rounded-full bg-neutral-silver-600' onClick={() => { navigate(`/my-chest/treasure/${project.id}/trash/`) }}>
-              <Trash width={28} height={28} />
+            <button 
+              type='button' 
+              className='toolbar-button alert' 
+              onClick={() => { navigate(`/my-chest/treasure/${project.id}/trash/`) }}>
+              <TrashIcon className='h-7 w-7' />
             </button>
           </div>
         </div>
@@ -231,11 +223,11 @@ export default function Treasure() {
                   <span className='text-lg text-neutral-silver-200'>Participants</span>
                 </div>
                 <div className='flex items-center gap-3'>
-                  <span className='font-normal text-4xl text-brand-uva font-thunder'>{project.shared_versions.links && 0}</span>
+                  <span className='font-normal text-4xl text-brand-uva font-thunder'>{project.shared_versions.links.length}</span>
                   <span className='text-lg text-neutral-silver-200'>Links</span>
                 </div>
                 <div className='flex items-center gap-3'>
-                  <span className='font-normal text-4xl text-brand-uva font-thunder'>{project.shared_versions.users && 0}</span>
+                  <span className='font-normal text-4xl text-brand-uva font-thunder'>{project.shared_versions.users.length}</span>
                   <span className='text-lg text-neutral-silver-200'>Users</span>
                 </div>
               </div>
