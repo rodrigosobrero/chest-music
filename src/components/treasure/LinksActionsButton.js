@@ -61,9 +61,9 @@ export default function LinksActionsButton({ link }) {
     let data = { allow_web_play: allowWebPlay }
 
     if (playLimit) { 
-      data.playLimit = playLimit 
+      data.play_limit = playLimit 
     } else {
-      data.playLimit = 0
+      data.play_limit = null
     }
 
     const result = await updateLink({
