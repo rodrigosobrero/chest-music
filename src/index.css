@@ -119,11 +119,15 @@ input[type=number] {
 }
 
 .social {
-  @apply bg-neutral-silver-700 rounded-xl p-3;
+  @apply bg-neutral-silver-700 rounded-xl p-3 focus:bg-neutral-black;
 }
 
-.social svg {
-  @apply hover:fill-brand-gold;
+.social path {
+  @apply transition-colors duration-500;
+}
+
+.social:hover path {
+  @apply fill-brand-gold;
 }
 
 .uploader {
