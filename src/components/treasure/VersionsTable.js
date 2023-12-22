@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import VersionsRow from './VersionsRow';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export default function VersionsTable({ project }) {
   const [titles, setTitles] = useState([]);
@@ -42,10 +43,18 @@ export default function VersionsTable({ project }) {
         <tbody>
           {
             project?.versions?.map((version, index) =>
-              <VersionsRow
-                key={index}
-                project={project}
-                version={version} />
+              <AnimatePresence>
+                <motion.tr
+                  key={version.id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}>
+                  <VersionsRow
+                    key={index}
+                    project={project}
+                    version={version} />
+                </motion.tr>
+              </AnimatePresence>
             )
           }
         </tbody>

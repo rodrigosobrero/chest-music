@@ -44,7 +44,7 @@ export default function AddParticipantModal(props) {
       <div className='grid grid-cols-2 gap-4 mt-8'>
         <Button
           text={t('global.cancel')}
-          style='third'
+          style='tertiary'
           onClick={handleCancel} />
         <Button
           text={t('global.save')}

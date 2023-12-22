@@ -40,7 +40,7 @@ export default function TrashCanActionsButton({ id }) {
         <div className='grid grid-cols-2 gap-4 mt-8'>
           <Button
             text={t('global.cancel')}
-            style='third'
+            style='tertiary'
             onClick={() => { setShow(false) }} />
           <Button
             text='Restore'

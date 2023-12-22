@@ -1,4 +1,5 @@
 import { firstLetterUpperCase, format } from 'utils/helpers';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import ParticipantsActionsButtons from './ParticipantsActionsButton';
 
@@ -45,10 +46,16 @@ export default function ParticipantsTable({ data, headers, user }) {
         </thead>
         <tbody>
           {
-            data.map((cell, index) => (
-              <tr key={index}>
-                <Rows cell={cell} />
-              </tr>
+            data.map((cell) => (
+              <AnimatePresence>
+                <motion.tr 
+                  key={cell.id}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}>
+                  <Rows cell={cell} />
+                </motion.tr>
+              </AnimatePresence>
             ))
           }
         </tbody>

@@ -22,6 +22,7 @@ export default function ProgressBar({ progress, direction, color, size, backgrou
             'w-0 h-full rounded-[3px] transition-transform duration-500': true,
             'bg-brand-uva': color === 'violet',
             'bg-brand-gold': color === 'orange',
+            'bg-error-red': color === 'red'
           })}></div>
       </div>
     </>

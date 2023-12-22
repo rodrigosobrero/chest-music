@@ -10,9 +10,9 @@ export default function Button({ type = 'button', style, text, onClick, disabled
         disabled={disabled}
         form={form}
         className={classNames({
-          'btn btn-third': style === 'third',
-          'btn btn-secondary': style === 'secondary',
           'btn btn-primary': style === 'primary',
+          'btn btn-secondary': style === 'secondary',
+          'btn btn-tertiary': style === 'tertiary',
           'btn btn-error': style === 'error'
         }, {customStyle})}>
         {loading ?
