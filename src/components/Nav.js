@@ -25,7 +25,6 @@ export default function Nav() {
   const [data, setData] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
   const excludedPaths = ['/sign-in', '/sign-up', '/setup'];
-  const dispatch = useDispatch()
   
   useEffect(() => {
     if (user?.token) {
