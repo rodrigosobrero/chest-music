@@ -14,7 +14,7 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
-  
+  console.log(result)
   if (result.error && result.error.status === 403) {
     if(result.error.data.code === 'firebase-expired-token' || result.error.data.code === 'firebase-invalid-token'){
       signOut(auth)
@@ -202,6 +202,14 @@ export const api = createApi({
     }),
     getTrackSource: builder.query({
       query: (id) => `project/version/${id}/url/`
+    }),
+    getFaqs: builder.query({
+      query: (lang) => `faq/?lang=${lang}`,
+      providesTags: ['Faqs'],
+    }),
+    getTerms: builder.query({
+      query: (lang) => `termsandconditions/?lang=${lang}`,
+      providesTags: ['Terms']
     })
   })
 });
@@ -233,6 +241,8 @@ export const {
   useCreatePermissionMutation,
   useUpdatePermissionMutation,
   useLazyGetTrackSourceQuery,
+  useGetFaqsQuery,
+  useGetTermsQuery
 } = api;
 
 export { api as apiSlice}

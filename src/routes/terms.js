@@ -1,12 +1,13 @@
 import React from 'react'
 import Breadcrumb from 'components/Breadcrumb'
 import { useTranslation } from 'react-i18next'
+import { useGetTermsQuery } from 'store/api'
 const Terms = () => {
-
-  const { t } = useTranslation() 
-  const terms = t('terms.items', { returnObjects: true });
+  const { t, i18n } = useTranslation() 
+  const { data: terms = [] } = useGetTermsQuery(i18n.language === 'en' ? 'english' : 'spanish', { refetchOnMountOrArgChange: true })
   const items = t('profile.sections', { returnObjects: true });
   let paths = [{ name:'Profile', link: '/profile' }, { name: items[4].title }]
+
   const Item = ({ title, text }) => {
     return (
       <div className='flex flex-col gap-y-3'>
@@ -15,6 +16,7 @@ const Terms = () => {
       </div>
     )
   }
+
   return (
     <>
       <div className='pt-4 pb-10 px-3 md:container md:pt-10 md:px-[120px] md:pb-[60px]'>

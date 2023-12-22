@@ -6,12 +6,14 @@ import SearchBar from 'components/SearchBar'
 import FAQItem from 'components/profile/FaqItem'
 import Breadcrumb from 'components/Breadcrumb'
 import ContactUs from 'components/profile/ContactUs'
+import { useGetFaqsQuery } from 'store/api'
 
 const Help = () => {
-  const { t } = useTranslation() 
+  const { t, i18n } = useTranslation() 
+  const { data: faqs = [] } = useGetFaqsQuery(i18n.language === 'en' ? 'english' : 'spanish', { refetchOnMountOrArgChange: true })
   const items = t('profile.sections', { returnObjects: true });
-  const { faqs } = t('help_center', { returnObjects: true});
   let paths = [{ name:'Profile', link: '/profile' }, { name: items[4].title }]
+
   return (
     <>
       <div className='pt-4 pb-10 px-3 container md:pt-10 md:px-[120px] md:pb-[60px]'>
@@ -30,8 +32,8 @@ const Help = () => {
                 <SearchBar onChange={() => console.log('console')}/>
               </div>
               <div className='gap-y-4 flex flex-col '>
-                {faqs.map((el, i) => (
-                  <FAQItem question={el.title} answer={el.content} i={i} />
+                {faqs?.map((el, i) => (
+                  <FAQItem question={el.question} answer={el.answer} i={i} />
                 ))}
               </div>
           </div>
