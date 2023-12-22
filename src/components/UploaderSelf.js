@@ -136,7 +136,7 @@ export default function UploaderSelf({ title = true, id }) {
         </div>
         <div className='flex justify-center'>
           <div className='w-1/3'>
-            <Button text='Close' style='third' onClick={() => { setShow(false) }} />
+            <Button text='Close' style='tertiary' onClick={() => { setShow(false) }} />
           </div>
         </div>
       </Modal>

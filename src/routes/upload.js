@@ -346,7 +346,7 @@ export default function Upload() {
           </div>
           <div className='grid grid-cols-2 gap-4 md:gap-6'>
             <Link to={'/my-chest'}>
-              <Button text={t('global.cancel')} style='third' />
+              <Button text={t('global.cancel')} style='tertiary' />
             </Link>
             <Button
               text={t('global.continue')}
@@ -392,7 +392,7 @@ export default function Upload() {
           </div>
         </div>
         <div className='flex flex-row w-full md:w-2/6 gap-4 md:gap-6'>
-          <Button text={t('global.back')} style='third' onClick={() => setStep(0)} />
+          <Button text={t('global.back')} style='tertiary' onClick={() => setStep(0)} />
           <Button
             text={t('global.confirm')}
             style='primary'
@@ -428,7 +428,7 @@ export default function Upload() {
         <div className='grid grid-cols-2 gap-4'>
           <Button 
             text={t('global.cancel')} 
-            style='third' 
+            style='tertiary' 
             onClick={() => { setOpen(false) }} />
           <Button 
             text={t('global.save')} 

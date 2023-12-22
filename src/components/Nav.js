@@ -1,27 +1,29 @@
 import { useState, useEffect } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
-import { signOut } from 'firebase/auth';
 import { auth } from 'utils/firebase';
 import { classNames } from 'utils/helpers';
+import { saveUser } from 'app/auth';
+import { apiSlice } from 'store/api';
 import navData from 'data/config.json';
 import Tag from 'components/Tag';
-import { apiSlice } from 'store/api';
-import { BellIcon } from '@heroicons/react/24/outline';
+import Button from 'components/Button';
 
+import { BellIcon } from '@heroicons/react/24/outline';
 import logo from 'assets/images/logo.svg';
 import menuIcon from 'assets/images/icon-menu.svg';
 import closeIcon from 'assets/images/icon-close.svg';
-import Button from './Button';
-import { saveUser } from 'app/auth';
 
 export default function Nav() {
-  const user = useSelector((state) => state.auth.user)
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+  const navigate = useNavigate();
+  
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
-  const location = useLocation();
   const excludedPaths = ['/sign-in', '/sign-up', '/setup'];
   const dispatch = useDispatch()
   
@@ -38,6 +40,12 @@ export default function Nav() {
     setOpen(prev => !prev);
   }
 
+  const handleLogOut = () => {
+    auth.signOut(); 
+    dispatch(apiSlice.util.resetApiState()); 
+    dispatch(saveUser(undefined));
+  }
+
   return (
     <>
       <nav className='main z-10 fixed w-full'>
@@ -49,32 +57,26 @@ export default function Nav() {
           <div className='hidden lg:block'>
             <ul>
               {location.pathname !== '/setup' &&
-                data.map((item, index) =>
-                  <li
-                    key={index}
-                    className={classNames({
-                      'bg-brand-gold rounded-[10px] px-4 py-[9px]': item.button
-                    })}>
-                    <NavLink to={item.link} className={classNames({ '!text-black font-semibold': item.button })}>
-                      {item.name}
-                    </NavLink>
+                data.map((item) =>
+                  <li key={item.name}>
+                    {item.button
+                      ? <Button style='primary' text={item.name} onClick={() => { navigate('/sign-in') }} />
+                      : <NavLink to={item.link}>
+                          {item.name === 'notifications' 
+                          ? <BellIcon className='h-6 w-6' />
+                          : item.name}
+                        </NavLink>
+                    }
                   </li>
                 )
               }
               {!excludedPaths.includes(location.pathname) && isLogged && (
                 <li>
-                  <button type='button' onClick={() => { signOut(auth); dispatch(apiSlice.util.resetApiState()); dispatch(saveUser(undefined))}}>
+                  <button type='button' onClick={handleLogOut}>
                     logout
                   </button>
                 </li>
               )}
-              {location.pathname !== '/setup' &&
-                <li className='flex items-center'>
-                  <NavLink to='/notifications' className='p-1'>
-                    <BellIcon className='h-6 w-6' />
-                  </NavLink>
-                </li>
-              }
             </ul>
           </div>
           {location.pathname !== '/setup' &&
