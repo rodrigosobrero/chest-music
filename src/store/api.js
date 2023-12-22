@@ -16,8 +16,10 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
   
   if (result.error && result.error.status === 403) {
+    if(result.error.code === 'firebase-expired-token'){
+      signOut(auth)
+    }
     // api.dispatch(saveUser(undefined));
-    signOut(auth)
   }
   return result;
 }
