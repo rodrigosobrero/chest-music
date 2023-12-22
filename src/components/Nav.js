@@ -24,6 +24,7 @@ export default function Nav() {
   const location = useLocation();
   const excludedPaths = ['/sign-in', '/sign-up', '/setup'];
   const dispatch = useDispatch()
+  
   useEffect(() => {
     if (user?.token) {
       setData(navData.nav.filter(item => item.private))
@@ -36,7 +37,6 @@ export default function Nav() {
   const toggleOpen = () => {
     setOpen(prev => !prev);
   }
-  console.log(apiSlice)
 
   return (
     <>
