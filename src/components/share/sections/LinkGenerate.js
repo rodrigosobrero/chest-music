@@ -42,6 +42,7 @@ const LinkGenerate = ({ versionId, token, onCancel }) => {
     })
     .then((response) => {
       setValue(response.data.url)
+      
     })
   }
 

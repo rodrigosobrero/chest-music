@@ -29,7 +29,7 @@ const SharedRow = ({ track, isMobile, onClick }) => {
           <div>
             <div className='text-base md:text-lg line-clamp-1 hover:underline'>{track.title}</div>
             <div className='text-sm text-neutral-silver-200'>
-              {track.authors.join(', ')}
+              {isMobile ?  `${track.version+' - '+track.plays}`: track.authors.join(', ')}
             </div>
           </div>
         </div>

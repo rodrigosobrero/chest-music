@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
-// import { signOut } from 'firebase/auth';
 import { auth } from 'utils/firebase';
 import { classNames } from 'utils/helpers';
 import { saveUser } from 'app/auth';
@@ -26,7 +25,8 @@ export default function Nav() {
   const [data, setData] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
   const excludedPaths = ['/sign-in', '/sign-up', '/setup'];
-
+  const dispatch = useDispatch()
+  
   useEffect(() => {
     if (user?.token) {
       setData(navData.nav.filter(item => item.private))
