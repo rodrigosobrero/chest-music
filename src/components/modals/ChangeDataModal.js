@@ -16,7 +16,7 @@ const ChangeDataModal = ({ title , subtitle, inputsData ,toggle, primaryButton, 
           })}
         </div>
         <div className='font-archivo font-semibold flex gap-4'>
-          <Button onClick={toggle} style='third' text={secondaryButton}/>
+          <Button onClick={toggle} style='tertiary' text={secondaryButton}/>
           <Button onClick={onClick} style='primary' text={primaryButton} disabled={!isAvailable}/>
        </div>
     </div>

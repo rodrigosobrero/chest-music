@@ -129,7 +129,7 @@ export default function Uploader({ title = true, self, id }) {
             <h5 className='block md:hidden mb-2'>{t('mychest.uploader.title_mobile')}</h5>
             <p className='hidden md:block'>{t('mychest.uploader.description')}</p>
             <p className='block md:hidden text-base'>{t('mychest.uploader.description_mobile')}</p>
-            <div className='w-1/2'>
+            <div className='w-1/2 lg:w-1/4'>
               <InputFile
                 accept={config.accepted_files}
                 text={t('global.upload')}
@@ -147,7 +147,7 @@ export default function Uploader({ title = true, self, id }) {
         </div>
         <div className='flex justify-center'>
           <div className='w-1/3'>
-            <Button text='Close' style='third' onClick={() => { setShow(false) }} />
+            <Button text='Close' style='tertiary' onClick={() => { setShow(false) }} />
           </div>
         </div>
       </Modal>

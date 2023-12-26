@@ -49,7 +49,7 @@ export default function TrackListRow({ track, onClick }) {
           </>
         )}
         <td>
-          <div className='flex'>
+          <div className='flex justify-end'>
             {isDesktop && (
               <button 
                 type='button' 

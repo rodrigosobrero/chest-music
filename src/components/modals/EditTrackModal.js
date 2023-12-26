@@ -77,7 +77,7 @@ export default function EditTrackModal(props) {
       <div className='grid grid-cols-2 gap-4 mt-8'>
         <Button
           text={t('global.cancel')}
-          style='third'
+          style='tertiary'
           onClick={handleClose} />
         <Button
           text={t('global.save')}

@@ -180,7 +180,7 @@ export default function VersionsActionsButton({ version }) {
         <div className='grid grid-cols-2 gap-4 mt-8'>
           <Button
             text={t('global.cancel')}
-            style='third'
+            style='tertiary'
             onClick={() => { setShowRemoveVersion(false) }} />
           <Button
             text='Move to trash'
@@ -205,7 +205,7 @@ export default function VersionsActionsButton({ version }) {
         <div className='grid grid-cols-2 gap-4 mt-8'>
           <Button
             text={t('global.cancel')}
-            style='third'
+            style='tertiary'
             onClick={() => { setShowEditVersion(false) }} />
           <Button
             text='Save'
