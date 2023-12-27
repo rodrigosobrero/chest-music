@@ -76,13 +76,6 @@ export default function Nav() {
                   </button>
                 </li>
               )}
-              {location.pathname !== '/setup' && location.pathname !== '/sign-in' &&
-                <li className='flex items-center'>
-                  <NavLink to='/notifications' className='p-1'>
-                    <BellIcon className='h-6 w-6' />
-                  </NavLink>
-                </li>
-              }
             </ul>
           </div>
           {location.pathname !== '/setup' &&
