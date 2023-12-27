@@ -26,12 +26,22 @@ export default function VersionsRow({ project, version }) {
     }
   }
 
+  const handleOnClick = () => {
+    dispatch(playing({
+      id: version.id,
+      album: project.album,
+      cover: project.cover_url,
+      name: project.name,
+      authors: project.participants.map(participant => participant.full_name)
+    }));
+  }
+
   return (
     <>
       <td>
         <div className='flex flex-row gap-3 md:gap-4'>
           <div className='relative rounded flex items-center'>
-            <button type='button' onClick={() => { dispatch(playing(version)) }}>
+            <button type='button' onClick={handleOnClick}>
               <PlayIcon className="h-6 w-6 text-white" />
             </button>
           </div>

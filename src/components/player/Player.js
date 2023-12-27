@@ -28,14 +28,14 @@ export default function Player() {
   useEffect(() => {
     console.log('playlist:', playlist)
 
-    if (playlist[0]) trigger(playlist[0].last_version_id);
+    if (playlist[0]) trigger(playlist[0].id);
 
     const { data } = result;
 
     if (data) {
       setTrackList({
         url: data.url,
-        cover_url: playlist[0].cover_url,
+        cover_url: playlist[0].cover,
         name: playlist[0].name,
         authors: playlist[0].authors
       })
