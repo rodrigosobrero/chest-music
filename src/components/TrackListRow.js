@@ -4,14 +4,23 @@ import TrackListOptions from 'components/TrackListOptions';
 import upload from 'assets/images/icon-upload.svg';
 import { isDesktop } from 'react-device-detect';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { playing } from 'app/playlist';
 
 export default function TrackListRow({ track, onClick }) {
   const dispatch = useDispatch();
-  const playlist = useSelector(state => state.playlist);
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
+
+  const handleOnClick = () => {
+    dispatch(playing({
+      id: track.last_version_id,
+      album: track.album,
+      cover: track.cover_url,
+      name: track.name,
+      authors: track.authors
+    }));
+  }
 
   return (
     <>
@@ -21,7 +30,7 @@ export default function TrackListRow({ track, onClick }) {
         onClick={onClick}>
         <td>
           <div className='flex flex-row gap-3 md:gap-4'>
-            <div className='relative rounded flex items-center' onClick={() => { dispatch(playing(track))}}>
+            <div className='relative rounded flex items-center' onClick={handleOnClick}>
               {track.cover_url &&
                 <img src={track.cover_url} alt='' width={44} height={44} className='w-10 md:w-11 h-10 md:h-11' />
               }
@@ -51,8 +60,8 @@ export default function TrackListRow({ track, onClick }) {
         <td>
           <div className='flex justify-end'>
             {isDesktop && (
-              <button 
-                type='button' 
+              <button
+                type='button'
                 className='p-[7px] rounded-[10px] transition duration-500 hover:bg-neutral-silver-700 border-[3px] border-transparent active:border-gray-600'
                 onClick={() => { navigate(`/share/${track.id}`) }}>
                 <img src={upload} alt='' width={24} height={24} />
