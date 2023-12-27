@@ -1,5 +1,3 @@
-import { useEffect } from 'react';
-
 export default function Track({
   currentTrack,
   audioRef,
@@ -12,10 +10,6 @@ export default function Track({
     setDuration(seconds);
     progressBarRef.current.max = seconds;
   }
-
-  useEffect(() => {
-    console.log('currentTrack:', currentTrack)
-  }, [currentTrack]);
 
   return (
     <>

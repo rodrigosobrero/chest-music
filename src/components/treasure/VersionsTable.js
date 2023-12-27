@@ -43,14 +43,14 @@ export default function VersionsTable({ project }) {
         <tbody>
           {
             project?.versions?.map((version, index) =>
-              <AnimatePresence>
+              <AnimatePresence key={version.id}>
                 <motion.tr
                   key={version.id}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}>
                   <VersionsRow
-                    key={index}
+                    key={version.id}
                     project={project}
                     version={version} />
                 </motion.tr>
