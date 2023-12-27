@@ -47,13 +47,13 @@ export default function ParticipantsTable({ data, headers, user }) {
         <tbody>
           {
             data.map((cell) => (
-              <AnimatePresence>
+              <AnimatePresence key={cell.user_id}>
                 <motion.tr 
                   key={cell.id}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}>
-                  <Rows cell={cell} />
+                  <Rows key={cell.id} cell={cell} />
                 </motion.tr>
               </AnimatePresence>
             ))

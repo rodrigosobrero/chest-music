@@ -26,18 +26,19 @@ export default function Player() {
   const progressBarRef = useRef();
 
   useEffect(() => {
-    console.log('playlist:', playlist)
+    let currentTrack = playlist[0];
 
-    if (playlist[0]) trigger(playlist[0].id);
+    if (currentTrack) trigger(currentTrack.id);
 
     const { data } = result;
 
     if (data) {
       setTrackList({
         url: data.url,
-        cover_url: playlist[0].cover,
-        name: playlist[0].name,
-        authors: playlist[0].authors
+        cover_url: currentTrack.cover,
+        name: currentTrack.name,
+        authors: currentTrack.authors,
+        type: currentTrack.type
       })
     }
   }, [playlist])
