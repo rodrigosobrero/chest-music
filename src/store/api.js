@@ -6,7 +6,6 @@ const baseQuery = fetchBaseQuery({
   baseUrl: process.env.REACT_APP_API,
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.user.token;
-
     if (token) headers.set('Authorization', `Bearer ${token}`);
     return headers;
   }
@@ -14,13 +13,10 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
-  console.log(result)
   if (result.error && result.error.status === 403) {
     if(result.error.data.code === 'firebase-expired-token' || result.error.data.code === 'firebase-invalid-token'){
       signOut(auth)
     }
-    
-    // api.dispatch(saveUser(undefined));
   }
   return result;
 }

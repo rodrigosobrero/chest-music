@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Modal from '../Modal'
 import { useTranslation } from 'react-i18next'
 import Input from 'components/Input'
+import Button from 'components/Button'
 const ManageButton = ({ isOpen, filteredArtists, handleChange, selected, handleOptionSelect, input, handleDeleteSelected, createPermission }) => {
   const { t } = useTranslation()
   const [show, setShow] = useState(false)
@@ -59,12 +60,11 @@ const ManageButton = ({ isOpen, filteredArtists, handleChange, selected, handleO
                   <Dropdown filteredArtists={filteredArtists} handleOptionSelect={handleOptionSelect}/>
             </div>
             <div className='gap-4 flex self-stretch	mt-10 text-lg'>
-                <button onClick={toggle} className='px-6 py-3 w-full bg-neutral-silver-600 rounded-[10px]'>{t('global.cancel')}</button>
-                <button onClick={() => createPermission(toggle)} disabled={!selected.hasOwnProperty('full_name')}
-                        className='w-full disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300 
-                                  bg-brand-gold text-black py-2.5 px-6 rounded-[10px] font-bold '>
-                    {isOpen ? textBlock.button : textAllow.button}
-                </button>
+                <Button onClick={toggle} text={t('global.cancel')} style='tertiary' />
+                <Button onClick={() => createPermission(toggle)} 
+                        disabled={!selected.hasOwnProperty('full_name')} 
+                        text={isOpen ? textBlock.button : textAllow.button}
+                        style='primary'/>
             </div>
           </div>
        </Modal>

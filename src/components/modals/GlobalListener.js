@@ -3,6 +3,7 @@ import { MusicalNoteIcon } from "@heroicons/react/24/outline";
 import Input from 'components/Input'
 import DropdownSearch from 'components/profile/DropdownSearch'
 import check from 'assets/images/icon-check-28.svg'
+import Button from 'components/Button';
 const GlobalListener = ({ handleChange, options = [], handleOptionSelect, listeners, 
                          toggle, onClick, selected, handleDeleteSelected, input, checked, handleCheck }) => {
   return (
@@ -44,14 +45,9 @@ const GlobalListener = ({ handleChange, options = [], handleOptionSelect, listen
             </div>
             }
             </div>
-            <div className='font-archivo font-semibold flex gap-4 ' >
-                <button onClick={toggle} className='w-full bg-neutral-silver-600 text-white py-2.5 px-6 rounded-lg'>
-                    Cancel
-                </button>
-                <button onClick={onClick} className='w-full disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300
-                bg-brand-gold text-black py-2.5 px-6 rounded-lg' disabled={!checked}>
-                    Save
-                </button>
+            <div className='font-archivo font-semibold flex gap-4'>
+                <Button text={'Cancel'} style='tertiary' onClick={toggle} />
+                <Button text={'Save'} disabled={!checked} style='primary' onClick={onClick}/>
             </div>
         </div>
      </>
