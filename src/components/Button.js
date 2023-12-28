@@ -13,8 +13,9 @@ export default function Button({ type = 'button', style, text, onClick, disabled
           'btn btn-primary': style === 'primary',
           'btn btn-secondary': style === 'secondary',
           'btn btn-tertiary': style === 'tertiary',
-          'btn btn-error': style === 'error'
-        }, {customStyle})}>
+          'btn btn-error': style === 'error',
+          
+        }) + customStyle}>
         {loading ?
           <img src={spinner} alt='' width={20} height={20} className='animate-spin' /> :
           <span className={textStyle}>{text}</span>

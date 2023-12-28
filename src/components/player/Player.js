@@ -27,20 +27,34 @@ export default function Player() {
 
   useEffect(() => {
     let currentTrack = playlist[0];
+    if(currentTrack){
+      
+      if(currentTrack.audio){
 
-    if (currentTrack) trigger(currentTrack.id);
+        setTrackList({
+          url: currentTrack.audio,
+          cover_url: currentTrack.cover,
+          name: currentTrack.name,
+          authors: currentTrack.authors,
+          type: currentTrack.type
+        })
+      }
 
-    const { data } = result;
+      else{
+        trigger(currentTrack.id);
 
-    if (data) {
-      setTrackList({
-        url: data.url,
-        cover_url: currentTrack.cover,
-        name: currentTrack.name,
-        authors: currentTrack.authors,
-        type: currentTrack.type
-      })
-    }
+        const { data } = result;
+
+        if (data) {
+          setTrackList({
+            url: data.url,
+            cover_url: currentTrack.cover,
+            name: currentTrack.name,
+            authors: currentTrack.authors,
+            type: currentTrack.type
+          })
+        }}
+      }
   }, [playlist])
 
   return (
