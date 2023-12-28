@@ -27,15 +27,16 @@ const Notification = () => {
        .finally(() => callback())
   }
 
-  const unblockUser = (id, toggleBlocked) => {
+  const unblockUser = (id, closeModal, toggleBlocked) => {
 
     axios.post(apiUrl + 'notification/permission/allow/', 
        {  "user": id }, 
        { headers: {  Authorization: `Bearer ${user?.token}`}, })
        .then((response) => {
          toggleBlocked();
+         closeModal()
        })
-       .catch((error) => console.log('error'))
+       .catch((error) => closeModal())
   }
 
   const replyNotification = async (invite_id, type) => {
