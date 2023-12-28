@@ -3,14 +3,47 @@ import { formatDate , timeDifference} from 'utils/helpers'
 import NotificationOption from './NotificationOption';
 import { MusicalNoteIcon } from "@heroicons/react/24/solid";
 import NotificationStatus from './NotificationStatus';
+import Modal from 'components/Modal';
+import Button from 'components/Button';
+import { useTranslation } from 'react-i18next';
 
-
-const NotificationRow = ({invite , blockUser, replyNotification }) => {
+const NotificationRow = ({ invite , blockUser, replyNotification, unblockUser }) => {
+  const { t } = useTranslation()
   const [ isOpen, setIsOpen ] = React.useState(false)
   const [ isAccepted, setIsAccepted ] = React.useState(false)
+  const [ show, setShow ] = React.useState()
   const [ isDenied, setIsDenied ] = React.useState(false)
+  const [isBlocked, setIsBlocked] = React.useState(false);
+  const [selected, setSelected] = React.useState({})
+
+  const handleSelect = (data) => {
+    setSelected(data);
+    setShow(true)
+  }
+
+  const toggleBlocked = () => setIsBlocked(!isBlocked)
+
   return (
     <>
+     <Modal show={show} setShow={setShow}>
+        <div>
+            <div className='px-10 text-center gap-y-3'>
+              <h3>{isBlocked ? t('global.allow') : t('global.block')} user</h3>
+              <span className='text-base text-neutral-silver-200'>
+                Are you sure you want to {isBlocked ? t('global.allow') : t('global.block')} this user?
+              </span>
+              <div className='text-neutral-silver-200'>
+                <span className='text-white'>{selected.full_name}</span> @{selected.username}
+              </div>
+            </div>
+            <div className='font-archivo font-semibold flex mt-8 lg:gap-4 gap-3'>
+              <Button text={'Cancel'} onClick={() => setShow(!isOpen)} style={'tertiary'}/>
+              <Button text={isBlocked ? t('global.allow') : t('global.block')} 
+                      onClick={() => {isBlocked ? unblockUser(selected.user_id, () => setShow(!isOpen),  toggleBlocked) : blockUser(selected.user_id, () => setShow(!isOpen), toggleBlocked)}} 
+                      style={'primary'}/>
+            </div>
+        </div>
+     </Modal>
      <div className='row'>
         <div className='flex items-center justify-between '>
           <div className='flex gap-x-4 items-center'>
@@ -33,9 +66,15 @@ const NotificationRow = ({invite , blockUser, replyNotification }) => {
               <NotificationStatus status={invite.status} isOpen={isOpen} setIsOpen={setIsOpen} expired={invite.expired}/>
           </div>
         </div>
-       {isOpen && <NotificationOption isOpen={isOpen} onDeny={() => { replyNotification(invite.id, 'denied'); setIsDenied(true)}} 
-                            onAccept={() => { replyNotification(invite.id, 'accepted'); setIsAccepted(true)}} 
-                            isDenied={isDenied} isAccepted={isAccepted} blockUser={() => blockUser(invite)}/>}
+       {isOpen && <NotificationOption 
+                    isOpen={isOpen} 
+                    onDeny={() => { replyNotification(invite.id, 'denied'); setIsDenied(true)}}
+                    onAccept={() => { replyNotification(invite.id, 'accepted'); setIsAccepted(true)}} 
+                    isDenied={isDenied} 
+                    isAccepted={isAccepted} 
+                    blockUser={() => handleSelect(invite)} 
+                    unblockUser={() => handleSelect(invite) }   
+                    isBlocked={isBlocked}/>}
        </div>
     </>
   )

@@ -17,14 +17,25 @@ const Notification = () => {
           isLoading, 
           isFetching } = useGetNotificationsQuery(status, { refetchOnMountOrArgChange: !isChanged })
 
-  const blockUser = (id, callback) => {
+  const blockUser = (id, callback, toggleBlocked) => {
     axios.post(apiUrl + 'notification/permission/block/', 
        {  "user": id }, 
        { headers: {  Authorization: `Bearer ${user?.token}`}, })
        .then((response) => {
-          console.log(response)
+          toggleBlocked();
        })
        .finally(() => callback())
+  }
+
+  const unblockUser = (id, toggleBlocked) => {
+
+    axios.post(apiUrl + 'notification/permission/allow/', 
+       {  "user": id }, 
+       { headers: {  Authorization: `Bearer ${user?.token}`}, })
+       .then((response) => {
+         toggleBlocked();
+       })
+       .catch((error) => console.log('error'))
   }
 
   const replyNotification = async (invite_id, type) => {
@@ -53,7 +64,11 @@ const Notification = () => {
                         overflow-y-auto flex-col md:px-8 md:py-10 px-3 py-4 rounded-2xl ${(isLoading || isFetching) && 'items-center'}`}>
             {(isLoading || isFetching) ? <Loading /> : status === 'general' 
                        ?  <GeneralList data={notifications?.general?.notifications} /> : 
-                          <NotificationList invites={notifications?.invites?.notifications} blockUser={blockUser} replyNotification={replyNotification}/>}
+                          <NotificationList invites={notifications?.invites?.notifications} 
+                                            blockUser={blockUser} 
+                                            replyNotification={replyNotification}
+                                            unblockUser={unblockUser}/>
+            }
         </div>
       </div>
     </>
