@@ -1,12 +1,13 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { signOut } from 'firebase/auth';
 import { auth } from 'utils/firebase';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.REACT_APP_API,
   prepareHeaders: (headers, { getState }) => {
-    const token = getState().auth.user.token;
-    if (token) headers.set('Authorization', `Bearer ${token}`);
+    const user = getState().auth.user;
+    if (user && user.token) {
+      headers.set('Authorization', `Bearer ${user.token}`);
+    }
     return headers;
   }
 });
@@ -15,7 +16,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
   if (result.error && result.error.status === 403) {
     if(result.error.data.code === 'firebase-expired-token' || result.error.data.code === 'firebase-invalid-token'){
-      signOut(auth)
+      auth.signOut();
     }
   }
   return result;

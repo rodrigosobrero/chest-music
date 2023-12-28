@@ -7,9 +7,12 @@ import { playing } from 'app/playlist';
 import VersionsActionsButton from './VersionsActionsButton';
 
 import { PlayIcon } from '@heroicons/react/24/solid';
+import { PauseIcon } from '@heroicons/react/24/solid';
+
 
 export default function VersionsRow({ project, version }) {
   const dispatch = useDispatch();
+  const { playlist } = useSelector(state => state);
   const filteredParticipants = (participants) => {
     let filtered = [];
 
@@ -26,13 +29,26 @@ export default function VersionsRow({ project, version }) {
     }
   }
 
+  const handleOnClick = () => {
+    dispatch(playing({
+      id: version.id,
+      album: project.album,
+      cover: project.cover_url,
+      name: project.name,
+      authors: project.participants.map(participant => participant.full_name),
+      type: 'version'
+    }));
+  }
+
   return (
     <>
       <td>
         <div className='flex flex-row gap-3 md:gap-4'>
           <div className='relative rounded flex items-center'>
-            <button type='button' onClick={() => { dispatch(playing(version)) }}>
-              <PlayIcon className="h-6 w-6 text-white" />
+            <button type='button' onClick={handleOnClick}>
+              {playlist[0].id === version.id && playlist[0].type === 'version' 
+              ? <PauseIcon className='h-6 w-6 text-gray-500' />
+              : <PlayIcon className='h-6 w-6 text-white' />}
             </button>
           </div>
           <div>

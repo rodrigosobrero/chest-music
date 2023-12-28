@@ -169,8 +169,10 @@ export default function Treasure() {
     <>
       <div className='container flex flex-col gap-6 md:gap-10 py-8 md:py-10'>
         <div className='toolbar'>
-          <Breadcrumb items={breadcrumb} />
-          <div className='grow flex items-center justify-end gap-3'>
+          <div className='grow'>
+            <Breadcrumb items={breadcrumb} />
+          </div>
+          <div className='flex items-center justify-end gap-3'>
             <button 
               type='button' 
               className='toolbar-button primary' 

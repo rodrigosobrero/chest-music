@@ -1,33 +1,65 @@
-import { useState } from 'react';
 import { format } from 'utils/helpers';
-import TrackListOptions from 'components/TrackListOptions';
-import upload from 'assets/images/icon-upload.svg';
 import { isDesktop } from 'react-device-detect';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { playing } from 'app/playlist';
+import { useDoubleClick } from 'hooks/useDoubleClick';
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
-export default function TrackListRow({ track, onClick }) {
+import TrackListOptions from 'components/TrackListOptions';
+
+import upload from 'assets/images/icon-upload.svg';
+
+export default function TrackListRow({ track }) {
   const dispatch = useDispatch();
-  const playlist = useSelector(state => state.playlist);
   const navigate = useNavigate();
-  const [show, setShow] = useState(false);
+  const [hover, setHover] = useState(false);
+
+  const playTrack = () => {
+    dispatch(playing({
+      id: track.last_version_id,
+      album: track.album,
+      cover: track.cover_url,
+      name: track.name,
+      authors: track.authors,
+      type: 'project'
+    }));
+  };
+
+  const handleOnClick = useDoubleClick(
+    () => playTrack(),
+    () => navigate(`treasure/${track.id}`)
+  );
+
+  const handleOnShareClick = () => {
+    navigate(`/share/${track.id}`);
+  }
+
+  const toggleHover = () => {
+    setHover(prev => !prev);
+  }
 
   return (
     <>
-      <tr
-        onMouseEnter={() => { setShow(true) }}
-        onMouseOut={() => { setShow(false) }}
-        onClick={onClick}>
+      <tr onClick={handleOnClick}>
         <td>
-          <div className='flex flex-row gap-3 md:gap-4'>
-            <div className='relative rounded flex items-center' onClick={() => { dispatch(playing(track))}}>
-              {track.cover_url &&
-                <img src={track.cover_url} alt='' width={44} height={44} className='w-10 md:w-11 h-10 md:h-11' />
-              }
-              {show &&
-                <div className='play-hover'></div>
-              }
+          <div className='flex flex-row items-center gap-3 md:gap-4'>
+            <div
+              className='w-11 h-11 bg-cover rounded hover:play-hover'
+              style={{ backgroundImage: `url(${track.cover_url})` }}
+              onMouseEnter={toggleHover}
+              onMouseLeave={toggleHover}>
+              <AnimatePresence>
+                {hover &&
+                  <motion.div
+                    className='play-hover'
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}>
+                  </motion.div>
+                }
+              </AnimatePresence>
             </div>
             <div>
               <span className='text-lg line-clamp-1'>{track.name}</span>
@@ -48,13 +80,13 @@ export default function TrackListRow({ track, onClick }) {
             <td>{format.bytes(track.size)}</td>
           </>
         )}
-        <td>
+        <td onClick={(e) => { e.stopPropagation() }}>
           <div className='flex justify-end'>
             {isDesktop && (
-              <button 
-                type='button' 
+              <button
+                type='button'
                 className='p-[7px] rounded-[10px] transition duration-500 hover:bg-neutral-silver-700 border-[3px] border-transparent active:border-gray-600'
-                onClick={() => { navigate(`/share/${track.id}`) }}>
+                onClick={handleOnShareClick}>
                 <img src={upload} alt='' width={24} height={24} />
               </button>
             )}
