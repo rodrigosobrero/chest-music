@@ -21,7 +21,7 @@ export default function TrackListOptions({ track }) {
   const [description, setDescription] = useState('');
 
   const {
-    data: project = []
+    data: project = {}
   } = useGetProjectQuery(track.id);
   
   const navigate = useNavigate();

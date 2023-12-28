@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { playing } from 'app/playlist';
 import { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
+import { AnimatePresence } from 'framer-motion';
 
 export default function TrackList({ tracks }) {
   const dispatch = useDispatch();
