@@ -46,11 +46,12 @@ export default function TrackListRow({ track }) {
 
   const handleOnCoverClick = (e) => {
     e.stopPropagation();
+    setHover(false);
     playTrack();
   }
 
   useEffect(() => {
-    setPlay(playlist[0].id === track.last_version_id && playlist[0].type === 'project')
+    setPlay(playlist[0].id === track.last_version_id && playlist[0].type === 'project');
   }, [playlist]);
 
   return (
@@ -64,22 +65,8 @@ export default function TrackListRow({ track }) {
               onClick={handleOnCoverClick}
               onMouseEnter={toggleHover}
               onMouseLeave={toggleHover}>
-              <AnimatePresence>
-                {hover && !play &&
-                  <motion.div
-                    className='cover-hover'
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}>
-                    <motion.div
-                      initial={{ opacity: 0, x: -10 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 10 }}>
-                      <PlayIcon className='h-6 w-6 text-white' />
-                    </motion.div>
-                  </motion.div>
-                }
-                {play &&
+              {/* <AnimatePresence mode='wait'>
+                {play ? (
                   <motion.div
                     className='cover-hover'
                     initial={{ opacity: 0 }}
@@ -87,8 +74,18 @@ export default function TrackListRow({ track }) {
                     exit={{ opacity: 0 }}>
                     <PauseIcon className='h-6 w-6 text-white' />
                   </motion.div>
-                }
-              </AnimatePresence>
+                ) : (
+                  <motion.div
+                    className='cover-hover'
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}>
+                    <PlayIcon className='h-6 w-6 text-white' />
+                  </motion.div>
+                )}
+              </AnimatePresence> */}
+              {hover && !play && <div className='cover-hover'><PlayIcon className='h-6 w-6 text-white' /></div>}
+              {play && <div className='cover-hover'><PauseIcon className='h-6 w-6 text-white' /></div>}
             </div>
             <div>
               <span className='text-lg line-clamp-1'>{track.name}</span>
