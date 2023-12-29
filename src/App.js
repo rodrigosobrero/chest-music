@@ -95,7 +95,7 @@ function App() {
         {
           path: 'profile/played',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={false}>
               <RecentlyPlayed />
             </ProtectedRoute>
         },
