@@ -805,3 +805,9 @@ input[type="search"]::-webkit-search-results-decoration {
 .storage-indicator {
   @apply flex items-center justify-end gap-3 md:gap-4;
 }
+
+.bg-custom-opacity {
+  background: rgba(67, 71, 79, 0.30);
+  backdrop-filter: blur(25px);
+  @apply bg-opacity-30
+}

@@ -11,10 +11,10 @@ const PostTwitter = ({ toggleUnlimited, onCancel }) => {
   const { t } = useTranslation()
   const [input, setInput] = useState('')
   const submit = () => {
-    const additionalUrl = 'https://web.chestmusic.com/track/0xlwJmalM7b'; // Reemplaza con la URL que desees añadir
-    const tweetContent = `${input}\n\n${additionalUrl}`; // \n representa un salto de línea
+    const additionalUrl = 'https://web.chestmusic.com/track/0xlwJmalM7b';
+    const tweetContent = `${input}\n\n${additionalUrl}`; 
     const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetContent)}`;
-    window.open(tweetUrl, '_blank'); // Esto abre el enlace en una nueva pestaña
+    window.open(tweetUrl, '_blank'); 
   }
   return (
     <>
@@ -28,11 +28,11 @@ const PostTwitter = ({ toggleUnlimited, onCancel }) => {
                 <span className='-mb-7'>{t('share.unlimited')}</span>
                 </div>
             </div>
-            <div className='flex flex-row gap-x-2.5 items-center md:w-4/5'>
+            {/* <div className='flex flex-row gap-x-2.5 items-center md:w-4/5'>
                 <input type='checkbox'/> 
                 <label className='text-base font-archivo'>{t('share.allow_web_play')}</label>
                 <QuestionMarkCircleIcon className="h-5 w-5 text-neutral-silver-300" />
-            </div>
+            </div> */}
             <div className='w-4/5'>
                 <Input label={t('share.message')} placeholder={t('share.message_example')} onChange={(e) => setInput(e.target.value)}/>
             </div>

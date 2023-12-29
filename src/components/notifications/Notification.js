@@ -7,6 +7,7 @@ import GeneralList from './GeneralList'
 import axios from 'axios'
 import { apiUrl } from 'utils/api'
 import Loading from 'components/Loading'
+import TabButton from 'components/TabButton';
 const Notification = () => {
   const { t } = useTranslation() 
   const user = useSelector((state) => state.auth.user)
@@ -27,15 +28,16 @@ const Notification = () => {
        .finally(() => callback())
   }
 
-  const unblockUser = (id, toggleBlocked) => {
+  const unblockUser = (id, closeModal, toggleBlocked) => {
 
     axios.post(apiUrl + 'notification/permission/allow/', 
        {  "user": id }, 
        { headers: {  Authorization: `Bearer ${user?.token}`}, })
        .then((response) => {
          toggleBlocked();
+         closeModal()
        })
-       .catch((error) => console.log('error'))
+       .catch((error) => closeModal())
   }
 
   const replyNotification = async (invite_id, type) => {
@@ -48,16 +50,23 @@ const Notification = () => {
       <div >
         <div className='options'>
            <div>
-              <button className={status === 'invites' && 'isActive'} onClick={() => { setStatus('invites'); setIsChanged(true) }}>
-                  {t('notification.invites')} <span>{notifications?.invites?.new}</span>
-              </button>
-              <div className={`w-[80px] mx-auto mt-1.5 border border-brand-gold ${status !== 'invites' && 'hidden'}`}></div>
+              <TabButton 
+                  text={t('notification.invites')}  
+                  onClick={() => { setStatus('invites'); setIsChanged(true) }} 
+                  isActive={status === 'invites'} 
+                  counter={notifications?.invites?.new} />
+              {/* <div className={`w-[80px] mx-auto mt-1.5 border border-brand-gold ${status !== 'invites' && 'hidden'}`}></div> */}
            </div>
            <div className='text-lg'>
-              <button className={status === 'general' && 'isActive'} onClick={() => {setStatus('general');}}>
+              <TabButton 
+                  text={t('notification.general')} 
+                  onClick={() => setStatus('general')} 
+                  isActive={status === 'general'} 
+                  counter={notifications?.general?.new}/>
+              {/* <button className={status === 'general' && 'isActive'} onClick={() => {setStatus('general');}}>
               {t('notification.general')} <span>{notifications?.general?.new}</span>
-              </button>
-              <div className={`w-[80px] mx-auto h-0.5 mt-1.5 border border-brand-gold ${status !== 'general' && 'hidden'}`}></div>
+              </button> */}
+              {/* <div className={`w-[80px] mx-auto h-0.5 mt-1.5 border border-brand-gold ${status !== 'general' && 'hidden'}`}></div> */}
            </div>
         </div>
         <div className={`w-full md:w-[720px] bg-neutral-silver-700  flex 

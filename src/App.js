@@ -30,6 +30,7 @@ import Upload from 'routes/upload';
 import Share from 'routes/share';
 import Treasure from 'routes/treasure';
 import Trash from 'routes/trash';
+import SharedPlay from 'routes/shared-play';
 
 function App() {
   const dispatch = useDispatch();
@@ -94,7 +95,7 @@ function App() {
         {
           path: 'profile/played',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={false}>
               <RecentlyPlayed />
             </ProtectedRoute>
         },
@@ -157,6 +158,10 @@ function App() {
         {
           path: 'share/:trackId',
           element: <Share />
+        },
+        {
+          path:'/shared-link',
+          element: <SharedPlay />
         }
       ]
     }

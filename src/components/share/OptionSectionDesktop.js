@@ -9,11 +9,11 @@ const OptionSectionDesktop = ({ status, changeStatus }) => {
   return (
     <div className='md:max-w-xl hidden md:flex md:gap-1.5 md:px-0 px-6'>
         <TabButton text={'Generate link'} isActive={status === 'generate'} 
-                icon={<LinkIcon className={`h-7 w-7 ${status === 'generate' ? 'text-neutral-black' :'text-neutral-silver-200'}`}/>} 
-                onClick={() => changeStatus('generate')}/>
-        <TabButton text={'Post'} isActive={status === 'post'} icon={status === 'post' ? <IconTwitterAlt className="h-7 w-7"/> : <IconTwitter className="h-7 w-7"/>} 
+                   icon='link'
+                   onClick={() => changeStatus('generate')}/>
+        <TabButton text={'Post'} isActive={status === 'post'} icon={'twitter'} 
                 onClick={() => changeStatus('post')}/>
-        <TabButton text={'Send to users'} isActive={status === 'send'} icon={status === 'send' ? <IconSendAlt className="h-7 w-7"/> : <IconSend className="h-7 w-7"/>} 
+        <TabButton text={'Send to users'} isActive={status === 'send'} icon={'send'} 
                 onClick={() => changeStatus('send')}/>
     </div>
   )

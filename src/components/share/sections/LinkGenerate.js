@@ -8,21 +8,19 @@ import { apiUrl } from 'utils/api';
 import { useTranslation } from 'react-i18next';
 const LinkGenerate = ({ versionId, token, onCancel }) => {
   const { t } = useTranslation()
-
   const [input, setInput] =  useState('')
   const [isChecked, setIsChecked] = useState(false)
   const [isToggled, setIsToggled] = useState(false)
   const [value, setValue] = useState('')
-  console.log('input', input)
+
   const handleCheck = (e) => setIsChecked(e.target.checked)
 
   const handleToggle = () => setIsToggled(!isToggled)
-  console.log(isToggled)
+
   const handleChange = (e) => setInput(e.target.value)
 
   const generateLink = () => {
     let data = {};
-    console.log(isToggled)
     if(!isToggled) {
        data = {
         "version": versionId,
@@ -36,13 +34,11 @@ const LinkGenerate = ({ versionId, token, onCancel }) => {
         "version": versionId,
       }
     }
-    console.log('data', data)
     axios.post(apiUrl + 'shared/link/' , data,  {
       headers: { Authorization: `Bearer ${token}`  }
     })
     .then((response) => {
       setValue(response.data.url)
-      
     })
   }
 
@@ -62,11 +58,11 @@ const LinkGenerate = ({ versionId, token, onCancel }) => {
                   <span className='-mb-7'>{t('share.unlimited')}</span>
                   </div>
               </div>
-              <div className='flex flex-row gap-x-2.5 items-center md:w-4/5'>
+              {/* <div className='flex flex-row gap-x-2.5 items-center md:w-4/5'>
                   <input type='checkbox' onChange={handleCheck}/> 
                   <label className='text-base font-archivo'>{t('share.allow_web_play')}</label>
                   <QuestionMarkCircleIcon className="h-5 w-5 text-neutral-silver-300" />
-              </div>
+              </div> */}
               <div className='w-full md:w-4/5'>
                   <Input label={'URL'} showClipboard={true} disabled={true} value={value}/>
               </div>
