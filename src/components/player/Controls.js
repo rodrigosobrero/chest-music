@@ -13,10 +13,11 @@ export default function Controls({
   audioRef,
   progressBarRef,
   duration,
-  setTimeProgress
+  setTimeProgress,
+  setLoop,
+  loop
 }) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [loop, setLoop] = useState(false);
   const playAnimationRef = useRef();
 
   const repeat = useCallback(() => {
@@ -86,7 +87,7 @@ export default function Controls({
         </button>
         <button 
           type='button' 
-          className={`p-2 ml-2 ${loop ? 'player-controls' : 'player-controls-active'}`} 
+          className={`p-2 ml-2 ${loop ? 'player-controls-active' : 'player-controls'}`} 
           onClick={toggleLoop}>
           <RepeatIcon />
         </button>

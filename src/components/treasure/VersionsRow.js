@@ -9,7 +9,6 @@ import VersionsActionsButton from './VersionsActionsButton';
 import { PlayIcon } from '@heroicons/react/24/solid';
 import { PauseIcon } from '@heroicons/react/24/solid';
 
-
 export default function VersionsRow({ project, version }) {
   const dispatch = useDispatch();
   const { playlist } = useSelector(state => state);
