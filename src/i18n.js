@@ -151,6 +151,23 @@ i18next
               { title: 'Terms & Conditions',
               subtitle: 'Review user rights, legal responsibilities, and usage guidelines of the platform'
               },
+             ],
+             fan_sections: [
+              { title: 'Recently played',
+              subtitle: 'Explore the list of tracks that you have recently listened'
+              },
+              { title: 'Account',
+                subtitle: 'Manage your personal information and current plan settings'
+              },
+              { title: 'Security',
+                subtitle: 'Change your password, set your PIN Code and learn more about our security'
+              },
+              { title: 'Help center',
+              subtitle: 'Access to frequently asked questions or get support to resolve your issues'
+              },
+              { title: 'Terms & Conditions',
+              subtitle: 'Review user rights, legal responsibilities, and usage guidelines of the platform'
+              },
              ]
           },
           notification: {
