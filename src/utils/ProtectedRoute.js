@@ -1,44 +1,46 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-
 import Loader from 'components/Loader';
 import { useSelector } from 'react-redux';
 
 export default function ProtectedRoute({ children, redirectPath = '/sign-in', onlyArtist = true }) {
-  const navigate = useNavigate()
+  const location = useLocation();
+  const navigate = useNavigate();
   const [authChecked, setAuthChecked] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isEnabled, setIsEnabled] = useState(true)
-  const user = useSelector((state) => state.auth.user)
-
+  const user = useSelector((state) => state.auth.user);
+  console.log('onlny', onlyArtist)
   useEffect(() => {
-    if(!user) return;
-    const type = user.data.type
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setIsAuthenticated(true);
-        if(onlyArtist) {
-          setIsEnabled(type === 'artist')
-        } 
-      } else {
-        setIsAuthenticated(false);
-      }
+      setIsAuthenticated(!!currentUser);
       setAuthChecked(true);
     });
-
     return () => unsubscribe();
-  }, [user]);
+  }, []);
 
-  if (!authChecked) {
-    return <Loader />
-  }
-  if (!isAuthenticated) {
-    return navigate(redirectPath);
-  }
-  if(isAuthenticated && !isEnabled) {
-    return navigate('/my-chest')
+  useEffect(() => {
+    if (!authChecked) return;
+
+    if (!user) {
+      navigate(redirectPath);
+      return;
+    }
+
+    if (!user.data.type && location.pathname !== '/setup') {
+      navigate('/setup');
+      return;
+    }
+
+    if (onlyArtist && user.data.type !== 'artist') {
+      navigate('/my-chest');
+      return;
+    }
+  }, [authChecked, user, location.pathname, navigate, redirectPath, onlyArtist]);
+
+  if (!authChecked || !isAuthenticated) {
+    return <Loader />;
   }
 
   return children;

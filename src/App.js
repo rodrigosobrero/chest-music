@@ -53,42 +53,42 @@ function App() {
         {
           path: '/my-chest',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={true}>
               <MyChest />
             </ProtectedRoute>,
         },
         {
           path: '/my-chest/upload',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={true}>
               <Upload />
             </ProtectedRoute>
         },
         {
           path: '/my-chest/treasure/:id',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={true}>
               <Treasure />
             </ProtectedRoute>
         },
         {
           path: '/my-chest/treasure/:id/trash',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={true}>
               <Trash />
             </ProtectedRoute>
         },
         {
           path: 'shared',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={false}>
               <Shared />
             </ProtectedRoute>
         },
         {
           path: 'profile',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={false}>
               <Profile />
             </ProtectedRoute>
         },
@@ -102,56 +102,56 @@ function App() {
         {
           path: 'profile/permissions',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={true}>
               <Permissions />
             </ProtectedRoute>
         },
         {
           path: 'profile/account',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={false}>
               <Account />
             </ProtectedRoute>
         },
         {
           path: 'profile/help',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={false}>
               <Help />
             </ProtectedRoute>
         },
         {
           path: 'profile/terms',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={false}>
               <Terms />
             </ProtectedRoute>
         },
         {
           path: 'profile/security',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={false}>
               <Security />
             </ProtectedRoute>
         },
         {
           path: 'notifications',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={false}>
               <Notifications />
             </ProtectedRoute>
         },
         {
           path: 'notifications/manage',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={false}>
               <Manage />
             </ProtectedRoute>
         },
         {
           path: 'setup',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={false}>
               <Setup />
             </ProtectedRoute>
         },
