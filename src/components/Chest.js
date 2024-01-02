@@ -1,4 +1,6 @@
+import { useMemo, useState } from 'react';
 import { useGetChestQuery } from 'store/api';
+import { filter } from 'utils/helpers';
 
 import Tag from 'components/Tag';
 import TrackList from 'components/TrackList';
@@ -8,11 +10,20 @@ import StorageIndicator from 'components/StorageIndicator';
 import empty from 'assets/images/empty-chest.svg';
 
 export default function Chest() {
+  const [query, setQuery] = useState('');
   const {
-    data: chest = [],
+    data: chest = {},
     isLoading,
     isFetching,
   } = useGetChestQuery('', { refetchOnMountOrArgChange: true });
+
+  const filteredProjects = useMemo(() => {
+    return filter(chest.projects || [], query);
+  }, [chest.projects, query]);
+
+  const handleOnChange = (e) => {
+    setQuery(e.target.value);
+  }
 
   if (isLoading || isFetching) {
     return (
@@ -37,14 +48,14 @@ export default function Chest() {
             </div>
           </div>
           <div className='hidden md:flex items-center justify-center grow'>
-            <SearchBar />
+            <SearchBar onChange={handleOnChange} />
           </div>
           <StorageIndicator usedSpace={chest.used_space} totalSpace={chest.total_space} />
         </div>
         <div className='bg-neutral-black rounded-t-lg rounded-b-3xl pl-5 pr-4 pt-3 pb-8 md:px-[60px] md:pb-[60px] md:pt-10'>
           {
-            chest?.projects?.length > 0 ?
-              <TrackList tracks={chest.projects} /> :
+            filteredProjects.length > 0 ?
+              <TrackList tracks={filteredProjects} /> :
               <div className='flex flex-col items-center gap-2'>
                 <h4>Your chest is empty</h4>
                 <p className='text-lg text-neutral-silver-200 font-light mb-10'>

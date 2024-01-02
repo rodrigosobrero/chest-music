@@ -16,7 +16,7 @@ export default function Trash() {
   } = useGetTrashQuery(id);
 
   const {
-    data: project = [],
+    data: project = {},
   } = useGetProjectQuery(id);
 
   const breadcrumb = [

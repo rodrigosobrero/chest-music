@@ -2,45 +2,55 @@ import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { isDesktop } from 'react-device-detect';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useLazyGetTrackSourceQuery } from 'store/api';
 
 import ProgressBar from 'components/player/ProgressBar';
 import Controls from 'components/player/Controls';
 import VolumeControls from 'components/player/VolumeControls';
 import Track from 'components/player/Track';
-import { useLazyGetTrackSourceQuery } from 'store/api';
-
-// import ControlsMobile from './ControlsMobile';
 
 export default function Player() {
   const [trigger, result] = useLazyGetTrackSourceQuery()
-
   const { playlist } = useSelector(state => state);
 
-  /* states */
+  const [loop, setLoop] = useState(false);
   const [timeProgress, setTimeProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [trackList, setTrackList] = useState();
 
-  /* reference */
   const audioRef = useRef();
   const progressBarRef = useRef();
 
   useEffect(() => {
     let currentTrack = playlist[0];
+    if(currentTrack){
+      
+      if(currentTrack.audio){
 
-    if (currentTrack) trigger(currentTrack.id);
+        setTrackList({
+          url: currentTrack.audio,
+          cover_url: currentTrack.cover,
+          name: currentTrack.name,
+          authors: currentTrack.authors,
+          type: currentTrack.type
+        })
+      }
 
-    const { data } = result;
+      else{
+        trigger(currentTrack.id);
 
-    if (data) {
-      setTrackList({
-        url: data.url,
-        cover_url: currentTrack.cover,
-        name: currentTrack.name,
-        authors: currentTrack.authors,
-        type: currentTrack.type
-      })
-    }
+        const { data } = result;
+
+        if (data) {
+          setTrackList({
+            url: data.url,
+            cover_url: currentTrack.cover,
+            name: currentTrack.name,
+            authors: currentTrack.authors,
+            type: currentTrack.type
+          })
+        }}
+      }
   }, [playlist])
 
   return (
@@ -68,7 +78,9 @@ export default function Player() {
                     audioRef,
                     progressBarRef,
                     duration,
-                    setTimeProgress
+                    setTimeProgress,
+                    setLoop,
+                    loop
                   }} />
                   <ProgressBar {...{
                     progressBarRef,

@@ -1,19 +1,9 @@
 import TrackListRow from 'components/TrackListRow';
-import { useDispatch, useSelector } from 'react-redux';
-import { playing } from 'app/playlist';
 import { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 
 export default function TrackList({ tracks }) {
-  const dispatch = useDispatch();
-  const playlist = useSelector(state => state.playlist);
-
   const [titles, setTitles] = useState([]);
-
-  const handleSortingChange = (index) => {
-    console.log(index);
-    console.log(playlist);
-  }
 
   useEffect(() => {
     if (isMobile) {
@@ -43,7 +33,6 @@ export default function TrackList({ tracks }) {
               titles.map((title, index) => 
                 <th 
                   key={index} 
-                  onClick={() => { title && handleSortingChange(index) }} 
                   className={`${ !title && 'cursor-default' }`}>
                     {title}
                 </th>

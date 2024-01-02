@@ -157,21 +157,21 @@ const format = {
 }
 
 const filter = (list, key) => {
-  if (!list) return;
+  if (!list) return [];
 
   key = key.toLowerCase();
 
-  list.filter(item => {
+  return list.filter(item => {
     if (key === '') {
-      return item;
+      return true;
     } else {
       return Object.values(item)
         .join(' ')
-        .toLocaleLowerCase()
-        .includes(key)
+        .toLowerCase()
+        .includes(key);
     }
-  })
-}
+  });
+};
 
 export {
   bytesToSize,

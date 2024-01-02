@@ -42,7 +42,7 @@ export default function VersionsTable({ project }) {
         </thead>
         <tbody>
           {
-            project?.versions?.map((version, index) =>
+            project?.versions?.map((version) =>
               <AnimatePresence key={version.id}>
                 <motion.tr
                   key={version.id}
