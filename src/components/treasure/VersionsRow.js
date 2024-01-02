@@ -46,7 +46,7 @@ export default function VersionsRow({ project, version }) {
         <div className='flex flex-row gap-3 md:gap-4'>
           <div className='relative rounded flex items-center'>
             <button type='button' onClick={handleOnClick}>
-              {playlist[0]?.id === version?.id && playlist[0]?.type === 'version' 
+              {playlist[0].id === version.id && playlist[0].type === 'version' 
               ? <PauseIcon className='h-6 w-6 text-gray-500' />
               : <PlayIcon className='h-6 w-6 text-white' />}
             </button>
