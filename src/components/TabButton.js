@@ -16,7 +16,7 @@ const TabButton = ({ isActive, icon, text, counter, className, onClick}) => {
                     transition-colors duration-600 ${className}` }>
             {icon && <TabIcon type={icon} status={(isHovered || isActive) ? 'actived' : 'disabled' }/>}
             {text}
-             <span className={`px-1 h-5 w-5 text-center rounded-[40px] bg-neutral-silver-600 ${isActive && '!bg-brand-gold '}`}>{counter}</span>
+             {counter !== undefined && <span className={`px-1 h-5 w-5 text-center rounded-[40px] bg-neutral-silver-600 ${isActive && '!bg-brand-gold '}`}>{counter}</span>}
         </button>
         <div className={`w-[80px]  mx-auto h-0.5 mt-1.5 border border-brand-gold ${!isActive && 'hidden'}`}></div>
     </div>
