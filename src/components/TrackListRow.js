@@ -51,7 +51,7 @@ export default function TrackListRow({ track }) {
   }
 
   useEffect(() => {
-    setPlay(playlist[0].id === track.last_version_id && playlist[0].type === 'project');
+    setPlay(playlist[0]?.id === track.last_version_id && playlist[0]?.type === 'project');
   }, [playlist]);
 
   return (

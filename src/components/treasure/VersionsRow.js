@@ -2,12 +2,13 @@ import { format } from 'utils/helpers';
 import { formatTime } from 'utils/helpers';
 import { isDesktop } from 'react-device-detect';
 import { useDispatch, useSelector } from 'react-redux';
-import { playing } from 'app/playlist';
+import { playing, reset } from 'app/playlist';
 
 import VersionsActionsButton from './VersionsActionsButton';
 
 import { PlayIcon } from '@heroicons/react/24/solid';
 import { PauseIcon } from '@heroicons/react/24/solid';
+import { useEffect } from 'react';
 
 export default function VersionsRow({ project, version }) {
   const dispatch = useDispatch();
@@ -45,7 +46,7 @@ export default function VersionsRow({ project, version }) {
         <div className='flex flex-row gap-3 md:gap-4'>
           <div className='relative rounded flex items-center'>
             <button type='button' onClick={handleOnClick}>
-              {playlist[0].id === version.id && playlist[0].type === 'version' 
+              {playlist[0]?.id === version.id && playlist[0]?.type === 'version' 
               ? <PauseIcon className='h-6 w-6 text-gray-500' />
               : <PlayIcon className='h-6 w-6 text-white' />}
             </button>
