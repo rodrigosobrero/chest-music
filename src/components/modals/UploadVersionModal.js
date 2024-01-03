@@ -56,7 +56,11 @@ export default function UploadVersionModal(props) {
           {props.meta.name}
         </p>
         <p className='!text-sm text-neutral-silver-200'>
-          {props.meta.participants?.map((participant, index) => (index ? ', ' : '') + participant.full_name)}
+          {props.meta.participants?.map((participant, index) => {
+            const isObjectWithFullName = typeof participant === 'object' && participant.full_name;
+            const displayName = isObjectWithFullName ? participant.full_name : participant;
+            return (index ? ', ' : '') + displayName;
+          })}
         </p>
       </div>
       <div className='flex flex-col gap-8'>
