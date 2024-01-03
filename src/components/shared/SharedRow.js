@@ -8,7 +8,7 @@ const SharedRow = ({ track, isMobile, onClick }) => {
   return (
     <>
     <tr
-      onClick={onClick}
+      // onDoubleClick={() => alert('DOBLE CLICK')}
       className='hover:!rounded-xl hover:bg-neutral-silver-700 text-left '
       onMouseEnter={() => { setShow(true) }}
       onMouseLeave={() => { setShow(false) }}

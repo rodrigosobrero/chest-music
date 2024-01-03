@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-// import track from 'data/track.json'
 import LinkGenerate from 'components/share/sections/LinkGenerate';
 import PostTwitter from 'components/share/sections/PostTwitter';
 import SendDM from 'components/share/sections/SendDM';
@@ -9,19 +8,21 @@ import OptionSectionDesktop from 'components/share/OptionSectionDesktop';
 import Reel from 'components/share/sections/ReelTiktok';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+
 import { useGetProjectQuery } from 'store/api';
+
 const Share = () => {
+  const [ isUnlimited, setIsUnlimited ] = React.useState(false)
   const navigate = useNavigate()
-  const goBack = () => {
-    navigate(-1)
-  }  
   const { trackId } = useParams()
   const {data: track = {}} = useGetProjectQuery(trackId)
   const [ status, setStatus ] = React.useState('generate');
   const location = useLocation()
-  const [ isUnlimited, setIsUnlimited ] = React.useState(false)
   const user = useSelector((state) => state.auth.user);
 
+  const goBack = () => {
+    navigate(-1)
+  }   
   const toggleUnlimited = () => setIsUnlimited(!isUnlimited)
 
   const changeStatus = (status) => {

@@ -2,9 +2,10 @@ import React from 'react'
 import { CheckIcon } from "@heroicons/react/24/solid";
 import { motion } from 'framer-motion';
 import { NoSymbolIcon } from "@heroicons/react/24/solid";
+import Button from 'components/Button';
 
 
-const NotificationOption = ({ isOpen, onAccept, onDeny, isAccepted, isDenied, blockUser }) => {
+const NotificationOption = ({ isOpen, onAccept, onDeny, isAccepted, isDenied, blockUser, isBlocked, unblockUser }) => {
     return (
         <>
          <motion.div
@@ -15,8 +16,8 @@ const NotificationOption = ({ isOpen, onAccept, onDeny, isAccepted, isDenied, bl
           transition={{ duration: 0.3, ease: 'easeOut' }}>
           {isOpen && !isAccepted && !isDenied &&
              <div className='flex justify-between md:gap-x-4 gap-x-3 font-archivo font-semibold'>
-                <button className='w-2/4 bg-black text-white rounded-lg font-bold px-6 py-3' onClick={onDeny}>Deny</button>
-                <button className='w-2/4 bg-brand-gold text-black  rounded-lg font-bold px-6 py-3' onClick={onAccept}>Accept</button>
+                <button className='w-full bg-black text-white rounded-xl font-bold px-6 py-3' onClick={onDeny}>Deny</button>
+                <Button style='primary' onClick={onAccept} text='Accept'/>
              </div>
           }
           {isOpen && (isAccepted || isDenied) &&
@@ -25,7 +26,7 @@ const NotificationOption = ({ isOpen, onAccept, onDeny, isAccepted, isDenied, bl
                     {isAccepted && <> <CheckIcon className="h-5 w-5 text-[#14BD44]"/> Invite accepted </> }
                     {isDenied &&   <> <NoSymbolIcon className="h-5 w-5 text-error-red"/> Invite denied </> }
                 </span>
-                {isDenied && <button onClick={blockUser} className='text-brand-gold py-1.5'> Block</button> }     
+                {isDenied && <button onClick={isBlocked ? unblockUser : blockUser} className='text-brand-gold py-1.5'> {isBlocked ? 'Unblock' : 'Block'}</button> }     
                 </div>
             }
          </motion.div>

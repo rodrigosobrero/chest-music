@@ -30,6 +30,7 @@ import Upload from 'routes/upload';
 import Share from 'routes/share';
 import Treasure from 'routes/treasure';
 import Trash from 'routes/trash';
+import SharedPlay from 'routes/shared-play';
 
 function App() {
   const dispatch = useDispatch();
@@ -52,111 +53,115 @@ function App() {
         {
           path: '/my-chest',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={true}>
               <MyChest />
             </ProtectedRoute>,
         },
         {
           path: '/my-chest/upload',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={true}>
               <Upload />
             </ProtectedRoute>
         },
         {
           path: '/my-chest/treasure/:id',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={true}>
               <Treasure />
             </ProtectedRoute>
         },
         {
           path: '/my-chest/treasure/:id/trash',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={true}>
               <Trash />
             </ProtectedRoute>
         },
         {
           path: 'shared',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={false}>
               <Shared />
             </ProtectedRoute>
         },
         {
           path: 'profile',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={false}>
               <Profile />
             </ProtectedRoute>
         },
         {
           path: 'profile/played',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={false}>
               <RecentlyPlayed />
             </ProtectedRoute>
         },
         {
           path: 'profile/permissions',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={true}>
               <Permissions />
             </ProtectedRoute>
         },
         {
           path: 'profile/account',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={false}>
               <Account />
             </ProtectedRoute>
         },
         {
           path: 'profile/help',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={false}>
               <Help />
             </ProtectedRoute>
         },
         {
           path: 'profile/terms',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={false}>
               <Terms />
             </ProtectedRoute>
         },
         {
           path: 'profile/security',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={false}>
               <Security />
             </ProtectedRoute>
         },
         {
           path: 'notifications',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={false}>
               <Notifications />
             </ProtectedRoute>
         },
         {
           path: 'notifications/manage',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={false}>
               <Manage />
             </ProtectedRoute>
         },
         {
           path: 'setup',
           element:
-            <ProtectedRoute>
+            <ProtectedRoute onlyArtist={false}>
               <Setup />
             </ProtectedRoute>
         },
         {
           path: 'share/:trackId',
           element: <Share />
+        },
+        {
+          path:'/shared-link',
+          element: <SharedPlay />
         }
       ]
     }

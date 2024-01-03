@@ -5,18 +5,15 @@ const baseQuery = fetchBaseQuery({
   baseUrl: process.env.REACT_APP_API,
   prepareHeaders: (headers, { getState }) => {
     const user = getState().auth.user;
-
     if (user && user.token) {
       headers.set('Authorization', `Bearer ${user.token}`);
     }
-
     return headers;
   }
 });
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
-  
   if (result.error && result.error.status === 403) {
     if(result.error.data.code === 'firebase-expired-token' || result.error.data.code === 'firebase-invalid-token'){
       auth.signOut();
@@ -202,6 +199,14 @@ export const api = createApi({
     }),
     getTrackSource: builder.query({
       query: (id) => `project/version/${id}/url/`
+    }),
+    getFaqs: builder.query({
+      query: (lang) => `faq/?lang=${lang}`,
+      providesTags: ['Faqs'],
+    }),
+    getTerms: builder.query({
+      query: (lang) => `termsandconditions/?lang=${lang}`,
+      providesTags: ['Terms']
     })
   })
 });
@@ -233,6 +238,8 @@ export const {
   useCreatePermissionMutation,
   useUpdatePermissionMutation,
   useLazyGetTrackSourceQuery,
+  useGetFaqsQuery,
+  useGetTermsQuery
 } = api;
 
 export { api as apiSlice}

@@ -104,11 +104,11 @@ const SendDM = ({ token , versionId, onCancel }) => {
                     <span className='-mb-7'>{t('share.unlimited')}</span>
                 </div>
             </div>
-            <div className='flex flex-row gap-x-2.5 items-center md:w-4/5'>
+            {/* <div className='flex flex-row gap-x-2.5 items-center md:w-4/5'>
                 <input type='checkbox' onChange={handleCheck}/> 
                 <label className='text-base font-archivo'>{t('share.allow_web_play')}</label>
                 <QuestionMarkCircleIcon className="h-5 w-5 text-neutral-silver-300" />
-            </div>
+            </div> */}
             <div className='w-4/5'>
                 <TagInput handleChange={handleChange} selectOption={selectOption} selectedsOptions={selecteds} filteredUsers={filteredUsers} input={input} removeOption={removeOption}/>
             </div>

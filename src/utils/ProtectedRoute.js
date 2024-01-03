@@ -1,34 +1,46 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-
 import Loader from 'components/Loader';
+import { useSelector } from 'react-redux';
 
-export default function ProtectedRoute({ children, redirectPath = '/sign-in' }) {
-  const navigate = useNavigate()
+export default function ProtectedRoute({ children, redirectPath = '/sign-in', onlyArtist = true }) {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [authChecked, setAuthChecked] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
+  const user = useSelector((state) => state.auth.user);
+  console.log('onlny', onlyArtist)
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setIsAuthenticated(true);
-      } else {
-        setIsAuthenticated(false);
-      }
+      setIsAuthenticated(!!currentUser);
       setAuthChecked(true);
     });
-
     return () => unsubscribe();
   }, []);
 
-  if (!authChecked) {
-    return <Loader />
-  }
+  useEffect(() => {
+    if (!authChecked) return;
 
-  if (!isAuthenticated) {
-    return navigate(redirectPath);
+    if (!user) {
+      navigate(redirectPath);
+      return;
+    }
+
+    if (!user.data.type && location.pathname !== '/setup') {
+      navigate('/setup');
+      return;
+    }
+
+    if (onlyArtist && user.data.type !== 'artist') {
+      navigate('/my-chest');
+      return;
+    }
+  }, [authChecked, user, location.pathname, navigate, redirectPath, onlyArtist]);
+
+  if (!authChecked || !isAuthenticated) {
+    return <Loader />;
   }
 
   return children;
