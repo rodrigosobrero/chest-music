@@ -61,51 +61,49 @@ export default function EditPermissionsLinkModal(props) {
   }, [webPlay])
 
   return (
-    <>
-      <BaseModal
-        title='edit link permissions'
-        description={`/${props.meta.token}`}
-        show={props.isOpen}
-        onClose={handleClose}>
-        <div className='flex flex-row gap-5 items-center mb-6'>
-          <div className='grow'>
-            <Input
-              onlyNumeric
-              value={playLimit}
-              disabled={!unlimited}
-              onChange={handlePlayLimit} label='Play limit' />
+    <BaseModal
+      title='edit link permissions'
+      description={`/${props.meta.token}`}
+      show={props.isOpen}
+      onClose={handleClose}>
+      <div className='flex flex-row gap-5 items-center mb-6'>
+        <div className='grow'>
+          <Input
+            onlyNumeric
+            value={playLimit}
+            disabled={!unlimited}
+            onChange={handlePlayLimit} label='Play limit' />
+        </div>
+        <div className='flex items-center justify-center gap-2.5'>
+          <div className='flex items-center'>
+            <Toggle checked={!unlimited} onChange={handleUnlimited} />
           </div>
-          <div className='flex items-center justify-center gap-2.5'>
-            <div className='flex items-center'>
-              <Toggle checked={!unlimited} onChange={handleUnlimited} />
-            </div>
-            <span className='pt-6'>Unlimited</span>
-          </div>
+          <span className='pt-6'>Unlimited</span>
         </div>
-        <div className='flex items-center gap-3'>
-          <input
-            type='checkbox'
-            name='terms'
-            id='webplay'
-            checked={webPlay}
-            onChange={handleWebPlay} />
-          <label htmlFor='webplay'>
-            Allow web play
-          </label>
-        </div>
-        <div className='grid grid-cols-2 gap-4 mt-8'>
-          <Button
-            text={t('global.cancel')}
-            style={'third'}
-            onClick={handleCancel} />
-          <Button
-            text={t('global.save')}
-            style={'primary'}
-            disabled={isLoading || (unlimited && !playLimit)}
-            loading={isLoading}
-            onClick={handleSave} />
-        </div>
-      </BaseModal>
-    </>
+      </div>
+      <div className='flex items-center gap-3'>
+        <input
+          type='checkbox'
+          name='terms'
+          id='webplay'
+          checked={webPlay}
+          onChange={handleWebPlay} />
+        <label htmlFor='webplay'>
+          Allow web play
+        </label>
+      </div>
+      <div className='grid grid-cols-2 gap-4 mt-8'>
+        <Button
+          text={t('global.cancel')}
+          style={'tertiary'}
+          onClick={handleCancel} />
+        <Button
+          text={t('global.save')}
+          style={'primary'}
+          disabled={isLoading || (unlimited && !playLimit)}
+          loading={isLoading}
+          onClick={handleSave} />
+      </div>
+    </BaseModal>
   )
 }
