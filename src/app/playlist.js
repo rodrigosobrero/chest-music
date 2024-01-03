@@ -14,10 +14,14 @@ export const playlist = createSlice({
     },
     playing: (state, action) => {
       return [action.payload];
+    },
+    clear: (state) => {
+      state.playlist = []
     }
+    
   }
 });
 
-export const { add, remove, playing } = playlist.actions;
+export const { add, remove, playing, clear } = playlist.actions;
 
 export default playlist.reducer;

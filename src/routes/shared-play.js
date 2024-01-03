@@ -7,7 +7,7 @@ import rectangle from 'assets/images/icon-rectangle.png'
 import { apiUrl } from 'utils/api';
 import Button from 'components/Button';
 import { useDispatch } from 'react-redux';
-import { playing } from 'app/playlist';
+import { clear, playing } from 'app/playlist';
 
 const SharedPlay = () => {
   const dispatch = useDispatch()
@@ -30,8 +30,10 @@ const SharedPlay = () => {
         audio: response.data.audio_url
       }));
     })
+    // return () => {
+    //   dispatch()
+    // }
   }, [searchParams])
-  console.log(track)
   return (
     <>
      <div className='lg:block hidden lg:container'>
@@ -62,7 +64,7 @@ const SharedPlay = () => {
                    If your music is your <br />treasure, it deserves  <br/> to have its chest.
                 </h3>
                 <div>
-                   <Button text='Open chest' style='primary' customStyle='!w-auto'  onClick={() => { navigate('/sign-in') }} />
+                   <Button text='Open chest' style='primary' customStyle='!w-auto'  onClick={() => { dispatch(clear)}} />
                 </div>
               </div>
               <div className='w-2/4'>
