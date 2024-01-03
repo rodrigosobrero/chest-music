@@ -172,7 +172,7 @@ export default function Treasure() {
           <div className='grow'>
             <Breadcrumb items={breadcrumb} />
           </div>
-          <div className='flex items-center justify-end gap-3'>
+          <div className='fixed max-w-screen-2xl flex items-center justify-end gap-3 w-full'>
             <button 
               type='button' 
               className='toolbar-button primary' 

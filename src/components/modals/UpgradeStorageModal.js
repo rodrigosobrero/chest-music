@@ -43,7 +43,7 @@ const UpgradeStorage = ({ disabled, toggle, handleChange, isAvailable, onClick, 
           {isOpen && <DropdownCountries filteredOptions={countries} handleOptionSelect={handleSelectOption} />}
         </div>
         <div className='font-archivo font-semibold flex gap-4'>
-          <Button text={t('global.cancel')} style={'third'} onClick={toggle}/>
+          <Button text={t('global.cancel')} style={'tertiary'} onClick={toggle}/>
 
           <Button text={t('global.send')} style={'primary'} disabled={disabled} onClick={onClick}/>
    
