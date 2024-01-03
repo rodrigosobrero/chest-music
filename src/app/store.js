@@ -18,7 +18,7 @@ const reducers = combineReducers({
 })
 
 const persistConfig = {
-  blacklist: ['modal'],
+  blacklist: ['modal', 'playlist'],
   key: 'root',
   storage
 }
