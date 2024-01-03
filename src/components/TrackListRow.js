@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { playing } from 'app/playlist';
 import { useDoubleClick } from 'hooks/useDoubleClick';
 import { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
 
 import TrackListOptions from 'components/TrackListOptions';
 
@@ -27,7 +26,8 @@ export default function TrackListRow({ track }) {
       cover: track.cover_url,
       name: track.name,
       authors: track.authors,
-      type: 'project'
+      type: 'project',
+      isPlaying: true
     }));
   };
 
@@ -51,6 +51,8 @@ export default function TrackListRow({ track }) {
   }
 
   useEffect(() => {
+    console.log('playlist', playlist)
+
     setPlay(playlist[0]?.id === track.last_version_id && playlist[0]?.type === 'project');
   }, [playlist]);
 
@@ -65,25 +67,6 @@ export default function TrackListRow({ track }) {
               onClick={handleOnCoverClick}
               onMouseEnter={toggleHover}
               onMouseLeave={toggleHover}>
-              {/* <AnimatePresence mode='wait'>
-                {play ? (
-                  <motion.div
-                    className='cover-hover'
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}>
-                    <PauseIcon className='h-6 w-6 text-white' />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    className='cover-hover'
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}>
-                    <PlayIcon className='h-6 w-6 text-white' />
-                  </motion.div>
-                )}
-              </AnimatePresence> */}
               {hover && !play && <div className='cover-hover'><PlayIcon className='h-6 w-6 text-white' /></div>}
               {play && <div className='cover-hover'><PauseIcon className='h-6 w-6 text-white' /></div>}
             </div>

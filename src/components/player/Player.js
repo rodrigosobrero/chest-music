@@ -8,6 +8,7 @@ import ProgressBar from 'components/player/ProgressBar';
 import Controls from 'components/player/Controls';
 import VolumeControls from 'components/player/VolumeControls';
 import Track from 'components/player/Track';
+import { playing, reset } from 'app/playlist';
 
 export default function Player() {
   const [trigger, result] = useLazyGetTrackSourceQuery()
@@ -22,12 +23,16 @@ export default function Player() {
   const progressBarRef = useRef();
 
   useEffect(() => {
-    console.log('test');
-    let currentTrack = playlist[0];
-    if(currentTrack){
-      
-      if(currentTrack.audio){
+    reset();
+  }, []);
 
+  useEffect(() => {
+    console.log('playlist', playlist);
+
+    let currentTrack = playlist[0];
+
+    if (currentTrack) {
+      if (currentTrack.audio) {
         setTrackList({
           url: currentTrack.audio,
           cover_url: currentTrack.cover,
@@ -37,7 +42,7 @@ export default function Player() {
         })
       }
 
-      else{
+      else {
         trigger(currentTrack.id);
 
         const { data } = result;
@@ -50,14 +55,23 @@ export default function Player() {
             authors: currentTrack.authors,
             type: currentTrack.type
           })
-        }}
+        }
       }
+    }
+  }, [playlist]);
+
+  useEffect(() => {
+    console.log('player', trackList)
+  }, [trackList])
+
+  useEffect(() => {
+    
   }, [playlist])
 
   return (
     <>
       <AnimatePresence>
-        {trackList && (
+        {trackList && playlist[0].isPlaying && (
           <>
             {isDesktop ? (
               <motion.div
