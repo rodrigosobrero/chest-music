@@ -27,8 +27,6 @@ export default function Player() {
   }, []);
 
   useEffect(() => {
-    console.log('playlist', playlist);
-
     let currentTrack = playlist[0];
 
     if (currentTrack) {
@@ -60,18 +58,10 @@ export default function Player() {
     }
   }, [playlist]);
 
-  useEffect(() => {
-    console.log('player', trackList)
-  }, [trackList])
-
-  useEffect(() => {
-    
-  }, [playlist])
-
   return (
     <>
       <AnimatePresence>
-        {trackList && playlist[0].isPlaying && (
+        {trackList && (
           <>
             {isDesktop ? (
               <motion.div
