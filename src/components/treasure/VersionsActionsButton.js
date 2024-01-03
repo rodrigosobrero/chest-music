@@ -7,16 +7,12 @@ import ContextButton from 'components/ContextButton';
 export default function VersionsActionsButton({ version }) {
   const { user } = useSelector((state) => state.auth);
 
+  const { onOpen: openShareModal } =  useModal('ShareVersionModal');
   const { onOpen: openEditModal } = useModal('EditVersionModal');
   const { onOpen: openDeleteModal } = useModal('DeleteVersionModal');
 
-  const handleEdit = () => {
-    const meta = {
-      id: version.id,
-      name: version.name
-    }
-
-    openEditModal(meta)
+  const handleShare = () => {
+    openShareModal(version);
   }
 
   const handleDownload = async () => {
@@ -35,17 +31,16 @@ export default function VersionsActionsButton({ version }) {
     }
   }
 
-  const handleDelete = () => {
-    const meta = {
-      id: version.id,
-      name: version.name
-    }
+  const handleEdit = () => {
+    openEditModal(version);
+  }
 
-    openDeleteModal(meta);
+  const handleDelete = () => {
+    openDeleteModal(version);
   }
 
   const options = [
-    { type: 'share', description: 'Share' },
+    { type: 'share', description: 'Share', action: handleShare },
     { type: 'download', description: 'Download', action: handleDownload },
     { type: 'edit', description: 'Edit', action: handleEdit },
     { type: 'delete', description: 'Move to trash can', action: handleDelete },

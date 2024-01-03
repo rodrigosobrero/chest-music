@@ -1,18 +1,17 @@
-import { format } from 'utils/helpers';
-import { formatTime } from 'utils/helpers';
-import { isDesktop } from 'react-device-detect';
 import { useDispatch, useSelector } from 'react-redux';
-import { playing, reset } from 'app/playlist';
+import { isDesktop } from 'react-device-detect';
+import { format } from 'utils/helpers';
+import { playing } from 'app/playlist';
 
 import VersionsActionsButton from './VersionsActionsButton';
 
 import { PlayIcon } from '@heroicons/react/24/solid';
 import { PauseIcon } from '@heroicons/react/24/solid';
-import { useEffect } from 'react';
 
 export default function VersionsRow({ project, version }) {
   const dispatch = useDispatch();
   const { playlist } = useSelector(state => state);
+
   const filteredParticipants = (participants) => {
     let filtered = [];
 
@@ -36,7 +35,8 @@ export default function VersionsRow({ project, version }) {
       cover: project.cover_url,
       name: project.name,
       authors: project.participants.map(participant => participant.full_name),
-      type: 'version'
+      type: 'version',
+      isPlaying: true
     }));
   }
 
@@ -68,7 +68,7 @@ export default function VersionsRow({ project, version }) {
               {format.date(version.date_added)}
             </span>
           </td>
-          <td>{formatTime(version.duration)}</td>
+          <td>{format.time(version.duration)}</td>
         </>
       )}
       <td>
