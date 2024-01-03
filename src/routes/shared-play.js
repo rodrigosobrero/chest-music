@@ -7,13 +7,12 @@ import rectangle from 'assets/images/icon-rectangle.png'
 import { apiUrl } from 'utils/api';
 import Button from 'components/Button';
 import { useDispatch } from 'react-redux';
-import { clear, playing } from 'app/playlist';
+import { playing } from 'app/playlist';
 
 const SharedPlay = () => {
   const dispatch = useDispatch()
   const [searchParams] = useSearchParams();
   const [track, setTrack] = useState({})
-  const navigate = useNavigate()
   
   useEffect(() => {
     const token = searchParams.get('token')
@@ -64,7 +63,7 @@ const SharedPlay = () => {
                    If your music is your <br />treasure, it deserves  <br/> to have its chest.
                 </h3>
                 <div>
-                   <Button text='Open chest' style='primary' customStyle='!w-auto'  onClick={() => { dispatch(clear)}} />
+                   <Button text='Open chest' style='primary' customStyle='!w-auto' />
                 </div>
               </div>
               <div className='w-2/4'>

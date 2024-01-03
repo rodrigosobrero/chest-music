@@ -13,15 +13,22 @@ export const playlist = createSlice({
       state.playlist.splice(state.playlist.findIndex(track => track.name === action.payload), 1);
     },
     playing: (state, action) => {
-      return [action.payload];
+      state.playlist[0] = action.payload
     },
-    clear: (state) => {
-      state.playlist = []
-    }
+    play: (state, action) => {
+      if (Array.isArray(state.playlist) && state.playlist.length > 0) {
+        console.log(state.playlist[0].isPlaying)
+        // Asumiendo que cada elemento en `playlist` tiene un campo `isPlaying`
+        state.playlist[0].isPlaying = !state.playlist[0].isPlaying; // o usa `action.payload.isPlaying` si es necesario
+      } else {
+        console.log("state.playlist no es un arreglo o está vacío");
+      }
     
+    },
+    reset: (state) => (state.playlist = []),
   }
 });
 
-export const { add, remove, playing, clear } = playlist.actions;
+export const { add, remove, playing, reset, play } = playlist.actions;
 
 export default playlist.reducer;

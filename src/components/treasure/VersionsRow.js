@@ -10,7 +10,7 @@ import { PauseIcon } from '@heroicons/react/24/solid';
 
 export default function VersionsRow({ project, version }) {
   const dispatch = useDispatch();
-  const { playlist } = useSelector(state => state);
+  const { playlist } = useSelector((state) => state.playlist);
 
   const filteredParticipants = (participants) => {
     let filtered = [];

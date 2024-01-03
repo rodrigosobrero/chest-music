@@ -8,6 +8,8 @@ import { ReactComponent as PreviousIcon } from 'assets/images/icon-previous.svg'
 import { ReactComponent as ShuffleIcon } from 'assets/images/icon-shuffle.svg';
 import { ReactComponent as PlayIcon } from 'assets/images/icon-play.svg';
 import { ReactComponent as PauseIcon } from 'assets/images/icon-pause.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { play } from 'app/playlist';
 
 export default function Controls({
   audioRef,
@@ -17,9 +19,10 @@ export default function Controls({
   setLoop,
   loop
 }) {
-  const [isPlaying, setIsPlaying] = useState(false);
   const playAnimationRef = useRef();
-
+  const dispatch = useDispatch()
+  const playlist = useSelector((state) => state.playlist.playlist)
+  
   const repeat = useCallback(() => {
     const currentTime = audioRef.current.currentTime;
 
@@ -35,7 +38,7 @@ export default function Controls({
   }, [audioRef, duration, progressBarRef, setTimeProgress]);
 
   const togglePlayPause = () => {
-    setIsPlaying(prev => !prev);
+    dispatch(play())
   }
 
   const toggleLoop = () => {
@@ -51,7 +54,7 @@ export default function Controls({
   }
 
   useEffect(() => {
-    if (isPlaying) {
+    if (playlist[0]?.isPlaying) {
       audioRef.current.play();
     } else {
       audioRef.current.pause();
@@ -65,7 +68,7 @@ export default function Controls({
 
     playAnimationRef.current = requestAnimationFrame(repeat);
 
-  }, [isPlaying, loop, audioRef, repeat]);
+  }, [loop, audioRef, repeat, playlist]);
 
   return (
     <>
@@ -77,7 +80,7 @@ export default function Controls({
           <PreviousIcon />
         </button>
         <button type='button' onClick={togglePlayPause} className='player-controls'>
-          {isPlaying ? 
+          {playlist[0]?.isPlaying ? 
             <PauseIcon width={40} height={40} /> :
             <PlayIcon width={40} height={40} />
           }
