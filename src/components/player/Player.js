@@ -22,6 +22,7 @@ export default function Player() {
   const progressBarRef = useRef();
 
   useEffect(() => {
+    console.log('test');
     let currentTrack = playlist[0];
     if(currentTrack){
       
