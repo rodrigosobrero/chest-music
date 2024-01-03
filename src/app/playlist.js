@@ -16,14 +16,9 @@ export const playlist = createSlice({
       state.playlist[0] = action.payload
     },
     play: (state, action) => {
-      if (Array.isArray(state.playlist) && state.playlist.length > 0) {
-        console.log(state.playlist[0].isPlaying)
-        // Asumiendo que cada elemento en `playlist` tiene un campo `isPlaying`
-        state.playlist[0].isPlaying = !state.playlist[0].isPlaying; // o usa `action.payload.isPlaying` si es necesario
-      } else {
-        console.log("state.playlist no es un arreglo o está vacío");
-      }
-    
+      if (state.playlist.length > 0) {
+        state.playlist[0].isPlaying = !state.playlist[0].isPlaying;
+      } 
     },
     reset: (state) => (state.playlist = []),
   }
