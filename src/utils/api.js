@@ -1,13 +1,12 @@
 import axios from 'axios';
 import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 
-// update 
 export default axios.create({
-  baseURL: 'https://chest-api-stg.cexar.io/web/v1/'
+  baseURL: process.env.REACT_APP_API
 });
 
 export const upload = axios.create({
-  baseURL: 'https://upload.chestmusic.com/upload/'
+  baseURL: process.env.REACT_APP_UPLOAD_API
 });
 
 export const apiUrl = 'https://chest-api-stg.cexar.io/web/v1/'
