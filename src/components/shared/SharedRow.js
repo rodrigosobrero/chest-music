@@ -1,33 +1,78 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { formatTime, timeDifference } from 'utils/helpers';
+import { PlayIcon } from '@heroicons/react/24/solid';
+import { PauseIcon } from '@heroicons/react/24/solid';
+import { useDoubleClick } from 'hooks/useDoubleClick';
+import { redirect, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { playing, play as togglePlay } from 'app/playlist';
 import chestLogo from 'assets/images/chest-logo.svg'
 
 const SharedRow = ({ track, isMobile, onClick }) => {
-  const [show, setShow] = useState(false);
+  const dispatch = useDispatch();
+  const { playlist } = useSelector((state) => state.playlist);
+  const [hover, setHover] = useState(false);
+  const [play, setPlay] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false)
+  const playTrack = () => {
+    dispatch(playing({
+      id: track.version_id,
+      album: track.album,
+      cover: track.cover_url,
+      name: track.title,
+      authors: track.authors,
+      type: 'project',
+      isPlaying: false
+    }));
+  };
+
+  const handleOnClick = useDoubleClick(
+    () => playTrack(),
+  );
+
+
+
+  const toggleHover = () => {
+    setHover(prev => !prev);
+  }
+
+  const handleOnCoverClick = (e) => {
+    if(play){
+      return dispatch(togglePlay())
+    }
+    e.stopPropagation();
+    setHover(false);
+    playTrack();
+  }
+  
+  useEffect(() => {
+    setPlay(playlist[0]?.id === track.version_id && playlist[0]?.type === 'project');
+  }, [playlist]);
+  
+  useEffect(() => {
+    setIsPlaying(playlist[0]?.isPlaying)
+  }, [playlist])
+
   return (
     <>
     <tr
-      // onDoubleClick={() => alert('DOBLE CLICK')}
+      onClick={handleOnClick}
       className='hover:!rounded-xl hover:bg-neutral-silver-700 text-left '
-      onMouseEnter={() => { setShow(true) }}
-      onMouseLeave={() => { setShow(false) }}
      >
       <td className='md:w-[35%] mr-3'>
       <div className='flex flex-row gap-3 md:gap-4'>
-          <div className='relative rounded flex items-center'>
-            {track.cover_url ? 
-              <img src={track.cover_url} width={44} height={44} className='' alt='cover' /> 
-              : <div className=' w-11 rounded h-11 bg-neutral-silver-300 flex items-center justify-center'> 
-                  <img src={chestLogo} alt='defaultCover'/>
-               </div>
-            }
-            {show &&
-              <div className='play-hover'></div>
-            }
+          <div
+              className='w-11 h-11 bg-cover rounded'
+              style={{ backgroundImage: `url(${track.cover_url})` }}
+              onClick={handleOnCoverClick}
+              onMouseEnter={toggleHover}
+              onMouseLeave={toggleHover}>
+              {hover && !play && <div className='cover-hover'><PlayIcon className='h-6 w-6 text-white' /></div>}
+              {play && playlist[0].isPlaying && <div className='cover-hover'><PauseIcon className='h-6 w-6 text-white' /></div>}
           </div>
           <div>
-            <div className='text-base md:text-lg line-clamp-1 hover:underline'>{track.title}</div>
+            <div className='text-base md:text-lg line-clamp-1 hover:underline' >{track.title}</div>
             <div className='text-sm text-neutral-silver-200'>
               {isMobile ?  `${track.version+' - '+track.plays}`: track.authors.join(', ')}
             </div>

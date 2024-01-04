@@ -2,7 +2,7 @@ import { format } from 'utils/helpers';
 import { isDesktop } from 'react-device-detect';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { playing } from 'app/playlist';
+import { playing, play as togglePlay } from 'app/playlist';
 import { useDoubleClick } from 'hooks/useDoubleClick';
 import { useEffect, useState } from 'react';
 
@@ -15,7 +15,7 @@ import upload from 'assets/images/icon-upload.svg';
 export default function TrackListRow({ track }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { playlist } = useSelector(state => state);
+  const { playlist } = useSelector((state) => state.playlist);
   const [hover, setHover] = useState(false);
   const [play, setPlay] = useState(false);
 
@@ -45,6 +45,9 @@ export default function TrackListRow({ track }) {
   }
 
   const handleOnCoverClick = (e) => {
+    if(play){
+      return dispatch(togglePlay())
+    }
     e.stopPropagation();
     setHover(false);
     playTrack();
@@ -68,7 +71,7 @@ export default function TrackListRow({ track }) {
               onMouseEnter={toggleHover}
               onMouseLeave={toggleHover}>
               {hover && !play && <div className='cover-hover'><PlayIcon className='h-6 w-6 text-white' /></div>}
-              {play && <div className='cover-hover'><PauseIcon className='h-6 w-6 text-white' /></div>}
+              {play && playlist[0].isPlaying && <div className='cover-hover'><PauseIcon className='h-6 w-6 text-white' /></div>}
             </div>
             <div>
               <span className='text-lg line-clamp-1'>{track.name}</span>

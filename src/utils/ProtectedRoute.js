@@ -10,7 +10,6 @@ export default function ProtectedRoute({ children, redirectPath = '/sign-in', on
   const [authChecked, setAuthChecked] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const user = useSelector((state) => state.auth.user);
-  console.log('onlny', onlyArtist)
   useEffect(() => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -34,7 +33,7 @@ export default function ProtectedRoute({ children, redirectPath = '/sign-in', on
     }
 
     if (onlyArtist && user.data.type !== 'artist') {
-      navigate('/my-chest');
+      navigate('/shared');
       return;
     }
   }, [authChecked, user, location.pathname, navigate, redirectPath, onlyArtist]);

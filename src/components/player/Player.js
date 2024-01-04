@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { isDesktop } from 'react-device-detect';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -11,7 +11,7 @@ import Track from 'components/player/Track';
 import { playing, reset } from 'app/playlist';
 
 export default function Player() {
-  const [trigger, result] = useLazyGetTrackSourceQuery()
+  const [trigger, result, isFetching] = useLazyGetTrackSourceQuery()
   const { playlist } = useSelector(state => state);
 
   const [loop, setLoop] = useState(false);
@@ -25,9 +25,10 @@ export default function Player() {
   useEffect(() => {
     reset();
   }, []);
-
-  useEffect(() => {
-    let currentTrack = playlist[0];
+  useLayoutEffect(() => {
+    console.log(playlist)
+    let currentTrack = playlist.playlist[0];
+    console.log(currentTrack)
 
     if (currentTrack) {
       if (currentTrack.audio) {
@@ -41,7 +42,7 @@ export default function Player() {
       }
 
       else {
-        trigger(currentTrack.id);
+        trigger(currentTrack.id)
 
         const { data } = result;
 
@@ -56,7 +57,7 @@ export default function Player() {
         }
       }
     }
-  }, [playlist]);
+  }, [playlist, result]);
 
   return (
     <>

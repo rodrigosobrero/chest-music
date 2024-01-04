@@ -13,12 +13,17 @@ export const playlist = createSlice({
       state.playlist.splice(state.playlist.findIndex(track => track.name === action.payload), 1);
     },
     playing: (state, action) => {
-      return [action.payload];
+      state.playlist[0] = action.payload
     },
-    reset: (state) => (state = [])
+    play: (state, action) => {
+      if (state.playlist.length > 0) {
+        state.playlist[0].isPlaying = !state.playlist[0].isPlaying;
+      } 
+    },
+    reset: (state) => (state.playlist = []),
   }
 });
 
-export const { add, remove, playing, reset} = playlist.actions;
+export const { add, remove, playing, reset, play } = playlist.actions;
 
 export default playlist.reducer;

@@ -13,7 +13,6 @@ const SharedPlay = () => {
   const dispatch = useDispatch()
   const [searchParams] = useSearchParams();
   const [track, setTrack] = useState({})
-  const navigate = useNavigate()
   
   useEffect(() => {
     const token = searchParams.get('token')
@@ -30,8 +29,10 @@ const SharedPlay = () => {
         audio: response.data.audio_url
       }));
     })
+    // return () => {
+    //   dispatch()
+    // }
   }, [searchParams])
-  console.log(track)
   return (
     <>
      <div className='lg:block hidden lg:container'>
@@ -62,7 +63,7 @@ const SharedPlay = () => {
                    If your music is your <br />treasure, it deserves  <br/> to have its chest.
                 </h3>
                 <div>
-                   <Button text='Open chest' style='primary' customStyle='!w-auto'  onClick={() => { navigate('/sign-in') }} />
+                   <Button text='Open chest' style='primary' customStyle='!w-auto' />
                 </div>
               </div>
               <div className='w-2/4'>

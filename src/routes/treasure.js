@@ -195,7 +195,7 @@ export default function Treasure() {
             <button 
               type='button' 
               className='toolbar-button alert' 
-              onClick={() => { navigate(`/my-chest/treasure/${project.id}/trash/`) }}>
+              onClick={() => { navigate(`/my-chest/treasure/${project?.id}/trash/`) }}>
               <TrashIcon className='h-7 w-7' />
             </button>
           </div>
