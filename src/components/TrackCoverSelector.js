@@ -1,15 +1,16 @@
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-import arrowLeft from 'assets/images/icon-arrow-sm-left.svg';
-import arrowRight from 'assets/images/icon-arrow-sm-right.svg';
-
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useTranslation } from 'react-i18next';
+
 import InputFile from './InputFile';
 
-export default function TrackCoverSelector({ preview, updatePreview, covers }) {
+import arrowLeft from 'assets/images/icon-arrow-sm-left.svg';
+import arrowRight from 'assets/images/icon-arrow-sm-right.svg';
+
+export default function TrackCoverSelector({ preview, updatePreview, covers, selectedCover }) {
   const { t } = useTranslation();
   const [selectedFile, setSelectedFile] = useState();
   const [coverIndex, setCoverIndex] = useState(0);
@@ -76,6 +77,7 @@ export default function TrackCoverSelector({ preview, updatePreview, covers }) {
           slidesPerGroup={1}
           loop={true}
           onInit={(swiper) => setSwiper(swiper)}
+          onLoad={(swiper) => savePreview(swiper)}
           onSlideChange={savePreview}
           breakpoints={{
             370: {
