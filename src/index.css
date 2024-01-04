@@ -148,7 +148,7 @@ input[type=number] {
 }
 
 .btn-primary {
-  @apply bg-brand-gold text-black hover:btn-primary-gradient focus:bg-brand-bronze transition-all duration-300 disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300;
+  @apply bg-brand-gold text-black hover:btn-primary-gradient focus:bg-brand-bronze transition-all duration-300 disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300 disabled:pointer-events-none;
 }
 
 @layer utilities {
