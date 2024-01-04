@@ -14,7 +14,7 @@ export default function Shared() {
     data = [], 
     isLoading,
     isFetching
-  } = useGetSharedsQuery({ refetchOnMountOrArgChange: true });  
+  } = useGetSharedsQuery({}, { refetchOnMountOrArgChange: true });
 
   const handleChange = (e) => {
     setInput(e.target.value.toLowerCase())
