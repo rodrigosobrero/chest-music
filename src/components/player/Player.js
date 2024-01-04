@@ -12,7 +12,7 @@ import { playing, reset } from 'app/playlist';
 
 export default function Player() {
   const [trigger, result, isFetching] = useLazyGetTrackSourceQuery()
-  const { playlist } = useSelector(state => state);
+  const { playlist } = useSelector(state => state.playlist);
 
   const [loop, setLoop] = useState(false);
   const [timeProgress, setTimeProgress] = useState(0);
@@ -25,40 +25,50 @@ export default function Player() {
   useEffect(() => {
     reset();
   }, []);
-  useLayoutEffect(() => {
-    console.log(playlist)
-    let currentTrack = playlist.playlist[0];
-    console.log(currentTrack)
 
+  useEffect(() => {
+    let track = trackList
+    let currentTrack = playlist && playlist[0];
+    
     if (currentTrack) {
+      if(typeof track === 'object'){
+        if(track.id === currentTrack.id) return;
+      }
+
       if (currentTrack.audio) {
         setTrackList({
           url: currentTrack.audio,
           cover_url: currentTrack.cover,
           name: currentTrack.name,
           authors: currentTrack.authors,
-          type: currentTrack.type
+          type: currentTrack.type,
+          id: currentTrack.id
         })
       }
 
       else {
         trigger(currentTrack.id)
-
-        const { data } = result;
-
-        if (data) {
-          setTrackList({
-            url: data.url,
-            cover_url: currentTrack.cover,
-            name: currentTrack.name,
-            authors: currentTrack.authors,
-            type: currentTrack.type
-          })
-        }
+        .then(({data}) => {
+          if (data) {
+            console.log('cambio tracklist')
+            console.log('before', trackList)
+            setTrackList({
+              url: data.url,
+              cover_url: currentTrack.cover,
+              name: currentTrack.name,
+              authors: currentTrack.authors,
+              type: currentTrack.type,
+              id: currentTrack.id
+            })
+          }
+        })
       }
     }
   }, [playlist, result]);
 
+  useEffect(() => {
+    console.log('TrackList actualizado:', trackList);
+  },[trackList])
   return (
     <>
       <AnimatePresence>

@@ -4,10 +4,8 @@ import { formatTime, timeDifference } from 'utils/helpers';
 import { PlayIcon } from '@heroicons/react/24/solid';
 import { PauseIcon } from '@heroicons/react/24/solid';
 import { useDoubleClick } from 'hooks/useDoubleClick';
-import { redirect, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { playing, play as togglePlay } from 'app/playlist';
-import chestLogo from 'assets/images/chest-logo.svg'
 
 const SharedRow = ({ track, isMobile, onClick }) => {
   const dispatch = useDispatch();
@@ -72,7 +70,7 @@ const SharedRow = ({ track, isMobile, onClick }) => {
               {play && playlist[0].isPlaying && <div className='cover-hover'><PauseIcon className='h-6 w-6 text-white' /></div>}
           </div>
           <div>
-            <div className='text-base md:text-lg line-clamp-1 hover:underline' >{track.title}</div>
+            <div className='text-base md:text-lg line-clamp-1' >{track.title}</div>
             <div className='text-sm text-neutral-silver-200'>
               {isMobile ?  `${track.version+' - '+track.plays}`: track.authors.join(', ')}
             </div>
