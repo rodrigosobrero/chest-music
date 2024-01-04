@@ -200,7 +200,10 @@ export const api = createApi({
       invalidatesTags: ['Permissions']
     }),
     getTrackSource: builder.query({
-      query: (id) => `project/version/${id}/url/`
+      query: (id) => {
+        const url = `project/version/${id}/url/`;
+        return url;
+      }
     }),
     getFaqs: builder.query({
       query: (lang) => `faq/?lang=${lang}`,

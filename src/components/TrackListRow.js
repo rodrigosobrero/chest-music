@@ -27,7 +27,7 @@ export default function TrackListRow({ track }) {
       name: track.name,
       authors: track.authors,
       type: 'project',
-      isPlaying: true
+      isPlaying: false
     }));
   };
 
