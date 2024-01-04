@@ -19,6 +19,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     if(result.error.data.code === 'firebase-expired-token' || result.error.data.code === 'firebase-invalid-token'){
       // auth.signOut();
       signOut(auth);
+      window.location.replace('/sign-in')
     }
   }
   return result;
