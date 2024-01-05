@@ -94,6 +94,11 @@ function formatBytes(bytes, decimals = 2) {
 //   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 // }
 
+function getUrlExtension(url) {
+  if (url)
+    return url.split(/[#?]/)[0].split('.').pop().trim();
+}
+
 function bytesToSize(bytes) {
   if (!bytes) return '0 MB';
 
@@ -182,5 +187,6 @@ export {
   formatBytes,
   formatDate,
   formatTime,
+  getUrlExtension,
   timeDifference,
 }

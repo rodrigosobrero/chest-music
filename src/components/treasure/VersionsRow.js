@@ -73,7 +73,7 @@ export default function VersionsRow({ project, version }) {
       )}
       <td>
         <div className='flex justify-end'>
-          <VersionsActionsButton version={version} />
+          <VersionsActionsButton version={version} project={project} />
         </div>
       </td>
     </>
