@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, redirect, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useModal } from 'hooks/useModal';
 import { useGetProjectQuery } from 'store/api';
@@ -25,7 +25,7 @@ export default function Treasure() {
   const { user } = useSelector((state) => state.auth);
   const { id } = useParams();
 
-  const { data: project = {}, isLoading } = useGetProjectQuery(id, {
+  const { data: project = {}, isLoading, error } = useGetProjectQuery(id, {
     refetchOnMountOrArgChange: true
   });
   const { onOpen: openEditModal } = useModal('EditTrackModal');
@@ -176,6 +176,12 @@ export default function Treasure() {
 
   if (isLoading) {
     return 'Loading...'
+  }
+
+  if (error) {
+    return (
+      <Navigate to='/my-chest/' replace={true} />
+    )
   }
 
   return (
