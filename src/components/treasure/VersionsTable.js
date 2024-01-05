@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
-import VersionsRow from './VersionsRow';
 import { AnimatePresence, motion } from 'framer-motion';
+import VersionsRow from './VersionsRow';
 
 export default function VersionsTable({ project }) {
   const [titles, setTitles] = useState([]);
@@ -26,39 +26,41 @@ export default function VersionsTable({ project }) {
 
   return (
     <>
-      <table>
-        <thead>
-          <tr>
+      <div className='bg-neutral-silver-700 rounded-2xl px-4 py-3'>
+        <table>
+          <thead>
+            <tr>
+              {
+                titles.map((title, index) =>
+                  <th
+                    key={index}
+                    className={`${!title && 'cursor-default'}`}>
+                    {title}
+                  </th>
+                )
+              }
+            </tr>
+          </thead>
+          <tbody>
             {
-              titles.map((title, index) =>
-                <th
-                  key={index}
-                  className={`${!title && 'cursor-default'}`}>
-                  {title}
-                </th>
+              project?.versions?.map((version) =>
+                <AnimatePresence key={version.id}>
+                  <motion.tr
+                    key={version.id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}>
+                    <VersionsRow
+                      key={version.id}
+                      project={project}
+                      version={version} />
+                  </motion.tr>
+                </AnimatePresence>
               )
             }
-          </tr>
-        </thead>
-        <tbody>
-          {
-            project?.versions?.map((version) =>
-              <AnimatePresence key={version.id}>
-                <motion.tr
-                  key={version.id}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}>
-                  <VersionsRow
-                    key={version.id}
-                    project={project}
-                    version={version} />
-                </motion.tr>
-              </AnimatePresence>
-            )
-          }
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      </div>
     </>
   )
 }
