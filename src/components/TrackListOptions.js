@@ -47,6 +47,7 @@ export default function TrackListOptions({ track }) {
 
   const handleDownloadVersion = () => {
     const meta = {
+      project: project,
       versions: project.versions,
       lastVersion: track.last_version_id
     }

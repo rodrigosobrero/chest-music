@@ -1,10 +1,11 @@
 import { useSelector } from 'react-redux';
 import { useModal } from 'hooks/useModal';
+import { getUrlExtension } from 'utils/helpers';
 import api from 'utils/api';
 
 import ContextButton from 'components/ContextButton';
 
-export default function VersionsActionsButton({ version }) {
+export default function VersionsActionsButton({ version, project }) {
   const { user } = useSelector((state) => state.auth);
 
   const { onOpen: openShareModal } =  useModal('ShareVersionModal');
@@ -16,15 +17,22 @@ export default function VersionsActionsButton({ version }) {
   }
 
   const handleDownload = async () => {
-    const link = document.createElement('a');
-
+    
     try {
       const response = await api.get(`project/version/${version.id}/url/`, {
         headers: { Authorization: `Bearer ${user?.token}` }
       });
 
-      link.download = 'download';
+      const filename = {
+        version: version.name,
+        project: project.name,
+        extension: getUrlExtension(response.data.url)
+      }
+
+      const link = document.createElement('a');
+
       link.href = response.data.url;
+      link.download = `${filename.project}_${filename.version}.${filename.extension}`;
       link.click();
     } catch (error) {
       console.log(error);
