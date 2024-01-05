@@ -69,13 +69,6 @@ export default function Nav() {
                   </li>
                 )
               }
-              {!excludedPaths.includes(location.pathname) && isLogged && (
-                <li>
-                  <button type='button' onClick={handleLogOut}>
-                    logout
-                  </button>
-                </li>
-              )}
             </ul>
           </div>
           {location.pathname !== '/setup' &&
