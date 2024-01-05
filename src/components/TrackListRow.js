@@ -65,7 +65,7 @@ export default function TrackListRow({ track }) {
         <td>
           <div className='flex flex-row items-center gap-3 md:gap-4'>
             <div
-              className='w-11 h-11 bg-cover rounded'
+              className='w-11 h-11 min-w-[44px] bg- bg-cover rounded'
               style={{ backgroundImage: `url(${track.cover_url})` }}
               onClick={handleOnCoverClick}
               onMouseEnter={toggleHover}

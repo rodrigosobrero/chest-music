@@ -818,3 +818,11 @@ input[type="search"]::-webkit-search-results-decoration {
   backdrop-filter: blur(25px);
   @apply bg-opacity-30
 }
+
+.web-disabled path {
+  @apply fill-neutral-silver-200 transition duration-500;
+}
+
+.web-disabled:hover path {
+  @apply fill-white;
+}
