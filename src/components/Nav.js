@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import { classNames } from 'utils/helpers';
 import navData from 'data/config.json';
 import { useGetNewNotificationsQuery } from 'store/api';
@@ -24,7 +24,7 @@ export default function Nav() {
   const [isLogged, setIsLogged] = useState(false);
   const excludedPaths = ['/sign-in', '/sign-up', '/setup'];
 
-  const {data: notifications} = useGetNewNotificationsQuery({}, {
+  const { data: notifications } = useGetNewNotificationsQuery({}, {
     pollingInterval: 30000
   });
 
@@ -68,9 +68,16 @@ export default function Nav() {
                       : <NavLink to={item.link}>
                         {item.name === 'notifications'
                           ? <div className='relative'>
-                            {notifications.new_notifications > 0 && 
-                              <NewNotification />
-                            }
+                            <AnimatePresence>
+                              {notifications.new_notifications > 0 &&
+                                <motion.div
+                                  initial={{ opacity: 0 }}
+                                  animate={{ opacity: 1 }}
+                                  exit={{ opacity: 0 }}>
+                                  <NewNotification />
+                                </motion.div>
+                              }
+                            </AnimatePresence>
                             <BellIcon className='h-6 w-6' />
                           </div>
                           : item.name}
@@ -82,13 +89,19 @@ export default function Nav() {
             </ul>
           </div>
           {location.pathname !== '/setup' &&
-
             <div className='flex lg:hidden flex-row items-center'>
               {!excludedPaths.includes(location.pathname) && isLogged && (
                 <NavLink to='/notifications' className='p-1 relative'>
-                  {notifications.new_notifications > 0 && 
-                    <NewNotification />
-                  }
+                  <AnimatePresence>
+                    {notifications.new_notifications > 0 &&
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}>
+                        <NewNotification />
+                      </motion.div>
+                    }
+                  </AnimatePresence>
                   <BellIcon className='h-6 w-6' />
                 </NavLink>
               )}
