@@ -5,7 +5,6 @@ import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import ButtonsContainer from '../ButtonsContainer';
 import TagInput from '../TagInput';
 import axios from 'axios';
-import { apiUrl } from 'utils/api';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
@@ -46,7 +45,7 @@ const SendDM = ({ token , versionId, onCancel }) => {
         if(filteredUsers.length > 0) setFilteredUsers([])
         return;
     }
-    axios.get(apiUrl + 'user/?search=' + input, { headers: { Authorization: `Bearer ${token}` }})
+    axios.get(process.env.REACT_APP_API + 'user/?search=' + input, { headers: { Authorization: `Bearer ${token}` }})
     .then((response) => {
         let users = response.data;
         if (selecteds.length > 0) {
@@ -72,7 +71,7 @@ const SendDM = ({ token , versionId, onCancel }) => {
         data.play_limit = parseInt(limit)
      }
 
-    axios.post(apiUrl + 'shared/user/', data, { headers:{ Authorization: `Bearer ${token}` }})
+    axios.post(process.env.REACT_APP_API + 'shared/user/', data, { headers:{ Authorization: `Bearer ${token}` }})
     .then((response) => {
         navigate(-1)
     })
