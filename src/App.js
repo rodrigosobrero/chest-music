@@ -2,12 +2,16 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { api as service } from 'utils/axios';
+// import { auth, messaging } from 'utils/firebase';
 import { auth } from 'utils/firebase';
 import { saveUser } from 'app/auth';
+// import { getToken, onMessage } from 'firebase/messaging';
 import { onAuthStateChanged, getIdToken } from 'firebase/auth';
 import { api } from 'store/api';
 import { store } from 'app/store';
 import { persistStore } from 'redux-persist';
+// import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import MyChest from 'routes/my-chest';
 import Root from 'routes/root';
@@ -187,7 +191,22 @@ function App() {
         api.util.resetApiState();
         persistStore(store).purge();
       }
-    })
+    });
+    /** push notifications */
+    // getToken(messaging, { vapidKey: process.env.REACT_APP_MESSAGING }).then((currentToken) => {
+    //   if (currentToken) {
+    //     console.log(currentToken);
+    //   } else {
+    //     console.log('No registration token available. Request permission to generate one.');
+    //   }
+
+    //   onMessage(messaging, (payload) => {
+    //     console.log('Message received. ', payload);
+    //     toast(payload);
+    //   });
+    // }).catch((err) => {
+    //   console.log('An error occurred while retrieving token. ', err);
+    // });
   }, []);
 
   return (

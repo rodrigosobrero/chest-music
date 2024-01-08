@@ -23,7 +23,7 @@ export default function Setup() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth.user);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [userType, setUserType] = useState('');
   const [step, setStep] = useState(0);
   const [loading, setLoading] = useState(false);
