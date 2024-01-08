@@ -13,6 +13,7 @@ const Notification = () => {
   const [status, setStatus] = useState('invites')
   const [isChanged, setIsChanged] = useState(false)
   const [updateNotifications] = useUpdateNotificationsMutation();
+  
   const { data: notifications = {}, 
           isLoading, 
           isFetching } = useGetNotificationsQuery(status, { refetchOnMountOrArgChange: !isChanged })
@@ -43,6 +44,7 @@ const Notification = () => {
     if(type !== 'denied' && type !== 'accepted') return;
     await updateNotifications({ id: invite_id, response: type })
   }
+  console.log(notifications)
 
   return (
     <>

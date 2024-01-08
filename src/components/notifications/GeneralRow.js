@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import NotificationIcon from './NotificationIcon'
 import { timeDifference } from 'utils/helpers'
+import { useTranslation } from 'react-i18next'
 const GeneralRow = ({ notification }) => {
   const [toggle, setToggle] = useState(false)
   const handleChange = () => setToggle(!toggle)
+  const { i18n } = useTranslation()
+  
   return (
         <>
            <div className={`row md:!pr-5 flex  justify-between ${toggle && 'over'} `} onMouseEnter={handleChange} onMouseLeave={handleChange}>
@@ -11,9 +14,9 @@ const GeneralRow = ({ notification }) => {
                     <NotificationIcon  type={notification.status} iconStyle={`md:h-7 md:w-7 h-5 w-5 ${toggle ? 'text-brand-gold' : 'text-white'}`} 
                     containerStyle={'bg-neutral-black rounded-lg flex justify-center items-center p-2.5 md:p-3'}/>
                     <div>
-                        <div className='md:text-xl text-base'>{notification.title}</div>
+                        <div className='md:text-xl text-base'>{notification.content[i18n.language === 'en' ? 'en' : 'es'].title}</div>
                         <div className='md:text-base text-sm text-neutral-silver-200'>
-                            {notification.body}
+                            {notification.content[i18n.language === 'en' ? 'en' : 'es'].body}
                         </div>
                     </div>
                 </div>
