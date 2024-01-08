@@ -5,7 +5,7 @@ import AccountPlan from 'components/profile/AccountPlan'
 import Breadcrumb from 'components/Breadcrumb'
 import Modal from 'components/Modal'
 import DeleteModal from 'components/modals/DeleteModal'
-import { apiUrl } from 'utils/api'
+import { process.env.REACT_APP_API } from 'utils/api'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
 import { signOut } from 'firebase/auth';
@@ -27,7 +27,7 @@ const Account = () => {
   }
 
   const deleteAccount = () => {
-    axios.delete(apiUrl+'account/', { 
+    axios.delete(process.env.REACT_APP_API+'account/', { 
       headers: { Authorization: `Bearer ${user?.token}` }
     }).then((response) => {
       console.log(response)

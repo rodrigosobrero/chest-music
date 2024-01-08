@@ -2,14 +2,14 @@ import React from 'react'
 import RecentlyList from 'components/profile/RecentlyList';
 import { useTranslation } from 'react-i18next';
 import Breadcrumb from 'components/Breadcrumb';
-import { apiUrl } from 'utils/api';
+import { process.env.REACT_APP_API } from 'utils/api';
 import { useFetch } from 'hooks/useFetch';
 import { useSelector } from 'react-redux';
 import empty from 'assets/images/empty-chest.svg';
 
 const Played = () => {
   const user = useSelector((state) => state.auth.user) 
-  const { data, isFetching, error } = useFetch(apiUrl + 'recentlyplayed/', user?.token )
+  const { data, isFetching, error } = useFetch(process.env.REACT_APP_API + 'recentlyplayed/', user?.token )
   const { t } = useTranslation() 
   const items = t('profile.sections', { returnObjects: true });
   let paths = [{ name:'Profile', link: '/profile' }, { name: items[0].title }]

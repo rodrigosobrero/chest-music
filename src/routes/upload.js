@@ -26,7 +26,7 @@ import { CheckIcon } from '@heroicons/react/20/solid';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import { updateUserData } from 'app/auth';
-import { apiUrl } from 'utils/api';
+import { process.env.REACT_APP_API } from 'utils/api';
 import { useGetChestQuery } from 'store/api';
 
 export default function Upload() {
@@ -166,7 +166,7 @@ export default function Upload() {
         headers: { Authorization: `Bearer ${user?.token}` }
       });
       
-      const response = await api.get(apiUrl + '/account/', {  headers: { Authorization: `Bearer ${user?.token}` } })
+      const response = await api.get(process.env.REACT_APP_API + '/account/', {  headers: { Authorization: `Bearer ${user?.token}` } })
 
       dispatch(updateUserData(response.data))
 

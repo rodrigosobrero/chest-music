@@ -4,7 +4,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import cover_track from 'assets/images/cover-track.png'
 import rectangle from 'assets/images/icon-rectangle.png'
 
-import { apiUrl } from 'utils/api';
+import { process.env.REACT_APP_API } from 'utils/api';
 import Button from 'components/Button';
 import { useDispatch } from 'react-redux';
 import { playing } from 'app/playlist';
@@ -17,7 +17,7 @@ const SharedPlay = () => {
   useEffect(() => {
     const token = searchParams.get('token')
     if(!token) return;
-    axios.get(apiUrl + 'shared/link/token/' + token).then((response) => {
+    axios.get(process.env.REACT_APP_API + 'shared/link/token/' + token).then((response) => {
       setTrack(response.data)
       dispatch(playing({
         id: response.data.version_name,

@@ -8,23 +8,14 @@ import { LinkIcon } from "@heroicons/react/24/solid";
 const TabIcon = ({ type, status }) => {
     console.log(type, status)
   const tabIcons = {
-    twitter: {
-        actived: IconTwitterAlt,
-        disabled: IconTwitter
-    },
-    send: {
-        actived: IconSendAlt,
-        disabled: IconSend
-    },
-    link: {
-        actived: IconSendAlt,
-        disabled: IconSend
-    }
+    twitter: IconTwitterAlt,
+    send: IconSendAlt,
+    link: IconSendAlt,
   }
-  const IconComponent = tabIcons[type][status];
+  const IconComponent = tabIcons[type];
   return (
     <>
-        <IconComponent />
+       <IconComponent />
     </>
   )
 }

@@ -818,3 +818,26 @@ input[type="search"]::-webkit-search-results-decoration {
   backdrop-filter: blur(25px);
   @apply bg-opacity-30
 }
+
+.tab-btn {
+  @apply py-3 px-4 font-archivo font-semibold text-base  rounded-xl flex items-center gap-x-2 
+  bg-neutral-silver-700 text-neutral-silver-200
+}
+.tab-btn path {
+  @apply transition-colors duration-500 fill-neutral-silver-200;
+}
+.tab-btn:hover path {
+  @apply fill-brand-gold; 
+}
+.tab-btn:hover {
+  @apply text-brand-gold;
+}
+.tab-btn:active path {
+  @apply fill-neutral-silver-200;
+}
+.tab-btn.isActive {
+  @apply !bg-brand-gold text-neutral-black
+}
+.tab-btn.isActive path {
+  @apply fill-neutral-black
+}
