@@ -8,7 +8,7 @@ import Button from 'components/Button';
 import { useTranslation } from 'react-i18next';
 
 const NotificationRow = ({ invite , blockUser, replyNotification, unblockUser }) => {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const [ isOpen, setIsOpen ] = React.useState(false)
   const [ isAccepted, setIsAccepted ] = React.useState(false)
   const [ show, setShow ] = React.useState()
@@ -51,9 +51,9 @@ const NotificationRow = ({ invite , blockUser, replyNotification, unblockUser })
                <MusicalNoteIcon className="md:h-7 md:w-7 h-5 w-5 text-white" />
             </div>
             <div className='flex flex-col'>
-              <div className='md:text-lg text-base'>{invite.title}</div>
+              <div className='md:text-lg text-base'>{invite.content[i18n.language === 'en' ? 'en' : 'es'].title}</div>
               <div className='md:text-base text-sm text-neutral-silver-200'>
-                  {invite.body}
+                  {invite.content[i18n.language === 'en' ? 'en' : 'es'].body}
               </div>
             </div>
           </div>
