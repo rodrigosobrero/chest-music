@@ -69,7 +69,7 @@ export default function Nav() {
                         {item.name === 'notifications'
                           ? <div className='relative'>
                             <AnimatePresence>
-                              {notifications.new_notifications > 0 &&
+                              {notifications?.new_notifications > 0 &&
                                 <motion.div
                                   initial={{ opacity: 0 }}
                                   animate={{ opacity: 1 }}
@@ -93,7 +93,7 @@ export default function Nav() {
               {!excludedPaths.includes(location.pathname) && isLogged && (
                 <NavLink to='/notifications' className='p-1 relative'>
                   <AnimatePresence>
-                    {notifications.new_notifications > 0 &&
+                    {notifications?.new_notifications > 0 &&
                       <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
