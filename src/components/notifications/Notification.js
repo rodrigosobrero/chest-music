@@ -5,7 +5,6 @@ import {  useGetNotificationsQuery, useUpdateNotificationsMutation } from 'store
 import { useSelector } from 'react-redux'
 import GeneralList from './GeneralList'
 import axios from 'axios'
-import { process.env.REACT_APP_API } from 'utils/api'
 import Loading from 'components/Loading'
 import TabButton from 'components/TabButton';
 const Notification = () => {

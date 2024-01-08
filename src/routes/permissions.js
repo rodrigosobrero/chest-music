@@ -4,7 +4,6 @@ import PermissionsList from 'components/profile/PermissionsList'
 import icon from 'assets/images/icon-exclamation-circle.svg'
 import Breadcrumb from 'components/Breadcrumb'
 import empty from 'assets/images/empty-chest.svg';
-import { process.env.REACT_APP_API } from 'utils/api'
 import { useFetch } from 'hooks/useFetch'
 import PermissionsButton from 'components/profile/PermissionButton'
 import Modal from 'components/Modal'
@@ -13,6 +12,7 @@ import { useSearch } from 'hooks/useSearch'
 import axios from 'axios'
 import spinner from 'assets/images/icon-loading-claim.png';
 import { useSelector } from 'react-redux'
+
 const Permissions = () => {
   const { t } = useTranslation() 
   const user = useSelector((state) => state.auth.user)

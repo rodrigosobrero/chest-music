@@ -24,9 +24,7 @@ import { MegaphoneIcon } from '@heroicons/react/24/outline';
 import { ComputerDesktopIcon } from '@heroicons/react/24/outline';
 import { CheckIcon } from '@heroicons/react/20/solid';
 import { AnimatePresence, motion } from 'framer-motion';
-
 import { updateUserData } from 'app/auth';
-import { process.env.REACT_APP_API } from 'utils/api';
 import { useGetChestQuery } from 'store/api';
 
 export default function Upload() {

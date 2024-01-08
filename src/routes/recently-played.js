@@ -2,7 +2,6 @@ import React from 'react'
 import RecentlyList from 'components/profile/RecentlyList';
 import { useTranslation } from 'react-i18next';
 import Breadcrumb from 'components/Breadcrumb';
-import { process.env.REACT_APP_API } from 'utils/api';
 import { useFetch } from 'hooks/useFetch';
 import { useSelector } from 'react-redux';
 import empty from 'assets/images/empty-chest.svg';

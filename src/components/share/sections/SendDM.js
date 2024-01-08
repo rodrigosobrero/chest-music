@@ -5,7 +5,6 @@ import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import ButtonsContainer from '../ButtonsContainer';
 import TagInput from '../TagInput';
 import axios from 'axios';
-import { process.env.REACT_APP_API } from 'utils/api';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';

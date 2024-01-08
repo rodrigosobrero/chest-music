@@ -4,8 +4,8 @@ import Input from 'components/Input';
 import check from 'assets/images/icon-check-28.svg'
 import ButtonsContainer from '../ButtonsContainer';
 import axios from 'axios';
-import { process.env.REACT_APP_API } from 'utils/api';
 import { useTranslation } from 'react-i18next';
+import Button from 'components/Button';
 const LinkGenerate = ({ versionId, token, onCancel }) => {
   const { t } = useTranslation()
   const [input, setInput] =  useState('')
@@ -51,13 +51,17 @@ const LinkGenerate = ({ versionId, token, onCancel }) => {
                          onChange={handleChange} 
                          required={true} 
                          placeholder={t('global.placeholder.only_numbers')} 
-                         type="number"/>
+                         type="number"
+                         disabled={isToggled}/>
                 </div>
                   <div className=' flex items-center  pb-5 mb-5 gap-2.5 md:pb-0 md:mb-0'>
                   <Toggle onChange={handleToggle}/>
                   <span className='-mb-7'>{t('share.unlimited')}</span>
                   </div>
-                  <button className='-mb-7 p-3 bg-brand-gold disabled:bg-neutral-silver-500 rounded-xl text-neutral-black disabled:text-neutral-silver-300'>
+                  <button className='-mb-7 p-3 bg-brand-gold disabled:bg-neutral-silver-500 rounded-xl 
+                                   text-neutral-black disabled:text-neutral-silver-300'
+                          onClick={generateLink}
+                          disabled={!isToggled && !input}>
                       <img src={check} className='h-7 w-7'/>
                 </button>
               </div>
@@ -70,7 +74,8 @@ const LinkGenerate = ({ versionId, token, onCancel }) => {
                   <Input label={'URL'} showClipboard={true} disabled={true} value={value}/>
               </div>
       </div>
-      <ButtonsContainer primaryButton={'Generate'} onClick={generateLink} disabled={input === '' && !isToggled} onCancel={onCancel}/>
+      <Button style='tertiary' customStyle='!w-[224px] mt-6' text='Close' />
+      {/* <ButtonsContainer primaryButton={'Generate'} onClick={generateLink} disabled={input === '' && !isToggled} onCancel={onCancel}/> */}
      </>
   )
 }

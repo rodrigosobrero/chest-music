@@ -1,7 +1,6 @@
 import axios from "axios"
 import { signOut } from "firebase/auth"
 import { useEffect, useState } from "react"
-import { process.env.REACT_APP_API } from "utils/api"
 import { auth } from "utils/firebase"
 
 const useSearch = (lengthToStartSearch, listeners, token) => {
