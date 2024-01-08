@@ -148,7 +148,7 @@ input[type=number] {
 }
 
 .btn-primary {
-  @apply bg-brand-gold text-black hover:btn-primary-gradient focus:bg-brand-bronze transition-all duration-300 disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300;
+  @apply bg-brand-gold text-black hover:btn-primary-gradient focus:bg-brand-bronze transition-all duration-300 disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300 disabled:pointer-events-none;
 }
 
 @layer utilities {
@@ -841,3 +841,12 @@ input[type="search"]::-webkit-search-results-decoration {
 .tab-btn.isActive path {
   @apply fill-neutral-black
 }
+
+.web-disabled path {
+  @apply fill-neutral-silver-200 transition duration-500;
+}
+
+.web-disabled:hover path {
+  @apply fill-white;
+}
+

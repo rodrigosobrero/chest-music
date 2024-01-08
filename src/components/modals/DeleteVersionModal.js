@@ -1,7 +1,6 @@
-import { BaseModal } from 'components/BaseModal';
 import { useTranslation } from 'react-i18next';
 import { useDeleteVersionMutation } from 'store/api';
-
+import { BaseModal } from 'components/BaseModal';
 import Button from 'components/Button';
 
 export default function DeleteVersionModal(props) {

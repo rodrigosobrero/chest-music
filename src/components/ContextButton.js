@@ -78,7 +78,7 @@ export default function ContextButton({ options, onClick, action }) {
             'context-button': true,
             'bg-neutral-silver-700 border-neutral-silver-600': open
           })}>
-          <img src={dots} alt='' width={24} height={24} />
+          <img src={dots} alt='' width={24} height={24} className='min-w-[20px] min-h-[20px]' />
         </button>
         <AnimatePresence>
           {open && (

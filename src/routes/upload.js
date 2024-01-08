@@ -113,8 +113,6 @@ export default function Upload() {
   }
 
   const handleUploadImage = async () => {
-    console.log(preview);
-
     const formData = new FormData();
     const blob = await fetch(preview.url).then(r => r.blob());
     const getFile = new File([blob], preview.filename);
@@ -187,7 +185,7 @@ export default function Upload() {
   }
 
   const updatePreview = (state) => {
-    setPreview(state);
+    if (state) setPreview(state);
   }
 
   const saveCover = () => {
@@ -419,6 +417,7 @@ export default function Upload() {
           <h4 className='mb-3 !text-5xl'>{t('upload.edit_cover')}</h4>
           <p className='text-neutral-silver-200 text-lg mb-6'>{t('upload.edit_instruction')}</p>
           <TrackCoverSelector
+            selectedCover={preview}
             preview={preview?.url}
             updatePreview={updatePreview}
             covers={covers.concat(covers).sort()} />

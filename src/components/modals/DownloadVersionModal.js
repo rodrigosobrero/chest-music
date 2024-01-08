@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { getUrlExtension } from 'utils/helpers';
 import api from 'utils/api';
 
 import { BaseModal } from 'components/BaseModal';
@@ -20,16 +21,23 @@ export default function DownloadVersionModal(props) {
   }
 
   const handleDownload = async () => {
-    const link = document.createElement('a');
-
     try {
       const response = await api.get(`project/version/${version}/url/`, {
         headers: { Authorization: `Bearer ${user?.token}` }
       });
 
-      link.download = 'download';
+      const filename = {
+        version: props.meta.versions.find(ver => ver.id == version).name,
+        project: props.meta.project.name,
+        extension: getUrlExtension(response.data.url)
+      }
+
+      const link = document.createElement('a');
+
       link.href = response.data.url;
+      link.download = `${filename.project}_${filename.version}.${filename.extension}`;
       link.click();
+
       handleClose();
     } catch (error) {
       console.log(error);
@@ -44,10 +52,9 @@ export default function DownloadVersionModal(props) {
       onClose={handleClose}>
       <div className='version-options mt-5'>
         {
-          props.meta.versions.map((version, index) =>
-            <div className='relative'>
+          props.meta.versions.map((version) =>
+            <div className='relative' key={version.id}>
               <input
-                key={index}
                 type='radio'
                 id={version.id}
                 value={version.id}

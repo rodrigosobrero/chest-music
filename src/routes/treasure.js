@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, redirect, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useModal } from 'hooks/useModal';
 import { useGetProjectQuery } from 'store/api';
 import { classNames } from 'utils/helpers';
+import { isDesktop, isMobile } from 'react-device-detect';
 
 import Breadcrumb from 'components/Breadcrumb';
 import VersionsTable from 'components/treasure/VersionsTable';
@@ -24,7 +25,7 @@ export default function Treasure() {
   const { user } = useSelector((state) => state.auth);
   const { id } = useParams();
 
-  const { data: project = {}, isLoading } = useGetProjectQuery(id, {
+  const { data: project = {}, isLoading, error } = useGetProjectQuery(id, {
     refetchOnMountOrArgChange: true
   });
   const { onOpen: openEditModal } = useModal('EditTrackModal');
@@ -111,27 +112,39 @@ export default function Treasure() {
 
   const renderView = () => {
     let data, headers;
-  
+
     switch (permissionsView) {
       case 'participants':
         data = project.participants;
-        headers = ['Name', 'Role', 'Plays', 'Date added', ''];
+        if (isMobile) {
+          headers = ['Name', ''];
+        } else {
+          headers = ['Name', 'Role', 'Plays', 'Date added', ''];
+        }
         break;
-  
+
       case 'links':
         data = project.shared_versions.links;
-        headers = ['Link', 'Web Play', 'Plays', 'Date added', ''];
+        if (isMobile) {
+          headers = ['Link', '', ''];
+        } else {
+          headers = ['Link', 'Web Play', 'Plays', 'Date added', ''];
+        }
         break;
-  
+
       case 'users':
         data = project.shared_versions.users;
-        headers = ['Name', 'Version shared', 'Web play', 'Plays', 'Date shared', ''];
+        if (isMobile) {
+          headers = ['Name', '', ''];
+        } else {
+          headers = ['Name', 'Version shared', 'Web play', 'Plays', 'Date shared', ''];
+        }
         break;
-  
+
       default:
         return null;
     }
-  
+
     return (
       <>
         {data.length > 0 ? (
@@ -165,49 +178,59 @@ export default function Treasure() {
     return 'Loading...'
   }
 
+  if (error) {
+    return (
+      <Navigate to='/my-chest/' replace={true} />
+    )
+  }
+
   return (
     <>
       <div className='container flex flex-col gap-6 md:gap-10 py-8 md:py-10'>
         <div className='toolbar'>
           <div className='grow'>
-            <Breadcrumb items={breadcrumb} />
+            <Breadcrumb items={breadcrumb} minify />
           </div>
-          <div className='fixed max-w-screen-2xl flex items-center justify-end gap-3 w-full'>
-            <button 
-              type='button' 
-              className='toolbar-button primary' 
+          <div className='lg:fixed max-w-screen-2xl flex items-center justify-end gap-3 lg:w-full'>
+            <button
+              type='button'
+              className='toolbar-button primary'
               onClick={() => { navigate(`/share/${project.id}?=sendDM`) }}>
               <ArrowUpTrayIcon className='h-7 w-7' />
             </button>
-            <button 
-              type='button' 
-              className='toolbar-button primary' 
+            <button
+              type='button'
+              className='toolbar-button primary'
               onClick={handleCreateVersion}
               style={{ color: 'blue' }}>
               <PlusIcon className='h-7 w-7' />
             </button>
-            <button 
-              type='button' 
-              className='toolbar-button primary'
-              onClick={handleUpdateProject}>
-              <PencilSquareIcon className='h-7 w-7' />
-            </button>
-            <button 
-              type='button' 
-              className='toolbar-button alert' 
-              onClick={() => { navigate(`/my-chest/treasure/${project?.id}/trash/`) }}>
-              <TrashIcon className='h-7 w-7' />
-            </button>
+            {isDesktop && (
+              <>
+                <button
+                  type='button'
+                  className='toolbar-button primary'
+                  onClick={handleUpdateProject}>
+                  <PencilSquareIcon className='h-7 w-7' />
+                </button>
+                <button
+                  type='button'
+                  className='toolbar-button alert'
+                  onClick={() => { navigate(`/my-chest/treasure/${project?.id}/trash/`) }}>
+                  <TrashIcon className='h-7 w-7' />
+                </button>
+              </>
+            )}
           </div>
         </div>
-        <div className='flex flex-row items-center justify-center gap-12'>
-          <div className='w-[220px] h-[220px]'>
+        <div className='flex flex-col lg:flex-row lg:items-center justify-center gap-4 lg:gap-12'>
+          <div className='w-[100px] h-[100px] lg:w-[220px] lg:h-[220px]'>
             <img src={project.cover_url} alt='' width={220} height={220} className='rounded-lg h-full w-full' />
           </div>
           <div className='grow mb-3'>
-            <div className='uppercase text-neutral-silver-200 mb-6'>{project.album} ― {project.plays ? project.plays : 0} plays</div>
-            <h2 className='mb-3 text-[76px]'>{project.name}</h2>
-            <div className='text-[22px]'>
+            <div className='uppercase text-neutral-silver-200 mb-4 lg:mb-6'>{project.album} ― {project.plays ? project.plays : 0} plays</div>
+            <h2 className='lg:mb-3 text-[64px] lg:text-[76px] text-left'>{project.name}</h2>
+            <div className=' text-lg lg:text-[22px]'>
               {project.participants?.map((participant, index) => (index ? ', ' : '') + participant.full_name)}
             </div>
           </div>
@@ -220,7 +243,7 @@ export default function Treasure() {
                 <h3 className='hidden md:block text-5xl'>permissions</h3>
                 <h4 className='block md:hidden'>permissions</h4>
               </div>
-              <div className='flex items-center gap-8'>
+              <div className='hidden lg:flex items-center gap-8'>
                 <div className='flex items-center gap-3'>
                   <span className='font-normal text-4xl text-brand-uva font-thunder'>{project.participants.length}</span>
                   <span className='text-lg text-neutral-silver-200'>Participants</span>

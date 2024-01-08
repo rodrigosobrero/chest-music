@@ -65,7 +65,7 @@ export default function TrackListRow({ track }) {
         <td>
           <div className='flex flex-row items-center gap-3 md:gap-4'>
             <div
-              className='w-11 h-11 bg-cover rounded'
+              className='w-11 h-11 min-w-[44px] bg- bg-cover rounded'
               style={{ backgroundImage: `url(${track.cover_url})` }}
               onClick={handleOnCoverClick}
               onMouseEnter={toggleHover}
@@ -74,7 +74,7 @@ export default function TrackListRow({ track }) {
               {play && playlist[0].isPlaying && <div className='cover-hover'><PauseIcon className='h-6 w-6 text-white' /></div>}
             </div>
             <div>
-              <span className='text-lg line-clamp-1'>{track.name}</span>
+              <span className='lg:text-lg line-clamp-1'>{track.name}</span>
               <div className='text-sm text-neutral-silver-200'>
                 {track?.authors.join(', ')}
               </div>
