@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useDispatch, useSelector } from 'react-redux';
-import { auth } from 'utils/firebase';
 import { classNames } from 'utils/helpers';
-import { saveUser } from 'app/auth';
-import { apiSlice } from 'store/api';
 import navData from 'data/config.json';
+import { useGetNewNotificationsQuery } from 'store/api';
+
 import Tag from 'components/Tag';
 import Button from 'components/Button';
 
@@ -17,15 +16,27 @@ import closeIcon from 'assets/images/icon-close.svg';
 
 export default function Nav() {
   const location = useLocation();
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
-  
+
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
   const excludedPaths = ['/sign-in', '/sign-up', '/setup'];
-  
+
+  const {data: notifications} = useGetNewNotificationsQuery({}, {
+    pollingInterval: 30000
+  });
+
+  const NewNotification = () => (
+    <div className='absolute right-0 top-0'>
+      <span class="relative flex h-2.5 w-2.5">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-error-red opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-error-red"></span>
+      </span>
+    </div>
+  )
+
   useEffect(() => {
     if (user?.token) {
       setData(navData.nav.filter(item => item.private))
@@ -37,12 +48,6 @@ export default function Nav() {
 
   const toggleOpen = () => {
     setOpen(prev => !prev);
-  }
-
-  const handleLogOut = () => {
-    auth.signOut(); 
-    dispatch(apiSlice.util.resetApiState()); 
-    dispatch(saveUser(undefined));
   }
 
   return (
@@ -61,10 +66,15 @@ export default function Nav() {
                     {item.button
                       ? <Button style='primary' text={item.name} onClick={() => { navigate('/sign-in') }} />
                       : <NavLink to={item.link}>
-                          {item.name === 'notifications' 
-                          ? <BellIcon className='h-6 w-6' />
+                        {item.name === 'notifications'
+                          ? <div className='relative'>
+                            {notifications.new_notifications > 0 && 
+                              <NewNotification />
+                            }
+                            <BellIcon className='h-6 w-6' />
+                          </div>
                           : item.name}
-                        </NavLink>
+                      </NavLink>
                     }
                   </li>
                 )
@@ -72,10 +82,13 @@ export default function Nav() {
             </ul>
           </div>
           {location.pathname !== '/setup' &&
-          
+
             <div className='flex lg:hidden flex-row items-center'>
               {!excludedPaths.includes(location.pathname) && isLogged && (
-                <NavLink to='/notifications' className='p-1'>
+                <NavLink to='/notifications' className='p-1 relative'>
+                  {notifications.new_notifications > 0 && 
+                    <NewNotification />
+                  }
                   <BellIcon className='h-6 w-6' />
                 </NavLink>
               )}
