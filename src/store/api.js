@@ -133,6 +133,10 @@ export const api = createApi({
       }),
       invalidatesTags: ['Project']
     }),
+    getNewNotifications: builder.query({
+      query: () => 'account/?fields=new_notifications',
+      providesTags: ['NewNotifications']
+    }),
     getNotifications: builder.query({
       query: (type = 'invites') => `notification/?type=${type}`,
       providesTags: ['Notifications']
@@ -233,6 +237,7 @@ export const {
   useCreateLinkMutation,
   useUpdateLinkMutation,
   useDeleteLinkMutation,
+  useGetNewNotificationsQuery,
   useGetNotificationsQuery,
   useUpdateNotificationsMutation,
   useGetUserQuery,
