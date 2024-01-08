@@ -1,20 +1,48 @@
-import { format } from 'utils/helpers';
+import { useState } from 'react';
 import { isMobile, isDesktop } from 'react-device-detect';
 import { AnimatePresence, motion } from 'framer-motion';
+import { classNames, format } from 'utils/helpers';
 
 import LinksActionsButton from './LinksActionsButton';
 
+import { DocumentDuplicateIcon } from '@heroicons/react/24/outline';
 import { ReactComponent as WebDisabled } from 'assets/images/icon-webdisabled.svg';
 
 export default function LinksTable({ data, headers }) {
   const Rows = ({ cell }) => {
-    console.log(cell)
+    const [hover, setHover] = useState(false);
+    const [copied, setCopied] = useState(false);
+  
+    const copyToClipboard = (value) => {
+      navigator.clipboard.writeText(value)
+        .then(() => {
+          setCopied(true);
+  
+          setTimeout(() => {
+            setCopied(false)
+          }, 2000);
+        })
+        .catch((error) => {
+          console.error('Error al copiar al portapapeles:', error);
+        });
+    };
 
     return (
       <>
-        <td className='lg:text-lg'>
-          <div>
+        <td
+          className='lg:text-lg'
+          onMouseEnter={() => { setHover(true) }}
+          onMouseLeave={() => { setHover(false) }}
+          onClick={() => { copyToClipboard(cell.token) }}>
+          <div className='flex items-center gap-2'>
             /{cell.token}
+            <div className={classNames({
+              'transition duration-300 text-brand-gold': true,
+              'invisible': !hover,
+              '!text-white': copied
+            })}>
+              <DocumentDuplicateIcon className='h-5 w-5' />
+            </div>
           </div>
           {isMobile &&
             <div className='text-sm text-neutral-silver-300'>
