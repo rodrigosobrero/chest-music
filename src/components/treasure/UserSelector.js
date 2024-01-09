@@ -22,8 +22,8 @@ export default function UserSelector({ roles, users, selected, editable }) {
     setUserList(list);
   }
 
-  const addUser = (user, role, id) => {
-    const newUser = { full_name: user, role: role, id: id, editable: true };
+  const addUser = (user, role, id, isEmail) => {
+    const newUser = { full_name: user, role: role, id: id, editable: true, isEmail: isEmail};
     const list = [...userList, newUser];
 
     setUserList(list);
@@ -32,7 +32,7 @@ export default function UserSelector({ roles, users, selected, editable }) {
 
   const removeUser = (user) => {
     setUserList((current) =>
-      current.filter((participant) => participant.user !== user)
+      current.filter((participant) => participant.id !== user.id)
     );
   };
 
@@ -46,8 +46,8 @@ export default function UserSelector({ roles, users, selected, editable }) {
         {userList.map((user, index) =>
           <div key={index}>
             <div className='flex flex-row items-center gap-3'>
-              <div className='p-2 bg-black rounded-full'>
-                {(() => {
+              <div className={`p-2 ${user.isEmail ? 'bg-neutral-silver-600' : 'bg-black'} rounded-full`}>
+                {!user?.isEmail ? (() => {
                   switch (user?.role) {
                     case 'artist':
                       return <MicrophoneIcon className='h-5 w-5 text-brand-gold' />
@@ -58,11 +58,13 @@ export default function UserSelector({ roles, users, selected, editable }) {
                     case 'producer':
                       return <ComputerDesktopIcon className="h-5 w-5 text-violet-500" />
                   }
-                })()}
+                })() :
+                  <ComputerDesktopIcon className="h-5 w-5 text-neutral-silver-400" />
+                }
               </div>
               <div className='flex flex-row w-full items-center justify-center'>
                 <div className='grow flex items-center'>
-                  <span className='!mb-0 text-ellipsis !text-white'>
+                  <span className={`!mb-0 text-ellipsis ${user.isEmail ? 'text-neutral-silver-200' : '!text-white'}`}>
                     {user?.full_name}
                   </span>
                 </div>

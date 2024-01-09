@@ -94,6 +94,14 @@ export const api = createApi({
       }),
       invalidatesTags: ['Project']
     }),
+    createInvite: builder.mutation({
+      query: (body) => ({
+        url: 'project/participant/invitation/',
+        method: 'POST',
+        body
+      }),
+      invalidatesTags: ['Project']
+    }),
     updateParticipant: builder.mutation({
       query: ({ id, role }) => ({
         url: `project/participant/${id}/`,
@@ -232,6 +240,7 @@ export const {
   useGetTrashQuery,
   useGetRestoreTrashMutation,
   useCreateParticipantMutation,
+  useCreateInviteMutation,
   useUpdateParticipantMutation,
   useDeleteParticipantMutation,
   useCreateLinkMutation,
