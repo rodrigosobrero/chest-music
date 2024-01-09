@@ -36,7 +36,7 @@ export default function VersionsRow({ project, version }) {
       name: project.name,
       authors: project.participants.map(participant => participant.full_name),
       type: 'version',
-      isPlaying: false
+      isPlaying: true
     }));
   }
 
