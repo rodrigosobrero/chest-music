@@ -12,21 +12,36 @@ export default function AutoComplete({ options, handleAdd, filter }) {
   const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [selectedUser, setSelectedUser] = useState('');
+  const [isEmail, setIsEmail] = useState(false);
   const [selectedRole, setSelectedRole] = useState(options[0]);
   const [focus, setFocus] = useState(false);
 
+  const checkEmail = (email) => {
+    const regex = /^\S+@\S+\.\S+$/;
+    return regex.test(email);
+  }
   const handleOnChange = (event) => {
     const lowerCase = event.target.value.toLowerCase();
-
+    setIsEmail(checkEmail(lowerCase))
     setSearchValue(lowerCase);
   }
 
   const handleOnClick = (value) => {
     setSearchValue(value.full_name);
     setSearchResult([]);
-    setSelectedUser(value);
+    setSelectedUser(isEmail ? { full_name: value, id: value } : value);
   }
 
+  const handleSend = () => {
+    if(isEmail) {
+      handleAdd(searchValue, selectedRole, searchValue, isEmail)
+    } else {
+      handleAdd(selectedUser?.full_name, selectedRole, selectedUser?.id, isEmail); 
+    }
+    setSearchValue(''); 
+    setSelectedUser('');
+  }
+  
   const handleClose = () => {
     setSearchValue('');
     setSearchResult([]);
@@ -129,8 +144,8 @@ export default function AutoComplete({ options, handleAdd, filter }) {
         <button
           type='button'
           className='rounded-xl p-3 w-[54px] bg-brand-gold text-black disabled:text-neutral-silver-300 disabled:bg-neutral-silver-500 flex justify-center'
-          disabled={!selectedUser}
-          onClick={() => { handleAdd(selectedUser?.full_name, selectedRole, selectedUser?.id); setSearchValue(''); setSelectedUser(''); }}>
+          disabled={!selectedUser && !isEmail}
+          onClick={() => { handleSend() }}>
           <CheckIcon className='h-7 w-7' />
         </button>
       </div>

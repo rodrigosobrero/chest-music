@@ -75,7 +75,6 @@ const LinkGenerate = ({ versionId, token, onCancel }) => {
               </div>
       </div>
       <Button style='tertiary' customStyle='!w-[224px] mt-6' text='Close' />
-      {/* <ButtonsContainer primaryButton={'Generate'} onClick={generateLink} disabled={input === '' && !isToggled} onCancel={onCancel}/> */}
      </>
   )
 }

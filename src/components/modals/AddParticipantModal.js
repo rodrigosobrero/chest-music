@@ -1,15 +1,15 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useCreateParticipantMutation } from 'store/api';
+import { useCreateParticipantMutation, useCreateInviteMutation } from 'store/api';
 import config from 'data/config.json';
 import { BaseModal } from 'components/BaseModal';
 import UserSelector from 'components/treasure/UserSelector';
 import Button from 'components/Button';
-
 export default function AddParticipantModal(props) {
   const { t } = useTranslation();
   const [participant, setParticipant] = useState('');
   const [createParticipant, { isLoading }] = useCreateParticipantMutation();
+  const [createInvite, { isLoading: inviteIsLoading }] = useCreateInviteMutation();
 
   const handleClose = () => {
     if (props.onClose) props.onClose();
@@ -20,13 +20,24 @@ export default function AddParticipantModal(props) {
     setParticipant('');
   }
 
-  const handleSave = async () => {
-    const result = await createParticipant({
-      'project': props.meta.project.id,
-      'user': participant.id,
-      'role': participant.role
-    });
 
+
+  const handleSave = async () => {
+    let result;
+    if(participant.isEmail) {
+      result = await createInvite({
+        'project': props.meta.project.id,
+        'role': participant.role,
+        'email': participant.full_name
+      })
+    } else {
+      result = await createParticipant({
+        'project': props.meta.project.id,
+        'user': participant.id,
+        'role': participant.role
+      });
+    }
+    
     if ('error' in result) {
       console.log('Error');
     } else {
@@ -49,8 +60,8 @@ export default function AddParticipantModal(props) {
         <Button
           text={t('global.save')}
           style='primary'
-          disabled={isLoading || !participant}
-          loading={isLoading}
+          disabled={isLoading || !participant || inviteIsLoading}
+          loading={isLoading || inviteIsLoading}
           onClick={handleSave} />
       </div>
     </BaseModal>
