@@ -21,7 +21,7 @@ const SharedRow = ({ track, isMobile, onClick }) => {
       name: track.title,
       authors: track.authors,
       type: 'project',
-      isPlaying: false
+      isPlaying: true
     }));
   };
 

@@ -31,6 +31,7 @@ export default function Player() {
     let currentTrack = playlist && playlist[0];
     
     if (currentTrack) {
+      
       if(typeof track === 'object'){
         if(track.id === currentTrack.id) return;
       }
@@ -50,8 +51,6 @@ export default function Player() {
         trigger(currentTrack.id)
         .then(({data}) => {
           if (data) {
-            console.log('cambio tracklist')
-            console.log('before', trackList)
             setTrackList({
               url: data.url,
               cover_url: currentTrack.cover,
@@ -66,9 +65,6 @@ export default function Player() {
     }
   }, [playlist, result]);
 
-  useEffect(() => {
-    console.log('TrackList actualizado:', trackList);
-  },[trackList])
   return (
     <>
       <AnimatePresence>
