@@ -18,7 +18,7 @@ export default function TrackList({ tracks }) {
         'version',
         'date added',
         'length',
-        'total size',
+        //'total size',
         '',
       ])
     }

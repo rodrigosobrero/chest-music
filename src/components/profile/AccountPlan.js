@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import Modal from 'components/Modal'
 import UpgradeStorage from 'components/modals/UpgradeStorageModal'
 import { formatBytes } from 'utils/helpers'
+import { formatHours } from 'utils/helpers'
 import countries from 'data/countries.json'
 const AccountPlan = ({ data }) => {
   const [ show, setShow ] = useState(false)
@@ -61,8 +62,8 @@ const AccountPlan = ({ data }) => {
                <div className='flex gap-x-4'>
                     <span className='text-brand-uva !font-thunder !font-normal !text-4xl'>{Math.round((data?.used_storage / data?.total_space) * 100)}%</span>
                     <div className='flex flex-col items-start '>
-                        <span className='!text-left !font-archivo text-neutral-silver-100'>{formatBytes(data?.used_storage)} 
-                            <span className='!text-neutral-silver-300 !font-archivo'> of </span> {formatBytes(data?.total_space)}
+                        <span className='!text-left !font-archivo text-neutral-silver-100'>{formatHours(data?.used_seconds)} 
+                            <span className='!text-neutral-silver-300 !font-archivo'> of </span> {formatHours(data?.total_seconds,0)}
                         </span>
                         <ProgressBar 
                         progress={(data?.used_storage / data?.total_space) * 100} 

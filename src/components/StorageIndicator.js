@@ -2,7 +2,7 @@ import { classNames, format } from 'utils/helpers';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProgressBar from 'components/ProgressBar';
-
+import { formatHours } from 'utils/helpers';
 import { CloudIcon } from '@heroicons/react/24/outline';
 
 export default function StorageIndicator({ usedSpace, totalSpace }) {
@@ -28,9 +28,9 @@ export default function StorageIndicator({ usedSpace, totalSpace }) {
       <div className='storage-indicator' onMouseOver={toggleActive} onMouseOut={toggleActive}>
         <div className='hidden md:flex flex-col items-end justify-center gap-1.5'>
           <div className='flex flex-row gap-1 text-sm font-archivo'>
-            <span className='text-neutral-silver-100'>{format.bytes(usedSpace)}</span>
+            <span className='text-neutral-silver-100'>{formatHours(usedSpace)}</span>
             <span className='text-neutral-silver-300'>of</span>
-            <span className='text-neutral-silver-100'>{format.bytes(totalSpace)}</span>
+            <span className='text-neutral-silver-100'>{formatHours(totalSpace)}</span>
           </div>
           <ProgressBar
             progress={percentageUsed}

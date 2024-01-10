@@ -50,7 +50,7 @@ export default function Chest() {
           <div className='hidden md:flex items-center justify-center grow'>
             <SearchBar onChange={handleOnChange} />
           </div>
-          <StorageIndicator usedSpace={chest.used_space} totalSpace={chest.total_space} />
+          <StorageIndicator usedSpace={chest.used_seconds} totalSpace={chest.total_seconds} />
         </div>
         <div className='bg-neutral-black rounded-t-lg rounded-b-3xl pl-5 pr-4 pt-3 pb-8 md:px-[60px] md:pb-[60px] md:pt-10'>
           {

@@ -60,6 +60,11 @@ function timeDifference(previousTimestamp) {
 function firstLetterUpperCase(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+
+function formatHours(seconds, decimals = 2) {
+  return `${parseFloat((seconds/3600)).toFixed(decimals)} hs`
+}
+
 function formatBytes(bytes, decimals = 2) {
   if (!+bytes) return '0 Bytes'
 
@@ -185,6 +190,7 @@ export {
   firstLetterUpperCase,
   format,
   formatBytes,
+  formatHours,
   formatDate,
   formatTime,
   getUrlExtension,
