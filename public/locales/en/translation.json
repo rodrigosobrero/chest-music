@@ -225,7 +225,7 @@
     "pin": "PIN Code",
     "change_password": "Change your password, set your PIN Code and learn more about our security",
     "subtitle": "Chest keeps your treasure secure",
-    "text": "Aliquet malesuada dolor sit amet consectetur. Viverra id feugiat risus volutpat dictum. Fames adipiscing nunc pretium dolor at enim eu.",
+    "text": "Chest keeps your treasure safe: we love music and that's why we want to take care of it. At Chest, we use a security technique called 'tokenization' to protect access to files. Imagine that each file is like a treasure chest and the token is a digital key: when someone needs to access a file, we give them a unique key that only opens that chest. This key is a special code that is meaningless on its own and cannot be used to guess what is inside the chest. What makes this so secure is that even if someone gets one of these keys, they won't know which chest it belongs to. Also, these keys can change frequently and stop working if we suspect something is wrong. Thus, we ensure that only the right people can access each track and that they remain secure at all times. Other measures to prevent your tracks from being leaked: 1) Make sure that each link you share has a low play limit (between 1 and 5 plays) 2) Leave web browser playback disabled for each link you share. 3) Make sure that the users to whom you are including or sharing your topic are the correct ones. 4) Manage and check frequently the permissions status of your project/demo. 5) Never share your account login information.",
     "password_modal": {
       "title": "change password",
       "subtitle": "Once you continue, you will receive an email with instructions on how to reset your password."

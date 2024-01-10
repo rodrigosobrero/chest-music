@@ -30,7 +30,7 @@ export default function StorageIndicator({ usedSpace, totalSpace }) {
           <div className='flex flex-row gap-1 text-sm font-archivo'>
             <span className='text-neutral-silver-100'>{formatHours(usedSpace)}</span>
             <span className='text-neutral-silver-300'>of</span>
-            <span className='text-neutral-silver-100'>{formatHours(totalSpace)}</span>
+            <span className='text-neutral-silver-100'>{formatHours(totalSpace,0)}</span>
           </div>
           <ProgressBar
             progress={percentageUsed}
