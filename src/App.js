@@ -4,12 +4,13 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { api as service } from 'utils/axios';
 // import { auth, messaging } from 'utils/firebase';
 import { auth } from 'utils/firebase';
-import { saveUser } from 'app/auth';
+import { saveUser, updateUserData } from 'app/auth';
 // import { getToken, onMessage } from 'firebase/messaging';
-import { onAuthStateChanged, getIdToken } from 'firebase/auth';
+import { onAuthStateChanged, getIdToken, onIdTokenChanged } from 'firebase/auth';
 import { api } from 'store/api';
 import { store } from 'app/store';
 import { persistStore } from 'redux-persist';
+
 // import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -208,6 +209,17 @@ function App() {
     //   console.log('An error occurred while retrieving token. ', err);
     // });
   }, []);
+
+  // useEffect(() => {
+
+  //    onIdTokenChanged((user) => {
+  //      if (user) {
+  //        user.getIdToken().then((newToken) => {
+  //         dispatch(updateUserData({token: newToken}))
+  //     });}
+  //   });
+    
+  // },[])
 
   return (
     <RouterProvider router={router} />

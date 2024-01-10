@@ -14,12 +14,26 @@ const baseQuery = fetchBaseQuery({
 });
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
+
   let result = await baseQuery(args, api, extraOptions);
+
   if (result.error && result.error.status === 403) {
-    if(result.error.data.code === 'firebase-expired-token' || result.error.data.code === 'firebase-invalid-token'){
-      // auth.signOut();
-      signOut(auth);
-      window.location.replace('/sign-in')
+    if (result.error.data.code === 'firebase-expired-token' || result.error.data.code === 'firebase-invalid-token') {
+      try {
+
+        const user = auth.currentUser;
+
+        if (user) {
+          const newToken = await user.getIdToken(true);
+          api.setHeader('Authorization', `Bearer ${newToken}`);
+          result = await baseQuery(args, api, extraOptions);
+        }
+
+      } catch (error) {
+        console.error('Error refreshing token:', error);
+        signOut(auth);
+        window.location.replace('/sign-in');
+      }
     }
   }
   return result;
