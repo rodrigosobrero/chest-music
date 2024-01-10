@@ -24,7 +24,8 @@ const SharedPlay = () => {
         name: response.data.title,
         authors: response.data.authors,
         type: 'project', 
-        audio: response.data.audio_url
+        audio: response.data.audio_url,
+        isPlaying: false,
       }));
     })
     // return () => {
