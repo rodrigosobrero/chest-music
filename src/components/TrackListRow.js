@@ -89,7 +89,7 @@ export default function TrackListRow({ track }) {
               {format.date(track.date_added)}
             </td>
             <td>{format.time(track.duration)}</td>
-            <td>{format.bytes(track.size)}</td>
+            {/*<td>{format.bytes(track.size)}</td>*/}
           </>
         )}
         <td onClick={(e) => { e.stopPropagation() }}>
