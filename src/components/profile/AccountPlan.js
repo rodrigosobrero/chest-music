@@ -73,9 +73,9 @@ const AccountPlan = ({ data }) => {
                     </div>
                </div>
                <button className='py-1.5' onClick={toggle}>
-                  <h5 className='text-brand-gold !font-archivo !text-lg !font-semibold'>
+                  {/*<h5 className='text-brand-gold !font-archivo !text-lg !font-semibold'>
                     {t('account.upgrade')}
-                  </h5>
+                  </h5>*/}
                </button>
             </div>
             <div className='space-y-4'>
@@ -84,7 +84,7 @@ const AccountPlan = ({ data }) => {
                     <div className='md:w-3/5 '>
                         <h5 className='mb-1 !text-xl !capitalize !font-archivo'>{data?.plan}</h5>
                         <span className='text-neutral-silver-300 !text-sm'>
-                            Amet pretium 1 GB scelerisque leo ut non lorem neque.
+                            Free and limited version of Chest within the BETA stage.
                         </span>
                     </div>
                     <div className='flex items-center space-x-2'>
