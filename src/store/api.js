@@ -43,8 +43,19 @@ export const api = createApi({
   reducerPath: 'api',
   baseQuery: baseQueryWithReauth,
   endpoints: builder => ({
+    getAccount: builder.query({
+      query: () => 'account/',
+      providesTags: ['Account']
+    }),
+    createAccount: builder.mutation({
+      query: ({ data }) => ({
+        url: 'account/',
+        method: 'POST',
+        body: data
+      }),
+    }),
     getChest: builder.query({
-      query: () => 'mychest',
+      query: () => 'mychest/',
       providesTags: ['Chest']
     }),
     getProject: builder.query({
@@ -245,6 +256,8 @@ export const api = createApi({
 
 export const { 
   useGetChestQuery,
+  useGetAccountQuery,
+  useCreateAccountMutation,
   useGetProjectQuery,
   useUpdateProjectMutation,
   useDeleteProjectMutation,

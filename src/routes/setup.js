@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -18,6 +18,8 @@ import artist from 'assets/images/sign-up-artist.png';
 import fan from 'assets/images/sign-up-fan.png';
 import ErrorMessage from 'components/ErrorMessage';
 import { updateUserData } from 'app/auth';
+import { useCreateAccountMutation, useGetAccountQuery } from 'store/api';
+import { motion } from 'framer-motion';
 
 export default function Setup() {
   const { t } = useTranslation();
@@ -33,6 +35,8 @@ export default function Setup() {
     watch,
     formState: { errors }
   } = useForm();
+
+  const [createUser, { isLoading }] = useCreateAccountMutation();
 
   const validate = {
     username: watch('username'),
@@ -55,27 +59,41 @@ export default function Setup() {
   ]
 
   const handleSetup = async (data) => {
-    setLoading(true);
-    try {
-      let response = await api.post(`/account/${userType}/`, {
-        username: data.username,
-        full_name: data.name,
-        plan: data.plan,
-        email: user?.email,
-        pincode: data.pin,
-        login_method: user?.signInMethod
-      }, {
-        headers: { Authorization: `Bearer ${user?.token}` }
-      });
-      response = await api.get('/account/', {  headers: { Authorization: `Bearer ${user?.token}` }})
-      dispatch(updateUserData(response.data))
-      navigate('/my-chest')
+    const result = await createUser({
+      username: data.username,
+      full_name: data.name,
+      plan: data.plan,
+      email: user.email,
+      pincode: data.pin,
+      login_method: user.signInMethod
+    });
 
-    } catch (error) {
-      console.log(error);
+    if ('error' in result) {
+      console.log('Error');
+    } else {
+      navigate('/my-chest');
     }
 
-    setLoading(false);
+    // setLoading(true);
+    // try {
+    //   let response = await api.post(`/account/${userType}/`, {
+    //     username: data.username,
+    //     full_name: data.name,
+    //     plan: data.plan,
+    //     email: user?.email,
+    //     pincode: data.pin,
+    //     login_method: user?.signInMethod
+    //   }, {
+    //     headers: { Authorization: `Bearer ${user?.token}` }
+    //   });
+    //   response = await api.get('/account/', {  headers: { Authorization: `Bearer ${user?.token}` }})
+    //   dispatch(updateUserData(response.data))
+    //   navigate('/my-chest')
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
+    // setLoading(false);
   }
 
   const optionCard = (option, index) => {
@@ -230,8 +248,8 @@ export default function Setup() {
               style='primary'
               type='submit'
               text={t('setup.step_two.create_button')}
-              disabled={loading || !validate.username || !validate.name || !validate.plan || !validate.terms}
-              loading={loading} />
+              disabled={isLoading || !validate.username || !validate.name || !validate.plan || !validate.terms}
+              loading={isLoading} />
           </form>
         </div>
       </div>
@@ -241,7 +259,27 @@ export default function Setup() {
   return (
     <>
       <div className='flex flex-col gap-8 items-center justify-center h-full pt-10 pb-10 md:px-[120px] md:py-20 w-full'>
-        {step === 0 ? stepOne() : stepTwo()}
+        {user?.email_verified 
+          ? (step === 0 ? stepOne() : stepTwo())
+          : (<motion.div 
+              initial={{ opacity: 0, y: -30 }}
+              animate={{ opacity: 1, y: 0 }}
+              className='flex flex-col gap-4 px-4'>
+              <h1 className='text-[76px]' style={{ lineHeight: '68px' }}>verify your email</h1>
+              <div className='flex flex-col items-center text-lg mb-6'>
+                <span className='text-neutral-silver-200'>A verification email was sent to:</span>
+                <span>{user.email}</span>
+              </div>
+              <div className='text-neutral-silver-300 text-sm mb-3 text-center'>
+                TIP: If you can’t find the email, be sure to check your spam folder.
+              </div>
+              <div className='flex items-center justify-center'>
+                <NavLink to='/' className='text-brand-gold h-10 md:h-auto hover:text-brand-bronze font-semibold text-lg py-1.5'>
+                  Having issues? Contact us
+                </NavLink>
+              </div>
+            </motion.div>)
+        }
       </div>
     </>
   )

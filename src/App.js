@@ -7,7 +7,7 @@ import { auth } from 'utils/firebase';
 import { saveUser, updateUserData } from 'app/auth';
 // import { getToken, onMessage } from 'firebase/messaging';
 import { onAuthStateChanged, getIdToken, onIdTokenChanged } from 'firebase/auth';
-import { api } from 'store/api';
+import { api, useGetAccountQuery } from 'store/api';
 import { store } from 'app/store';
 import { persistStore } from 'redux-persist';
 
