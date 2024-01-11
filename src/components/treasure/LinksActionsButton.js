@@ -9,7 +9,7 @@ export default function LinksActionsButton({ link }) {
 
   const toggleOptions = () => setIsOpenned(!isOpenned);
 
-  const closeOptions=() => setIsOpenned(false)
+  const closeOptions=() => setIsOpenned(false);
 
   const handleDelete = async () => {
     openDeleteModal(link);
