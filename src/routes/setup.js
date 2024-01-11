@@ -1,12 +1,10 @@
-import { useEffect, useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import { useForm } from 'react-hook-form';
 import { firstLetterUpperCase } from 'utils/helpers';
-import { api } from 'utils/axios';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import Button from 'components/Button';
@@ -17,18 +15,14 @@ import { MicrophoneIcon } from '@heroicons/react/24/solid';
 import artist from 'assets/images/sign-up-artist.png';
 import fan from 'assets/images/sign-up-fan.png';
 import ErrorMessage from 'components/ErrorMessage';
-import { updateUserData } from 'app/auth';
 import { useCreateAccountMutation, useGetAccountQuery } from 'store/api';
 import { motion } from 'framer-motion';
 
 export default function Setup() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.auth.user);
-  const dispatch = useDispatch();
   const [userType, setUserType] = useState('');
   const [step, setStep] = useState(0);
-  const [loading, setLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -37,6 +31,7 @@ export default function Setup() {
   } = useForm();
 
   const [createUser, { isLoading }] = useCreateAccountMutation();
+  const { data: account } = useGetAccountQuery();
 
   const validate = {
     username: watch('username'),
@@ -60,45 +55,21 @@ export default function Setup() {
 
   const handleSetup = async (data) => {
     const result = await createUser({
-      username: data.username,
-      full_name: data.name,
-      plan: data.plan,
-      email: user.email,
-      pincode: data.pin,
-      login_method: user.signInMethod
+      type: userType,
+      data: {
+        username: data.username,
+        full_name: data.name,
+        plan: data.plan,
+        email: account.email,
+        pincode: data.pin,
+        login_method: account.login_method
+      }
     });
 
     if ('error' in result) {
       console.log('Error');
-    } else {
-      navigate('/my-chest');
     }
-
-    // setLoading(true);
-    // try {
-    //   let response = await api.post(`/account/${userType}/`, {
-    //     username: data.username,
-    //     full_name: data.name,
-    //     plan: data.plan,
-    //     email: user?.email,
-    //     pincode: data.pin,
-    //     login_method: user?.signInMethod
-    //   }, {
-    //     headers: { Authorization: `Bearer ${user?.token}` }
-    //   });
-    //   response = await api.get('/account/', {  headers: { Authorization: `Bearer ${user?.token}` }})
-    //   dispatch(updateUserData(response.data))
-    //   navigate('/my-chest')
-    // } catch (error) {
-    //   console.log(error);
-    // }
-
-    // setLoading(false);
   }
-
-  useState(() => {
-    console.log(user);
-  }, [user])
 
   const optionCard = (option, index) => {
     return (
@@ -246,13 +217,13 @@ export default function Setup() {
                 name='terms'
                 id='terms-and-conditions'
                 {...register('terms', { required: true })} />
-              <label htmlFor='terms-and-conditions'>{t('setup.step_two.terms')} <Link to='/terms-and-conditions' className='text-brand-gold'>{t('setup.step_two.terms_link')}</Link></label>
+              <label htmlFor='terms-and-conditions'>{t('setup.step_two.terms')} <Link to='/profile/terms' className='text-brand-gold'>{t('setup.step_two.terms_link')}</Link></label>
             </div>
             <Button
               style='primary'
               type='submit'
               text={t('setup.step_two.create_button')}
-              disabled={isLoading || !validate.username || !validate.name || !validate.plan || !validate.terms}
+              disabled={isLoading || !validate.username || (userType === 'artist' && !validate.name) || !validate.plan || !validate.terms}
               loading={isLoading} />
           </form>
         </div>
@@ -263,26 +234,27 @@ export default function Setup() {
   return (
     <>
       <div className='flex flex-col gap-8 items-center justify-center h-full pt-10 pb-10 md:px-[120px] md:py-20 w-full'>
-        {user?.data.email_verified 
+        {account.type && <Navigate to={'/my-chest'} />}
+        {account?.email_verified
           ? (step === 0 ? stepOne() : stepTwo())
-          : (<motion.div 
-              initial={{ opacity: 0, y: -30 }}
-              animate={{ opacity: 1, y: 0 }}
-              className='flex flex-col gap-4 px-4'>
-              <h1 className='text-[76px]' style={{ lineHeight: '68px' }}>verify your email</h1>
-              <div className='flex flex-col items-center text-lg mb-6'>
-                <span className='text-neutral-silver-200'>A verification email was sent to:</span>
-                <span>{user.email}</span>
-              </div>
-              <div className='text-neutral-silver-300 text-sm mb-3 text-center'>
-                TIP: If you can’t find the email, be sure to check your spam folder.
-              </div>
-              <div className='flex items-center justify-center'>
-                <NavLink to='/' className='text-brand-gold h-10 md:h-auto hover:text-brand-bronze font-semibold text-lg py-1.5'>
-                  Having issues? Contact us
-                </NavLink>
-              </div>
-            </motion.div>)
+          : (<motion.div
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className='flex flex-col gap-4 px-4'>
+            <h1 className='text-[76px]' style={{ lineHeight: '68px' }}>verify your email</h1>
+            <div className='flex flex-col items-center text-lg mb-6'>
+              <span className='text-neutral-silver-200'>A verification email was sent to:</span>
+              <span>{account.email}</span>
+            </div>
+            <div className='text-neutral-silver-300 text-sm mb-3 text-center'>
+              TIP: If you can’t find the email, be sure to check your spam folder.
+            </div>
+            <div className='flex items-center justify-center'>
+              <NavLink to='/' className='text-brand-gold h-10 md:h-auto hover:text-brand-bronze font-semibold text-lg py-1.5'>
+                Having issues? Contact us
+              </NavLink>
+            </div>
+          </motion.div>)
         }
       </div>
     </>
