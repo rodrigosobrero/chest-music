@@ -60,7 +60,13 @@
     "button_google": "Log in with Google",
     "button": "Log in",
     "signup": "Don’t have an account? Sign up",
-    "reset": "Lost your key?"
+    "reset": "Lost your key?",
+    "beta": {
+      "title": "access chest beta",
+      "button_google": "Access with Google",
+      "description": "Log in to Chest BETA with the email that you were invited to.",
+      "signup": "Don’t have an invitation? Sign up"
+    }
   },
   "signup": {
     "title": "create a new chest",
