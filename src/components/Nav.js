@@ -25,7 +25,8 @@ export default function Nav() {
   const excludedPaths = ['/sign-in', '/sign-up', '/setup'];
 
   const { data: notifications } = useGetNewNotificationsQuery({}, {
-    pollingInterval: 30000
+    pollingInterval: 30000,
+    skip: !user.token
   });
 
   const NewNotification = () => (
@@ -128,7 +129,7 @@ export default function Nav() {
               <li
                 key={index}
                 className={`${item.button && '!text-brand-gold font-semibold'} px-6 py-3 text-neutral-silver-300 text-[28px] font-normal hover:text-white`}>
-                <NavLink to={item.link}>
+                <NavLink to={item.link} onClick={() => { setOpen(false) }}>
                   {item.name}
                 </NavLink>
               </li>
