@@ -15,7 +15,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import MyChest from 'routes/my-chest';
 import Root from 'routes/root';
-import SignIn from 'routes/sign-in';
+// import SignIn from 'routes/sign-in';
+import SignIn from 'routes/sign-in-default';
+import SignInBeta from 'routes/sign-in-beta';
 import ProtectedRoute from 'utils/ProtectedRoute';
 import DisconnectedRoute from 'utils/DisconnectedRoute';
 import SignUp from 'routes/sign-up';
@@ -47,7 +49,10 @@ function App() {
           path: '/sign-in',
           element:
             <DisconnectedRoute>
-              <SignIn />
+              {process.env.REACT_APP_BETA 
+                ? (<SignInBeta />)
+                : (<SignIn />)
+              }
             </DisconnectedRoute>
         },
         {
@@ -164,7 +169,7 @@ function App() {
           element: <Share />
         },
         {
-          path:'/shared-link',
+          path: '/shared-link',
           element: <SharedPlay />
         }
       ]

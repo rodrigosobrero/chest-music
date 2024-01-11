@@ -57,7 +57,13 @@
     "button_google": "Iniciar sesión con Google",
     "button": "Ingresar",
     "signup": "¿No tienes cuenta? Regístrate",
-    "reset": "¿Perdiste la llave?"
+    "reset": "¿Perdiste la llave?",
+    "beta": {
+      "title": "accede a la beta de chest",
+      "button_google": "Accede con Google",
+      "description": "Inicia sesión en la BETA de Chest con el correo electrónico con el que te invitaron.",
+      "signup": "¿No tienes una invitación? Registrate."
+    }
   },
   "signup": {
     "title": "crear un nuevo cofre",

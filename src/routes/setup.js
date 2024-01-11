@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link, NavLink, Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
@@ -20,6 +20,7 @@ import { motion } from 'framer-motion';
 
 export default function Setup() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [userType, setUserType] = useState('');
   const [step, setStep] = useState(0);
   const {
@@ -30,7 +31,7 @@ export default function Setup() {
   } = useForm();
 
   const [createUser, { isLoading }] = useCreateAccountMutation();
-  const { data: account } = useGetAccountQuery();
+  const { data: account } = useGetAccountQuery({}, { refetchOnMountOrArgChange: true });
 
   const validate = {
     username: watch('username'),
@@ -67,6 +68,8 @@ export default function Setup() {
 
     if ('error' in result) {
       console.log('Error');
+    } else {
+      navigate('/my-chest')
     }
   }
 
