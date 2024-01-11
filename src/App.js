@@ -6,7 +6,7 @@ import { api as service } from 'utils/axios';
 import { auth } from 'utils/firebase';
 import { saveUser, updateUserData } from 'app/auth';
 // import { getToken, onMessage } from 'firebase/messaging';
-
+// import firebase from 'firebase'
 import { onAuthStateChanged, getIdToken, onIdTokenChanged } from 'firebase/auth';
 import { api, useGetAccountQuery } from 'store/api';
 import { store } from 'app/store';
@@ -211,14 +211,10 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const unsubscribe = onIdTokenChanged(user => {
-      if(user){
-          user.getIdToken().then(newToken => {
-          dispatch(updateUserData({ token: newToken }));
-        });
-      }
-    });
-    return () => unsubscribe();
+    auth.onIdTokenChanged(async (user) => {
+      const newToken = await user.getIdToken(true);
+      dispatch(updateUserData({token: newToken}))
+    })
   }, []);
 
   return (
