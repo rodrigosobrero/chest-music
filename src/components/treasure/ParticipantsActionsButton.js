@@ -1,10 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useModal } from 'hooks/useModal';
 import ContextButton from 'components/ContextButton';
 
 export default function ParticipantsActionsButtons({ participant }) {
   const { onOpen: openEditModal } = useModal('EditParticipantModal');
   const { onOpen: openDeleteModal } = useModal('DeleteParticipantModal');
+  const [isOpenned, setIsOpenned] = useState(false)
+
+  const toggleOptions = () => setIsOpenned(!isOpenned);
+
+  const closeOptions=() => setIsOpenned(false)
 
   const handleEditUser = () => {
     openEditModal(participant)
@@ -37,6 +42,6 @@ export default function ParticipantsActionsButtons({ participant }) {
   }, [participant])
 
   return (
-    <ContextButton options={options} action={handleAction} />
+    <ContextButton options={options} action={handleAction} isOpenned={isOpenned} toggleOptions={toggleOptions} closeOptions={closeOptions} />
   )
 }

@@ -12,7 +12,7 @@ import { PlayIcon } from '@heroicons/react/24/solid';
 import { PauseIcon } from '@heroicons/react/24/solid';
 import upload from 'assets/images/icon-upload.svg';
 
-export default function TrackListRow({ track }) {
+export default function TrackListRow({ track , isOpenned, toggleOptions, closeOptions }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { playlist } = useSelector((state) => state.playlist);
@@ -58,7 +58,7 @@ export default function TrackListRow({ track }) {
 
     setPlay(playlist[0]?.id === track.last_version_id && playlist[0]?.type === 'project');
   }, [playlist]);
-
+  
   return (
     <>
       <tr onClick={handleOnClick}>
@@ -102,7 +102,7 @@ export default function TrackListRow({ track }) {
                 <img src={upload} alt='' width={24} height={24} />
               </button>
             )}
-            <TrackListOptions track={track} />
+            <TrackListOptions track={track} isOpenned={isOpenned} toggleOptions={() => toggleOptions(track.id)} closeOptions={closeOptions} />
           </div>
         </td>
       </tr>

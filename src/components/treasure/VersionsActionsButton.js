@@ -1,8 +1,8 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useModal } from 'hooks/useModal';
 import { getUrlExtension } from 'utils/helpers';
 import api from 'utils/api';
-
 import ContextButton from 'components/ContextButton';
 
 export default function VersionsActionsButton({ version, project }) {
@@ -11,6 +11,12 @@ export default function VersionsActionsButton({ version, project }) {
   const { onOpen: openShareModal } =  useModal('ShareVersionModal');
   const { onOpen: openEditModal } = useModal('EditVersionModal');
   const { onOpen: openDeleteModal } = useModal('DeleteVersionModal');
+  
+  const [isOpenned, setIsOpenned] = useState(false)
+
+  const toggleOptions = () => setIsOpenned(!isOpenned);
+
+  const closeOptions=() => setIsOpenned(false);
 
   const handleShare = () => {
     openShareModal(version);
@@ -65,6 +71,6 @@ export default function VersionsActionsButton({ version, project }) {
   }
 
   return (
-    <ContextButton options={options} action={handleAction} />
+    <ContextButton options={options} action={handleAction} isOpenned={isOpenned} toggleOptions={toggleOptions} closeOptions={closeOptions}/>
   )
 }
