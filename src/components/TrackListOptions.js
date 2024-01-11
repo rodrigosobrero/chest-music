@@ -4,7 +4,7 @@ import { useGetProjectQuery } from 'store/api';
 
 import ContextButton from 'components/ContextButton';
 
-export default function TrackListOptions({ track }) {
+export default function TrackListOptions({ track, isOpenned, toggleOptions, closeOptions }) {
   const navigate = useNavigate();
 
   const { onOpen: openEditModal } = useModal('EditTrackModal');
@@ -42,7 +42,7 @@ export default function TrackListOptions({ track }) {
       name: track.name
     }
 
-    openDeleteModal(meta);
+    openDeleteModal(meta);    
   }
 
   const handleDownloadVersion = () => {
@@ -67,6 +67,7 @@ export default function TrackListOptions({ track }) {
     { type: 'delete', description: 'Delete', action: handleDeleteTrack },
   ];
 
+
   const handleAction = (action) => {
     const option = options.find((opt) => opt.type === action);
 
@@ -78,6 +79,6 @@ export default function TrackListOptions({ track }) {
   }
 
   return (
-    <ContextButton options={options} action={handleAction} />
+    <ContextButton options={options} action={handleAction} isOpenned={isOpenned} toggleOptions={toggleOptions} closeOptions={closeOptions}/>
   )
 }

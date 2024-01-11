@@ -1,10 +1,16 @@
+import { useState } from 'react';
 import { useModal } from 'hooks/useModal';
 import ContextButton from 'components/ContextButton';
 
 export default function UsersActionsButton({ link }) {
   const { onOpen: openEditModal } = useModal('EditPermissionsUserModal');
   const { onOpen: openDeleteModal } = useModal('DeletePermissionsUserModal');
+  const [isOpenned, setIsOpenned] = useState(false)
 
+  const toggleOptions = () => setIsOpenned(!isOpenned);
+
+  const closeOptions=() => setIsOpenned(false);
+  
   const handleEdit = () => {
     openEditModal(link)
   }
@@ -29,6 +35,6 @@ export default function UsersActionsButton({ link }) {
   }
 
   return (
-    <ContextButton options={options} action={handleAction} />
+    <ContextButton options={options} action={handleAction} isOpenned={isOpenned} toggleOptions={toggleOptions} closeOptions={closeOptions} />
   )
 }
