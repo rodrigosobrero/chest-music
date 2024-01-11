@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, NavLink, Navigate, useNavigate } from 'react-router-dom';
+import { Link, NavLink, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
@@ -20,7 +20,6 @@ import { motion } from 'framer-motion';
 
 export default function Setup() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const [userType, setUserType] = useState('');
   const [step, setStep] = useState(0);
   const {
@@ -234,7 +233,7 @@ export default function Setup() {
   return (
     <>
       <div className='flex flex-col gap-8 items-center justify-center h-full pt-10 pb-10 md:px-[120px] md:py-20 w-full'>
-        {account.type && <Navigate to={'/my-chest'} />}
+        {account?.type && <Navigate to={'/my-chest'} />}
         {account?.email_verified
           ? (step === 0 ? stepOne() : stepTwo())
           : (<motion.div
