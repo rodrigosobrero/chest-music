@@ -243,7 +243,7 @@ export default function Setup() {
             <h1 className='text-[76px]' style={{ lineHeight: '68px' }}>verify your email</h1>
             <div className='flex flex-col items-center text-lg mb-6'>
               <span className='text-neutral-silver-200'>A verification email was sent to:</span>
-              <span>{account.email}</span>
+              <span>{account?.email}</span>
             </div>
             <div className='text-neutral-silver-300 text-sm mb-3 text-center'>
               TIP: If you can’t find the email, be sure to check your spam folder.
