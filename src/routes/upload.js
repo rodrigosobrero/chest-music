@@ -27,6 +27,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { updateUserData } from 'app/auth';
 import { useGetChestQuery } from 'store/api';
 
+
 export default function Upload() {
   const { t } = useTranslation();
   const { data } = useSelector((state) => state.auth.user);
@@ -90,7 +91,9 @@ export default function Upload() {
 
   const handleUpload = async () => {
     const formData = new FormData();
-    const blob = await fetch(file.blob).then(r => r.blob());
+
+    const blob = await fetch(file.blob).then(r => r.blob()).catch(e => navigate('/my-chest'));
+
     const getFile = new File([blob], file.filename);
 
     formData.append('files', getFile, file.filename);
