@@ -33,11 +33,12 @@ export const api = createApi({
       providesTags: ['Account']
     }),
     createAccount: builder.mutation({
-      query: ({ data }) => ({
-        url: 'account/',
+      query: ({ type, data }) => ({
+        url: `account/${type}/`,
         method: 'POST',
         body: data
       }),
+      invalidatesTags: ['Account']
     }),
     getChest: builder.query({
       query: () => 'mychest/',
