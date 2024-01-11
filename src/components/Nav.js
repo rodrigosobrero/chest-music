@@ -26,7 +26,7 @@ export default function Nav() {
 
   const { data: notifications } = useGetNewNotificationsQuery({}, {
     pollingInterval: 30000,
-    skip: !user?.type
+    skip: !user?.data.type
   });
 
   const NewNotification = () => (
