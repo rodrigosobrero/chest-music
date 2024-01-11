@@ -6,11 +6,11 @@ import { api as service } from 'utils/axios';
 import { auth } from 'utils/firebase';
 import { saveUser, updateUserData } from 'app/auth';
 // import { getToken, onMessage } from 'firebase/messaging';
+// import firebase from 'firebase'
 import { onAuthStateChanged, getIdToken, onIdTokenChanged } from 'firebase/auth';
 import { api, useGetAccountQuery } from 'store/api';
 import { store } from 'app/store';
 import { persistStore } from 'redux-persist';
-
 // import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -210,16 +210,12 @@ function App() {
     // });
   }, []);
 
-  // useEffect(() => {
-
-  //    onIdTokenChanged((user) => {
-  //      if (user) {
-  //        user.getIdToken().then((newToken) => {
-  //         dispatch(updateUserData({token: newToken}))
-  //     });}
-  //   });
-    
-  // },[])
+  useEffect(() => {
+    auth.onIdTokenChanged(async (user) => {
+      const newToken = await user.getIdToken(true);
+      dispatch(updateUserData({token: newToken}))
+    })
+  }, []);
 
   return (
     <RouterProvider router={router} />

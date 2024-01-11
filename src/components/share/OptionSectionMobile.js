@@ -4,11 +4,12 @@ import { ReactComponent as IconInstagramBlack } from 'assets/images/icon-instagr
 import { ReactComponent as IconInstagram } from 'assets/images/icon-instagram-alt.svg'
 import { ReactComponent as IconSend } from 'assets/images/icon-tiktok.svg'
 import { ReactComponent as IconSendAlt } from 'assets/images/icon-tiktok-alt.svg'
+import TabButton from 'components/TabButton';
 
 const OptionSectionMobile = ({ status, changeStatus }) => {
   return (
     <div className="flex md:hidden max-w-[100vw]  justify-center space-x-2 overflow-x-hidden">
-      <div className={` flex flex-col transition-[1000ms]
+      {/* <div className={` flex flex-col transition-[1000ms]
                   ${status === 'story' && '!-translate-x-[10px]'}
                   ${status === 'reel' && '!-translate-x-[80px]'}
                   ${status === 'generate' && '!translate-x-[80px]'}`}>
@@ -19,8 +20,9 @@ const OptionSectionMobile = ({ status, changeStatus }) => {
             <span>Generate link </span> 
           </button>
           <div className={`w-[80px]  mx-auto h-0.5 mt-1.5 border border-brand-gold ${status !== 'generate' && 'hidden'}`}></div>
-      </div>
-      <div className='flex flex-col'>
+      </div> */}
+      <TabButton text='Generate Link' icon={'link'} isActive={true}/>
+      {/* <div className='flex flex-col'>
         <button
           className={`share-button transition-[1000ms]
             ${status === 'generate' && '!translate-x-[80px]'}
@@ -44,7 +46,7 @@ const OptionSectionMobile = ({ status, changeStatus }) => {
         </button>
         <div className={`w-[80px]  mx-auto h-0.5 mt-1.5 border border-brand-gold ${status !== 'reel' && 'hidden'}`}></div>
 
-      </div>
+      </div> */}
   </div>
   )
 };

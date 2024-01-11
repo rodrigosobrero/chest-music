@@ -29,8 +29,6 @@ const SharedRow = ({ track, isMobile, onClick }) => {
     () => playTrack(),
   );
 
-
-
   const toggleHover = () => {
     setHover(prev => !prev);
   }
