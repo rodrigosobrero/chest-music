@@ -215,10 +215,10 @@ function App() {
     // });
   }, []);
 
-  
+
   useEffect(() => {
     auth.onIdTokenChanged(async (user) => {
-      if (user && user != null) {
+      if (user && typeof user.getIdToken === 'function') {
         const newToken = await user.getIdToken(true);
         dispatch(updateUserData({token: newToken}))
       }    
