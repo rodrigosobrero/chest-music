@@ -130,9 +130,12 @@ export default function Nav() {
               <li
                 key={index}
                 className={`${item.button && '!text-brand-gold font-semibold'} px-6 py-3 text-neutral-silver-300 text-[28px] font-normal hover:text-white`}>
-                <NavLink to={item.link} onClick={() => { setOpen(false) }}>
-                  {item.name}
-                </NavLink>
+                {item.link ? 
+                  <NavLink to={item.link} onClick={() => { setOpen(false) }}>
+                    {item.name}
+                  </NavLink> : 
+                  <button onClick={() => { openFeedbackModal(); setOpen(false)}}>{item.name}</button>
+                }
               </li>
             )
           }
