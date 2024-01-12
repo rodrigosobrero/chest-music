@@ -345,7 +345,9 @@ input[type=number] {
 }
 
 .account-type-selector {
-  @apply p-8 bg-neutral-silver-700 md:bg-transparent rounded-3xl border-2 border-neutral-silver-600 text-center md:max-w-[328px] cursor-pointer transition duration-300 text-neutral-silver-300 hover:text-neutral-silver-200 hover:bg-neutral-black hover:border-neutral-black;
+  @apply p-8 bg-neutral-silver-700 md:bg-transparent rounded-3xl border-2 border-neutral-silver-600 
+         text-center md:max-w-[328px] cursor-pointer transition duration-300 text-neutral-silver-300 hover:text-neutral-silver-200 
+         hover:bg-neutral-black hover:border-neutral-black;
 }
 
 .account-type-selector p {
@@ -855,3 +857,14 @@ input[type="search"]::-webkit-search-results-decoration {
   @apply fill-white;
 }
 
+.icon-modal path {
+  @apply fill-neutral-silver-300
+}
+
+.icon-modal:hover path {
+  @apply fill-brand-gold;
+}
+
+.icon-active path {
+  @apply fill-brand-gold;
+}

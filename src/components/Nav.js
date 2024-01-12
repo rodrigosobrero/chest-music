@@ -13,12 +13,13 @@ import { BellIcon } from '@heroicons/react/24/outline';
 import logo from 'assets/images/logo.svg';
 import menuIcon from 'assets/images/icon-menu.svg';
 import closeIcon from 'assets/images/icon-close.svg';
+import { useModal } from 'hooks/useModal';
 
 export default function Nav() {
   const location = useLocation();
   const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
-
+  const { onOpen: openFeedbackModal } = useModal('FeedbackModal');
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
@@ -65,7 +66,7 @@ export default function Nav() {
                 data.map((item) =>
                   <li key={item.name}>
                     {item.button
-                      ? <Button style='primary' text={item.name} onClick={() => { navigate('/sign-in') }} />
+                      ? <Button style={item.type} text={item.name} onClick={() => { item.link ? navigate(item.link) : openFeedbackModal()}} />
                       : <NavLink to={item.link}>
                         {item.name === 'notifications'
                           ? <div className='relative'>
@@ -129,9 +130,12 @@ export default function Nav() {
               <li
                 key={index}
                 className={`${item.button && '!text-brand-gold font-semibold'} px-6 py-3 text-neutral-silver-300 text-[28px] font-normal hover:text-white`}>
-                <NavLink to={item.link} onClick={() => { setOpen(false) }}>
-                  {item.name}
-                </NavLink>
+                {item.link ? 
+                  <NavLink to={item.link} onClick={() => { setOpen(false) }}>
+                    {item.name}
+                  </NavLink> : 
+                  <button onClick={() => { openFeedbackModal(); setOpen(false)}}>{item.name}</button>
+                }
               </li>
             )
           }
