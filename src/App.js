@@ -217,8 +217,10 @@ function App() {
 
   useEffect(() => {
     auth.onIdTokenChanged(async (user) => {
-      const newToken = await user.getIdToken(true);
-      dispatch(updateUserData({token: newToken}))
+      if (user) {
+        const newToken = await user.getIdToken(true);
+        dispatch(updateUserData({token: newToken}))
+      }   
     })
   }, []);
 

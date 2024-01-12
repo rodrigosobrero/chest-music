@@ -5,8 +5,7 @@ import { ReactComponent as IconSend } from 'assets/images/icon-send.svg'
 import { ReactComponent as IconSendAlt } from 'assets/images/icon-send-alt.svg'
 import { LinkIcon } from "@heroicons/react/24/solid";
 
-const TabIcon = ({ type, status }) => {
-    console.log(type, status)
+const TabIcon = ({ type }) => {
   const tabIcons = {
     twitter: IconTwitterAlt,
     send: IconSendAlt,
@@ -20,4 +19,4 @@ const TabIcon = ({ type, status }) => {
   )
 }
 
-export default TabIcon
+export default TabIcon;
