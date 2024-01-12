@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useModal } from 'hooks/useModal';
 import ContextButton from 'components/ContextButton';
+import { useTranslation } from 'react-i18next';
 
 export default function ParticipantsActionsButtons({ participant }) {
   const { onOpen: openEditModal } = useModal('EditParticipantModal');
   const { onOpen: openDeleteModal } = useModal('DeleteParticipantModal');
   const [isOpenned, setIsOpenned] = useState(false)
+  const { t } = useTranslation();
 
   const toggleOptions = () => setIsOpenned(!isOpenned);
 
@@ -20,7 +22,7 @@ export default function ParticipantsActionsButtons({ participant }) {
   }
 
   const options = [
-    { type: 'edit', description: 'Edit', action: handleEditUser }
+    { type: 'edit', description: t('global.edit'), action: handleEditUser }
   ]
 
   const handleAction = (action) => {
