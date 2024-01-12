@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useModal } from 'hooks/useModal';
 import { auth, provider } from 'utils/firebase';
 import { useForm } from 'react-hook-form';
 import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 
 import Input from 'components/Input';
-import Modal from 'components/Modal';
 import Button from 'components/Button';
 
 import google from 'assets/images/logo-google.png';
@@ -14,11 +14,12 @@ import spinner from 'assets/images/icon-loading-claim.png';
 
 export default function SignUp() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalMessage, setModalMessage] = useState('');
-  const navigate = useNavigate();
+
+  const { onOpen: openErrorModal } = useModal('ErrorModal');
+
   const {
     register,
     handleSubmit,
@@ -54,20 +55,22 @@ export default function SignUp() {
   const handleFirebaseErrors = (errorCode) => {
     console.log('Firebase Error:', errorCode);
 
+    let meta = { message: '' };
+
     if (errorCode === 'auth/popup-closed-by-user') {
       setLoadingGoogle(false);
       return;
     }
 
-    setModalOpen(true);
-
     if (errorCode === 'auth/email-already-in-use') {
-      setModalMessage('This email is already in use. Please login.');
+      meta.message = 'This email is already in use. Please login.';
     }
 
     if (errorCode === 'auth/weak-password') {
-      setModalMessage('The password strength is too weak. Please use 6 or more characters long.')
+      meta.message = 'The password strength is too weak. Please use 6 or more characters long.';
     }
+
+    openErrorModal(meta);
   }
 
   return (
@@ -126,15 +129,6 @@ export default function SignUp() {
         </div>
         <div className='signup-cover'></div>
       </div>
-      <Modal show={modalOpen} setShow={setModalOpen}>
-        <div className='flex flex-col items-center text-center max-w-[440px]'>
-          <h4 className='mb-3 !text-5xl'>error</h4>
-          <p className='text-neutral-silver-200 text-lg mb-6'>{modalMessage}</p>
-        </div>
-        <div className='w-full'>
-          <Button text='Close' style='primary' onClick={() => { setModalOpen(false) }} />
-        </div>
-      </Modal>
     </>
   )
 }

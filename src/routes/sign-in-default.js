@@ -1,24 +1,27 @@
 import { useEffect, useState } from 'react';
 import { NavLink, redirect } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { useModal } from 'hooks/useModal';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { auth, provider } from 'utils/firebase';
-import { useForm } from 'react-hook-form';
-import Input from 'components/Input';
-import Button from 'components/Button';
-import google from 'assets/images/logo-google.png';
-import spinner from 'assets/images/icon-loading-claim.png';
-import Modal from 'components/Modal';
-import { useDispatch, useSelector } from 'react-redux';
 import { apiSlice } from 'store/api';
 import { saveUser } from 'app/auth';
+
+import Input from 'components/Input';
+import Button from 'components/Button';
+
+import google from 'assets/images/logo-google.png';
+import spinner from 'assets/images/icon-loading-claim.png';
+
 export default function SignIn() {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalMessage, setModalMessage] = useState('');
-  const dispatch = useDispatch()
+
+  const { onOpen: openErrorModal } = useModal('ErrorModal');
   
   const clearCache = () => {
     dispatch(apiSlice.util.resetApiState())
@@ -64,16 +67,18 @@ export default function SignIn() {
   const handleFirebaseErrors = (errorCode) => {
     console.log('Firebase Error:', errorCode);
 
+    let meta = { message: '' };
+
     if (errorCode === 'auth/popup-closed-by-user') {
       setLoadingGoogle(false);
       return;
     }
 
-    setModalOpen(true);
-
     if (errorCode === 'auth/invalid-login-credentials') {
-      setModalMessage('Invalid user or password, please try again.');
+      meta.message = 'Invalid user or password, please try again.';
     }
+
+    openErrorModal(meta);
   }
 
   return (
@@ -135,15 +140,6 @@ export default function SignIn() {
         </div>
         <div className='signin-cover'></div>
       </div>
-      <Modal show={modalOpen} setShow={setModalOpen}>
-        <div className='flex flex-col items-center text-center max-w-[440px]'>
-          <h4 className='mb-3 !text-5xl'>error</h4>
-          <p className='text-neutral-silver-200 text-lg mb-6'>{modalMessage}</p>
-        </div>
-        <div className='w-full'>
-          <Button text='Close' style='primary' onClick={() => { setModalOpen(false) }} />
-        </div>
-      </Modal>
     </>
   )
 }

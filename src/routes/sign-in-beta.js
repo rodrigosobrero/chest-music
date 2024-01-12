@@ -1,39 +1,48 @@
 import { useEffect, useState } from 'react';
-import { NavLink, redirect } from 'react-router-dom';
+import { NavLink, redirect, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
-import { auth, provider } from 'utils/firebase';
+import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { useModal } from 'hooks/useModal';
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signInWithPopup
+} from 'firebase/auth';
+import { auth, provider } from 'utils/firebase';
+import { apiSlice, useLazyGetBetaAccessQuery } from 'store/api';
+import { saveUser } from 'app/auth';
+
 import Input from 'components/Input';
 import Button from 'components/Button';
+
 import google from 'assets/images/logo-google.png';
 import spinner from 'assets/images/icon-loading-claim.png';
-import Modal from 'components/Modal';
-import { useDispatch, useSelector } from 'react-redux';
-import { apiSlice } from 'store/api';
-import { saveUser } from 'app/auth';
+
 export default function SignInBeta() {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalMessage, setModalMessage] = useState('');
-  const dispatch = useDispatch()
+
+  const { onOpen: openBetaErrorModal } = useModal('BetaErrorModal');
+  const [getBetaAccess] = useLazyGetBetaAccessQuery();
 
   const clearCache = () => {
-    dispatch(apiSlice.util.resetApiState())
-    dispatch(saveUser(undefined))
+    dispatch(apiSlice.util.resetApiState());
+    dispatch(saveUser(undefined));
   }
 
   useEffect(() => {
-    clearCache()
+    clearCache();
 
     const images = [spinner, google];
+
     images.forEach((image) => {
       const img = new Image();
       img.src = image;
     });
-  }, [])
+  }, []);
 
   const {
     register,
@@ -41,16 +50,32 @@ export default function SignInBeta() {
     formState: { errors }
   } = useForm();
 
-  const handleSignIn = (data) => {
+  const handleSignIn = async (data) => {
     setLoading(true);
 
-    signInWithEmailAndPassword(auth, data.email, data.password)
-      .then(() => { redirect('/my-chest') })
-      .catch((error) => {
-        handleFirebaseErrors(error.code)
+    getBetaAccess(data.email)
+      .unwrap()
+      .then((response) => {
+        if (response.has_access) {
+          if (response.has_firebase_account) {
+            signInWithEmailAndPassword(auth, data.email, data.password)
+              .then(() => { redirect('/my-chest') })
+              .catch((error) => {
+                handleFirebaseErrors(error.code)
+              });
+          } else {
+            createUserWithEmailAndPassword(auth, data.email, data.password)
+              .then(() => { redirect('/setup') })
+              .catch((error) => {
+                handleFirebaseErrors(error.code);
+              });
+          }
+        } else {
+          openBetaErrorModal();
+        }
       })
       .finally(() => {
-        setLoading(false);
+        setLoading(false)
       });
   }
 
@@ -58,7 +83,17 @@ export default function SignInBeta() {
     setLoadingGoogle(true);
 
     signInWithPopup(auth, provider)
-      .then(() => { redirect('/my-chest') })
+      .then((data) => {
+        getBetaAccess(data.user.email)
+          .unwrap()
+          .then((response) => {
+            if (response.has_access) {
+              redirect('/my-chest');
+            } else {
+              openBetaErrorModal();
+            }
+          })
+      })
       .catch((error) => {
         handleFirebaseErrors(error.code);
       })
@@ -70,16 +105,26 @@ export default function SignInBeta() {
   const handleFirebaseErrors = (errorCode) => {
     console.log('Firebase Error:', errorCode);
 
+    let meta = { message: '' };
+
     if (errorCode === 'auth/popup-closed-by-user') {
       setLoadingGoogle(false);
       return;
     }
 
-    setModalOpen(true);
-
     if (errorCode === 'auth/invalid-login-credentials') {
-      setModalMessage('Invalid user or password, please try again.');
+      meta.message = 'Invalid user or password, please try again.';
     }
+
+    if (errorCode === 'auth/email-already-in-use') {
+      meta.message = 'This email is already in use. Please login.';
+    }
+
+    if (errorCode === 'auth/weak-password') {
+      meta.message = 'The password strength is too weak. Please use 6 or more characters long.';
+    }
+
+    openBetaErrorModal(meta);
   }
 
   return (
@@ -141,15 +186,6 @@ export default function SignInBeta() {
         </div>
         <div className='signin-cover-beta'></div>
       </div>
-      <Modal show={modalOpen} setShow={setModalOpen}>
-        <div className='flex flex-col items-center text-center max-w-[440px]'>
-          <h4 className='mb-3 !text-5xl'>error</h4>
-          <p className='text-neutral-silver-200 text-lg mb-6'>{modalMessage}</p>
-        </div>
-        <div className='w-full'>
-          <Button text='Close' style='primary' onClick={() => { setModalOpen(false) }} />
-        </div>
-      </Modal>
     </>
   )
 }

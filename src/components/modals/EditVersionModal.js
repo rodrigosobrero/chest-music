@@ -17,7 +17,7 @@ export default function EditVersionModal(props) {
 
   const handleSave = async () => {
     const result = await updateVersion({
-      id: props.meta.id, 
+      id: props.meta.id,
       name: version.name
     });
 
@@ -33,29 +33,27 @@ export default function EditVersionModal(props) {
   }
 
   return (
-    <>
-      <BaseModal title='edit version' show={props.isOpen} onClose={handleClose}>
-        <div>
-          <Input
-            type='text'
-            label='Version name'
-            required
-            value={version.name}
-            onChange={handleOnChange} />
-        </div>
-        <div className='grid grid-cols-2 gap-4 mt-8'>
-          <Button
-            text={t('global.cancel')}
-            style='tertiary'
-            onClick={handleClose} />
-          <Button
-            text='Save'
-            style='primary'
-            disabled={isLoading || props.meta.name === version.name || version.name.length === 0}
-            loading={isLoading}
-            onClick={handleSave} />
-        </div>
-      </BaseModal>
-    </>
+    <BaseModal title='edit version' show={props.isOpen} onClose={handleClose}>
+      <div>
+        <Input
+          type='text'
+          label='Version name'
+          required
+          value={version.name}
+          onChange={handleOnChange} />
+      </div>
+      <div className='grid grid-cols-2 gap-4 mt-8'>
+        <Button
+          text={t('global.cancel')}
+          style='tertiary'
+          onClick={handleClose} />
+        <Button
+          text='Save'
+          style='primary'
+          disabled={isLoading || props.meta.name === version.name || version.name.length === 0}
+          loading={isLoading}
+          onClick={handleSave} />
+      </div>
+    </BaseModal>
   )
 }
