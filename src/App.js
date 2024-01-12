@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { api as service } from 'utils/axios';
 import { auth } from 'utils/firebase';
-import { saveUser } from 'app/auth';
+import { saveUser, updateUser } from 'app/auth';
 import { onAuthStateChanged, getIdToken } from 'firebase/auth';
 import { api, useLazyGetBetaAccessQuery, useLazyGetAccountQuery } from 'store/api';
 import { store } from 'app/store';
