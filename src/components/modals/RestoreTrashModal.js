@@ -23,7 +23,7 @@ export default function RestoreTrashModal(props) {
 
   return (
     <BaseModal
-      title='rrestore version'
+      title='restore version'
       description='Are you sure you want to move this version to your chest?'
       show={props.isOpen}
       onClose={handleClose}>

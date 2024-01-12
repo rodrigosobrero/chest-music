@@ -144,9 +144,9 @@ const Security = () => {
                     {t('security.text')}
                 </p>
                 <button className='!text-left mt-4 py-1.5'>
-                    <a className='!font-archivo !text-lg text-brand-gold ' href='!#'>
+                    {/*<a className='!font-archivo !text-lg text-brand-gold ' href='!#'>
                             {t('global.learn_more')}
-                    </a>
+    </a>*/}
                 </button>
             </div>
          </div>

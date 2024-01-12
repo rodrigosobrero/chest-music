@@ -5,7 +5,6 @@ import {  useGetNotificationsQuery, useUpdateNotificationsMutation } from 'store
 import { useSelector } from 'react-redux'
 import GeneralList from './GeneralList'
 import axios from 'axios'
-import { apiUrl } from 'utils/api'
 import Loading from 'components/Loading'
 import TabButton from 'components/TabButton';
 const Notification = () => {
@@ -14,12 +13,13 @@ const Notification = () => {
   const [status, setStatus] = useState('invites')
   const [isChanged, setIsChanged] = useState(false)
   const [updateNotifications] = useUpdateNotificationsMutation();
+  
   const { data: notifications = {}, 
           isLoading, 
           isFetching } = useGetNotificationsQuery(status, { refetchOnMountOrArgChange: !isChanged })
 
   const blockUser = (id, callback, toggleBlocked) => {
-    axios.post(apiUrl + 'notification/permission/block/', 
+    axios.post(process.env.REACT_APP_API + 'notification/permission/block/', 
        {  "user": id }, 
        { headers: {  Authorization: `Bearer ${user?.token}`}, })
        .then((response) => {
@@ -30,7 +30,7 @@ const Notification = () => {
 
   const unblockUser = (id, closeModal, toggleBlocked) => {
 
-    axios.post(apiUrl + 'notification/permission/allow/', 
+    axios.post(process.env.REACT_APP_API + 'notification/permission/allow/', 
        {  "user": id }, 
        { headers: {  Authorization: `Bearer ${user?.token}`}, })
        .then((response) => {
@@ -44,6 +44,7 @@ const Notification = () => {
     if(type !== 'denied' && type !== 'accepted') return;
     await updateNotifications({ id: invite_id, response: type })
   }
+  console.log(notifications)
 
   return (
     <>

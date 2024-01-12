@@ -9,20 +9,24 @@ import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { TrashIcon } from '@heroicons/react/24/outline';
 import { EyeIcon } from '@heroicons/react/24/outline';
 import { PlusIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from 'react-i18next';
 
 import dots from 'assets/images/icon-dots-horizontal.svg';
 
-export default function ContextButton({ options, onClick, action }) {
+export default function ContextButton({ options, onClick, action, isOpenned, toggleOptions, closeOptions}) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  const [description, setDescription] = useState('');
+  const buttonDescription = options.length > 2 ? t('global.option_name') : (options.length > 1 ? t('global.option_name_short') : options[0].description);
+  const [description, setDescription] = useState(buttonDescription);
 
-  const toggleOpen = () => {
-    setOpen(prev => !prev);
-  }
 
-  const handleClose = () => {
-    setOpen(false);
-  }
+  // const toggleOpen = () => {
+  //   setOpen(prev => !prev);
+  // }
+
+  // const handleClose = () => {
+  //   setOpen(false);
+  // }
 
   const Icon = ({ type }) => {
     let icon;
@@ -60,20 +64,20 @@ export default function ContextButton({ options, onClick, action }) {
           'alert': type === 'delete'
         })}
         onMouseEnter={() => { setDescription(description) }}
-        onMouseLeave={() => { setDescription('') }}
+        onMouseLeave={() => { setDescription(buttonDescription) }}
         onClick={onClick}>
         <Icon type={type} />
       </button>
     )
   }
 
-  const ref = useOutsideClick(handleClose);
+  const ref = useOutsideClick(closeOptions);
 
   return (
     <>
       <div className='relative' ref={ref}>
         <button
-          onClick={toggleOpen}
+          onClick={toggleOptions}
           className={classNames({
             'context-button': true,
             'bg-neutral-silver-700 border-neutral-silver-600': open
@@ -81,7 +85,7 @@ export default function ContextButton({ options, onClick, action }) {
           <img src={dots} alt='' width={24} height={24} className='min-w-[20px] min-h-[20px]' />
         </button>
         <AnimatePresence>
-          {open && (
+          {isOpenned && (
             <motion.div
               className='context-button-container h-20 w-auto absolute'
               initial={{ opacity: 0, y: 10 }}
@@ -99,7 +103,7 @@ export default function ContextButton({ options, onClick, action }) {
                 <div className='flex flex-row gap-1'>
                   {options.map(option => (
                     <Button
-                      onClick={() => { action(option.type) }}
+                      onClick={() => { action(option.type); closeOptions() }}
                       key={option.type}
                       type={option.type}
                       description={option.description} />

@@ -1,7 +1,6 @@
 import axios from "axios"
 import { signOut } from "firebase/auth"
 import { useEffect, useState } from "react"
-import { apiUrl } from "utils/api"
 import { auth } from "utils/firebase"
 
 const useSearch = (lengthToStartSearch, listeners, token) => {
@@ -42,7 +41,7 @@ const useSearch = (lengthToStartSearch, listeners, token) => {
             if(filteredArtists.length > 0) setFilteredArtists([])
             return;
         }
-        axios.get(apiUrl + 'user/?search=' + input, {        
+        axios.get(process.env.REACT_APP_API + 'user/?search=' + input, {        
             headers: { Authorization: `Bearer ${token}` },
            })
            .then((response) =>  {

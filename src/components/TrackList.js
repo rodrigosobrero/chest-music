@@ -4,6 +4,13 @@ import { isMobile } from 'react-device-detect';
 
 export default function TrackList({ tracks }) {
   const [titles, setTitles] = useState([]);
+  const [rowOpenned, setRowOpenned] = useState(false);
+  
+  const toggleOpen = (id) => {
+    setRowOpenned(rowOpenned === id ? false : id);
+  }
+
+  const closeOptions = () => setRowOpenned(false);
 
   useEffect(() => {
     if (isMobile) {
@@ -18,7 +25,7 @@ export default function TrackList({ tracks }) {
         'version',
         'date added',
         'length',
-        'total size',
+        //'total size',
         '',
       ])
     }
@@ -43,7 +50,7 @@ export default function TrackList({ tracks }) {
         <tbody>
           {
             tracks.map((track, index) =>
-              <TrackListRow key={index} track={track} />
+              <TrackListRow key={index} track={track} isOpenned={rowOpenned === track.id} toggleOptions={toggleOpen} closeOptions={closeOptions}/>
             )
           }
         </tbody>

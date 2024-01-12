@@ -4,7 +4,6 @@ import PermissionsList from 'components/profile/PermissionsList'
 import icon from 'assets/images/icon-exclamation-circle.svg'
 import Breadcrumb from 'components/Breadcrumb'
 import empty from 'assets/images/empty-chest.svg';
-import { apiUrl } from 'utils/api'
 import { useFetch } from 'hooks/useFetch'
 import PermissionsButton from 'components/profile/PermissionButton'
 import Modal from 'components/Modal'
@@ -13,10 +12,11 @@ import { useSearch } from 'hooks/useSearch'
 import axios from 'axios'
 import spinner from 'assets/images/icon-loading-claim.png';
 import { useSelector } from 'react-redux'
+
 const Permissions = () => {
   const { t } = useTranslation() 
   const user = useSelector((state) => state.auth.user)
-  const { data, handleToggle , isFetching } = useFetch(apiUrl + 'globalpermission/', user?.token )
+  const { data, handleToggle , isFetching } = useFetch(process.env.REACT_APP_API + 'globalpermission/', user?.token )
   const { handleChange, filteredArtists, handleOptionSelect, selected, handleDeleteSelected, input, checked, handleCheck, reset } = useSearch(3, data, user?.token)
   const [ show, setShow ] = useState(false)
   
@@ -24,12 +24,12 @@ const Permissions = () => {
 
   const addListener = () => {
     if(!selected.hasOwnProperty('full_name')) return;
-    axios.post(apiUrl + 'globalpermission/', { user: selected.id }, { headers: {  Authorization: `Bearer ${user?.token}`}, })
+    axios.post(process.env.REACT_APP_API + 'globalpermission/', { user: selected.id }, { headers: {  Authorization: `Bearer ${user?.token}`}, })
          .then((response) => { console.log(response.data); handleToggle(); toggle() })
   }
   
   const deleteListener = (id) => {
-    axios.delete(apiUrl + 'globalpermission/' + id + '/', { headers: {  Authorization: `Bearer ${user?.token}`}, })
+    axios.delete(process.env.REACT_APP_API + 'globalpermission/' + id + '/', { headers: {  Authorization: `Bearer ${user?.token}`}, })
     .then((response) => {console.log(response.data); handleToggle()})
     .catch((err) => console.log(err))
     console.log(data)

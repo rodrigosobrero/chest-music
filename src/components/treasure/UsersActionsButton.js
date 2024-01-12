@@ -1,10 +1,18 @@
+import { useState } from 'react';
 import { useModal } from 'hooks/useModal';
 import ContextButton from 'components/ContextButton';
+import { useTranslation } from 'react-i18next';
 
 export default function UsersActionsButton({ link }) {
   const { onOpen: openEditModal } = useModal('EditPermissionsUserModal');
   const { onOpen: openDeleteModal } = useModal('DeletePermissionsUserModal');
+  const [isOpenned, setIsOpenned] = useState(false)
+  const { t } = useTranslation();
 
+  const toggleOptions = () => setIsOpenned(!isOpenned);
+
+  const closeOptions=() => setIsOpenned(false);
+  
   const handleEdit = () => {
     openEditModal(link)
   }
@@ -14,8 +22,8 @@ export default function UsersActionsButton({ link }) {
   }
 
   const options = [
-    { type: 'edit', description: 'Edit', action: handleEdit },
-    { type: 'delete', description: 'Delete', action: handleDelete },
+    { type: 'edit', description: t('global.edit'), action: handleEdit },
+    { type: 'delete', description: t('global.delete'), action: handleDelete },
   ]
 
   const handleAction = (action) => {
@@ -29,6 +37,6 @@ export default function UsersActionsButton({ link }) {
   }
 
   return (
-    <ContextButton options={options} action={handleAction} />
+    <ContextButton options={options} action={handleAction} isOpenned={isOpenned} toggleOptions={toggleOptions} closeOptions={closeOptions} />
   )
 }

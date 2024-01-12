@@ -54,7 +54,7 @@ const Share = () => {
           <OptionSectionDesktop status={status} changeStatus={changeStatus} />
           <OptionSectionMobile status={status} changeStatus={changeStatus} />
               {status === 'generate' && <LinkGenerate versionId={track?.versions?.length > 0 && track?.versions[0].id} token={user?.token} onCancel={goBack}/>}
-              {status === 'post' && <PostTwitter toggleUnlimited={toggleUnlimited} onCancel={goBack}/>}
+              {status === 'post' && <PostTwitter toggleUnlimited={toggleUnlimited} onCancel={goBack} versionId={track?.versions?.length > 0 && track?.versions[0].id} token={user?.token}/>}
               {status === 'story' && <Story token={user?.token} onCancel={goBack}/>}
               {status === 'send' && <SendDM onCancel={goBack} toggleUnlimited={toggleUnlimited} token={user?.token} versionId={track?.versions?.length > 0 && track?.versions[0].id}/>}
               {status === 'reel' && <Reel onCancel={goBack} />}

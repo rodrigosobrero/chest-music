@@ -91,9 +91,9 @@ export default function LinksTable({ data, headers }) {
         <tbody>
           {
             data.map((cell) => (
-              <AnimatePresence key={cell.user_id}>
+              <AnimatePresence key={`animate-${cell.id}`}>
                 <motion.tr
-                  key={cell.id}
+                  key={`motion-${cell.id}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}>

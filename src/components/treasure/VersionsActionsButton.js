@@ -1,9 +1,10 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useModal } from 'hooks/useModal';
 import { getUrlExtension } from 'utils/helpers';
 import api from 'utils/api';
-
 import ContextButton from 'components/ContextButton';
+import { useTranslation } from 'react-i18next';
 
 export default function VersionsActionsButton({ version, project }) {
   const { user } = useSelector((state) => state.auth);
@@ -11,6 +12,12 @@ export default function VersionsActionsButton({ version, project }) {
   const { onOpen: openShareModal } =  useModal('ShareVersionModal');
   const { onOpen: openEditModal } = useModal('EditVersionModal');
   const { onOpen: openDeleteModal } = useModal('DeleteVersionModal');
+  const { t } = useTranslation();
+  const [isOpenned, setIsOpenned] = useState(false)
+
+  const toggleOptions = () => setIsOpenned(!isOpenned);
+
+  const closeOptions=() => setIsOpenned(false);
 
   const handleShare = () => {
     openShareModal(version);
@@ -48,10 +55,10 @@ export default function VersionsActionsButton({ version, project }) {
   }
 
   const options = [
-    { type: 'share', description: 'Share', action: handleShare },
-    { type: 'download', description: 'Download', action: handleDownload },
-    { type: 'edit', description: 'Edit', action: handleEdit },
-    { type: 'delete', description: 'Move to trash can', action: handleDelete },
+    { type: 'share', description: t('global.share'), action: handleShare },
+    { type: 'download', description: t('global.download'), action: handleDownload },
+    { type: 'edit', description: t('global.edit'), action: handleEdit },
+    { type: 'delete', description: t('global.trash_can'), action: handleDelete },
   ];
 
   const handleAction = (action) => {
@@ -65,6 +72,6 @@ export default function VersionsActionsButton({ version, project }) {
   }
 
   return (
-    <ContextButton options={options} action={handleAction} />
+    <ContextButton options={options} action={handleAction} isOpenned={isOpenned} toggleOptions={toggleOptions} closeOptions={closeOptions}/>
   )
 }

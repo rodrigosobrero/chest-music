@@ -5,7 +5,6 @@ import { QuestionMarkCircleIcon } from "@heroicons/react/24/outline";
 import ButtonsContainer from '../ButtonsContainer';
 import TagInput from '../TagInput';
 import axios from 'axios';
-import { apiUrl } from 'utils/api';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
@@ -46,7 +45,7 @@ const SendDM = ({ token , versionId, onCancel }) => {
         if(filteredUsers.length > 0) setFilteredUsers([])
         return;
     }
-    axios.get(apiUrl + 'user/?search=' + input, { headers: { Authorization: `Bearer ${token}` }})
+    axios.get(process.env.REACT_APP_API + 'user/?search=' + input, { headers: { Authorization: `Bearer ${token}` }})
     .then((response) => {
         let users = response.data;
         if (selecteds.length > 0) {
@@ -72,7 +71,7 @@ const SendDM = ({ token , versionId, onCancel }) => {
         data.play_limit = parseInt(limit)
      }
 
-    axios.post(apiUrl + 'shared/user/', data, { headers:{ Authorization: `Bearer ${token}` }})
+    axios.post(process.env.REACT_APP_API + 'shared/user/', data, { headers:{ Authorization: `Bearer ${token}` }})
     .then((response) => {
         navigate(-1)
     })
@@ -109,10 +108,10 @@ const SendDM = ({ token , versionId, onCancel }) => {
                 <label className='text-base font-archivo'>{t('share.allow_web_play')}</label>
                 <QuestionMarkCircleIcon className="h-5 w-5 text-neutral-silver-300" />
             </div> */}
-            <div className='w-4/5'>
+            <div className='lg:w-4/5 w-full'>
                 <TagInput handleChange={handleChange} selectOption={selectOption} selectedsOptions={selecteds} filteredUsers={filteredUsers} input={input} removeOption={removeOption}/>
             </div>
-            <div className='w-4/5'>
+            <div className='lg:w-4/5 w-full'>
                 <Input label={'Message'} placeholder={t('share.message_example')} onChange={handleMessageChange} value={message}/>
             </div>
         </div>

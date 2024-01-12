@@ -5,28 +5,18 @@ import { ReactComponent as IconSend } from 'assets/images/icon-send.svg'
 import { ReactComponent as IconSendAlt } from 'assets/images/icon-send-alt.svg'
 import { LinkIcon } from "@heroicons/react/24/solid";
 
-const TabIcon = ({ type, status }) => {
-    console.log(type, status)
+const TabIcon = ({ type }) => {
   const tabIcons = {
-    twitter: {
-        actived: IconTwitterAlt,
-        disabled: IconTwitter
-    },
-    send: {
-        actived: IconSendAlt,
-        disabled: IconSend
-    },
-    link: {
-        actived: IconSendAlt,
-        disabled: IconSend
-    }
+    twitter: IconTwitterAlt,
+    send: IconSendAlt,
+    link: IconSendAlt,
   }
-  const IconComponent = tabIcons[type][status];
+  const IconComponent = tabIcons[type];
   return (
     <>
-        <IconComponent />
+       <IconComponent />
     </>
   )
 }
 
-export default TabIcon
+export default TabIcon;

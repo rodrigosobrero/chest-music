@@ -14,11 +14,26 @@ const baseQuery = fetchBaseQuery({
 });
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
+
   let result = await baseQuery(args, api, extraOptions);
+
   if (result.error && result.error.status === 403) {
-    if(result.error.data.code === 'firebase-expired-token' || result.error.data.code === 'firebase-invalid-token'){
-      // auth.signOut();
-      signOut(auth);
+    if (result.error.data.code === 'firebase-expired-token' || result.error.data.code === 'firebase-invalid-token') {
+      try {
+
+        const user = auth.currentUser;
+
+        if (user) {
+          const newToken = await user.getIdToken(true);
+          api.setHeader('Authorization', `Bearer ${newToken}`);
+          result = await baseQuery(args, api, extraOptions);
+        }
+
+      } catch (error) {
+        console.error('Error refreshing token:', error);
+        signOut(auth);
+        window.location.replace('/sign-in');
+      }
     }
   }
   return result;
@@ -100,6 +115,14 @@ export const api = createApi({
     createParticipant: builder.mutation({
       query: (body) => ({
         url: 'project/participant/',
+        method: 'POST',
+        body
+      }),
+      invalidatesTags: ['Project']
+    }),
+    createInvite: builder.mutation({
+      query: (body) => ({
+        url: 'project/participant/invitation/',
         method: 'POST',
         body
       }),
@@ -216,7 +239,10 @@ export const api = createApi({
       invalidatesTags: ['Permissions']
     }),
     getTrackSource: builder.query({
-      query: (id) => `project/version/${id}/url/`
+      query: (id) => {
+        const url = `project/version/${id}/url/`;
+        return url;
+      }
     }),
     getFaqs: builder.query({
       query: (lang) => `faq/?lang=${lang}`,
@@ -247,6 +273,7 @@ export const {
   useGetTrashQuery,
   useGetRestoreTrashMutation,
   useCreateParticipantMutation,
+  useCreateInviteMutation,
   useUpdateParticipantMutation,
   useDeleteParticipantMutation,
   useCreateLinkMutation,

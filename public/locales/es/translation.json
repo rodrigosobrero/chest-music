@@ -29,7 +29,15 @@
       "write_here": "Escribe aquí...",
       "search": "Buscar..."
     },
+    "option_name": "Más opciones",
+    "option_name_short": "Opciones",
     "edit": "Editar",
+    "add": "Agregar",
+    "share": "Compartir",
+    "trash_can": "Mover a la papelera",
+    "view_details": "Ver detalles",
+    "download": "Descargar",
+    "delete": "Borrar",
     "confirm": "Confirmar",
     "user": "Usuario",
     "send": "Enviar",
@@ -202,7 +210,7 @@
     "pin": "Código PIN",
     "change_password": "Cambia tu contraseña, configura tu código PIN y obtén más información sobre nuestra seguridad",
     "subtitle": "Chest mantiene a salvo tu tesoro",
-    "text": "Aliquet malesuada dolor sit amet consectetur. Viverra id feugiat risus volutpat dictum. Fames adipiscing nunc pretium dolor at enim eu.",
+    "text": "Chest mantiene tu tesoro a salvo: amamos la musica y por eso queremos cuidarla. En Chest, usamos una técnica de seguridad llamada 'tokenización' para proteger el acceso a los archivos. Imagina que cada archivo es como un cofre del tesoro y el token es una llave digital: cuando alguien necesita acceder a un archivo, le damos una llave única que solo abre ese cofre. Esta llave es un código especial que no tiene sentido por sí solo y no puede ser usado para adivinar qué hay dentro del cofre. Lo que hace esto tan seguro es que incluso si alguien consigue una de estas llaves, no sabrá a qué cofre pertenece. Además, estas llaves pueden cambiar frecuentemente y dejar de funcionar si sospechamos que algo no está bien. Así, aseguramos que solo las personas correctas puedan acceder a cada track y que estos permanezcan seguros en todo momento. Otras medidas para prevenir que se filtren tus temas: 1) Asegurarte de que cada enlace que compartas tenga un límite de reproducción bajo (entre 1 y 5 reproducciones) 2) Dejar desactivada la reproducción en navegador web para cada enlace que compartas. 3) Procurar que los usuarios a los que estés incluyendo o compartiendo tu tema sean los correctos. 4) Administrar y corroborar frecuentemente el estado de los permisos de tu proyecto/demo. 5) Nunca compartir la información para iniciar sesión de tu cuenta.",
     "password_modal": {
       "title": "cambiar contraseña",
       "subtitle": "Al continuar, recibirás un correo electrónico con instrucciones para restablecer tu contraseña."
