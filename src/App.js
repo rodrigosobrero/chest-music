@@ -4,11 +4,10 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { api as service } from 'utils/axios';
 // import { auth, messaging } from 'utils/firebase';
 import { auth } from 'utils/firebase';
-import { saveUser, updateUserData } from 'app/auth';
+import { saveUser, updateUser } from 'app/auth';
 // import { getToken, onMessage } from 'firebase/messaging';
-// import firebase from 'firebase'
-import { onAuthStateChanged, getIdToken, onIdTokenChanged } from 'firebase/auth';
-import { api, useGetAccountQuery } from 'store/api';
+import { onAuthStateChanged, getIdToken } from 'firebase/auth';
+import { api, useLazyGetBetaAccessQuery, useGetAccountQuery, useLazyGetAccountQuery } from 'store/api';
 import { store } from 'app/store';
 import { persistStore } from 'redux-persist';
 // import { toast } from 'react-toastify';
@@ -40,6 +39,8 @@ import Trash from 'routes/trash';
 import SharedPlay from 'routes/shared-play';
 
 function App() {
+  const [getAccount] = useLazyGetAccountQuery();
+  const [getBetaAccess] = useLazyGetBetaAccessQuery();
   const dispatch = useDispatch();
   const router = createBrowserRouter([
     {
@@ -50,7 +51,7 @@ function App() {
           path: '/sign-in',
           element:
             <DisconnectedRoute>
-              {process.env.REACT_APP_BETA 
+              {process.env.REACT_APP_BETA
                 ? (<SignInBeta />)
                 : (<SignIn />)
               }
@@ -177,10 +178,11 @@ function App() {
     }
   ]);
 
+
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        getIdToken(user).then(async (token) => {
+    const getToken = (user) => {
+      getIdToken(user)
+        .then(async (token) => {
           const response = await service.get('account/', {
             headers: { Authorization: `Bearer ${token}` }
           });
@@ -191,28 +193,30 @@ function App() {
             email: user?.email,
             signInMethod: provider === 'google.com' ? 'google' : 'local'
           }));
-        });
+      })
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        if (process.env.REACT_APP_BETA) {
+          getBetaAccess(user.email)
+            .unwrap()
+            .then((response) => {
+              if (response.has_access) {
+                getToken(user);
+              } else {
+                auth.signOut();
+              }
+            })
+        } else {
+          getToken(user);
+        }
       } else {
         dispatch(saveUser(undefined));
         api.util.resetApiState();
         persistStore(store).purge();
       }
     });
-    /** push notifications */
-    // getToken(messaging, { vapidKey: process.env.REACT_APP_MESSAGING }).then((currentToken) => {
-    //   if (currentToken) {
-    //     console.log(currentToken);
-    //   } else {
-    //     console.log('No registration token available. Request permission to generate one.');
-    //   }
-
-    //   onMessage(messaging, (payload) => {
-    //     console.log('Message received. ', payload);
-    //     toast(payload);
-    //   });
-    // }).catch((err) => {
-    //   console.log('An error occurred while retrieving token. ', err);
-    // });
   }, []);
 
   useEffect(() => {

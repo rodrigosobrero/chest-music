@@ -251,6 +251,10 @@ export const api = createApi({
     getTerms: builder.query({
       query: (lang) => `termsandconditions/?lang=${lang}`,
       providesTags: ['Terms']
+    }),
+    getBetaAccess: builder.query({
+      query: (email) => `hasbetaaccess/?email=${email}`,
+      providesTags: ['Beta']
     })
   })
 });
@@ -258,6 +262,7 @@ export const api = createApi({
 export const { 
   useGetChestQuery,
   useGetAccountQuery,
+  useLazyGetAccountQuery,
   useCreateAccountMutation,
   useGetProjectQuery,
   useUpdateProjectMutation,
@@ -287,7 +292,8 @@ export const {
   useUpdatePermissionMutation,
   useLazyGetTrackSourceQuery,
   useGetFaqsQuery,
-  useGetTermsQuery
+  useGetTermsQuery,
+  useLazyGetBetaAccessQuery,
 } = api;
 
 export { api as apiSlice}

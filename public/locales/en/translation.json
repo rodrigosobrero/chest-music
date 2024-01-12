@@ -15,7 +15,7 @@
     "save": "Save",
     "remove": "Remove",
     "back": "Go back",
-    "close": "close",
+    "close": "Close",
     "open": "open",
     "notifications": "notifications",
     "learn_more": "Learn more",
@@ -61,7 +61,8 @@
     "hours_one": "{{count}} hour ago",
     "hours_other": "{{count}} hours ago",
     "days_one": "{{ count }} day ago",
-    "days_other": "{{ count }} days ago"
+    "days_other": "{{ count }} days ago",
+    "contact_us": "Contact us"
   },
   "signin": {
     "title": "open your chest",
@@ -73,7 +74,12 @@
       "title": "access chest beta",
       "button_google": "Access with Google",
       "description": "Log in to Chest BETA with the email that you were invited to.",
-      "signup": "Don’t have an invitation? Sign up"
+      "signup": "Don’t have an invitation? Sign up",
+      "modal": {
+        "title": "sorry, invalid email",
+        "description": "The email you used to log in isn't registered to access Chest BETA. Try again with another one, sign up or",
+        "signup_button": "Sign up to BETA"
+      }
     }
   },
   "signup": {
