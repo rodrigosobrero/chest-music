@@ -7,7 +7,7 @@ export default function UsersActionsButton({ link }) {
   const { onOpen: openEditModal } = useModal('EditPermissionsUserModal');
   const { onOpen: openDeleteModal } = useModal('DeletePermissionsUserModal');
   const [isOpenned, setIsOpenned] = useState(false)
-  const t = useTranslation;
+  const { t } = useTranslation();
 
   const toggleOptions = () => setIsOpenned(!isOpenned);
 
