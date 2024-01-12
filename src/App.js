@@ -215,6 +215,7 @@ function App() {
     // });
   }, []);
 
+  
   useEffect(() => {
     auth.onIdTokenChanged(async (user) => {
       if (user && user != null) {
