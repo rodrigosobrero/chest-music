@@ -218,7 +218,7 @@ function App() {
     auth.onIdTokenChanged(async (user) => {
       if (user != null) {
         const newToken = await user.getIdToken(true);
-        dispatch(updateUserData({token: newToken}))
+        dispatch(updateUser({token: newToken}))
       }    
     })
   }, []);
