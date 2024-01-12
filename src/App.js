@@ -2,20 +2,16 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { api as service } from 'utils/axios';
-// import { auth, messaging } from 'utils/firebase';
 import { auth } from 'utils/firebase';
 import { saveUser, updateUser } from 'app/auth';
-// import { getToken, onMessage } from 'firebase/messaging';
 import { onAuthStateChanged, getIdToken } from 'firebase/auth';
-import { api, useLazyGetBetaAccessQuery, useGetAccountQuery, useLazyGetAccountQuery } from 'store/api';
+import { api, useLazyGetBetaAccessQuery, useLazyGetAccountQuery } from 'store/api';
 import { store } from 'app/store';
 import { persistStore } from 'redux-persist';
-// import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import MyChest from 'routes/my-chest';
 import Root from 'routes/root';
-// import SignIn from 'routes/sign-in';
 import SignIn from 'routes/sign-in-default';
 import SignInBeta from 'routes/sign-in-beta';
 import ProtectedRoute from 'utils/ProtectedRoute';
@@ -39,7 +35,6 @@ import Trash from 'routes/trash';
 import SharedPlay from 'routes/shared-play';
 
 function App() {
-  const [getAccount] = useLazyGetAccountQuery();
   const [getBetaAccess] = useLazyGetBetaAccessQuery();
   const dispatch = useDispatch();
   const router = createBrowserRouter([
