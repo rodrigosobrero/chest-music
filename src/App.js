@@ -217,14 +217,14 @@ function App() {
     });
   }, []);
 
-  // useEffect(() => {
-  //   auth.onIdTokenChanged(async (userFirebase) => {
-  //     if (userFirebase != null && user?.token) {
-  //       const newToken = await userFirebase.getIdToken(true);
-  //       dispatch(updateUserToken(newToken))
-  //     }    
-  //   });
-  // }, []);
+//  useEffect(() => {
+//    auth.onIdTokenChanged(async (user) => {
+//      if (user && typeof user.getIdToken === 'function') {
+//        const newToken = await user.getIdToken(true);
+//        dispatch(updateUser({token: newToken}))
+//      }    
+//    })
+//  }, []);
 
   return (
     <RouterProvider router={router} />
