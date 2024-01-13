@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { isMobile, isDesktop } from 'react-device-detect';
 import { AnimatePresence, motion } from 'framer-motion';
 import { classNames, format } from 'utils/helpers';
+import { useLocation } from 'react-router-dom';
 
 import LinksActionsButton from './LinksActionsButton';
 
@@ -10,11 +11,15 @@ import { ReactComponent as WebDisabled } from 'assets/images/icon-webdisabled.sv
 
 export default function LinksTable({ data, headers }) {
   const Rows = ({ cell }) => {
+    const location = useLocation();
     const [hover, setHover] = useState(false);
     const [copied, setCopied] = useState(false);
   
     const copyToClipboard = (value) => {
-      navigator.clipboard.writeText(value)
+      // <base_url>/shared-link?token=<token></token>
+      const link = `https://${window.location.hostname}/shared-link?token=${value}`;
+
+      navigator.clipboard.writeText(link)
         .then(() => {
           setCopied(true);
   
