@@ -104,6 +104,7 @@
       "button": "Change",
       "username": "Username",
       "artist_name": "Artist name",
+      "full_name": "Full name",
       "pin": "PIN code",
       "helper": "You won’t be able to change this",
       "free": "Free",

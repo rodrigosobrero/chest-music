@@ -67,7 +67,7 @@ export default function Setup() {
     });
 
     if ('error' in result) {
-      console.log('Error');
+      console.log(result);
     } else {
       navigate('/my-chest')
     }
@@ -153,15 +153,14 @@ export default function Setup() {
                 noWhiteSpace
                 register={register}
                 error={errors.username && 'This field is required'} />
+              <Input
+                type='text'
+                name='name'
+                label={(userType === 'artist')? t('setup.step_two.artist_name'): t('setup.step_two.full_name')}
+                required
+                register={register}
+                error={errors.name && 'This field is required'} />
               {userType === 'artist' &&
-                <Input
-                  type='text'
-                  name='name'
-                  label={t('setup.step_two.artist_name')}
-                  required
-                  register={register}
-                  error={errors.name && 'This field is required'} />
-              }
               <Input
                 type='number'
                 name='pin'
@@ -170,7 +169,9 @@ export default function Setup() {
                 maxLength={4}
                 showHide
                 register={register} />
+              }
             </div>
+            {userType === 'artist' &&
             <div className='flex flex-col gap-4'>
               <div className='flex items-center'>
                 <span className='font-semibold grow'>Plan</span>
@@ -210,6 +211,7 @@ export default function Setup() {
                 </label>
               </div>
             </div>
+            }
             <div className='flex items-center justify-end h-14'>
               <ErrorMessage show={errors.terms} message='Accept Terms and Conditions' />
             </div>
@@ -225,7 +227,7 @@ export default function Setup() {
               style='primary'
               type='submit'
               text={t('setup.step_two.create_button')}
-              disabled={isLoading || !validate.username || (userType === 'artist' && !validate.name) || !validate.plan || !validate.terms}
+              disabled={isLoading || !validate.username || (userType === 'artist' && !validate.name) || !validate.terms}
               loading={isLoading} />
           </form>
         </div>

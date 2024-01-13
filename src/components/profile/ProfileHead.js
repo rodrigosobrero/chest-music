@@ -49,7 +49,8 @@ const ProfileHead = ({ data, token }) => {
                     <img src={pencil} alt='' width={24} height={24} className='md:flex hidden' />
                 </button>
             </div>
-            <div className='flex justify-between flex-row-reverse md:flex-row items-center gap-x-4'>
+            {data?.type == 'artist' ?
+            (<div className='flex justify-between flex-row-reverse md:flex-row items-center gap-x-4'>
                 <div className='flex flex-col items-end'>
                     <span className='!text-right text-neutral-silver-100 md:!text-[14px] !leading-[18px]'>
                       {data && formatHours(data.used_seconds)}  
@@ -71,7 +72,7 @@ const ProfileHead = ({ data, token }) => {
                         <img src={cloud} alt='' width={28} height={28}  />
                     </button>
                 </div>
-            </div>
+            </div>) : ""}
         </div>
     </>
   )

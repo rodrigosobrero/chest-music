@@ -41,7 +41,15 @@ export default function Nav() {
 
   useEffect(() => {
     if (user?.token) {
-      setData(navData.nav.filter(item => item.private))
+      //setData(navData.nav.filter(item => item.private))
+      const filteredData = navData.nav.filter(item => {
+        const isPrivate = item.private;
+        const isMyChest = item.name === 'my chest' && user?.data.type === 'fan';
+        return isPrivate && !isMyChest;
+      });
+      console.log(user.data.type);
+      console.log(filteredData);
+      setData(filteredData);
       setIsLogged(true);
       return;
     }
