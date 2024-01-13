@@ -199,7 +199,7 @@ export default function Player() {
 
   return (
     <>
-      {trackList && (
+      {trackList && playlist.length > 0 && (
         <>
           <audio
             src={trackList.url}
