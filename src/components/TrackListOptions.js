@@ -5,7 +5,7 @@ import { useGetProjectQuery } from 'store/api';
 import ContextButton from 'components/ContextButton';
 import { useTranslation } from 'react-i18next';
 
-export default function TrackListOptions({ track, isOpenned, toggleOptions, closeOptions }) {
+export default function TrackListOptions({ track, isOpened, toggleOptions, closeOptions }) {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { onOpen: openEditModal } = useModal('EditTrackModal');
@@ -80,6 +80,6 @@ export default function TrackListOptions({ track, isOpenned, toggleOptions, clos
   }
 
   return (
-    <ContextButton options={options} action={handleAction} isOpenned={isOpenned} toggleOptions={toggleOptions} closeOptions={closeOptions}/>
+    <ContextButton options={options} action={handleAction} isOpened={isOpened} toggleOptions={toggleOptions} closeOptions={closeOptions}/>
   )
 }

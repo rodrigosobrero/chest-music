@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 export default function UsersActionsButton({ link }) {
   const { onOpen: openEditModal } = useModal('EditPermissionsUserModal');
   const { onOpen: openDeleteModal } = useModal('DeletePermissionsUserModal');
-  const [isOpenned, setIsOpenned] = useState(false)
+  const [isOpened, setIsOpenned] = useState(false)
   const { t } = useTranslation();
 
-  const toggleOptions = () => setIsOpenned(!isOpenned);
+  const toggleOptions = () => setIsOpenned(!isOpened);
 
   const closeOptions=() => setIsOpenned(false);
   
@@ -37,6 +37,6 @@ export default function UsersActionsButton({ link }) {
   }
 
   return (
-    <ContextButton options={options} action={handleAction} isOpenned={isOpenned} toggleOptions={toggleOptions} closeOptions={closeOptions} />
+    <ContextButton options={options} action={handleAction} isOpened={isOpened} toggleOptions={toggleOptions} closeOptions={closeOptions} />
   )
 }

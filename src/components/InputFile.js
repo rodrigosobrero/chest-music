@@ -24,7 +24,7 @@ export default function InputFile({ text, accept, onChange }) {
         ref={inputRef}
         onChange={onChange}
         accept={accept} />
-      <Button style='secondary' text={text} onClick={handleClick} />
+      <Button style='secondary' className='max-w-[212px]' text={text} onClick={handleClick} />
     </>
   )
 }
