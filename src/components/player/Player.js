@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { isDesktop } from 'react-device-detect';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useLazyGetTrackSourceQuery } from 'store/api';
 import { reset } from 'app/playlist';
 
