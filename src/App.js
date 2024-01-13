@@ -1,14 +1,13 @@
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { api as service } from 'utils/axios';
 import { auth } from 'utils/firebase';
-import { saveUser, updateUser } from 'app/auth';
+import { saveUser, updateUserToken } from 'app/auth';
 import { onAuthStateChanged, getIdToken } from 'firebase/auth';
 import { api, useLazyGetBetaAccessQuery, useLazyGetAccountQuery } from 'store/api';
 import { store } from 'app/store';
 import { persistStore } from 'redux-persist';
-import 'react-toastify/dist/ReactToastify.css';
 
 import MyChest from 'routes/my-chest';
 import Root from 'routes/root';
@@ -36,6 +35,7 @@ import SharedPlay from 'routes/shared-play';
 
 function App() {
   const [getBetaAccess] = useLazyGetBetaAccessQuery();
+  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const router = createBrowserRouter([
     {
@@ -181,7 +181,9 @@ function App() {
           const response = await service.get('account/', {
             headers: { Authorization: `Bearer ${token}` }
           });
+
           const provider = user?.providerData[0].providerId;
+
           dispatch(saveUser({
             data: response.data,
             token: token,
@@ -198,6 +200,7 @@ function App() {
             .unwrap()
             .then((response) => {
               if (response.has_access) {
+                console.log('hola', response)
                 getToken(user);
               } else {
                 auth.signOut();
@@ -214,15 +217,14 @@ function App() {
     });
   }, []);
 
-
-  useEffect(() => {
-    auth.onIdTokenChanged(async (user) => {
-      if (user && typeof user.getIdToken === 'function') {
-        const newToken = await user.getIdToken(true);
-        dispatch(updateUser({token: newToken}))
-      }    
-    })
-  }, []);
+//  useEffect(() => {
+//    auth.onIdTokenChanged(async (user) => {
+//      if (user && typeof user.getIdToken === 'function') {
+//        const newToken = await user.getIdToken(true);
+//        dispatch(updateUser({token: newToken}))
+//      }    
+//    })
+//  }, []);
 
   return (
     <RouterProvider router={router} />
