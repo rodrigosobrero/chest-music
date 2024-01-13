@@ -20,14 +20,15 @@ export default function Track({
           onLoadedMetadata={onLoadedMetadata}
         />
         <div className='flex gap-4 items-center'>
-          <div>
-            <img src={currentTrack.cover_url} alt='' width={52} height={52} />
+          <div
+            className='w-[52px] h-[52px] bg-cover rounded'
+            style={{ backgroundImage: `url(${currentTrack.cover_url})` }}>
           </div>
-          <div>
-            <h5>{currentTrack.name}</h5>
-            <h6 className='text-sm text-neutral-silver-200'>
+          <div className='flex flex-col gap-0.5'>
+            <span>{currentTrack.name}</span>
+            <span className='text-sm text-neutral-silver-200'>
               {currentTrack?.authors?.join(', ')}
-            </h6>
+            </span>
           </div>
         </div>
       </div>

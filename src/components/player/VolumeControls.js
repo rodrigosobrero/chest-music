@@ -1,14 +1,16 @@
-/* clock button disabled */
-
 import { useEffect, useRef, useState } from 'react';
 import { 
   SpeakerWaveIcon, 
   SpeakerXMarkIcon, 
+  ChevronDownIcon,
   ClockIcon } from '@heroicons/react/24/outline';
+import { useDispatch } from 'react-redux';
+import { reset } from 'app/playlist';
 
 export default function VolumeControls({ audioRef }) {
   const [volume, setVolume] = useState(50);
   const [prevVolume, setPrevVolume] = useState(0);
+  const dispatch = useDispatch();
   
   const volumeRef = useRef();
 
@@ -19,6 +21,10 @@ export default function VolumeControls({ audioRef }) {
     } else {
       setVolume(prevVolume);
     }
+  }
+
+  const handleClose = () => {
+    dispatch(reset())
   }
 
   useEffect(() => {
@@ -50,8 +56,11 @@ export default function VolumeControls({ audioRef }) {
           value={volume}
           min={0}
           max={100}
-          className='bg-neutral-black rounded-lg h-1.5 accent-white appearance-none'
+          className='bg-neutral-black rounded-lg h-1.5 accent-white appearance-none mr-4'
           onChange={(e) => { setVolume(parseInt(e.target.value)) }} />
+        <button type='button' className='p-2 test' onClick={handleClose}>
+          <ChevronDownIcon className='h-6 w-6 text-white' />
+        </button>
       </div>
     </>
   )

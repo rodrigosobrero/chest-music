@@ -24,17 +24,19 @@ export default function Controls({
   const playlist = useSelector((state) => state.playlist.playlist)
 
   const repeat = useCallback(() => {
-    const currentTime = audioRef.current.currentTime;
+    if (audioRef.current) {
+      const currentTime = audioRef.current.currentTime;
 
-    setTimeProgress(currentTime);
-
-    progressBarRef.current.value = currentTime;
-    progressBarRef.current.style.setProperty(
-      '--range-progress',
-      `${(progressBarRef.current.value / audioRef.current.duration) * 100}%`
-    );
-
-    playAnimationRef.current = requestAnimationFrame(repeat);
+      setTimeProgress(currentTime);
+  
+      progressBarRef.current.value = currentTime;
+      progressBarRef.current.style.setProperty(
+        '--range-progress',
+        `${(progressBarRef.current.value / audioRef.current.duration) * 100}%`
+      );
+  
+      playAnimationRef.current = requestAnimationFrame(repeat);
+    }
   }, [audioRef, duration, progressBarRef, setTimeProgress]);
 
   const togglePlayPause = () => {

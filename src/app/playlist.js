@@ -20,7 +20,9 @@ export const playlist = createSlice({
         state.playlist[0].isPlaying = !state.playlist[0].isPlaying;
       } 
     },
-    reset: (state) => (state.playlist = []),
+    reset: (state) => { 
+      state.playlist = [] 
+    },
   }
 });
 
