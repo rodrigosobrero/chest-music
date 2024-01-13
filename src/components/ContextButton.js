@@ -13,20 +13,10 @@ import { useTranslation } from 'react-i18next';
 
 import dots from 'assets/images/icon-dots-horizontal.svg';
 
-export default function ContextButton({ options, onClick, action, isOpenned, toggleOptions, closeOptions}) {
+export default function ContextButton({ options, onClick, action, isOpened, toggleOptions, closeOptions}) {
   const { t } = useTranslation();
-  const [open, setOpen] = useState(false);
   const buttonDescription = options.length > 2 ? t('global.option_name') : (options.length > 1 ? t('global.option_name_short') : options[0].description);
   const [description, setDescription] = useState(buttonDescription);
-
-
-  // const toggleOpen = () => {
-  //   setOpen(prev => !prev);
-  // }
-
-  // const handleClose = () => {
-  //   setOpen(false);
-  // }
 
   const Icon = ({ type }) => {
     let icon;
@@ -80,12 +70,12 @@ export default function ContextButton({ options, onClick, action, isOpenned, tog
           onClick={toggleOptions}
           className={classNames({
             'context-button': true,
-            'bg-neutral-silver-700 border-neutral-silver-600': open
+            'bg-neutral-silver-700 border-neutral-silver-600': isOpened
           })}>
           <img src={dots} alt='' width={24} height={24} className='min-w-[20px] min-h-[20px]' />
         </button>
         <AnimatePresence>
-          {isOpenned && (
+          {isOpened && (
             <motion.div
               className='context-button-container h-20 w-auto absolute'
               initial={{ opacity: 0, y: 10 }}
@@ -93,7 +83,11 @@ export default function ContextButton({ options, onClick, action, isOpenned, tog
               exit={{ opacity: 0 }}>
               <div className='flex flex-col w-full gap-1.5'>
                 <motion.div
-                  className='text-sm font-light text-neutral-silver-100'
+                  className={classNames({
+                    'text-sm font-light': true,
+                    'text-neutral-silver-100': description,
+                    'text-neutral-silver-400': !description
+                  })}
                   initial={{ opacity: 0, y: 5 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}

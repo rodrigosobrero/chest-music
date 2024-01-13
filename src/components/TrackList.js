@@ -50,7 +50,7 @@ export default function TrackList({ tracks }) {
         <tbody>
           {
             tracks.map((track, index) =>
-              <TrackListRow key={index} track={track} isOpenned={rowOpenned === track.id} toggleOptions={toggleOpen} closeOptions={closeOptions}/>
+              <TrackListRow key={index} track={track} isOpened={rowOpenned === track.id} toggleOptions={toggleOpen} closeOptions={closeOptions}/>
             )
           }
         </tbody>

@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 export default function ParticipantsActionsButtons({ participant }) {
   const { onOpen: openEditModal } = useModal('EditParticipantModal');
   const { onOpen: openDeleteModal } = useModal('DeleteParticipantModal');
-  const [isOpenned, setIsOpenned] = useState(false)
+  const [isOpened, setIsOpenned] = useState(false)
   const { t } = useTranslation();
 
-  const toggleOptions = () => setIsOpenned(!isOpenned);
+  const toggleOptions = () => setIsOpenned(!isOpened);
 
   const closeOptions=() => setIsOpenned(false)
 
@@ -44,6 +44,6 @@ export default function ParticipantsActionsButtons({ participant }) {
   }, [participant])
 
   return (
-    <ContextButton options={options} action={handleAction} isOpenned={isOpenned} toggleOptions={toggleOptions} closeOptions={closeOptions} />
+    <ContextButton options={options} action={handleAction} isOpened={isOpened} toggleOptions={toggleOptions} closeOptions={closeOptions} />
   )
 }

@@ -12,7 +12,7 @@ import { PlayIcon } from '@heroicons/react/24/solid';
 import { PauseIcon } from '@heroicons/react/24/solid';
 import upload from 'assets/images/icon-upload.svg';
 
-export default function TrackListRow({ track , isOpenned, toggleOptions, closeOptions }) {
+export default function TrackListRow({ track , isOpened, toggleOptions, closeOptions }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { playlist } = useSelector((state) => state.playlist);
@@ -65,7 +65,7 @@ export default function TrackListRow({ track , isOpenned, toggleOptions, closeOp
         <td>
           <div className='flex flex-row items-center gap-3 md:gap-4'>
             <div
-              className='w-11 h-11 min-w-[44px] bg- bg-cover rounded'
+              className='w-[52px] h-[52px] min-w-[52px] bg- bg-cover rounded'
               style={{ backgroundImage: `url(${track.cover_url})` }}
               onClick={handleOnCoverClick}
               onMouseEnter={toggleHover}
@@ -102,7 +102,7 @@ export default function TrackListRow({ track , isOpenned, toggleOptions, closeOp
                 <img src={upload} alt='' width={24} height={24} />
               </button>
             )}
-            <TrackListOptions track={track} isOpenned={isOpenned} toggleOptions={() => toggleOptions(track.id)} closeOptions={closeOptions} />
+            <TrackListOptions track={track} isOpened={isOpened} toggleOptions={() => toggleOptions(track.id)} closeOptions={closeOptions} />
           </div>
         </td>
       </tr>

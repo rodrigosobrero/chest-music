@@ -7,9 +7,9 @@ export default function LinksActionsButton({ link }) {
   const { t } = useTranslation();
   const { onOpen: openEditModal } = useModal('EditPermissionsLinkModal');
   const { onOpen: openDeleteModal } = useModal('DeletePermissionsLinkModal');
-  const [isOpenned, setIsOpenned] = useState(false)
+  const [isOpened, setIsOpenned] = useState(false)
 
-  const toggleOptions = () => setIsOpenned(!isOpenned);
+  const toggleOptions = () => setIsOpenned(!isOpened);
 
   const closeOptions=() => setIsOpenned(false);
 
@@ -37,6 +37,6 @@ export default function LinksActionsButton({ link }) {
   ]
 
   return (
-    <ContextButton options={options} action={handleAction} isOpenned={isOpenned} toggleOptions={toggleOptions} closeOptions={closeOptions} />
+    <ContextButton options={options} action={handleAction} isOpened={isOpened} toggleOptions={toggleOptions} closeOptions={closeOptions} />
   )
 }
