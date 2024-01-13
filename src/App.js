@@ -32,6 +32,7 @@ import Share from 'routes/share';
 import Treasure from 'routes/treasure';
 import Trash from 'routes/trash';
 import SharedPlay from 'routes/shared-play';
+import { reset } from 'app/playlist';
 
 function App() {
   const [getBetaAccess] = useLazyGetBetaAccessQuery();
@@ -210,6 +211,7 @@ function App() {
           getToken(user);
         }
       } else {
+        dispatch(reset());
         dispatch(saveUser(undefined));
         api.util.resetApiState();
         persistStore(store).purge();

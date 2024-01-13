@@ -49,7 +49,7 @@ export default function TrackMobile({
             </div>
             <div className='flex flex-col'>
               <div className='w-full whitespace-nowrap overflow-hidden relative'>
-                <span className='text-sm text-white inline-block animate-marquee'>
+                <span className='text-sm text-white inline-block'>
                   {currentTrack.name}
                 </span>
               </div>
