@@ -8,16 +8,20 @@ import { ReactComponent as PreviousIcon } from 'assets/images/icon-previous.svg'
 import { ReactComponent as ShuffleIcon } from 'assets/images/icon-shuffle.svg';
 import { ReactComponent as PlayIcon } from 'assets/images/icon-play.svg';
 import { ReactComponent as PauseIcon } from 'assets/images/icon-pause.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { play } from 'app/playlist';
 
 export default function ControlsMobile({
   audioRef,
   progressBarRef,
   duration,
-  setTimeProgress
+  setTimeProgress,
+  setLoop,
+  loop
 }) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [loop, setLoop] = useState(false);
   const playAnimationRef = useRef();
+  const dispatch = useDispatch()
+  const playlist = useSelector((state) => state.playlist.playlist)
 
   const repeat = useCallback(() => {
     const currentTime = audioRef.current.currentTime;
@@ -33,8 +37,9 @@ export default function ControlsMobile({
     playAnimationRef.current = requestAnimationFrame(repeat);
   }, [audioRef, duration, progressBarRef, setTimeProgress]);
 
-  const togglePlayPause = () => {
-    setIsPlaying(prev => !prev);
+  const togglePlayPause = (e) => {
+    e.stopPropagation();
+    dispatch(play())
   }
 
   const toggleLoop = () => {
@@ -50,8 +55,20 @@ export default function ControlsMobile({
   }
 
   useEffect(() => {
-    if (isPlaying) {
-      audioRef.current.play();
+    if (playlist[0]?.isPlaying) {
+      // audioRef.current.play();
+      let playPromise = audioRef.current.play();
+
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            console.log('playing');
+          })
+          .catch(error => {
+            console.log(error);
+            audioRef.current.pause();
+          })
+      }
     } else {
       audioRef.current.pause();
     }
@@ -64,17 +81,32 @@ export default function ControlsMobile({
 
     playAnimationRef.current = requestAnimationFrame(repeat);
 
-  }, [isPlaying, loop, audioRef, repeat]);
+  }, [loop, audioRef, repeat, playlist]);
 
   return (
     <>
       <div className='flex items-center'>
+        {/* <button type='button' className='p-2 mr-2 disabled:opacity-30' disabled>
+          <ShuffleIcon />
+        </button>
+        <button type='button' onClick={skipBackward} className='p-2 player-controls'>
+          <PreviousIcon />
+        </button> */}
         <button type='button' onClick={togglePlayPause} className='player-controls'>
-          {isPlaying ? 
+          {playlist[0]?.isPlaying ?
             <PauseIcon width={40} height={40} /> :
             <PlayIcon width={40} height={40} />
           }
         </button>
+        {/* <button type='button' onClick={skipForward} className='p-2 player-controls'>
+          <NextIcon />
+        </button>
+        <button 
+          type='button' 
+          className={`p-2 ml-2 ${loop ? 'player-controls-active' : 'player-controls'}`} 
+          onClick={toggleLoop}>
+          <RepeatIcon />
+        </button> */}
       </div>
     </>
   )

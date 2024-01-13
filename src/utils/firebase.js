@@ -3,6 +3,7 @@ import { GoogleAuthProvider, getAuth } from 'firebase/auth';
 import { getMessaging } from 'firebase/messaging';
 
 const config = {
+  apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
   apiKey: 'AIzaSyCw2C5y_61KwPcADFinfM7_tHokR2qtK_o',
   authDomain: 'chestmusic-60121.firebaseapp.com',
   projectId: 'chestmusic-60121',

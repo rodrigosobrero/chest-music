@@ -22,7 +22,7 @@ export default function Controls({
   const playAnimationRef = useRef();
   const dispatch = useDispatch()
   const playlist = useSelector((state) => state.playlist.playlist)
-  
+
   const repeat = useCallback(() => {
     const currentTime = audioRef.current.currentTime;
 
@@ -55,7 +55,19 @@ export default function Controls({
 
   useEffect(() => {
     if (playlist[0]?.isPlaying) {
-      audioRef.current.play();
+      // audioRef.current.play();
+      let playPromise = audioRef.current.play();
+
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            console.log('playing');
+          })
+          .catch(error => {
+            console.log(error);
+            audioRef.current.pause();
+          })
+      }
     } else {
       audioRef.current.pause();
     }
@@ -80,7 +92,7 @@ export default function Controls({
           <PreviousIcon />
         </button>
         <button type='button' onClick={togglePlayPause} className='player-controls'>
-          {playlist[0]?.isPlaying ? 
+          {playlist[0]?.isPlaying ?
             <PauseIcon width={40} height={40} /> :
             <PlayIcon width={40} height={40} />
           }
@@ -88,9 +100,9 @@ export default function Controls({
         <button type='button' onClick={skipForward} className='p-2 player-controls'>
           <NextIcon />
         </button>
-        <button 
-          type='button' 
-          className={`p-2 ml-2 ${loop ? 'player-controls-active' : 'player-controls'}`} 
+        <button
+          type='button'
+          className={`p-2 ml-2 ${loop ? 'player-controls-active' : 'player-controls'}`}
           onClick={toggleLoop}>
           <RepeatIcon />
         </button>
