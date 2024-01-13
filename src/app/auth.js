@@ -1,12 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { api } from 'store/api';
 
-const initialState = {
-  data: {},
-  email: '',
-  token: '',
-  signInMethod: '',
-};
+const initialState = {};
 
 export const authSlice = createSlice({
   name: 'user',
@@ -31,7 +26,7 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addMatcher(api.endpoints.createAccount.matchFulfilled, (state, { payload }) => {
-        state.auth.user.data = payload;
+        state.user.data = payload;
       })
   }
 });

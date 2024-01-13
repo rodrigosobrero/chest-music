@@ -12,7 +12,6 @@ export const upload = axios.create({
 export const apiUrl = 'https://chest-api-stg.cexar.io/web/v1/'
 
 export const patchData = async (path, body, token) => {
-  console.log(token)
   const { data } = await axios.patch(apiUrl + path, body,
     {
       headers: { Authorization: `Bearer ${token}` }
