@@ -97,28 +97,28 @@ export default function Uploader({ title = true, self, id }) {
       <div className='uploader py-[60px] px-5'>
         {showLoader
           ? <>
-              <ProgressCircle
-                percentage={(progress.loaded * 100) / progress.total}
-                colour={progress.loaded > 0 && progress.loaded === progress.total ? '#FFB447' : '#7C59DE'} />
-              <div className='flex flex-col gap-1'>
-                <AnimatePresence>
-                  {progress.loaded > 0 && progress.loaded === progress.total
-                    ? <motion.div
-                      className='flex items-center justify-center gap-1.5 text-brand-gold'
-                      initial={{ opacity: 0, y: -20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0 }}>
-                      Uploaded <CheckIcon className='h-4 w-4 text-brand-gold' />
-                    </motion.div>
-                    : <motion.span
-                      className='font-archivo text-center'
-                      exit={{ opacity: 0 }}>
-                      {bytesToSize(progress.loaded)} {t('global.of')} {bytesToSize(progress.total, 1)}
-                    </motion.span>}
-                </AnimatePresence>
-                <span className='font-archivo text-neutral-silver-300 text-sm text-center'>{file?.filename}</span>
-              </div>
-            </>
+            <ProgressCircle
+              percentage={(progress.loaded * 100) / progress.total}
+              colour={progress.loaded > 0 && progress.loaded === progress.total ? '#FFB447' : '#7C59DE'} />
+            <div className='flex flex-col gap-1'>
+              <AnimatePresence>
+                {progress.loaded > 0 && progress.loaded === progress.total
+                  ? <motion.div
+                    className='flex items-center justify-center gap-1.5 text-brand-gold'
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}>
+                    Uploaded <CheckIcon className='h-4 w-4 text-brand-gold' />
+                  </motion.div>
+                  : <motion.span
+                    className='font-archivo text-center'
+                    exit={{ opacity: 0 }}>
+                    {bytesToSize(progress.loaded)} {t('global.of')} {bytesToSize(progress.total, 1)}
+                  </motion.span>}
+              </AnimatePresence>
+              <span className='font-archivo text-neutral-silver-300 text-sm text-center'>{file?.filename}</span>
+            </div>
+          </>
           : <div
             className='flex flex-col items-center w-full h-full'
             onDrop={handleFile}
