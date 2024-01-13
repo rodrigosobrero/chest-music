@@ -253,7 +253,7 @@ export const api = createApi({
       providesTags: ['Terms']
     }),
     getBetaAccess: builder.query({
-      query: (email) => `hasbetaaccess/?email=${email}`,
+      query: (email) => `hasbetaaccess/?email=${encodeURIComponent(email)}`,
       providesTags: ['Beta']
     })
   })
