@@ -27,7 +27,8 @@ export default function ProtectedRoute({ children, redirectPath = '/sign-in', on
       return;
     }
 
-    if (!user.data.type && location.pathname !== '/setup') {
+    // if (!user.data.type && location.pathname !== '/setup') {
+    if (!user || !user.data || !user.data.type && location.pathname !== '/setup') {
       navigate('/setup');
       return;
     }

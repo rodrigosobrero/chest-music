@@ -1,7 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { api } from 'store/api';
 
-const initialState = {};
+const initialState = {
+  data: {},
+  email: '',
+  token: '',
+  signInMethod: '',
+};
 
 export const authSlice = createSlice({
   name: 'user',
@@ -10,11 +15,17 @@ export const authSlice = createSlice({
     saveUser: (state, action) => {
       state.user = action.payload;
     },
-    updateUser: (state, action) => {
-      state.user = {...state.user, ...action.payload};
+    updateUserToken: (state, action) => {
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          token: action.payload
+        }
+      }
     },
     updateUserData: (state, action) => {
-      state.user.data = {...state.user?.data, ...action.payload}
+      state.user.data = {...state.user.data, ...action.payload}
     }
   },
   extraReducers: (builder) => {
@@ -25,5 +36,5 @@ export const authSlice = createSlice({
   }
 });
 
-export const { saveUser, updateUser, updateUserData } = authSlice.actions;
+export const { saveUser, updateUserToken, updateUserData } = authSlice.actions;
 export default authSlice.reducer;
