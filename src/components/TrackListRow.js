@@ -54,8 +54,6 @@ export default function TrackListRow({ track , isOpened, toggleOptions, closeOpt
   }
 
   useEffect(() => {
-    console.log('playlist', playlist)
-
     setPlay(playlist[0]?.id === track.last_version_id && playlist[0]?.type === 'project');
   }, [playlist]);
   

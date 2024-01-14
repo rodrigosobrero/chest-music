@@ -8,7 +8,7 @@ i18next
   .use(LanguageDetector)
   .use(HttpApi)
   .init({
-    debug: true,
+    debug: false,
     fallbackLng: 'en',
     backend: {
       loadPath: '/locales/{{lng}}/{{ns}}.json'

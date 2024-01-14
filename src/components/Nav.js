@@ -33,9 +33,9 @@ export default function Nav() {
 
   const NewNotification = () => (
     <div className='absolute right-0 top-0'>
-      <span class="relative flex h-2.5 w-2.5">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-error-red opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-error-red"></span>
+      <span className='relative flex h-2.5 w-2.5'>
+        <span className='animate-ping absolute inline-flex h-full w-full rounded-full bg-error-red opacity-75'></span>
+        <span className='relative inline-flex rounded-full h-2.5 w-2.5 bg-error-red'></span>
       </span>
     </div>
   )
@@ -48,8 +48,6 @@ export default function Nav() {
         const isMyChest = item.name === 'my chest' && user?.data.type === 'fan';
         return isPrivate && !isMyChest;
       });
-      console.log(user.data.type);
-      console.log(filteredData);
       setData(filteredData);
       setIsLogged(true);
       return;

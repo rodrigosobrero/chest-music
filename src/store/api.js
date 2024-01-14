@@ -239,10 +239,7 @@ export const api = createApi({
       invalidatesTags: ['Permissions']
     }),
     getTrackSource: builder.query({
-      query: (id) => {
-        const url = `project/version/${id}/url/`;
-        return url;
-      }
+      query: (id) => `project/version/${id}/url/`
     }),
     getFaqs: builder.query({
       query: (lang) => `faq/?lang=${lang}`,
@@ -255,7 +252,23 @@ export const api = createApi({
     getBetaAccess: builder.query({
       query: (email) => `hasbetaaccess/?email=${encodeURIComponent(email)}`,
       providesTags: ['Beta']
-    })
+    }),
+    updateTrackPlay: builder.mutation({
+      query: ({ id, anonymous, token}) => {
+        let url = '';
+
+        if (anonymous) {
+          url = `shared/link/token/${token}/play/`
+        } else {
+          url = `project/version/${id}/play/`;
+        }
+
+        return {
+          url,
+          method: 'POST'
+        }
+      }
+    }),
   })
 });
 
@@ -294,6 +307,7 @@ export const {
   useGetFaqsQuery,
   useGetTermsQuery,
   useLazyGetBetaAccessQuery,
+  useUpdateTrackPlayMutation,
 } = api;
 
 export { api as apiSlice}

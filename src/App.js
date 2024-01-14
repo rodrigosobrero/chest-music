@@ -201,7 +201,6 @@ function App() {
             .unwrap()
             .then((response) => {
               if (response.has_access) {
-                console.log('hola', response)
                 getToken(user);
               } else {
                 auth.signOut();

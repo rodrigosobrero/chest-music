@@ -26,6 +26,7 @@ const SharedPlay = () => {
         type: 'project', 
         audio: response.data.audio_url,
         isPlaying: false,
+        token
       }));
     })
     // return () => {
