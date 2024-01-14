@@ -28,19 +28,21 @@ export default function Footer() {
           </div>
           <div className='flex flex-col items-center md:flex-row md:divide-x divide-neutral-silver-600 gap-7 order-1 md:order-last'>
             <div className='flex items-center gap-4'>
+              {/*
               <a href='https://www.apple.com' target='_blank' className='social'>
                 <AppStore fill='currentColor' width={24} height={24} />
               </a>
               <a href='https://google.com' target='_blank' className='social'>
                 <PlayStore fill='currentColor' width={24} height={24} />
               </a>
-              <a href='https://linkedin.com' target='_blank' className='social'>
+              */}
+              <a href='https://www.linkedin.com/company/chestmusic/' target='_blank' className='social'>
                 <LinkedIn fill='currentColor' width={24} height={24} />
               </a>
-              <a href='https://twitter.com' target='_blank' className='social'>
+              <a href='https://twitter.com/chestmusic' target='_blank' className='social'>
                 <Twitter fill='currentColor' width={22} height={22} />
               </a>
-              <a href='https://instagram.com' target='_blank' className='social'>
+              <a href='https://www.instagram.com/chestmusic.app/' target='_blank' className='social'>
                 <Instagram fill='currentColor' width={24} height={24} />
               </a>
             </div>

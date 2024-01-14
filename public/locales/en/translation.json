@@ -13,8 +13,16 @@
     "continue": "Continue",
     "by": "By",
     "save": "Save",
+    "the project": "the project",
+    "the team": "the team",
+    "contact us": "contact us",
+    "open chest": "open chest",
     "remove": "Remove",
     "back": "Go back",
+    "profile": "profile",
+    "my chest": "my chest",
+    "give feedback": "give feedback",
+    "shared": "shared",
     "close": "Close",
     "open": "open",
     "notifications": "notifications",
@@ -116,6 +124,13 @@
       "create_button": "Create chest"
     }
   },
+  "feedback": {
+    "title": "Give Feedback",
+    "form_title": "Tell us your experience",
+    "form_description": "Take this short survey and give us feedback on your experience with Chest BETA.",
+    "wa_title": "Report a problem",
+    "wa_description": "Having a problem? Contact us directly so we can solve it as soon as possible."
+  },
   "mychest": {
     "uploader": {
       "title": "drop it like it’s hot",
@@ -142,6 +157,7 @@
     "participant": "Participant"
   },
   "profile": {
+    "logout": "Log out",
     "sections": [
       {
         "title": "Recently played",

@@ -35,7 +35,7 @@ const ProfileView = () => {
               }
 
             </div>
-            <button className='w-[142.667px] bg-neutral-silver-600 py-3 px-6 rounded-[10px]' onClick={() => signOut(auth)}>Log out</button>
+            <button className='w-[142.667px] bg-neutral-silver-600 py-3 px-6 rounded-[10px]' onClick={() => signOut(auth)}>{t('profile.logout')}</button>
        </div>
     </>
   )

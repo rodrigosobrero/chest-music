@@ -13,8 +13,16 @@
     "continue": "Continuar",
     "by": "Por",
     "save": "Guardar",
+    "the project": "el proyecto",
+    "the team": "el equipo",
+    "contact us": "contactanos",
+    "open chest": "open chest",
     "remove": "Quitar",
     "back": "Volver",
+    "profile": "perfil",
+    "my chest": "my chest",
+    "give feedback": "dar feedback",
+    "shared": "compartido",
     "close": "cerrada",
     "open": "abierta",
     "notifications": "notificaciones",
@@ -107,10 +115,17 @@
       "create_button": "Crear cofre"
     }
   },
+  "feedback": {
+    "title": "Dar Feedback",
+    "form_title": "Contanos tu experiencia",
+    "form_description": "Respondé esta breve encuesta y danos una devolución acerca de como fue tu experiencia con Chest BETA.",
+    "wa_title": "Reportá un problema",
+    "wa_description": "¿Estás teniendo un problema? Comunicate directamente con nosotros para poder resolverlo cuanto antes"
+  },
   "mychest": {
     "uploader": {
       "title": "drop it like it’s hot",
-      "title_mobile": "subir un tesoro",
+      "title_mobile": "sube tu tesoro",
       "description": "arrastra tu archivo de audio aquí para subir una nueva demo, o...",
       "description_mobile": "Selecciona un archivo para subir tu nueva demo"
     }
@@ -133,6 +148,7 @@
     "participant": "Participante"
   },
   "profile": {
+    "logout": "Log out",
     "sections": [
       {
         "title": "Escuchado recientemente",

@@ -6,11 +6,12 @@ import { ReactComponent as Formicon } from 'assets/images/icon-form.svg'
 import Modal from 'components/Modal'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
+import { useTranslation } from 'react-i18next'
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 const FeedbackModal = (props) => {
-
+  const { t } = useTranslation();
   const handleClose = () => {
     if (props.onClose) props.onClose();
   }  
@@ -18,14 +19,14 @@ const FeedbackModal = (props) => {
   const [active, setActive] = useState(0)
   const options = [
     {
-      title: 'Tell us your experience',
+      title: t('feedback.form_title'),
       image: Formicon,
-      description: 'Take this short survey and give us feedback on your experience with Chest BETA.'
+      description: t('feedback.form_description') 
     },
     {
-      title: 'Report a problem',
+      title: t('feedback.wa_title'),
       image: WhatsappIcon,
-      description: 'Having a problem? Contact us directly so we can solve it as soon as possible.'
+      description: t('feedback.wa_description') 
     },
   ]
   
@@ -47,7 +48,7 @@ const FeedbackModal = (props) => {
            </div>
   }
   return (
-    <BaseModal title='Give feedback' show={props.isOpen} onClose={handleClose}>
+    <BaseModal title={t('feedback.title')} show={props.isOpen} onClose={handleClose}>
       <div className='text-center flex flex-col gap-8'>
         {/* <h3 className='!text-center'>k</h3> */}
         <div className='hidden lg:flex lg:gap-6'>
@@ -74,7 +75,7 @@ const FeedbackModal = (props) => {
                 </SwiperSlide>
             ))}
         </Swiper>
-        <Button style='tertiary' text='Cancel' customStyle='lg:!w-[212px] !mx-auto' onClick={handleClose} />
+        <Button style='tertiary' text={t('global.cancel')} customStyle='lg:!w-[212px] !mx-auto' onClick={handleClose} />
       </div>
     </BaseModal>
   )

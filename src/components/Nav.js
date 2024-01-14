@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { classNames } from 'utils/helpers';
 import navData from 'data/config.json';
 import { useGetNewNotificationsQuery } from 'store/api';
-
+import { useTranslation } from 'react-i18next';
 import Tag from 'components/Tag';
 import Button from 'components/Button';
 
@@ -24,6 +24,7 @@ export default function Nav() {
   const [data, setData] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
   const excludedPaths = ['/sign-in', '/sign-up', '/setup'];
+  const { t } = useTranslation();
 
   const { data: notifications } = useGetNewNotificationsQuery({}, {
     pollingInterval: 30000,
@@ -74,7 +75,7 @@ export default function Nav() {
                 data.map((item) =>
                   <li key={item.name}>
                     {item.button
-                      ? <Button style={item.type} text={item.name} onClick={() => { item.link ? navigate(item.link) : openFeedbackModal()}} />
+                      ? <Button style={item.type} text={t('global.' + item.name)} onClick={() => { item.link ? navigate(item.link) : openFeedbackModal()}} />
                       : <NavLink to={item.link}>
                         {item.name === 'notifications'
                           ? <div className='relative'>
@@ -90,7 +91,7 @@ export default function Nav() {
                             </AnimatePresence>
                             <BellIcon className='h-6 w-6' />
                           </div>
-                          : item.name}
+                          : t('global.' + item.name)}
                       </NavLink>
                     }
                   </li>
