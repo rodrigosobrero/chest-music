@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { isDesktop } from 'react-device-detect';
 import { motion } from 'framer-motion';
-import { useLazyGetTrackSourceQuery } from 'store/api';
+import { useLazyGetTrackSourceQuery, useUpdateTrackPlayMutation } from 'store/api';
 import { reset } from 'app/playlist';
 
 import ProgressBar from 'components/player/ProgressBar';
@@ -16,14 +16,18 @@ import TrackMobile from 'components/player/TrackMobile';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 
 export default function Player() {
-  const [trigger, result] = useLazyGetTrackSourceQuery()
-  const { playlist } = useSelector(state => state.playlist);
+  const { playlist, playing } = useSelector(state => state.playlist);
+  const { user } = useSelector(state => state.auth);
+
+  const [getTrackSource, getResult] = useLazyGetTrackSourceQuery();
+  const [updateTrackPlay, updateResult] = useUpdateTrackPlayMutation();
 
   const [loop, setLoop] = useState(false);
   const [timeProgress, setTimeProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [trackList, setTrackList] = useState();
   const [open, setOpen] = useState(false);
+  const [lastPlayed, setLastPlayed] = useState();
 
   const audioRef = useRef();
   const progressBarRef = useRef();
@@ -32,12 +36,19 @@ export default function Player() {
     setOpen(prev => !prev);
   }
 
+  const onLoadedMetadata = () => {
+    const seconds = audioRef.current.duration;
+
+    setDuration(seconds);
+    progressBarRef.current.max = seconds;
+  }
+
   useEffect(() => {
     reset();
   }, []);
 
   useEffect(() => {
-    let track = trackList
+    let track = trackList;
     let currentTrack = playlist && playlist[0];
 
     if (currentTrack) {
@@ -55,7 +66,7 @@ export default function Player() {
           id: currentTrack.id
         })
       } else {
-        trigger(currentTrack.id)
+        getTrackSource(currentTrack.id)
           .then(({ data }) => {
             if (data) {
               setTrackList({
@@ -70,132 +81,31 @@ export default function Player() {
           })
       }
     }
-  }, [playlist, result]);
+  }, [playlist, getResult]);
 
-  // const DesktopPlayer = () => (
-  //   <motion.div
-  //     className='audio-player'
-  //     initial={{ height: 0 }}
-  //     animate={{ height: 'auto' }}
-  //     exit={{
-  //       height: 0,
-  //       transition: { delay: 0.7, duration: 1, ease: 'easeIn' }
-  //     }}>
-  //     <Track {...{
-  //       currentTrack: trackList,
-  //       audioRef,
-  //       setDuration,
-  //       progressBarRef
-  //     }} />
-  //     <div className='grow flex flex-col items-center justify-center gap-1.5'>
-  //       <Controls {... {
-  //         audioRef,
-  //         progressBarRef,
-  //         duration,
-  //         setTimeProgress,
-  //         setLoop,
-  //         loop
-  //       }} />
-  //       <ProgressBar {...{
-  //         progressBarRef,
-  //         audioRef,
-  //         timeProgress,
-  //         duration
-  //       }} />
-  //     </div>
-  //     <VolumeControls {...{
-  //       audioRef
-  //     }} />
-  //   </motion.div>
-  // )
+  useEffect(() => {
+    if (!trackList) {
+      setLastPlayed('');
+    } else {
+      if (lastPlayed !== trackList.id) {
+        setLastPlayed(trackList.id)
+      }
+    }
+  }, [trackList]);
 
-  // const MobilePlayer = () => (
-  //   <AnimatePresence>
-  //     {open ? (
-  //       <motion.div
-  //         className='audio-player-mobile-open'
-  //         initial={{ opacity: 0, y: 100 }}
-  //         animate={{ opacity: 1, y: 0 }}
-  //         exit={{ opacity: 0 }}>
-  //         <div className='bg-neutral-silver-700 rounded-3xl mb-3 gap-5 flex flex-col'>
-  //           <div className='px-2 pt-2'>
-  //             <button type='button' className='p-2.5' onClick={toggleOpen}>
-  //               <ChevronDownIcon className='h-6 w-6 text-white' />
-  //             </button>
-  //           </div>
-  //           <TrackMobile {...{
-  //             currentTrack: trackList,
-  //             audioRef,
-  //             setDuration,
-  //             progressBarRef,
-  //             open
-  //           }} />
-  //         </div>
-  //         <div className='bg-neutral-silver-600 px-5 pb-5 pt-4 rounded-3xl flex flex-col gap-1.5'>
-  //           <div className='flex items-center justify-center gap-1.5'>
-  //             <Controls {... {
-  //               audioRef,
-  //               progressBarRef,
-  //               duration,
-  //               setTimeProgress,
-  //               setLoop,
-  //               loop
-  //             }} />
-  //           </div>
-  //           <ProgressBar {...{
-  //             progressBarRef,
-  //             audioRef,
-  //             timeProgress,
-  //             duration,
-  //             open
-  //           }} />
-  //         </div>
-  //       </motion.div>
-  //     ) : (
-  //       <motion.div
-  //         className='audio-player-mobile'
-  //         initial={{ opacity: 0, y: 10 }}
-  //         animate={{ opacity: 1, y: 0 }}
-  //         exit={{ opacity: 0 }}>
-  //         <div className='flex flex-row' onClick={toggleOpen}>
-  //           <TrackMobile {...{
-  //             currentTrack: trackList,
-  //             audioRef,
-  //             setDuration,
-  //             progressBarRef
-  //           }} />
-  //           <ControlsMobile {... {
-  //             audioRef,
-  //             progressBarRef,
-  //             duration,
-  //             setTimeProgress,
-  //             setLoop,
-  //             loop
-  //           }} />
-  //         </div>
-  //         <ProgressBarMobile {...{
-  //           progressBarRef,
-  //           audioRef,
-  //           timeProgress,
-  //           duration
-  //         }} />
-  //       </motion.div>
-  //     )}
-  //   </AnimatePresence>
-  // )
-
-  // return (
-  //   trackList && (
-  //     isDesktop ? <DesktopPlayer /> : <MobilePlayer />
-  //   )
-  // );
-
-  const onLoadedMetadata = () => {
-    const seconds = audioRef.current.duration;
-
-    setDuration(seconds);
-    progressBarRef.current.max = seconds;
-  }
+  useEffect(() => {
+    if (trackList) {
+      if (user) {
+        updateTrackPlay({ id: trackList.id });
+      } else {
+        updateTrackPlay({ 
+          anonymous: true,
+          id: trackList.id,
+          token: playing.token
+        });
+      }
+    }
+  }, [lastPlayed])
 
   return (
     <>

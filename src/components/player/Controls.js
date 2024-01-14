@@ -62,9 +62,6 @@ export default function Controls({
 
       if (playPromise !== undefined) {
         playPromise
-          .then(() => {
-            console.log('playing');
-          })
           .catch(error => {
             console.log(error);
             audioRef.current.pause();
