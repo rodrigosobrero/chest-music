@@ -39,6 +39,8 @@ export default function Controls({
     }
   }, [audioRef, duration, progressBarRef, setTimeProgress]);
 
+  //
+
   const togglePlayPause = () => {
     dispatch(play())
   }
