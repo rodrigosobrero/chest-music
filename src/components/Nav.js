@@ -6,7 +6,8 @@ import { classNames } from 'utils/helpers';
 import navData from 'data/config.json';
 import { useGetNewNotificationsQuery } from 'store/api';
 import { useTranslation } from 'react-i18next';
-import i18next from 'i18next';
+import { useModal } from 'hooks/useModal';
+
 import Tag from 'components/Tag';
 import Button from 'components/Button';
 
@@ -14,7 +15,6 @@ import { BellIcon } from '@heroicons/react/24/outline';
 import logo from 'assets/images/logo.svg';
 import menuIcon from 'assets/images/icon-menu.svg';
 import closeIcon from 'assets/images/icon-close.svg';
-import { useModal } from 'hooks/useModal';
 
 export default function Nav() {
   const location = useLocation();
@@ -25,7 +25,7 @@ export default function Nav() {
   const [data, setData] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
   const excludedPaths = ['/sign-in', '/sign-up', '/setup'];
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const { data: notifications } = useGetNewNotificationsQuery({}, {
     pollingInterval: 30000,
@@ -77,7 +77,7 @@ export default function Nav() {
                   <li key={item.name}>
                     {item.button
                       ? <Button style={item.type} text={t('global.' + item.name)} onClick={() => { item.link ? navigate(item.link) : openFeedbackModal() }} />
-                      : <NavLink to={item.link.language ? item.link.language[i18next.language] : item.link}>
+                      : <NavLink to={item.link.language ? item.link.language[i18n.language] : item.link}>
                         {item.name === 'notifications'
                           ? <div className='relative'>
                             <AnimatePresence>
