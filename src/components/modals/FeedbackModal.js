@@ -1,19 +1,18 @@
-import { BaseModal } from 'components/BaseModal'
-import React, { useState } from 'react'
-import Button from 'components/Button'
-import { ReactComponent as WhatsappIcon } from 'assets/images/icon-whatsapp.svg'
-import { ReactComponent as Formicon } from 'assets/images/icon-form.svg'
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
-import { useTranslation } from 'react-i18next'
-import { useNavigate, redirect, Link, Navigate } from 'react-router-dom'
+import { BaseModal } from 'components/BaseModal'
+import Button from 'components/Button'
+
+import { ReactComponent as WhatsappIcon } from 'assets/images/icon-whatsapp.svg'
+import { ReactComponent as Formicon } from 'assets/images/icon-form.svg'
 
 import 'swiper/css';
 import 'swiper/css/pagination';
-import i18next from 'i18next'
 
 const FeedbackModal = (props) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [active, setActive] = useState(0);
 
   const handleClose = () => {
@@ -25,7 +24,7 @@ const FeedbackModal = (props) => {
       title: t('feedback.form_title'),
       image: Formicon,
       description: t('feedback.form_description'),
-      link: `${process.env['REACT_APP_FEEDBACK_FORM_' + i18next.language.toUpperCase()]}`
+      link: `${process.env['REACT_APP_FEEDBACK_FORM_' + i18n.language.toUpperCase()]}`
     },
     {
       title: t('feedback.wa_title'),
@@ -34,8 +33,6 @@ const FeedbackModal = (props) => {
       link: process.env.REACT_APP_FEEDBACK_WS
     },
   ];
-
-  console.log(`${process.env['REACT_APP_FEEDBACK_FORM_' + i18next.language.toUpperCase()]}`);
 
   const Card = ({ title, description, image, isActive, link }) => (
     <a href={link} target='_blank'>
