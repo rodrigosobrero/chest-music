@@ -111,10 +111,17 @@ export default function Input({ type, placeholder, label, name, value, onChange,
           {showHide &&
             <div className='absolute top-4 right-4'>
               <button type='button' onClick={showHidePassword}>
+                <AnimatePresence>
                 {inputType === 'password' ?
-                  <EyeIcon className='h-5 w-5 text-brand-gold' /> :
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}>
+                    <EyeIcon className='h-5 w-5 text-brand-gold' />
+                  </motion.div> :
                   <EyeSlashIcon className='h-5 w-5 text-neutral-silver-500' />
                 }
+                </AnimatePresence>
               </button>
             </div>
           }
