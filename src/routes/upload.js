@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { bytesToSize } from 'utils/helpers';
-import { upload, api } from 'utils/axios';
+// import { api } from 'utils/axios';
+import api, { upload } from 'utils/api';
 import config from 'data/config.json';
 
 import Modal from 'components/Modal';
