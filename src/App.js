@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { api as service } from 'utils/axios';
 import { auth } from 'utils/firebase';
 import { saveUser, updateUserToken } from 'app/auth';
@@ -43,6 +43,10 @@ function App() {
       path: '/',
       element: <Root />,
       children: [
+        {
+          index: true,
+          element: <Navigate replace to='/sign-in' />
+        },
         {
           path: '/sign-in',
           element:
