@@ -63,7 +63,7 @@ const SharedPlay = () => {
                    If your music is your <br />treasure, it deserves  <br/> to have its chest.
                 </h3>
                 <div>
-                   <Button text='Open chest' style='primary' customStyle='!w-auto' />
+                   <Button text='Open chest' style='primary' customStyle='!w-auto' onClick={()=> {window.location.href = 'https://chestmusic.com'}}/>
                 </div>
               </div>
               <div className='w-2/4'>
