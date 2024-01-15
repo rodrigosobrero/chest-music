@@ -14,8 +14,10 @@ const SharedPlay = () => {
   const [track, setTrack] = useState({});
 
   useEffect(() => {
-    const token = searchParams.get('token')
+    const token = searchParams.get('token');
+
     if (!token) return;
+
     axios.get(process.env.REACT_APP_API + 'shared/link/token/' + token).then((response) => {
       setTrack(response.data)
       dispatch(playing({
