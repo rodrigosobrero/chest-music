@@ -6,6 +6,7 @@ import { classNames } from 'utils/helpers';
 import navData from 'data/config.json';
 import { useGetNewNotificationsQuery } from 'store/api';
 import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
 import Tag from 'components/Tag';
 import Button from 'components/Button';
 
@@ -75,8 +76,8 @@ export default function Nav() {
                 data.map((item) =>
                   <li key={item.name}>
                     {item.button
-                      ? <Button style={item.type} text={t('global.' + item.name)} onClick={() => { item.link ? navigate(item.link) : openFeedbackModal()}} />
-                      : <NavLink to={item.link}>
+                      ? <Button style={item.type} text={t('global.' + item.name)} onClick={() => { item.link ? navigate(item.link) : openFeedbackModal() }} />
+                      : <NavLink to={item.link.language ? item.link.language[i18next.language] : item.link}>
                         {item.name === 'notifications'
                           ? <div className='relative'>
                             <AnimatePresence>
@@ -91,7 +92,8 @@ export default function Nav() {
                             </AnimatePresence>
                             <BellIcon className='h-6 w-6' />
                           </div>
-                          : t('global.' + item.name)}
+                          : t('global.' + item.name)
+                        }
                       </NavLink>
                     }
                   </li>
@@ -139,11 +141,11 @@ export default function Nav() {
               <li
                 key={index}
                 className={`${item.button && '!text-brand-gold font-semibold'} px-6 py-3 text-neutral-silver-300 text-[28px] font-normal hover:text-white`}>
-                {item.link ? 
+                {item.link ?
                   <NavLink to={item.link} onClick={() => { setOpen(false) }}>
                     {item.name}
-                  </NavLink> : 
-                  <button onClick={() => { openFeedbackModal(); setOpen(false)}}>{item.name}</button>
+                  </NavLink> :
+                  <button onClick={() => { openFeedbackModal(); setOpen(false) }}>{item.name}</button>
                 }
               </li>
             )
