@@ -101,7 +101,7 @@ export default function Player() {
         updateTrackPlay({ 
           anonymous: true,
           id: trackList.id,
-          token: playing.token
+          token: playlist[0].token
         });
       }
     }

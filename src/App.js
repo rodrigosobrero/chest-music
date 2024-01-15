@@ -42,6 +42,7 @@ function App() {
     {
       path: '/',
       element: <Root />,
+      errorElement: <Navigate replace to='/sign-in' />,
       children: [
         {
           index: true,
