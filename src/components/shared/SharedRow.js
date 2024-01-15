@@ -65,7 +65,7 @@ const SharedRow = ({ track, isMobile, onClick }) => {
               onMouseEnter={toggleHover}
               onMouseLeave={toggleHover}>
               {hover && !play && <div className='cover-hover'><PlayIcon className='h-6 w-6 text-white' /></div>}
-              {play && playlist[0].isPlaying && <div className='cover-hover'><PauseIcon className='h-6 w-6 text-white' /></div>}
+              {play && playlist[0]?.isPlaying && <div className='cover-hover'><PauseIcon className='h-6 w-6 text-white' /></div>}
           </div>
           <div>
             <div className='text-base md:text-lg line-clamp-1' >{track.title}</div>
