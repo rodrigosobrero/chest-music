@@ -9,7 +9,7 @@ export const upload = axios.create({
   baseURL: process.env.REACT_APP_UPLOAD_API
 });
 
-export const apiUrl = 'https://chest-api-stg.cexar.io/web/v1/'
+export const apiUrl = process.env.REACT_APP_API
 
 export const patchData = async (path, body, token) => {
   const { data } = await axios.patch(apiUrl + path, body,

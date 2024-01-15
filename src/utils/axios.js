@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://chest-api-stg.cexar.io/web/v1/',
+  baseURL: process.env.REACT_APP_API,
 });
 
 const upload = axios.create({
-  baseURL: 'https://upload.chestmusic.com/upload/'
+  baseURL: process.env.REACT_APP_UPLOAD_API
 });
 
 export { api, upload }
