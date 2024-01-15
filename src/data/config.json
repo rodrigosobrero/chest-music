@@ -3,9 +3,30 @@
     { "name": "my chest", "link": "/my-chest", "private": true },
     { "name": "shared", "link": "/shared", "private": true },
     { "name": "profile", "link": "/profile", "private": true },
-    { "name": "the project", "link": "/the-project" },
-    { "name": "the team", "link": "/the-team" },
-    { "name": "contact us", "link": "/contact-us" },
+    { "name": "the project", 
+      "link": {
+        "language": {
+          "en": "https://chestmusic.com/en/#theProject",
+          "es": "https://chestmusic.com/#elProyecto"
+        }
+      }
+    },
+    { "name": "the team", 
+      "link": {
+        "language": {
+          "en": "https://chestmusic.com/en/#theTeam",
+          "es": "https://chestmusic.com/#elEquipo"
+        }
+      }
+    },
+    { "name": "contact us", 
+      "link": {
+        "language": {
+          "en": "https://chestmusic.com/en/#contactUs",
+          "es": "https://chestmusic.com/#contactanos"
+        }
+      }
+    },
     { "name": "open chest", "link": "/sign-in", "button": true, "type": "primary" },
     { "name": "give feedback", "button": true, "type": "secondary", "private": true },
     { "name": "notifications", "link": "/notifications", "private": true}

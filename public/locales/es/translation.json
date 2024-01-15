@@ -23,7 +23,7 @@
     "my chest": "my chest",
     "give feedback": "dar feedback",
     "shared": "compartido",
-    "close": "cerrada",
+    "close": "Cerrar",
     "open": "abierta",
     "notifications": "notificaciones",
     "learn_more": "Ver más",
@@ -66,7 +66,8 @@
     "hours_one": "hace {{count}} hora",
     "hours_other": "hace {{count}} horas",
     "days_one": "hace {{count}} día",
-    "days_other": "hace {{count}} días"
+    "days_other": "hace {{count}} días",
+    "contact_us": "Contáctanos"
   },
   "signin": {
     "title": "abre tu cofre",
@@ -78,7 +79,12 @@
       "title": "accede a la beta de chest",
       "button_google": "Accede con Google",
       "description": "Inicia sesión en la BETA de Chest con el correo electrónico con el que te invitaron.",
-      "signup": "¿No tienes una invitación? Registrate."
+      "signup": "¿No tienes una invitación? Registrate.",
+      "modal": {
+        "title": "Lo siento, correo electrónico no válido",
+        "description": "El correo electrónico que utilizaste para iniciar sesión no está registrado para acceder a Chest BETA. Intenta nuevamente con otro, regístrate o",
+        "signup_button": "Registrarse para la BETA"
+      }
     }
   },
   "signup": {
