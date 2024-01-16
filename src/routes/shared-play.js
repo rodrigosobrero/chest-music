@@ -1,60 +1,71 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
-import cover_track from 'assets/images/cover-track.png'
-import rectangle from 'assets/images/icon-rectangle.png'
-import Button from 'components/Button';
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
+import { useSearchParams, Link } from 'react-router-dom'
 import { playing } from 'app/playlist';
+import { useLazyGetSharedTrackQuery } from 'store/api';
+
+import rectangle from 'assets/images/icon-rectangle.png'
+import cover_track from 'assets/images/cover-track.png'
 
 const SharedPlay = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [track, setTrack] = useState({});
+  const [getSharedTrack, { isLoading, isFetching }] = useLazyGetSharedTrackQuery();
 
   useEffect(() => {
     const token = searchParams.get('token');
 
-    if (!token) return;
+    if (!token) window.location.replace('https://chestmusic.com');
 
-    axios.get(process.env.REACT_APP_API + 'shared/link/token/' + token).then((response) => {
-      setTrack(response.data)
-      dispatch(playing({
-        id: response.data.version_name,
-        album: response.data.album,
-        cover: response.data.cover_url,
-        name: response.data.title,
-        authors: response.data.authors,
-        type: 'project',
-        audio: response.data.audio_url,
-        isPlaying: false,
-        token
-      }));
-    })
-  }, [searchParams])
+    getSharedTrack(token)
+      .then(({ data }) => {
+        setTrack(data);
+
+        dispatch(playing({
+          id: data.version_name,
+          album: data.album,
+          cover: data.cover_url,
+          name: data.title,
+          authors: data.authors,
+          type: 'project',
+          audio: data.audio_url,
+          isPlaying: false,
+          token
+        }));
+      }).catch(() => {
+        window.location.replace('https://chestmusic.com');
+      });
+  }, [searchParams]);
+
   return (
     <>
       <div className='lg:block hidden lg:container'>
         <div className='lg:pt-[60px] lg:pb-[40px] flex lg:gap-x-12 items-center'>
-          <div>
-            <img src={track?.cover_url} className='lg:w-[220px] lg:h-[220px] lg:rounded-lg' alt='cover track' />
-          </div>
-          <div className='flex flex-col '>
-            <div className='lg:mb-6'>
-              <p className='text-left text-neutral-silver-200 !text-base flex items-center gap-2'>
-                {track?.album}
-                <img src={rectangle} alt='rectangle' className='h-[3px]' />
-                {track?.version_name}
-              </p>
-            </div>
-            <div className='lg:mb-3'>
-              <h2 className='lg:!text-[76px] !leading-[68px] !font-thunder-bold'>{track?.title}</h2>
-            </div>
-            <div>
-              <p className='text-left lg:!text-[22px] capitalize'>{track?.authors?.join(', ')}</p>
-            </div>
-          </div>
+          {isLoading || isFetching ? (
+            <div>Loading</div>
+          ) : (
+            <>
+              <div>
+                <img src={track?.cover_url} className='lg:w-[220px] lg:h-[220px] lg:rounded-lg' alt='cover track' />
+              </div>
+              <div className='flex flex-col '>
+                <div className='lg:mb-6'>
+                  <p className='text-left text-neutral-silver-200 !text-base flex items-center gap-2'>
+                    {track?.album}
+                    <img src={rectangle} alt='rectangle' className='h-[3px]' />
+                    {track?.version_name}
+                  </p>
+                </div>
+                <div className='lg:mb-3'>
+                  <h2 className='lg:!text-[76px] !leading-[68px] !font-thunder-bold'>{track?.title}</h2>
+                </div>
+                <div>
+                  <p className='text-left lg:!text-[22px] capitalize'>{track?.authors?.join(', ')}</p>
+                </div>
+              </div>
+            </>
+          )}
         </div>
         <div className='lg:pt-[20px] lg:pb-[80px]'>
           <div className='lg:p-10 bg-neutral-black flex lg:gap-x-20 rounded-2xl'>
@@ -62,8 +73,10 @@ const SharedPlay = () => {
               <h3 className='!text-[64px] !font-thunder-bold pr-10 leading-[58px] text-neutral-silver-200'>
                 If your music is your <br />treasure, it deserves  <br /> to have its chest.
               </h3>
-              <div>
-                <Button text='Open chest' style='primary' customStyle='!w-auto' onClick={() => { navigate('/sign-in') }} />
+              <div className='w-1/3'>
+                <Link to={'https://chestmusic.com'} className='!w-fill btn btn-primary'>
+                  Open chest
+                </Link>
               </div>
             </div>
             <div className='w-2/4'>
@@ -91,7 +104,6 @@ const SharedPlay = () => {
             </p>
           </div>
         </div>
-
       </div>
     </>
   )

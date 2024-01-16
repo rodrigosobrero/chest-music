@@ -269,6 +269,9 @@ export const api = createApi({
         }
       }
     }),
+    getSharedTrack: builder.query({
+      query: (token) => `shared/link/token/${token}`
+    })
   })
 });
 
@@ -308,6 +311,7 @@ export const {
   useGetTermsQuery,
   useLazyGetBetaAccessQuery,
   useUpdateTrackPlayMutation,
+  useLazyGetSharedTrackQuery
 } = api;
 
 export { api as apiSlice}
