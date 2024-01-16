@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useSearchParams, Link } from 'react-router-dom'
 import { playing } from 'app/playlist';
 import { useLazyGetSharedTrackQuery } from 'store/api';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import rectangle from 'assets/images/icon-rectangle.png'
 import cover_track from 'assets/images/cover-track.png'
@@ -41,15 +42,32 @@ const SharedPlay = () => {
   return (
     <>
       <div className='lg:block hidden lg:container'>
-        <div className='lg:pt-[60px] lg:pb-[40px] flex lg:gap-x-12 items-center'>
-          {isLoading || isFetching ? (
-            <div>Loading</div>
+        <AnimatePresence initial={false} mode='wait'>
+          {isLoading || isFetching || Object.keys(track).length === 0 ? (
+            <motion.div
+              key='loading'
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className='animate-pulse lg:pt-[60px] lg:pb-[40px] flex lg:gap-x-12 items-center'>
+              <div className='lg:w-[220px] lg:h-[220px] lg:rounded-lg bg-neutral-silver-600'></div>
+              <div className='flex flex-col justify-center lg:gap-6' >
+                <div className='bg-neutral-silver-600 h-6 w-24 rounded'></div>
+                <div className='bg-neutral-silver-600 h-[68px] w-48 rounded'></div>
+                <div className='bg-neutral-silver-600 h-7 w-32 rounded'></div>
+              </div>
+            </motion.div>
           ) : (
-            <>
+            <motion.div
+              key='content'
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className='lg:pt-[60px] lg:pb-[40px] flex lg:gap-x-12 items-center'>
               <div>
                 <img src={track?.cover_url} className='lg:w-[220px] lg:h-[220px] lg:rounded-lg' alt='cover track' />
               </div>
-              <div className='flex flex-col '>
+              <div className='flex flex-col'>
                 <div className='lg:mb-6'>
                   <p className='text-left text-neutral-silver-200 !text-base flex items-center gap-2'>
                     {track?.album}
@@ -64,9 +82,9 @@ const SharedPlay = () => {
                   <p className='text-left lg:!text-[22px] capitalize'>{track?.authors?.join(', ')}</p>
                 </div>
               </div>
-            </>
+            </motion.div>
           )}
-        </div>
+        </AnimatePresence>
         <div className='lg:pt-[20px] lg:pb-[80px]'>
           <div className='lg:p-10 bg-neutral-black flex lg:gap-x-20 rounded-2xl'>
             <div className='w-2/4 h-full flex flex-col gap-y-6'>
@@ -85,7 +103,7 @@ const SharedPlay = () => {
           </div>
         </div>
       </div>
-      <div className='p-3  h-full bg-neutral-black lg:hidden'>
+      <div className='p-3 h-full bg-neutral-black lg:hidden'>
         <div className='w-full h-[510px] bg-neutral-silver-700 rounded-3xl py-2'>
           <div className='mb-5 py-2'>
             <p className='capitalize !text-lg font-semibold'>
