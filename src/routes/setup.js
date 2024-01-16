@@ -44,12 +44,12 @@ export default function Setup() {
     {
       type: 'artist',
       image: artist,
-      description: `If you make music, this option is for you. It doesn't matter if you are a singer, music producer, or DJ: if your music is your treasure, you have found its chest.`
+      description: t('setup.artist_description')
     },
     {
       type: 'fan',
       image: fan,
-      description: `If you came to listen to the music of your favorite friends and artists before anyone else, this is for you. Enjoy a simplified version of Chest adjusted to your needs.`
+      description: t('setup.fan_description')
     }
   ]
 
