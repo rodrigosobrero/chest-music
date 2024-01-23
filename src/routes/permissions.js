@@ -33,7 +33,7 @@ const Permissions = () => {
     .then((response) => {console.log(response.data); handleToggle()})
     .catch((err) => console.log(err))
     console.log(data)
-    console.log('id')
+    
   }
 
   const items = t('profile.sections', { returnObjects: true });
