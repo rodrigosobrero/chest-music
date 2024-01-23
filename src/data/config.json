@@ -1,6 +1,6 @@
 {
   "nav": [
-    { "name": "my chest", "link": "/my-chest", "private": true },
+    { "name": "my chest", "link": "/my-chest", "private": true, "role": "artist" },
     { "name": "shared", "link": "/shared", "private": true },
     { "name": "profile", "link": "/profile", "private": true },
     { "name": "the project", 
@@ -28,8 +28,9 @@
       }
     },
     { "name": "open chest", "link": "/sign-in", "button": true, "type": "primary" },
+    { "name": "become an artist", "button": true, "type": "secondary", "link": "/profile/account", "private": true, "role": "fan" },
     { "name": "give feedback", "button": true, "type": "secondary", "private": true },
-    { "name": "notifications", "link": "/notifications", "private": true}
+    { "name": "notifications", "link": "/notifications", "private": true }
   ],
   "languages": [
     { "code": "es", "name": "english", "icon": "🇪🇸" },
