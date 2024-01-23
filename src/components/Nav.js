@@ -131,7 +131,7 @@ export default function Nav() {
         className={
           classNames({
             'hidden': !open,
-            'absolute top-14 left-0 bg-neutral-black w-full h-auto pt-4 pb-8': true
+            'fixed top-14 left-0 bg-neutral-black w-full h-auto pt-4 pb-8 z-50': true
           })
         }
         animate={{ opacity: open ? 1 : 0 }}>

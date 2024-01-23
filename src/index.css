@@ -225,7 +225,7 @@ input[type=number] {
 }
 
 .audio-player-mobile-open {
-  @apply fixed bottom-4 right-0 left-0 mx-3;
+  @apply fixed bottom-4 right-0 left-0 mx-3 z-20;
 }
 
 .player-progressbar input[type='range'] {
@@ -481,11 +481,11 @@ input[type="checkbox"]:focus {
   @apply flex items-center gap-2 px-4 py-3 text-left capitalize transition duration-300 hover:bg-neutral-silver-600;
 }
 
-.dropdown-list button:first-child {
+.dropdown-list, .custom-select-options button:first-child {
   @apply rounded-t-xl;
 }
 
-.dropdown-list button:last-child {
+.dropdown-list, .custom-select-options button:last-child {
   @apply rounded-b-xl;
 }
 
@@ -872,4 +872,16 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .icon-active path {
   @apply fill-brand-gold;
+}
+
+.custom-select-input {
+  @apply transition duration-300 border border-neutral-silver-400 bg-neutral-silver-700 rounded-xl p-4 w-full focus:outline-none focus:border-brand-gold leading-5 cursor-pointer;
+}
+
+.custom-select-options {
+  @apply absolute right-0 flex flex-col bg-black rounded-t-xl border border-neutral-silver-500 rounded-b-xl w-full transition duration-300 z-40 first:rounded-t-xl divide-y divide-neutral-700;
+}
+
+.custom-select-input-min {
+  @apply transition duration-300 bg-neutral-silver-700 py-4 pr-4 text-2xl leading-5 cursor-pointer bg-transparent focus:outline-none !w-[70px];
 }

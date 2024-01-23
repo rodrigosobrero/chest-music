@@ -8,6 +8,7 @@ import { onAuthStateChanged, getIdToken } from 'firebase/auth';
 import { api, useLazyGetBetaAccessQuery, useLazyGetAccountQuery } from 'store/api';
 import { store } from 'app/store';
 import { persistStore } from 'redux-persist';
+import { reset } from 'app/playlist';
 
 import MyChest from 'routes/my-chest';
 import Root from 'routes/root';
@@ -32,7 +33,6 @@ import Share from 'routes/share';
 import Treasure from 'routes/treasure';
 import Trash from 'routes/trash';
 import SharedPlay from 'routes/shared-play';
-import { reset } from 'app/playlist';
 
 function App() {
   const [getBetaAccess] = useLazyGetBetaAccessQuery();
@@ -174,7 +174,7 @@ function App() {
         {
           path: '/shared-link',
           element: <SharedPlay />
-        }
+        },
       ]
     }
   ]);

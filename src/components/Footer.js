@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import Select from './Select';
 
 import logo from 'assets/images/logo-gray.svg';
 
@@ -9,13 +10,23 @@ import { ReactComponent as Instagram } from 'assets/images/icon-instagram.svg';
 import { ReactComponent as LinkedIn } from 'assets/images/icon-linkedin.svg';
 
 export default function Footer() {
+  const { languages } = require('data/config.json');
+  const { i18n, t } = useTranslation();
   const date = new Date();
   const currentYear = date.getFullYear();
-  const data = require('data/config.json');
-  const { i18n, t } = useTranslation();
 
   const handleChange = event => {
     i18n.changeLanguage(event.target.value);
+  }
+
+  const options = () => {
+    let list = [];
+
+    languages.map(lang => {
+      list.push({ label: lang.icon, value: lang.code })
+    });
+
+    return list;
   }
 
   return (
@@ -47,7 +58,14 @@ export default function Footer() {
               </a>
             </div>
             <div className='flex items-center pb-10 md:pb-0 md:pl-7'>
-              <select defaultValue={i18n.language} onChange={handleChange}>
+              <Select
+                position='top'
+                options={options()}
+                value={i18n.language}
+                onChange={handleChange}
+                minify
+              />
+              {/* <select defaultValue={i18n.language} onChange={handleChange}>
                 {
                   data.language.map(
                     (option, index) => <option key={index} value={option.code}>
@@ -55,7 +73,7 @@ export default function Footer() {
                     </option>
                   )
                 }
-              </select>
+              </select> */}
             </div>
           </div>
         </div>
