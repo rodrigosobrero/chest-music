@@ -18,8 +18,6 @@ export default function Select({ options, label, value, onChange, name, register
   }
 
   useEffect(() => {
-    console.log(options.every(option => typeof option !== 'object'))
-
     if (options.every(option => typeof option !== 'object')) {
       let list = [];
 
