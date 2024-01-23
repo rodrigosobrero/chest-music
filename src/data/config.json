@@ -31,7 +31,7 @@
     { "name": "give feedback", "button": true, "type": "secondary", "private": true },
     { "name": "notifications", "link": "/notifications", "private": true}
   ],
-  "language": [
+  "languages": [
     { "code": "es", "name": "english", "icon": "🇪🇸" },
     { "code": "en", "name": "spanish", "icon": "🇺🇸", "default": true }
   ],

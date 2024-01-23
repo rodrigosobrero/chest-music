@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { isDesktop } from 'react-device-detect';
 import { motion } from 'framer-motion';
 import { useLazyGetTrackSourceQuery, useUpdateTrackPlayMutation } from 'store/api';
-import { reset } from 'app/playlist';
+import { reset, player, play } from 'app/playlist';
 
 import ProgressBar from 'components/player/ProgressBar';
 import ProgressBarMobile from 'components/player/ProgressBarMobile';
@@ -13,9 +13,11 @@ import VolumeControls from 'components/player/VolumeControls';
 import Track from 'components/player/Track';
 import TrackMobile from 'components/player/TrackMobile';
 
-import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import { ChevronDownIcon, EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
+import { closePlayer, openPlayer } from 'app/player';
 
 export default function Player() {
+  const dispatch = useDispatch();
   const { playlist, playing } = useSelector(state => state.playlist);
   const { user } = useSelector(state => state.auth);
 
@@ -42,6 +44,14 @@ export default function Player() {
     setDuration(seconds);
     progressBarRef.current.max = seconds;
   }
+
+  useEffect(() => {
+    if (open) {
+      dispatch(openPlayer());
+    } else {
+      dispatch(closePlayer());
+    }
+  }, [open]);
 
   useEffect(() => {
     reset();
@@ -98,7 +108,7 @@ export default function Player() {
       if (user) {
         updateTrackPlay({ id: trackList.id });
       } else {
-        updateTrackPlay({ 
+        updateTrackPlay({
           anonymous: true,
           id: trackList.id,
           token: playlist[0].token
@@ -153,41 +163,47 @@ export default function Player() {
             </motion.div>
           ) : <>
             {open ? (
-              <div className='audio-player-mobile-open'>
-                <div className='bg-neutral-silver-700 rounded-3xl mb-3 gap-5 flex flex-col'>
-                  <div className='px-2 pt-2'>
-                    <button type='button' className='p-2.5' onClick={toggleOpen}>
-                      <ChevronDownIcon className='h-6 w-6 text-white' />
-                    </button>
-                  </div>
-                  <TrackMobile {...{
-                    currentTrack: trackList,
-                    audioRef,
-                    setDuration,
-                    progressBarRef,
-                    open
-                  }} />
-                </div>
-                <div className='bg-neutral-silver-600 px-5 pb-5 pt-4 rounded-3xl flex flex-col gap-1.5'>
-                  <div className='flex items-center justify-center gap-1.5'>
-                    <Controls {... {
+              <>
+                <div className='audio-player-mobile-open'>
+                  <div className='bg-neutral-silver-700 rounded-3xl mb-3 gap-5 flex flex-col'>
+                    <div className='px-2 pt-2 flex flex-row justify-between'>
+                      <button type='button' className='p-2.5' onClick={toggleOpen}>
+                        <ChevronDownIcon className='h-6 w-6 text-white' />
+                      </button>
+                      <button type='button' className='p-2.5'>
+                        <EllipsisHorizontalIcon className='h-6 w-6 text-white' />
+                      </button>
+                    </div>
+                    <TrackMobile {...{
+                      currentTrack: trackList,
                       audioRef,
+                      setDuration,
                       progressBarRef,
-                      duration,
-                      setTimeProgress,
-                      setLoop,
-                      loop
+                      open
                     }} />
                   </div>
-                  <ProgressBarMobile {...{
-                    progressBarRef,
-                    audioRef,
-                    timeProgress,
-                    duration,
-                    open
-                  }} />
+                  <div className='bg-neutral-silver-600 px-5 pb-5 pt-4 rounded-3xl flex flex-col gap-1.5'>
+                    <div className='flex items-center justify-center gap-1.5'>
+                      <Controls {... {
+                        audioRef,
+                        progressBarRef,
+                        duration,
+                        setTimeProgress,
+                        setLoop,
+                        loop
+                      }} />
+                    </div>
+                    <ProgressBarMobile {...{
+                      progressBarRef,
+                      audioRef,
+                      timeProgress,
+                      duration,
+                      open
+                    }} />
+                  </div>
                 </div>
-              </div>
+                <div className='absolute top-0 left-0 w-screen h-screen bg-neutral-black'></div>
+              </>
             ) : (
               <div className='audio-player-mobile'>
                 <div className='flex flex-row' onClick={toggleOpen}>
