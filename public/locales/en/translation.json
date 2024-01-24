@@ -226,7 +226,9 @@
     "block_new_user": "Block new user"
   },
   "recently": {
-    "subtitle": "Explore the list of tracks that you have recently listened"
+    "subtitle": "Explore the list of tracks that you have recently listened",
+    "not_played": "You haven’t reproduced any project yet"
+
   },
   "permissions": {
     "subtitle": "Choose users to be your regular listeners by giving them the key to your chest",

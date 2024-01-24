@@ -27,9 +27,9 @@ const Played = () => {
             {data.length > 0 ?
                     <RecentlyList data={data}/> :
                     <div className='flex flex-col items-center gap-2'>
-                    <h4>{t('notification.nothing_here')}</h4>
+                    <h4 className='!font-archivo !normal-case'>{t('notification.nothing_here')}</h4>
                     <p className='text-lg text-neutral-silver-200 font-light mb-10'>
-                      {t('notification.not_general')}
+                      {t('recently.not_played')}
                     </p>
                     <img src={empty} alt='' width={240} height={128} className='mb-5' />
                 </div>
