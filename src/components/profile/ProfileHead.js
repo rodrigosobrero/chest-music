@@ -58,7 +58,7 @@ const ProfileHead = ({ data, token }) => {
                       {formatHours(data?.total_seconds,0)}  
                     </span>
                     <ProgressBar 
-                    progress={100 * data?.used_storage / data?.total_space} 
+                    progress={100 * data?.used_seconds / data?.total_seconds} 
                     color='orange'
                     size='full'
                     direction='right'
@@ -66,7 +66,7 @@ const ProfileHead = ({ data, token }) => {
                 </div>
                 <div className='flex items-center flex-row-reverse md:flex-row md:gap-x-4 gap-x-3'>
                     <span className='text-brand-gold font-thunder !font-normal leading-9	!text-4xl !tracking-[0.36px]'>
-                        {Math.round(100 * data?.used_storage / data?.total_space)}%
+                        {Math.round(100 * data?.used_seconds / data?.total_seconds)}%
                     </span>
                     <button className='p-2 bg-brand-gold rounded-[10px] cursor-pointer'>
                         <img src={cloud} alt='' width={28} height={28}  />
