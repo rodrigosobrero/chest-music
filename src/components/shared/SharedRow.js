@@ -11,6 +11,8 @@ const SharedRow = ({ track, isMobile }) => {
   const [hover, setHover] = useState(false);
   const [play, setPlay] = useState(false);
 
+  console.log(track)
+
   const playTrack = () => {
     dispatch(playing({
       id: track.version_id,
@@ -24,10 +26,14 @@ const SharedRow = ({ track, isMobile }) => {
   };
 
   const toggleHover = () => {
+    if(track.play_limit === track.plays) return;
+    
     setHover(prev => !prev);
   }
 
   const handleOnCoverClick = (e) => {
+    if(track.play_limit === track.plays) return;
+
     if (play) {
       return dispatch(togglePlay())
     }
@@ -42,7 +48,7 @@ const SharedRow = ({ track, isMobile }) => {
 
   return (
     <>
-      <tr className='hover:!rounded-xl hover:bg-neutral-silver-700 text-left'>
+      <tr className={`hover:!rounded-xl hover:bg-neutral-silver-700 text-left ${track.plays === track.play_limit && '!opacity-50'}`}>
         <td className='md:w-[35%] mr-3'>
           <div className='flex flex-row gap-3 md:gap-4'>
             <div
@@ -72,7 +78,7 @@ const SharedRow = ({ track, isMobile }) => {
               </span>
             </td>
             <td className='w-[10%] md:!mr-3'>{formatTime(track.length)}</td>
-            <td className='w-[10%] md:!mr-3'>{track.plays}</td>
+            <td className='w-[10%] md:!mr-3'>{track.play_limit ? `${track.plays} / ${track.play_limit}` : track?.plays}</td>
           </>
         }
       </tr>

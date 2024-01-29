@@ -14,7 +14,7 @@ export const NotificationList = ({ invites, blockUser, replyNotification, unbloc
               <NotificationRow invite={el} blockUser={blockUser} replyNotification={replyNotification} unblockUser={unblockUser} /> 
           )) :          
           <div className='flex flex-col items-center gap-2'>
-              <h4>{t('notification.nothing_here')}</h4>
+              <h4 className='!font-archivo !normal-case'>{t('notification.nothing_here')}</h4>
               <p className='text-lg text-neutral-silver-200 font-light mb-10'>
                 {t('notification.not_general')}
               </p>

@@ -199,7 +199,8 @@
     "receive_only_allowed": "Recibe notificaciones sólo de usuarios autorizados"
   },
   "recently": {
-    "subtitle": "Explora la lista de canciones que has escuchado recientemente"
+    "subtitle": "Explora la lista de canciones que has escuchado recientemente",
+    "not_played": "Aún no has reproducido ningún proyecto"
   },
   "permissions": {
     "subtitle": "Elige a quienes serán tus oyentes habituales dándoles la llave de tu cofre",

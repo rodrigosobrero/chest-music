@@ -17,6 +17,7 @@ const AccountPlan = ({ data }) => {
    setSelected(countries[i])
    setIsOpen(false)
   }
+
   const handleChange = (e) => setInput(e.target.value)
   const toggle = () => setShow(!show)
   const { t } = useTranslation()
@@ -27,6 +28,7 @@ const AccountPlan = ({ data }) => {
       setSelected()
       setInput('')
   }
+
   const upgrade = () => {
     let url = process.env.REACT_APP_SHEETY_API;
     fetch(url, {
@@ -44,10 +46,15 @@ const AccountPlan = ({ data }) => {
       closeModal();
     }));
   }
+
   useEffect(() => {
-   if(input !== '' && selected && selected.hasOwnProperty('country')) setIsAvailable(true)
+    
+   if(input !== '' && selected && selected.hasOwnProperty('country')) setIsAvailable(true);
+
    else setIsAvailable(false)
-  }, [input, selected])
+
+  }, [input, selected]);
+  
   return (
     <>
       <Modal show={show} setShow={setShow} >
@@ -68,7 +75,7 @@ const AccountPlan = ({ data }) => {
                             <span className='!text-neutral-silver-300 !font-archivo'> of </span> {formatHours(data?.total_seconds,0)}
                         </span>
                         <ProgressBar 
-                        progress={(data?.used_storage / data?.total_space) * 100} 
+                        progress={(data?.used_seconds / data?.total_seconds) * 100} 
                         color='violet'
                         size='150'
                         direction='left'
