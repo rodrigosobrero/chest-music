@@ -2,21 +2,24 @@ import React, { useMemo } from 'react'
 import SharedRow from './SharedRow';
 import useMediaQuery from 'hooks/useMediaQuery';
 import { add, playing } from 'app/playlist';
+import { useTranslation } from 'react-i18next';
 const SharedList = ({ tracks, dispatch }) => {
   const isMobile = useMediaQuery('(max-width: 1024px)');
+
+  const { t } = useTranslation()
   const titles = useMemo(() => {
     if(isMobile) return [ 'Date shared', '' ]
     else { return [
-      'title',
-      'album',
-      'version',
-      'date shared',
-      'length',
-      'plays',
+      t('tables.title'),
+      t('tables.album'),
+      t('tables.version'),
+      t('tables.date_shared'),
+      t('tables.length'),
+      t('tables.plays'),
       '',
     ]
   }
-  }, [isMobile]);
+  }, [isMobile, t]);
   return (
     <>
      <table>

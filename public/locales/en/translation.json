@@ -71,7 +71,8 @@
     "hours_other": "{{count}} hours ago",
     "days_one": "{{ count }} day ago",
     "days_other": "{{ count }} days ago",
-    "contact_us": "Contact us"
+    "contact_us": "Contact us",
+    "search_treasure": "Search a treasure..."
   },
   "signin": {
     "title": "open your chest",
@@ -332,5 +333,13 @@
   },
   "footer": {
     "rights": "All rights reserved."
+  },
+  "tables": {
+    "title": "Title",
+    "album": "Album",
+    "version": "Version",
+    "date_shared": "Date Shared",
+    "length": "Length",
+    "plays": "Plays"
   }
 }

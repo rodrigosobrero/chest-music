@@ -68,7 +68,9 @@
     "hours_other": "hace {{count}} horas",
     "days_one": "hace {{count}} día",
     "days_other": "hace {{count}} días",
-    "contact_us": "Contáctanos"
+    "contact_us": "Contáctanos",
+    "search_treasure": "Busca un tesoro..."
+
   },
   "signin": {
     "title": "abre tu cofre",
@@ -295,5 +297,13 @@
   },
   "footer": {
     "rights": "Todos los derechos reservados."
+  },
+  "tables": {
+    "title": "Titulo",
+    "album": "Album",
+    "version": "Version",
+    "date_shared": "Fecha Compartido",
+    "length": "Tamaño",
+    "plays": "Reproducciones"
   }
 }

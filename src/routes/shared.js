@@ -49,7 +49,7 @@ export default function Shared() {
                  {t('shared.subtitle')}
               </span>
               <div className='mt-4'>
-               <SearchBar className='!border-[1.5px] placeholder:text-center focus:border-brand-gold' onChange={handleChange}/>
+               <SearchBar className='!border-[1.5px] placeholder:text-center focus:border-brand-gold' onChange={handleChange} placeholder={t('global.search_treasure')}/>
               </div>
           </div>
           <div className={`${(isFetching || isLoading) && 'items-center'} flex flex-col gap-y-1 text-center`}>
