@@ -12,10 +12,12 @@ import { patchData } from 'utils/api';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserData } from 'app/auth';
 import { resetPassword } from 'utils/api';
+
 const Security = () => {
     const { t } = useTranslation() 
     const user = useSelector((state) => state.auth.user);
     const dispatch = useDispatch()
+
     const { isOpenPassword, isOpenPin, togglePassword, togglePin, handlePinChange, 
             isAvailable, pin, setIsOpenPin, setIsOpenPassword, checkPin, error, setError }= useSecurity(user?.data.pincode)
 
