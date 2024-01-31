@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatTime, timeDifference } from 'utils/helpers';
 import { playing, play as togglePlay } from 'app/playlist';
-
+import { format } from 'utils/helpers';
 import { PlayIcon, PauseIcon } from '@heroicons/react/24/solid';
 
 const SharedRow = ({ track, isMobile }) => {
@@ -77,7 +77,7 @@ const SharedRow = ({ track, isMobile }) => {
                 {timeDifference(track.date_shared ? track.date_shared : track.date_played)}
               </span>
             </td>
-            <td className='w-[10%] md:!mr-3'>{formatTime(track.length)}</td>
+            <td className='w-[10%] md:!mr-3'>{format.time(track.length)}</td>
             <td className='w-[10%] md:!mr-3'>{track.play_limit ? `${track.plays} / ${track.play_limit}` : track?.plays}</td>
           </>
         }
