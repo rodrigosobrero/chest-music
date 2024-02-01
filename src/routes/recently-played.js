@@ -11,7 +11,7 @@ const Played = () => {
   const { data, isFetching, error } = useFetch(process.env.REACT_APP_API + 'recentlyplayed/', user?.token )
   const { t } = useTranslation() 
   const items = t('profile.sections', { returnObjects: true });
-  let paths = [{ name:'Profile', link: '/profile' }, { name: items[0].title }]
+  let paths = [{ name: t('global.profile'), link: '/profile' }, { name: items[0].title }]
   return (
     <>
 

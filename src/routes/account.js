@@ -46,7 +46,7 @@ const Account = () => {
     };
   },[input, t])
   const items = t('profile.sections', { returnObjects: true });
-  let paths = [{ name:'Profile', link: '/profile' }, { name: items[2].title }]
+  let paths = [{ name: t('global.profile'), link: '/profile' }, { name: items[2].title }]
   return (
     <>
         <Modal show={show} setShow={setShow}>
@@ -68,7 +68,7 @@ const Account = () => {
                 <AccountPlan data={user?.data}/>
             </div>
             <div className='w-full flex justify-center lg:justify-start items-center'>
-                <button onClick={toggle} className='px-6 py-3  bg-neutral-silver-600 rounded-[10px] text-[#FF3636] mt-8'>Delete account</button>
+                <button onClick={toggle} className='px-6 py-3  bg-neutral-silver-600 rounded-[10px] text-[#FF3636] mt-8'>{t('account.modals.delete_account')}</button>
             </div>
         </div>
     </>
