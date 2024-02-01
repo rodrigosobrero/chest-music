@@ -12,7 +12,7 @@ const Help = () => {
   const { t, i18n } = useTranslation() 
   const { data: faqs = [] } = useGetFaqsQuery(i18n.language === 'en' ? 'english' : 'spanish', { refetchOnMountOrArgChange: true })
   const items = t('profile.sections', { returnObjects: true });
-  let paths = [{ name:'Profile', link: '/profile' }, { name: items[4].title }]
+  let paths = [{ name: t('global.profile'), link: '/profile' }, { name: items[4].title }]
 
   return (
     <>

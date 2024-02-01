@@ -23,7 +23,7 @@ const Security = () => {
 
     const items = t('profile.sections', { returnObjects: true });
 
-    let paths = [{ name:'Profile', link: '/profile' }, { name: items[3].title }]
+    let paths = [{ name: t('global.profile'), link: '/profile' }, { name: items[3].title }]
 
     const changePinCode = () => {
       const isEqual = checkPin(user?.data.pincode, 'Incorrect current pincode')

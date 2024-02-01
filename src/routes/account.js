@@ -46,7 +46,7 @@ const Account = () => {
     };
   },[input, t])
   const items = t('profile.sections', { returnObjects: true });
-  let paths = [{ name:'Profile', link: '/profile' }, { name: items[2].title }]
+  let paths = [{ name: t('global.profile'), link: '/profile' }, { name: items[2].title }]
   return (
     <>
         <Modal show={show} setShow={setShow}>
