@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { bytesToSize } from 'utils/helpers';
-// import { api } from 'utils/axios';
 import api, { upload } from 'utils/api';
 import config from 'data/config.json';
 
@@ -19,17 +18,18 @@ import Dropdown from 'components/Dropdown';
 import AutoComplete from 'components/AutoComplete';
 import AutoCompleteAlbum from 'components/AutoCompleteAlbum';
 
-import { MicrophoneIcon } from '@heroicons/react/24/outline';
-import { MusicalNoteIcon } from '@heroicons/react/24/outline';
-import { MegaphoneIcon } from '@heroicons/react/24/outline';
-import { ComputerDesktopIcon } from '@heroicons/react/24/outline';
+import { 
+  MicrophoneIcon, 
+  MusicalNoteIcon, 
+  MegaphoneIcon, 
+  ComputerDesktopIcon } from '@heroicons/react/24/outline';
 import { CheckIcon } from '@heroicons/react/20/solid';
 import { AnimatePresence, motion } from 'framer-motion';
 import { updateUserData } from 'app/auth';
 import { useGetChestQuery } from 'store/api';
 
-
 export default function Upload() {
+  const { roles } = require('data/config.json');
   const { t } = useTranslation();
   const { data } = useSelector((state) => state.auth.user);
   const { file } = useSelector((state) => state.upload);
@@ -53,11 +53,12 @@ export default function Upload() {
   const [defaultCover, setDefaultCover] = useState('');
   const [loading, setLoading] = useState(false);
   const [loadingImage, setLoadingImage] = useState(false);
+  const [filteredRoles, setFilteredRoles] = useState();
   const [track, setTrack] = useState({
     name: '',
     version: '',
     album: '',
-    userRole: '',
+    userRole: 'artist',
     cover: '',
     fileId: ''
   });
@@ -73,13 +74,17 @@ export default function Upload() {
   track.version = watch('version');
 
   useEffect(() => {
+    if (roles) setFilteredRoles(roles.filter(role => role !== 'listener'));
+  }, [roles]);
+
+  useEffect(() => {
     handleUpload();
   }, []);
 
   useEffect(() => {
-    if (chest?.covers) {
+    if (chest && chest.covers) {
       setDefaultCover(chest.covers.find(cover => cover.default));
-      
+
       let filtered = chest.covers.filter(cover => !cover.default);
 
       filtered.map(cover => {
@@ -90,11 +95,13 @@ export default function Upload() {
     }
   }, [chest]);
 
+  const handleOnChangeRole = (event) => {
+    setTrack({...track, userRole: event.target.value});
+  }
+
   const handleUpload = async () => {
     const formData = new FormData();
-
     const blob = await fetch(file.blob).then(r => r.blob()).catch(e => navigate('/my-chest'));
-
     const getFile = new File([blob], file.filename);
 
     formData.append('files', getFile, file.filename);
@@ -153,7 +160,7 @@ export default function Upload() {
     const data = {
       'name': track.name,
       'album': album,
-      'cover': track.cover ? track.cover : defaultCover.id,
+      'cover': track.cover ?? defaultCover.id,
       'version': {
         'name': track.version,
         'audio': track.fileId
@@ -304,10 +311,11 @@ export default function Upload() {
               placeholder={t('global.write_here')}
               helper={t('upload.leave_empty')} />
             <Select
-              options={chest?.roles?.filter(role => role !== 'listener')}
-              label={t('upload.your_role')}
+              options={filteredRoles}
               name='role'
-              register={register} />
+              label={t('upload.your_role')}
+              value={track.userRole}
+              onChange={handleOnChangeRole} />
           </form>
         </div>
         <div className='flex flex-col items-center justify-center md:px-[72px] order-1 md:order-2 p-5 md:p-0 gap-4 md:gap-0'>

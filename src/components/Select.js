@@ -3,7 +3,17 @@ import { classNames, firstLetterUpperCase } from 'utils/helpers';
 import { ChevronDownIcon, CheckIcon } from '@heroicons/react/20/solid';
 import { AnimatePresence, motion } from 'framer-motion';
 
-export default function Select({ options, label, value, onChange, name, register, required, disabled, position = 'bottom', minify }) {
+export default function Select({ 
+  disabled, 
+  label, 
+  minify,
+  name, 
+  onChange, 
+  options, 
+  position = 'bottom', 
+  register, 
+  required, 
+  value }) {
   const inputRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [formattedOptions, setFormattedOptions] = useState([]);
@@ -98,7 +108,7 @@ export default function Select({ options, label, value, onChange, name, register
             </AnimatePresence>
           </div>
         ) : (
-          <div className='rounded-xl h-[54px] w-[100px] animate-pulse bg-neutral-silver-600'></div>
+          <div className='rounded-xl h-[54px] w-full lg:w-[100px] animate-pulse bg-neutral-silver-600'></div>
         )}
       </div>
     </>
