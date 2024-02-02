@@ -22,8 +22,8 @@ export default function UserSelector({ roles, users, selected, editable }) {
     setUserList(list);
   }
 
-  const addUser = (user, role, id, isEmail) => {
-    const newUser = { full_name: user, role: role, id: id, editable: true, isEmail: isEmail};
+  const addUser = (user, role, id, isEmail, editable) => {
+    const newUser = { full_name: user, role: role, id: id, editable: editable, isEmail: isEmail};
     const list = [...userList, newUser];
 
     setUserList(list);
@@ -41,7 +41,7 @@ export default function UserSelector({ roles, users, selected, editable }) {
       <AutoComplete
         options={roles}
         handleAdd={addUser}
-        filter={'fan'} />
+        />
       <div className='flex flex-col gap-4'>
         {userList.map((user, index) =>
           <div key={index}>
