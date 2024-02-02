@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCreateParticipantMutation, useCreateInviteMutation } from 'store/api';
-import config from 'data/config.json';
+
 import { BaseModal } from 'components/BaseModal';
 import UserSelector from 'components/treasure/UserSelector';
 import Button from 'components/Button';
+
 export default function AddParticipantModal(props) {
+  const { roles } = require('data/config.json');
   const { t } = useTranslation();
   const [participant, setParticipant] = useState('');
   const [createParticipant, { isLoading }] = useCreateParticipantMutation();
@@ -20,11 +22,10 @@ export default function AddParticipantModal(props) {
     setParticipant('');
   }
 
-
-
   const handleSave = async () => {
     let result;
-    if(participant.isEmail) {
+
+    if (participant.isEmail) {
       result = await createInvite({
         'project': props.meta.project.id,
         'role': participant.role,
@@ -37,7 +38,7 @@ export default function AddParticipantModal(props) {
         'role': participant.role
       });
     }
-    
+
     if ('error' in result) {
       console.log('Error');
     } else {
@@ -49,7 +50,7 @@ export default function AddParticipantModal(props) {
   return (
     <BaseModal title='add participant' show={props.isOpen} onClose={handleClose}>
       <UserSelector
-        roles={config.roles}
+        roles={roles}
         users={props.meta.project.participants}
         selected={setParticipant} />
       <div className='grid grid-cols-2 gap-4 mt-8'>

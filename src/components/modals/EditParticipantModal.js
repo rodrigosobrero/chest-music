@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useUpdateParticipantMutation } from 'store/api';
-// import config from 'data/config.json';
 
 import { BaseModal } from 'components/BaseModal';
 import Select from 'components/Select';
