@@ -5,14 +5,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AnimatePresence, motion } from 'framer-motion';
 import { addFile } from 'app/upload';
 import { upload } from 'utils/api';
-import config from 'data/config.json';
-import InputFile from 'components/InputFile';
-import ProgressCircle from 'components/ProgressCircle';
 import { bytesToSize } from 'utils/helpers';
 import { useModal } from 'hooks/useModal';
+
+import InputFile from 'components/InputFile';
+import ProgressCircle from 'components/ProgressCircle';
+
 import { CheckIcon } from '@heroicons/react/20/solid';
 
 export default function Uploader({ title = true, self, id }) {
+  const { accepted_files } = require('data/config.json');
   const { t } = useTranslation();
   const { file } = useSelector((state) => state.upload);
   const { user } = useSelector((state) => state.auth);
@@ -42,7 +44,7 @@ export default function Uploader({ title = true, self, id }) {
 
       console.log('file type:', type);
 
-      if (type === 'audio/mpeg' || type === 'audio/wav') {
+      if (type === 'audio/mpeg' || type === 'audio/wav' || type === 'audio/x-wav') {
         const localFileURL = window.URL.createObjectURL(files[0])
 
         if (self) {
@@ -132,7 +134,7 @@ export default function Uploader({ title = true, self, id }) {
             <p className='block md:hidden text-base'>{t('mychest.uploader.description_mobile')}</p>
             <div className='lg:w-1/4'>
               <InputFile
-                accept={config.accepted_files}
+                accept={accepted_files}
                 text={t('global.upload')}
                 onChange={handleFile} />
             </div>
