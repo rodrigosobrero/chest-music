@@ -48,7 +48,7 @@ export default function Select({
     <>
       <div className='flex flex-col gap-1.5'>
         {label && <label>{label}</label>}
-        {formattedOptions.length > 0 ? (
+        {options && formattedOptions.length > 0 ? (
           <div className='relative'>
             <input
               type='text'
@@ -57,7 +57,7 @@ export default function Select({
                 'custom-select-input': !minify,
                 'custom-select-input-min': minify
               })}
-              value={formattedOptions.find(option => option.value === value).label}
+              value={formattedOptions.find(option => option.value === value)?.label}
               ref={inputRef}
               onChange={onChange}
               onFocus={() => setOpen(true)}
