@@ -16,7 +16,7 @@ export default function Select({
   value }) {
   const inputRef = useRef(null);
   const [open, setOpen] = useState(false);
-  const [formattedOptions, setFormattedOptions] = useState([]);
+  const [formattedOptions, setFormattedOptions] = useState(undefined);
 
   const handleSelect = (selectedValue) => {
     onChange({ target: { name, value: selectedValue } });
@@ -48,7 +48,7 @@ export default function Select({
     <>
       <div className='flex flex-col gap-1.5'>
         {label && <label>{label}</label>}
-        {options && formattedOptions.length > 0 ? (
+        {formattedOptions ? (
           <div className='relative'>
             <input
               type='text'
