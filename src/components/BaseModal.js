@@ -4,7 +4,7 @@ import { classNames } from 'utils/helpers';
 
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
-export const BaseModal = memo(({ title, description, footer, onClose, children, show, closeOnTap }) => {
+export const BaseModal = memo(({ title, description, footer, onClose, children, show, closeOnTap, customClass = '' }) => {
   const root = document.getElementById('root');
 
   if (!root) throw new Error('Root not found. Cannot render modal.');
@@ -31,7 +31,7 @@ export const BaseModal = memo(({ title, description, footer, onClose, children, 
       <div className='modal-container'>
         <div className='modal-wrapper'>
           <div
-            className='modal-panel'
+            className={`modal-panel ${customClass}`}
             onClick={handleInsideClick}>
             <div className='flex md:hidden md:invisible justify-end mb-2'>
               <button type='button' className='p-1.5' onClick={onClose}>
@@ -50,5 +50,4 @@ export const BaseModal = memo(({ title, description, footer, onClose, children, 
     </div>,
     root
   )
-
 });

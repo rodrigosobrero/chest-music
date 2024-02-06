@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Navigate, redirect, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useModal } from 'hooks/useModal';
-import { useGetProjectQuery } from 'store/api';
+import { useGetProjectQuery, useGetChestQuery } from 'store/api';
 import { classNames } from 'utils/helpers';
 import { isDesktop, isMobile } from 'react-device-detect';
 
@@ -19,19 +19,23 @@ import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { TrashIcon } from '@heroicons/react/24/outline';
 
 import { ReactComponent as Empty } from 'assets/images/empty-chest.svg';
+import TrackCoverPreview from 'components/TrackCoverPreview';
 
 export default function Treasure() {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { id } = useParams();
 
+  const { data: chest = {}, isLoading: isLoadingChest } = useGetChestQuery();
   const { data: project = {}, isLoading, error } = useGetProjectQuery(id, {
     refetchOnMountOrArgChange: true
   });
+
   const { onOpen: openEditModal } = useModal('EditTrackModal');
   const { onOpen: openUploadModal } = useModal('UploadVersionModal');
   const { onOpen: openAddParticipantModal } = useModal('AddParticipantModal');
   const { onOpen: openShareLinkModal } = useModal('ShareLinkModal');
+  const { onOpen: openCoverSelector } = useModal('CoverSelectorModal');
 
   const permissionsOptions = [
     'participants',
@@ -41,6 +45,8 @@ export default function Treasure() {
 
   const [breadcrumb, setBreadcrums] = useState([]);
   const [permissionsView, setPermissionsView] = useState(permissionsOptions[0]);
+  const [defaultCover, setDefaultCover] = useState('');
+  const [covers, setCovers] = useState([]);
 
   const TabButton = ({ title }) => {
     return (
@@ -110,6 +116,14 @@ export default function Treasure() {
     openUploadModal(meta);
   }
 
+  const handleEditCover = () => {
+    openCoverSelector({
+      project,
+      user,
+      covers
+    });
+  }
+
   const renderView = () => {
     let data, headers;
 
@@ -166,6 +180,20 @@ export default function Treasure() {
       </>
     );
   };
+
+  useEffect(() => {
+    if (chest && chest.covers) {
+      setDefaultCover(chest.covers.find(cover => cover.default));
+
+      let filtered = chest.covers.filter(cover => !cover.default);
+
+      filtered.map(cover => {
+        filtered.push(cover);
+      });
+
+      setCovers(filtered);
+    }
+  }, [chest]);
 
   useEffect(() => {
     setBreadcrums([
@@ -225,7 +253,11 @@ export default function Treasure() {
         </div>
         <div className='flex flex-col lg:flex-row lg:items-center justify-center gap-4 lg:gap-12'>
           <div className='w-[100px] h-[100px] lg:w-[220px] lg:h-[220px]'>
-            <img src={project.cover_url} alt='' width={220} height={220} className='rounded-lg h-full w-full' />
+            <TrackCoverPreview
+              cover={project.cover_url}
+              defaultCover={defaultCover}
+              onClick={handleEditCover}
+            />
           </div>
           <div className='grow mb-3'>
             <div className='uppercase text-neutral-silver-200 mb-4 lg:mb-6'>{project.album} ― {project.plays ? project.plays : 0} plays</div>
