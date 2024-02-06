@@ -31,9 +31,9 @@ import { useGetChestQuery } from 'store/api';
 export default function Upload() {
   const { roles } = require('data/config.json');
   const { t } = useTranslation();
+  const { user } = useSelector((state) => state.auth);
   const { data } = useSelector((state) => state.auth.user);
   const { file } = useSelector((state) => state.upload);
-  const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch()
   const navigate = useNavigate();
 
@@ -341,10 +341,12 @@ export default function Upload() {
         </div>
         <div className='w-full flex flex-col gap-4 md:gap-6 order-3'>
           <div className='flex flex-col items-center justify-center bg-neutral-silver-700 rounded-2xl p-8 grow'>
-            <TrackCoverPreview 
-              cover={cover} 
-              defaultCover={defaultCover}
-              onClick={() => { setOpen(true) }} />
+            <div className='w-[140px] md:w-[200px] h-[140px] md:h-[200px]'>
+              <TrackCoverPreview 
+                cover={cover} 
+                defaultCover={defaultCover}
+                onClick={() => { setOpen(true) }} />
+            </div>
             <h4 className={`mt-8 ${track.name ? 'text-white' : 'text-neutral-silver-200'}`}>
               {track.name ? track.name : 'track name'}
             </h4>
