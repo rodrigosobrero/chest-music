@@ -245,6 +245,7 @@
     "artist_username": "Username",
     "upgrade": "Upgrade storage",
     "delete_validation_text": "delete my chest",
+    "plan_description": "Free and limited version of Chest within the BETA stage.",
     "modals": {
       "delete_account": "Delete Account",
       "delete_subtitle": "We are sad to see you go. Are you sure you want to delete your account? You cannot undo this operation.",
