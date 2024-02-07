@@ -217,6 +217,8 @@
     "artist_name": "Nombre de artista",
     "artist_username": "Nombre de usuario",
     "upgrade": "Aumentar almacenamiento",
+    "delete_validation_text": "borrar mi cofre",
+    "plan_description": "Version gratuita y limitada de Chest dentro de la etapa BETA.",
     "modals": {
       "delete_account": "Eliminar cuenta",
       "delete_subtitle": "Nos entristece que te vayas. ¿Estás seguro de que quieres eliminar tu cuenta? Esta operación no se puede deshacer.",
