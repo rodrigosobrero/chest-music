@@ -55,6 +55,13 @@ export const api = createApi({
       }),
       invalidatesTags: ['Account']
     }),
+    getUpdateAccount: builder.mutation({
+      query: () => ({
+        url: 'account/convert/',
+        method: 'GET'
+      }),
+      invalidatesTags: ['Account']
+    }),
     getChest: builder.query({
       query: () => 'mychest/',
       providesTags: ['Chest']
@@ -278,6 +285,7 @@ export const api = createApi({
 export const { 
   useGetChestQuery,
   useGetAccountQuery,
+  useGetUpdateAccountMutation,
   useLazyGetAccountQuery,
   useCreateAccountMutation,
   useGetProjectQuery,
@@ -311,7 +319,7 @@ export const {
   useGetTermsQuery,
   useLazyGetBetaAccessQuery,
   useUpdateTrackPlayMutation,
-  useLazyGetSharedTrackQuery
+  useLazyGetSharedTrackQuery,
 } = api;
 
 export { api as apiSlice}
