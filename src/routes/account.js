@@ -38,7 +38,7 @@ const Account = () => {
     // delete_validation_text: 'delete my chest',
     let validation_text = t('account.delete_validation_text')
     console.log(validation_text)
-    if(input === validation_text) {
+    if(input.toLowerCase() === validation_text.toLowerCase()) {
       setIsAvailable(true) 
     }
     else{
