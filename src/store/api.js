@@ -70,6 +70,14 @@ export const api = createApi({
       query: (id) => `project/${id}/`,
       providesTags: ['Project']
     }),
+    createProject: builder.mutation({
+      query: (body) => ({
+        url: 'project/',
+        method: 'POST',
+        body
+      }),
+      invalidatesTags: ['Chest', 'Account']
+    }),
     updateProject: builder.mutation({
       query: ({ id, data }) => ({
         url: `project/${id}/`,
@@ -289,6 +297,7 @@ export const {
   useLazyGetAccountQuery,
   useCreateAccountMutation,
   useGetProjectQuery,
+  useCreateProjectMutation,
   useUpdateProjectMutation,
   useDeleteProjectMutation,
   useCreateVersionMutation,

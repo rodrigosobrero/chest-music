@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { bytesToSize } from 'utils/helpers';
-import api, { upload } from 'utils/api';
+import { upload } from 'utils/api';
 
 import Modal from 'components/Modal';
 import Input from 'components/Input';
@@ -25,8 +25,7 @@ import {
 } from '@heroicons/react/24/outline';
 import { CheckIcon } from '@heroicons/react/20/solid';
 import { AnimatePresence, motion } from 'framer-motion';
-import { updateUserData } from 'app/auth';
-import { useGetChestQuery } from 'store/api';
+import { useCreateProjectMutation, useGetChestQuery } from 'store/api';
 
 export default function Upload() {
   const { roles } = require('data/config.json');
@@ -34,10 +33,10 @@ export default function Upload() {
   const { user } = useSelector((state) => state.auth);
   const { data } = useSelector((state) => state.auth.user);
   const { file } = useSelector((state) => state.upload);
-  const dispatch = useDispatch()
   const navigate = useNavigate();
 
   const { data: chest = {}, isLoading } = useGetChestQuery();
+  const [createProject, { isLoading: isLoadingProject }] = useCreateProjectMutation();
 
   const [step, setStep] = useState(0);
   const [open, setOpen] = useState(false);
@@ -51,7 +50,6 @@ export default function Upload() {
   const [cover, setCover] = useState('');
   const [covers, setCovers] = useState([]);
   const [defaultCover, setDefaultCover] = useState('');
-  const [loading, setLoading] = useState(false);
   const [loadingImage, setLoadingImage] = useState(false);
   const [filteredRoles, setFilteredRoles] = useState();
   const [track, setTrack] = useState({
@@ -150,39 +148,27 @@ export default function Upload() {
     setOpen(false);
   }
 
-  const createProject = async () => {
-    setLoading(true);
-
+  const handleCreateProject = async () => {
     const formatParticipants = participants.map((participant) => {
       return { role: participant.role, user: participant.id }
-    })
+    });
 
-    const data = {
+    const result = await createProject({
       'name': track.name,
       'album': album,
-      'cover': track.cover ?? defaultCover.id,
+      'cover': track.cover ? track.cover : defaultCover.id,
       'version': {
         'name': track.version,
         'audio': track.fileId
       },
       'participants': formatParticipants
+    });
+
+    if ('error' in result) {
+      console.log('Error');
+    } else {
+      navigate('/my-chest')
     }
-
-    try {
-      await api.post('project/', data, {
-        headers: { Authorization: `Bearer ${user?.token}` }
-      });
-
-      const response = await api.get(process.env.REACT_APP_API + '/account/', { headers: { Authorization: `Bearer ${user?.token}` } })
-
-      dispatch(updateUserData(response.data))
-
-      navigate('/my-chest');
-    } catch (error) {
-      console.log(error);
-    }
-
-    setLoading(false);
   }
 
   const nextStep = () => {
@@ -406,9 +392,9 @@ export default function Upload() {
           <Button
             text={t('global.confirm')}
             style='primary'
-            onClick={createProject}
-            loading={loading}
-            disabled={loading} />
+            onClick={handleCreateProject}
+            loading={isLoadingProject}
+            disabled={isLoadingProject} />
         </div>
       </>
     )
