@@ -6,7 +6,6 @@ import { useGetNewNotificationsQuery } from 'store/api';
 import { useTranslation } from 'react-i18next';
 import { useModal } from 'hooks/useModal';
 import { classNames } from 'utils/helpers';
-// import navData from 'data/config.json';
 
 import Tag from 'components/Tag';
 import Button from 'components/Button';
@@ -23,8 +22,8 @@ export default function Nav() {
   const location = useLocation();
   const navigate = useNavigate();
   const { onOpen: openFeedbackModal } = useModal('FeedbackModal');
+  const { onOpen: openConvertAccountModal } = useModal('ConvertAccountModal');
   const [open, setOpen] = useState(false);
-  // const [data, setData] = useState([]);
   const [navLinks, setNavLinks] = useState([]);
   const [isLogged, setIsLogged] = useState(false);
   const excludedPaths = ['/sign-in', '/sign-up', '/setup'];
@@ -43,22 +42,6 @@ export default function Nav() {
     </div>
   )
 
-  // useEffect(() => {
-  //   if (user?.token) {
-  //     const filteredData = navData.nav.filter(item => {
-  //       const isPrivate = item.private;
-  //       const isMyChest = item.name === 'my chest' && user?.data.type === 'fan';
-  //       return isPrivate && !isMyChest;
-  //     });
-
-  //     setData(filteredData);
-  //     setIsLogged(true);
-  //     return;
-  //   }
-  //   setData(navData.nav.filter(item => !item.private))
-  // }, [user]);
-
-  // new
   useEffect(() => {
     if (user && user.token && user.data) {
       const filter = nav
@@ -76,6 +59,11 @@ export default function Nav() {
     setOpen(prev => !prev);
   }
 
+  const actions = {
+    openFeedbackModal,
+    openConvertAccountModal
+  }
+
   return (
     <>
       <nav className='main z-10 fixed w-full'>
@@ -89,14 +77,13 @@ export default function Nav() {
           <div className='hidden lg:block'>
             <ul>
               {location.pathname !== '/setup' &&
-                // data.map((item) =>
                 navLinks.map((item) =>
                   <li key={item.name}>
                     {item.button ? (
                       <Button
                         style={item.type}
-                        text={t('global.' + item.name)}
-                        onClick={() => { item.link ? navigate(item.link) : openFeedbackModal() }} />
+                        text={t('global.' + item.name).toLowerCase()}
+                        onClick={() => { item.link ? navigate(item.link) : actions[item.action]() }} />
                     ) : (
                       <NavLink to={item.link.language ? item.link.language[i18n.language] : item.link}>
                         {item.name === 'notifications'
@@ -156,17 +143,23 @@ export default function Nav() {
         animate={{ opacity: open ? 1 : 0 }}>
         <ul>
           {
-            // data.map((item, index) =>
             navLinks.map((item) =>
               <li
                 key={item.name}
-                className={`${item.button && '!text-brand-gold font-semibold'} px-6 py-3 text-neutral-silver-300 text-[28px] font-normal hover:text-white`}>
-                {item.link ?
+                className={classNames({
+                  'px-6 py-3 text-[28px] font-normal hover:text-white': true,
+                  'text-neutral-silver-300': !item.button,
+                  'text-brand-gold font-semibold': item.button
+                })}>
+                {item.button ? (
+                  <Button
+                    text={t('global.' + item.name).toLowerCase()}
+                    onClick={() => { item.link ? navigate(item.link) : actions[item.action](); setOpen(false); }} />
+                ) : (
                   <NavLink to={item.link} onClick={() => { setOpen(false) }}>
                     {item.name}
-                  </NavLink> :
-                  <button onClick={() => { openFeedbackModal(); setOpen(false) }}>{item.name}</button>
-                }
+                  </NavLink>
+                )}
               </li>
             )
           }

@@ -28,8 +28,8 @@
       }
     },
     { "name": "open chest", "link": "/sign-in", "button": true, "type": "primary" },
-    { "name": "become an artist", "button": true, "type": "secondary", "link": "/profile/account", "private": true, "role": "fan" },
-    { "name": "give feedback", "button": true, "type": "secondary", "private": true },
+    { "name": "become an artist", "button": true, "type": "secondary", "private": true, "role": "fan", "action": "openConvertAccountModal" },
+    { "name": "give feedback", "button": true, "type": "secondary", "private": true, "action": "openFeedbackModal" },
     { "name": "notifications", "link": "/notifications", "private": true }
   ],
   "languages": [
