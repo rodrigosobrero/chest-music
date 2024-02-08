@@ -106,14 +106,16 @@ const AccountPlan = ({ data }) => {
                 <span> / {t('global.month')}</span>
               </div>
             </div>
-            <div className='mt-2'>
-              <button 
-                type='button' 
-                className='text-brand-gold text-lg font-semibold py-1.2'
-                onClick={openConverAccountModal}>
-                {t('global.become an artist')}
-              </button>
-            </div>
+            {data?.type === 'fan' && (
+              <div className='mt-2'>
+                <button
+                  type='button'
+                  className='text-brand-gold text-lg font-semibold py-1.2'
+                  onClick={openConverAccountModal}>
+                  {t('global.become an artist')}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
