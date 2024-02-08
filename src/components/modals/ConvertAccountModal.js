@@ -18,6 +18,7 @@ export default function ErrorModal(props) {
       console.log('Error');
     } else {
       handleClose();
+      window.location.reload();
     }
   }
 
