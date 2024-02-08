@@ -28,7 +28,7 @@ export default function Select({
   }
 
   useEffect(() => {
-    if (options.every(option => typeof option !== 'object')) {
+    if (options && options.every(option => typeof option !== 'object')) {
       let list = [];
 
       options.map(option => {
