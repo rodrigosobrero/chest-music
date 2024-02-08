@@ -98,7 +98,7 @@ const AccountPlan = ({ data }) => {
               <div className='md:w-3/5 '>
                 <h5 className='mb-1 !text-xl !capitalize !font-archivo'>{data?.type}</h5>
                 <span className='text-neutral-silver-300 !text-sm'>
-                  Free and limited version of Chest within the BETA stage.
+                  {t('account.plan_description')}
                 </span>
               </div>
               <div className='flex items-center space-x-2'>

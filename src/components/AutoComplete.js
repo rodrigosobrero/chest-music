@@ -20,6 +20,7 @@ export default function AutoComplete({ options, handleAdd, filter }) {
     const regex = /^\S+@\S+\.\S+$/;
     return regex.test(email);
   }
+
   const handleOnChange = (event) => {
     const lowerCase = event.target.value.toLowerCase();
     setIsEmail(checkEmail(lowerCase))
@@ -27,16 +28,20 @@ export default function AutoComplete({ options, handleAdd, filter }) {
   }
 
   const handleOnClick = (value) => {
+    if(value.type === 'fan') {
+      setSelectedRole(options[2])
+    }
     setSearchValue(value.full_name);
+    
     setSearchResult([]);
     setSelectedUser(isEmail ? { full_name: value, id: value } : value);
   }
 
   const handleSend = () => {
     if(isEmail) {
-      handleAdd(searchValue, selectedRole, searchValue, isEmail)
+      handleAdd(searchValue, selectedRole, searchValue, isEmail, true)
     } else {
-      handleAdd(selectedUser?.full_name, selectedRole, selectedUser?.id, isEmail); 
+      handleAdd(selectedUser?.full_name, selectedRole, selectedUser?.id, isEmail, selectedUser.type !== 'fan' ); 
     }
     setSearchValue(''); 
     setSelectedUser('');
@@ -96,7 +101,9 @@ export default function AutoComplete({ options, handleAdd, filter }) {
                 placeholder='Write user or email...' />
               <select
                 className='custom-select absolute top-0 right-0 !w-auto !pr-12 !text-right !border-0 !bg-transparent'
-                onChange={(e) => { setSelectedRole(e.target.value) }}>
+                onChange={(e) => { setSelectedRole(e.target.value) }}
+                value={selectedRole}
+                disabled={selectedUser.type === 'fan'}>
                 {options.map((option) =>
                   <option value={option} key={option}>{firstLetterUpperCase(option)}</option>)
                 }
