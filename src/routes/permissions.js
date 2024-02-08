@@ -33,11 +33,11 @@ const Permissions = () => {
     .then((response) => {console.log(response.data); handleToggle()})
     .catch((err) => console.log(err))
     console.log(data)
-    console.log('id')
+    
   }
 
   const items = t('profile.sections', { returnObjects: true });
-  let paths = [{ name:'Profile', link: '/profile' }, { name: items[1].title }]
+  let paths = [{ name: t('global.profile'), link: '/profile' }, { name: items[1].title }]
   return (
     <>
       <div className='pt-4 pb-10 container md:pt-10 md:px-[120px] md:pb-[60px]'>

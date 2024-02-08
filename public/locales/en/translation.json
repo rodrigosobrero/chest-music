@@ -17,6 +17,10 @@
     "the team": "the team",
     "contact us": "contact us",
     "open chest": "Sign up to BETA",
+    "become an artist": "Become an artist",
+    "become": {
+      "description": "Are you sure you want to become an artist? This action can’t be undone."
+    },
     "remove": "Remove",
     "back": "Go back",
     "profile": "profile",
@@ -70,7 +74,8 @@
     "hours_other": "{{count}} hours ago",
     "days_one": "{{ count }} day ago",
     "days_other": "{{ count }} days ago",
-    "contact_us": "Contact us"
+    "contact_us": "Contact us",
+    "search_treasure": "Search a treasure..."
   },
   "signin": {
     "title": "open your chest",
@@ -225,7 +230,9 @@
     "block_new_user": "Block new user"
   },
   "recently": {
-    "subtitle": "Explore the list of tracks that you have recently listened"
+    "subtitle": "Explore the list of tracks that you have recently listened",
+    "not_played": "You haven’t reproduced any project yet"
+
   },
   "permissions": {
     "subtitle": "Choose users to be your regular listeners by giving them the key to your chest",
@@ -241,6 +248,7 @@
     "artist_username": "Username",
     "upgrade": "Upgrade storage",
     "delete_validation_text": "delete my chest",
+    "plan_description": "Free and limited version of Chest within the BETA stage.",
     "modals": {
       "delete_account": "Delete Account",
       "delete_subtitle": "We are sad to see you go. Are you sure you want to delete your account? You cannot undo this operation.",
@@ -329,5 +337,13 @@
   },
   "footer": {
     "rights": "All rights reserved."
+  },
+  "tables": {
+    "title": "Title",
+    "album": "Album",
+    "version": "Version",
+    "date_shared": "Date Shared",
+    "length": "Length",
+    "plays": "Plays"
   }
 }

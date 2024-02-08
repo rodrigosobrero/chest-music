@@ -2,11 +2,9 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { bytesToSize } from 'utils/helpers';
-// import { api } from 'utils/axios';
-import api, { upload } from 'utils/api';
-import config from 'data/config.json';
+import { upload } from 'utils/api';
 
 import Modal from 'components/Modal';
 import Input from 'components/Input';
@@ -19,25 +17,26 @@ import Dropdown from 'components/Dropdown';
 import AutoComplete from 'components/AutoComplete';
 import AutoCompleteAlbum from 'components/AutoCompleteAlbum';
 
-import { MicrophoneIcon } from '@heroicons/react/24/outline';
-import { MusicalNoteIcon } from '@heroicons/react/24/outline';
-import { MegaphoneIcon } from '@heroicons/react/24/outline';
-import { ComputerDesktopIcon } from '@heroicons/react/24/outline';
+import {
+  MicrophoneIcon,
+  MusicalNoteIcon,
+  MegaphoneIcon,
+  ComputerDesktopIcon
+} from '@heroicons/react/24/outline';
 import { CheckIcon } from '@heroicons/react/20/solid';
 import { AnimatePresence, motion } from 'framer-motion';
-import { updateUserData } from 'app/auth';
-import { useGetChestQuery } from 'store/api';
-
+import { useCreateProjectMutation, useGetChestQuery } from 'store/api';
 
 export default function Upload() {
+  const { roles } = require('data/config.json');
   const { t } = useTranslation();
+  const { user } = useSelector((state) => state.auth);
   const { data } = useSelector((state) => state.auth.user);
   const { file } = useSelector((state) => state.upload);
-  const user = useSelector((state) => state.auth.user);
-  const dispatch = useDispatch()
   const navigate = useNavigate();
 
   const { data: chest = {}, isLoading } = useGetChestQuery();
+  const [createProject, { isLoading: isLoadingProject }] = useCreateProjectMutation();
 
   const [step, setStep] = useState(0);
   const [open, setOpen] = useState(false);
@@ -51,13 +50,13 @@ export default function Upload() {
   const [cover, setCover] = useState('');
   const [covers, setCovers] = useState([]);
   const [defaultCover, setDefaultCover] = useState('');
-  const [loading, setLoading] = useState(false);
   const [loadingImage, setLoadingImage] = useState(false);
+  const [filteredRoles, setFilteredRoles] = useState();
   const [track, setTrack] = useState({
     name: '',
     version: '',
     album: '',
-    userRole: '',
+    userRole: 'artist',
     cover: '',
     fileId: ''
   });
@@ -73,13 +72,17 @@ export default function Upload() {
   track.version = watch('version');
 
   useEffect(() => {
+    if (roles) setFilteredRoles(roles.filter(role => role !== 'listener'));
+  }, [roles]);
+
+  useEffect(() => {
     handleUpload();
   }, []);
 
   useEffect(() => {
-    if (chest?.covers) {
+    if (chest && chest.covers) {
       setDefaultCover(chest.covers.find(cover => cover.default));
-      
+
       let filtered = chest.covers.filter(cover => !cover.default);
 
       filtered.map(cover => {
@@ -90,11 +93,13 @@ export default function Upload() {
     }
   }, [chest]);
 
+  const handleOnChangeRole = (event) => {
+    setTrack({ ...track, userRole: event.target.value });
+  }
+
   const handleUpload = async () => {
     const formData = new FormData();
-
     const blob = await fetch(file.blob).then(r => r.blob()).catch(e => navigate('/my-chest'));
-
     const getFile = new File([blob], file.filename);
 
     formData.append('files', getFile, file.filename);
@@ -143,14 +148,12 @@ export default function Upload() {
     setOpen(false);
   }
 
-  const createProject = async () => {
-    setLoading(true);
-
+  const handleCreateProject = async () => {
     const formatParticipants = participants.map((participant) => {
       return { role: participant.role, user: participant.id }
-    })
+    });
 
-    const data = {
+    const result = await createProject({
       'name': track.name,
       'album': album,
       'cover': track.cover ? track.cover : defaultCover.id,
@@ -159,30 +162,20 @@ export default function Upload() {
         'audio': track.fileId
       },
       'participants': formatParticipants
+    });
+
+    if ('error' in result) {
+      console.log('Error');
+    } else {
+      navigate('/my-chest')
     }
-
-    try {
-      await api.post('project/', data, {
-        headers: { Authorization: `Bearer ${user?.token}` }
-      });
-      
-      const response = await api.get(process.env.REACT_APP_API + '/account/', {  headers: { Authorization: `Bearer ${user?.token}` } })
-
-      dispatch(updateUserData(response.data))
-
-      navigate('/my-chest');
-    } catch (error) {
-      console.log(error);
-    }
-
-    setLoading(false);
   }
 
-  const nextStep = (formData) => {
+  const nextStep = () => {
     addOrUpdateParticipant({
       id: data.user_id,
       user: data.full_name,
-      role: formData.role,
+      role: track.userRole,
     });
 
     setStep(1);
@@ -262,7 +255,7 @@ export default function Upload() {
         <div className='flex flex-row w-full items-center justify-center'>
           <div className='grow flex items-center'><span className='!mb-0 text-ellipsis !text-white'>{user}</span></div>
           <Dropdown
-            list={config.roles}
+            list={roles}
             remove={() => removeParticipant(user)}
             selected={role}
             set={(role) => { updateParticipant(user, role) }} />
@@ -304,10 +297,11 @@ export default function Upload() {
               placeholder={t('global.write_here')}
               helper={t('upload.leave_empty')} />
             <Select
-              options={chest?.roles?.filter(role => role !== 'listener')}
-              label={t('upload.your_role')}
+              options={filteredRoles}
               name='role'
-              register={register} />
+              label={t('upload.your_role')}
+              value={track.userRole}
+              onChange={handleOnChangeRole} />
           </form>
         </div>
         <div className='flex flex-col items-center justify-center md:px-[72px] order-1 md:order-2 p-5 md:p-0 gap-4 md:gap-0'>
@@ -316,27 +310,29 @@ export default function Upload() {
             <AnimatePresence>
               {progress.loaded > 0 && progress.loaded === progress.total
                 ? <motion.div
-                    className='flex items-center justify-center gap-1.5 text-brand-gold'
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}>
-                    Uploaded <CheckIcon className='h-4 w-4 text-brand-gold' />
-                  </motion.div>
+                  className='flex items-center justify-center gap-1.5 text-brand-gold'
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}>
+                  Uploaded <CheckIcon className='h-4 w-4 text-brand-gold' />
+                </motion.div>
                 : <motion.span
-                    className='font-archivo text-center'
-                    exit={{ opacity: 0 }}>
-                    {bytesToSize(progress.loaded)} {t('global.of')} {bytesToSize(progress.total, 1)}
-                  </motion.span>}
+                  className='font-archivo text-center'
+                  exit={{ opacity: 0 }}>
+                  {bytesToSize(progress.loaded)} {t('global.of')} {bytesToSize(progress.total, 1)}
+                </motion.span>}
             </AnimatePresence>
             <span className='font-archivo text-neutral-silver-300 text-sm text-center'>{file.filename}</span>
           </div>
         </div>
         <div className='w-full flex flex-col gap-4 md:gap-6 order-3'>
           <div className='flex flex-col items-center justify-center bg-neutral-silver-700 rounded-2xl p-8 grow'>
-            <TrackCoverPreview 
-              cover={cover} 
-              defaultCover={defaultCover}
-              onClick={() => { setOpen(true) }} />
+            <div className='w-[140px] md:w-[200px] h-[140px] md:h-[200px]'>
+              <TrackCoverPreview
+                cover={cover}
+                defaultCover={defaultCover}
+                onClick={() => { setOpen(true) }} />
+            </div>
             <h4 className={`mt-8 ${track.name ? 'text-white' : 'text-neutral-silver-200'}`}>
               {track.name ? track.name : 'track name'}
             </h4>
@@ -380,7 +376,7 @@ export default function Upload() {
           <div className='bg-neutral-silver-700 rounded-2xl w-full px-4 pt-6 pb-10 md:p-8'>
             <div className='font-semibold mb-1.5'>{t('upload.participant')}</div>
             <AutoComplete
-              options={config.roles}
+              options={roles}
               handleAdd={addParticipant} />
             <div className='flex flex-col gap-4'>
               {participants.map((user, index) =>
@@ -396,9 +392,9 @@ export default function Upload() {
           <Button
             text={t('global.confirm')}
             style='primary'
-            onClick={createProject}
-            loading={loading}
-            disabled={loading} />
+            onClick={handleCreateProject}
+            loading={isLoadingProject}
+            disabled={isLoadingProject} />
         </div>
       </>
     )
@@ -427,14 +423,14 @@ export default function Upload() {
             covers={covers.concat(covers).sort()} />
         </div>
         <div className='grid grid-cols-2 gap-4'>
-          <Button 
-            text={t('global.cancel')} 
-            style='tertiary' 
+          <Button
+            text={t('global.cancel')}
+            style='tertiary'
             onClick={() => { setOpen(false) }} />
-          <Button 
-            text={t('global.save')} 
-            style='primary' 
-            onClick={saveCover} 
+          <Button
+            text={t('global.save')}
+            style='primary'
+            onClick={saveCover}
             disabled={loadingImage}
             loading={loadingImage} />
         </div>

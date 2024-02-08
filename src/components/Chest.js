@@ -15,7 +15,7 @@ export default function Chest() {
     data: chest = {},
     isLoading,
     isFetching,
-  } = useGetChestQuery('', { refetchOnMountOrArgChange: true });
+  } = useGetChestQuery({}, { refetchOnMountOrArgChange: true });
 
   const filteredProjects = useMemo(() => {
     return filter(chest.projects || [], query);
@@ -56,8 +56,8 @@ export default function Chest() {
           {
             filteredProjects.length > 0 ?
               <TrackList tracks={filteredProjects} /> :
-              <div className='flex flex-col items-center gap-2'>
-                <h4>Your chest is empty</h4>
+              <div className='flex flex-col items-center gap-2 pt-7 -pl-1 pb-2'>
+                <h4 className='!font-archivo font-semibold text-[22px] md:text-[28px] !normal-case'>Your chest is empty</h4>
                 <p className='text-lg text-neutral-silver-200 font-light mb-10'>
                   Start uploading your treasures through the upper section
                 </p>

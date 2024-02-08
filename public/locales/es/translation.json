@@ -17,6 +17,10 @@
     "the team": "el equipo",
     "contact us": "contactanos",
     "open chest": "Registrarse a la BETA",
+    "become an artist": "Convertirme en artista",
+    "become": {
+      "description": "Estás seguro que querés convertirte en artista? Esta acción no se puede deshacer."
+    },
     "remove": "Quitar",
     "back": "Volver",
     "profile": "perfil",
@@ -67,7 +71,9 @@
     "hours_other": "hace {{count}} horas",
     "days_one": "hace {{count}} día",
     "days_other": "hace {{count}} días",
-    "contact_us": "Contáctanos"
+    "contact_us": "Contáctanos",
+    "search_treasure": "Busca un tesoro..."
+
   },
   "signin": {
     "title": "abre tu cofre",
@@ -154,7 +160,7 @@
     "participant": "Participante"
   },
   "profile": {
-    "logout": "Log out",
+    "logout": "Cerrar sesión",
     "sections": [
       {
         "title": "Escuchado recientemente",
@@ -198,7 +204,8 @@
     "receive_only_allowed": "Recibe notificaciones sólo de usuarios autorizados"
   },
   "recently": {
-    "subtitle": "Explora la lista de canciones que has escuchado recientemente"
+    "subtitle": "Explora la lista de canciones que has escuchado recientemente",
+    "not_played": "Aún no has reproducido ningún proyecto"
   },
   "permissions": {
     "subtitle": "Elige a quienes serán tus oyentes habituales dándoles la llave de tu cofre",
@@ -213,6 +220,8 @@
     "artist_name": "Nombre de artista",
     "artist_username": "Nombre de usuario",
     "upgrade": "Aumentar almacenamiento",
+    "delete_validation_text": "borrar mi cofre",
+    "plan_description": "Version gratuita y limitada de Chest dentro de la etapa BETA.",
     "modals": {
       "delete_account": "Eliminar cuenta",
       "delete_subtitle": "Nos entristece que te vayas. ¿Estás seguro de que quieres eliminar tu cuenta? Esta operación no se puede deshacer.",
@@ -293,5 +302,13 @@
   },
   "footer": {
     "rights": "Todos los derechos reservados."
+  },
+  "tables": {
+    "title": "Titulo",
+    "album": "Album",
+    "version": "Version",
+    "date_shared": "Fecha Compartido",
+    "length": "Tamaño",
+    "plays": "Reproducciones"
   }
 }

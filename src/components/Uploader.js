@@ -1,26 +1,27 @@
-import { addFile } from 'app/upload';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, redirect } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { upload } from 'utils/api';
-import config from 'data/config.json';
-import InputFile from 'components/InputFile';
-import Modal from 'components/Modal';
-import Button from 'components/Button';
-import ProgressCircle from './ProgressCircle';
 import { AnimatePresence, motion } from 'framer-motion';
+import { addFile } from 'app/upload';
+import { upload } from 'utils/api';
 import { bytesToSize } from 'utils/helpers';
+import { useModal } from 'hooks/useModal';
+
+import InputFile from 'components/InputFile';
+import ProgressCircle from 'components/ProgressCircle';
+
 import { CheckIcon } from '@heroicons/react/20/solid';
 
 export default function Uploader({ title = true, self, id }) {
+  const { accepted_files } = require('data/config.json');
   const { t } = useTranslation();
   const { file } = useSelector((state) => state.upload);
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [show, setShow] = useState(false);
+  const { onOpen: openWrongFormatModal } = useModal('WrongFormatModal');
   const [showLoader, setShowLoader] = useState(false);
   const [progress, setProgress] = useState({
     loaded: 0,
@@ -41,7 +42,9 @@ export default function Uploader({ title = true, self, id }) {
     if (files && files.length) {
       const { type } = files[0];
 
-      if (type === 'audio/mpeg' || type === 'audio/wav') {
+      console.log('file type:', type);
+
+      if (type === 'audio/mpeg' || type === 'audio/wav' || type === 'audio/x-wav') {
         const localFileURL = window.URL.createObjectURL(files[0])
 
         if (self) {
@@ -58,7 +61,7 @@ export default function Uploader({ title = true, self, id }) {
 
         setShowLoader(true);
       } else {
-        setShow(true);
+        openWrongFormatModal();
       }
     }
   }
@@ -131,26 +134,13 @@ export default function Uploader({ title = true, self, id }) {
             <p className='block md:hidden text-base'>{t('mychest.uploader.description_mobile')}</p>
             <div className='lg:w-1/4'>
               <InputFile
-                accept={config.accepted_files}
+                accept={accepted_files}
                 text={t('global.upload')}
                 onChange={handleFile} />
             </div>
           </div>
         }
       </div>
-      <Modal show={show}>
-        <div className='flex flex-col items-center text-center max-w-[440px]'>
-          <h4 className='mb-3 !text-5xl'>wrong format</h4>
-          <p className='text-neutral-silver-200 text-lg mb-8'>
-            The file you uploaded isn’t .wav or .mp3, please try again with the correct file format.
-          </p>
-        </div>
-        <div className='flex justify-center'>
-          <div className='w-1/3'>
-            <Button text='Close' style='tertiary' onClick={() => { setShow(false) }} />
-          </div>
-        </div>
-      </Modal>
     </>
   )
 }

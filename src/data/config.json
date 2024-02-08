@@ -1,6 +1,6 @@
 {
   "nav": [
-    { "name": "my chest", "link": "/my-chest", "private": true },
+    { "name": "my chest", "link": "/my-chest", "private": true, "role": "artist" },
     { "name": "shared", "link": "/shared", "private": true },
     { "name": "profile", "link": "/profile", "private": true },
     { "name": "the project", 
@@ -28,11 +28,12 @@
       }
     },
     { "name": "open chest", "link": "/sign-in", "button": true, "type": "primary" },
-    { "name": "give feedback", "button": true, "type": "secondary", "private": true },
-    { "name": "notifications", "link": "/notifications", "private": true}
+    { "name": "become an artist", "button": true, "type": "secondary", "private": true, "role": "fan", "action": "openConvertAccountModal" },
+    { "name": "give feedback", "button": true, "type": "secondary", "private": true, "action": "openFeedbackModal" },
+    { "name": "notifications", "link": "/notifications", "private": true }
   ],
-  "language": [
-    { "code": "es", "name": "english", "icon": "🇪🇸" },
+  "languages": [
+    { "code": "es", "name": "english", "icon": "🇦🇷" },
     { "code": "en", "name": "spanish", "icon": "🇺🇸", "default": true }
   ],
   "accepted_files": ".mp3,.wav",

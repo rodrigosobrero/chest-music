@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useUpdateParticipantMutation } from 'store/api';
-import config from 'data/config.json';
 
 import { BaseModal } from 'components/BaseModal';
 import Select from 'components/Select';
 import Button from 'components/Button';
 
 export default function EditParticipantModal(props) {
+  const { roles } = require('data/config.json');
   const { t } = useTranslation();
   const [role, setRole] = useState(props.meta.role);
 
@@ -40,7 +40,7 @@ export default function EditParticipantModal(props) {
         {props.meta.full_name} <span className=' text-neutral-silver-300'>@{props.meta.username}</span>
       </p>
       <Select
-        options={config.roles}
+        options={roles}
         name='role'
         label='Role'
         value={role}

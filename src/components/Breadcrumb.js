@@ -9,7 +9,7 @@ export default function Breadcrumb({ items, className = '', minify }) {
       <nav className={`breadcrumb ${className} md:flex hidden`}>
         <ul>
           {items.map((item, index) =>
-            <li key={index} onClick={() => { navigate(item.link) }}>
+            <li key={index} onClick={() => { navigate(item.link) }} className='capitalize'>
               {item.name}
             </li>)
           }

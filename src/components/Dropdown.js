@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { classNames, firstLetterUpperCase } from 'utils/helpers';
 
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
-import { ChevronUpIcon } from '@heroicons/react/20/solid';
-import { CheckIcon } from '@heroicons/react/20/solid';
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  CheckIcon
+} from '@heroicons/react/20/solid';
 
 export default function Dropdown({ list, selected, set, remove, disabled }) {
   const { t } = useTranslation();
@@ -18,6 +20,10 @@ export default function Dropdown({ list, selected, set, remove, disabled }) {
   const handleClick = (item) => {
     set(item);
     toggleList();
+  }
+
+  if (!list) {
+    return <div className='rounded-xl h-[54px] w-full lg:w-[100px] animate-pulse bg-neutral-silver-600'></div>
   }
 
   return (

@@ -42,14 +42,14 @@ export default function Shared() {
     <>     
        <div className='flex flex-col md:container px-3 py-10 md:p-[60px] gap-y-6 md:gap-y-10 text-center font-archivo '>
           <div className='flex flex-col items-center gap-y-2 px-3 md:px-0 '>
-              <h3 className="text-[64px] leading-[44px] md:leading-[58px]">
+              <h3 className="text-[64px] leading-[58px]">
                  {t('shared.title')}
               </h3>
               <span className='text-neutral-silver-200 text-base text-center leading-[22px] md:text-lg'>
                  {t('shared.subtitle')}
               </span>
               <div className='mt-4'>
-               <SearchBar className='!border-[1.5px] placeholder:text-center focus:border-brand-gold' onChange={handleChange}/>
+               <SearchBar className='!border-[1.5px] placeholder:text-center focus:border-brand-gold' onChange={handleChange} placeholder={t('global.search_treasure')}/>
               </div>
           </div>
           <div className={`${(isFetching || isLoading) && 'items-center'} flex flex-col gap-y-1 text-center`}>

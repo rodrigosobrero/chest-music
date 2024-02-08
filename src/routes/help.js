@@ -12,7 +12,7 @@ const Help = () => {
   const { t, i18n } = useTranslation() 
   const { data: faqs = [] } = useGetFaqsQuery(i18n.language === 'en' ? 'english' : 'spanish', { refetchOnMountOrArgChange: true })
   const items = t('profile.sections', { returnObjects: true });
-  let paths = [{ name:'Profile', link: '/profile' }, { name: items[4].title }]
+  let paths = [{ name: t('global.profile'), link: '/profile' }, { name: items[4].title }]
 
   return (
     <>
@@ -29,7 +29,7 @@ const Help = () => {
           <div className='px-4 py-4 pb-6 md:p-8 bg-neutral-black rounded-3xl flex flex-col gap-y-4'>
               <div className='flex justify-between'>
                 <h4 className='!font-archivo !normal-case text-[28px]'>FAQs</h4>
-                <SearchBar onChange={() => console.log('console')}/>
+                <SearchBar onChange={() => console.log('console')} placeholder={t('global.placeholder.search')}/>
               </div>
               <div className='gap-y-4 flex flex-col '>
                 {faqs?.map((el, i) => (

@@ -7,6 +7,7 @@ import storage from 'redux-persist/lib/storage';
 import playlistReducer from 'app/playlist';
 import authReducer from 'app/auth';
 import fileReducer from 'app/upload';
+import playerReducer from 'app/player';
 import { modalReducer } from './modals';
 
 const reducers = combineReducers({
@@ -14,6 +15,7 @@ const reducers = combineReducers({
   auth: authReducer,
   upload: fileReducer,
   modal: modalReducer,
+  player: playerReducer,
   [api.reducerPath]: api.reducer
 })
 
