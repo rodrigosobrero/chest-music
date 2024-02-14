@@ -112,10 +112,10 @@ const SendDM = ({ token , versionId, onCancel }) => {
                 <TagInput handleChange={handleChange} selectOption={selectOption} selectedsOptions={selecteds} filteredUsers={filteredUsers} input={input} removeOption={removeOption}/>
             </div>
             <div className='lg:w-4/5 w-full'>
-                <Input label={'Message'} placeholder={t('share.message_example')} onChange={handleMessageChange} value={message}/>
+                <Input label={t('share.message')} placeholder={t('share.message_example')} onChange={handleMessageChange} value={message}/>
             </div>
         </div>
-        <ButtonsContainer primaryButton={'Send'} 
+        <ButtonsContainer primaryButton={t('global.send')} 
                           onClick={sendToUsers} 
                           disabled={!(input === '' || !isToggled) || selecteds.length < 1 || message === ''} 
                           onCancel={onCancel}/>
