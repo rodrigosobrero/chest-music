@@ -11,8 +11,6 @@ const SharedRow = ({ track, isMobile }) => {
   const [hover, setHover] = useState(false);
   const [play, setPlay] = useState(false);
 
-  console.log(track)
-
   const playTrack = () => {
     dispatch(playing({
       id: track.version_id,

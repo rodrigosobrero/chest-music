@@ -329,6 +329,12 @@
     ]
   },
   "share": {
+    "title": "Share your treasure",
+    "generate_link": "Generate link",
+    "post": "Post",
+    "send": "Send",
+    "users": "Users",
+    "send_users": "Send to users",
     "play_limit": "Play limit",
     "unlimited": "Unlimited",
     "allow_web_play": "Allow web play",

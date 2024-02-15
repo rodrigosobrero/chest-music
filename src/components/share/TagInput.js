@@ -7,7 +7,7 @@ const TagInput = ({ selectedsOptions, handleChange, filteredUsers, selectOption,
   return (
     <>
     <div className="relative w-full ">
-      <label>Users*</label>
+      <label>{t('share.users')}*</label>
       <div className="flex flex-wrap gap-2 p-3 mt-1.5 rounded-xl border border-neutral-silver-400">
         {selectedsOptions.map((el, index) => (
           <Tag title={el.username} key={index} deleteTag={() => removeOption(el.id)}/>
