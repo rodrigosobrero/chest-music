@@ -25,6 +25,8 @@ const SharedPlay = () => {
       .then(({ data }) => {
         setTrack(data);
 
+        console.log('data', data)
+
         if (data.active) {
           dispatch(playing({
             id: data.version_name,
