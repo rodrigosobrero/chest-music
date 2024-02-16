@@ -26,7 +26,7 @@ const SharedPlay = () => {
         setTrack(data);
 
         if (data.active) {
-          if ((data.play_limit - data.plays) > 0) {
+          if (!data.play_limit || (data.play_limit - data.plays) > 0) {
             dispatch(playing({
               id: data.version_name,
               album: data.album,
