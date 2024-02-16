@@ -4,6 +4,7 @@ import { useSearchParams, Link } from 'react-router-dom'
 import { playing } from 'app/playlist';
 import { useLazyGetSharedTrackQuery } from 'store/api';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useModal } from 'hooks/useModal';
 
 import rectangle from 'assets/images/icon-rectangle.png'
 import cover_track from 'assets/images/cover-track.png'
@@ -12,6 +13,7 @@ const SharedPlay = () => {
   const dispatch = useDispatch();
   const [searchParams] = useSearchParams();
   const [track, setTrack] = useState({});
+  const { onOpen: openLimitModal } = useModal('PlayLimitModal');
   const [getSharedTrack, { isLoading, isFetching }] = useLazyGetSharedTrackQuery();
 
   useEffect(() => {
@@ -23,17 +25,25 @@ const SharedPlay = () => {
       .then(({ data }) => {
         setTrack(data);
 
-        dispatch(playing({
-          id: data.version_name,
-          album: data.album,
-          cover: data.cover_url,
-          name: data.title,
-          authors: data.authors,
-          type: 'project',
-          audio: data.audio_url,
-          isPlaying: false,
-          token
-        }));
+        if (data.active) {
+          if ((data.play_limit - data.plays) > 0) {
+            dispatch(playing({
+              id: data.version_name,
+              album: data.album,
+              cover: data.cover_url,
+              name: data.title,
+              authors: data.authors,
+              type: 'project',
+              audio: data.audio_url,
+              isPlaying: false,
+              token
+            }));
+          } else {
+            openLimitModal();
+          }
+        } else {
+          window.location.replace('https://chestmusic.com');  
+        }
       }).catch(() => {
         window.location.replace('https://chestmusic.com');
       });
@@ -105,9 +115,13 @@ const SharedPlay = () => {
       </div>
       <div className='p-3 h-full bg-neutral-black lg:hidden'>
         <div className='w-full h-[510px] bg-neutral-silver-700 rounded-3xl py-2'>
-          <div className='mb-5 py-2'>
-            <p className='capitalize !text-lg font-semibold'>
-              {track?.album}
+          <div className='mb-5 py-2 pt-4'>
+            <p className='font-semibold'>
+              {track && track.play_limit && (
+                <>
+                  <span className='text-brand-gold'>{track.play_limit - track.plays}</span> of {track.play_limit} plays remaining
+                </>
+              )}
             </p>
           </div>
           <div className='flex justify-center'>
@@ -123,6 +137,25 @@ const SharedPlay = () => {
           </div>
         </div>
       </div>
+      {track.play_limit - track.plays > 0 && (
+        <div className='hidden md:block fixed bottom-[102px] right-0 left-0 inset-x-0 max-w-max mx-auto'>
+          <AnimatePresence>
+            <motion.div
+              transition={{ delay: 1, type: 'just' }}
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              className='px-6 py-3 bg-neutral-silver-600 rounded-t-xl'>
+              {track && track.play_limit ? (
+                <>
+                  <span className='text-brand-gold'>{track.play_limit - track.plays}</span> of {track.play_limit} plays remaining
+                </>
+              ) : (
+                <div className='bg-neutral-silver-500 h-7 w-[176px] rounded animate-pulse'></div>
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      )}
     </>
   )
 }
