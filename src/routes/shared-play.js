@@ -26,23 +26,19 @@ const SharedPlay = () => {
         setTrack(data);
 
         if (data.active) {
-          if (!data.play_limit || (data.play_limit - data.plays) > 0) {
-            dispatch(playing({
-              id: data.version_name,
-              album: data.album,
-              cover: data.cover_url,
-              name: data.title,
-              authors: data.authors,
-              type: 'project',
-              audio: data.audio_url,
-              isPlaying: false,
-              token
-            }));
-          } else {
-            openLimitModal();
-          }
+          dispatch(playing({
+            id: data.version_name,
+            album: data.album,
+            cover: data.cover_url,
+            name: data.title,
+            authors: data.authors,
+            type: 'project',
+            audio: data.audio_url,
+            isPlaying: false,
+            token
+          }));
         } else {
-          window.location.replace('https://chestmusic.com');  
+          openLimitModal();
         }
       }).catch(() => {
         window.location.replace('https://chestmusic.com');
