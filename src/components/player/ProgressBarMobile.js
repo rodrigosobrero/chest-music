@@ -2,6 +2,9 @@ import { classNames, format } from 'utils/helpers';
 
 export default function ProgressBar({ timeProgress, duration, progressBarRef, audioRef, open }) {
   const handleProgressChange = () => {
+    console.log('audioRef', audioRef.current.currentTime)
+    console.log('progressBarRef', progressBarRef.current.value)
+
     audioRef.current.currentTime = progressBarRef.current.value;
   }
 

@@ -104,7 +104,7 @@ export default function Player() {
   }, [trackList]);
 
   useEffect(() => {
-    if (trackList) {
+    if (trackList && playlist[0].isPlaying) {
       if (user) {
         updateTrackPlay({ id: trackList.id });
       } else {
