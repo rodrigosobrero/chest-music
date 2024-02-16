@@ -161,10 +161,26 @@ export default function Player() {
                 audioRef
               }} />
             </motion.div>
-          ) : <>
-            {open ? (
-              <>
-                <div className='audio-player-mobile-open'>
+          ) : 
+           <>
+              <div className={`${open ? 'audio-player-mobile-open' : 'audio-player-mobile'}`}>
+              {!open ?               
+               <div className='flex flex-row' onClick={toggleOpen}>
+                  <TrackMobile {...{
+                    currentTrack: trackList,
+                    audioRef,
+                    setDuration,
+                    progressBarRef
+                  }} />
+                  <ControlsMobile {... {
+                    audioRef,
+                    progressBarRef,
+                    duration,
+                    setTimeProgress,
+                    setLoop,
+                    loop
+                  }} />
+                </div> :
                   <div className='bg-neutral-silver-700 rounded-3xl mb-3 gap-5 flex flex-col'>
                     <div className='px-2 pt-2 flex flex-row justify-between'>
                       <button type='button' className='p-2.5' onClick={toggleOpen}>
@@ -181,17 +197,18 @@ export default function Player() {
                       progressBarRef,
                       open
                     }} />
-                  </div>
-                  <div className='bg-neutral-silver-600 px-5 pb-5 pt-4 rounded-3xl flex flex-col gap-1.5'>
-                    <div className='flex items-center justify-center gap-1.5'>
-                      <Controls {... {
+                  </div>}
+                  <div  className={`${open && 'bg-neutral-silver-600 px-5 pb-5 pt-4 rounded-3xl flex flex-col gap-1.5'}`}>
+                    <div className={`${open && 'flex items-center justify-center gap-1.5'}`}>
+                      {open &&
+                        <Controls {... {
                         audioRef,
                         progressBarRef,
                         duration,
                         setTimeProgress,
                         setLoop,
                         loop
-                      }} />
+                      }} />}
                     </div>
                     <ProgressBarMobile {...{
                       progressBarRef,
@@ -202,35 +219,8 @@ export default function Player() {
                     }} />
                   </div>
                 </div>
-                <div className='absolute top-0 left-0 w-screen h-screen bg-neutral-black'></div>
+               {open && <div className='absolute top-0 left-0 w-screen h-screen bg-neutral-black'></div>}
               </>
-            ) : (
-              <div className='audio-player-mobile'>
-                <div className='flex flex-row' onClick={toggleOpen}>
-                  <TrackMobile {...{
-                    currentTrack: trackList,
-                    audioRef,
-                    setDuration,
-                    progressBarRef
-                  }} />
-                  <ControlsMobile {... {
-                    audioRef,
-                    progressBarRef,
-                    duration,
-                    setTimeProgress,
-                    setLoop,
-                    loop
-                  }} />
-                </div>
-                <ProgressBarMobile {...{
-                  progressBarRef,
-                  audioRef,
-                  timeProgress,
-                  duration
-                }} />
-              </div>
-            )}
-          </>
           }
         </>
       )}
