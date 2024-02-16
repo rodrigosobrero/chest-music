@@ -104,18 +104,22 @@ export default function Player() {
   }, [trackList]);
 
   useEffect(() => {
+    // console.log(lastPlayed);
+    console.log(trackList);
+    console.log(playlist[0]);
+
     if (trackList && playlist[0].isPlaying) {
-      if (user) {
-        updateTrackPlay({ id: trackList.id });
-      } else {
+      if (playlist[0].token) {
         updateTrackPlay({
           anonymous: true,
           id: trackList.id,
           token: playlist[0].token
         });
+      } else {
+        updateTrackPlay({ id: trackList.id });
       }
     }
-  }, [lastPlayed])
+  }, [lastPlayed, playlist]);
 
   return (
     <>
