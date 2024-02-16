@@ -890,6 +890,10 @@ input[type="search"]::-webkit-search-results-decoration {
   @apply transition duration-300 bg-neutral-silver-700 py-4 pr-4 text-2xl leading-5 cursor-pointer bg-transparent focus:outline-none !w-[70px];
 }
 
+.custom-select-input-child {
+  @apply transition duration-300 bg-neutral-silver-700 py-4 pr-4 cursor-pointer bg-transparent focus:outline-none !w-[120px];
+}
+
 /* menu */
 
 #nav-icon1, #nav-icon2, #nav-icon3, #nav-icon4 {
