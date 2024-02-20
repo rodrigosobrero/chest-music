@@ -26,15 +26,17 @@ export default function ControlsMobile({
   const repeat = useCallback(() => {
     if (audioRef.current) {
       const currentTime = audioRef.current.currentTime;
-
+      const duration = audioRef.current.duration;
+  
       setTimeProgress(currentTime);
   
       progressBarRef.current.value = currentTime;
+
       progressBarRef.current.style.setProperty(
         '--range-progress',
-        `${(progressBarRef.current.value / audioRef.current.duration) * 100}%`
+        `${(currentTime / duration) * 100}%`
       );
-  
+      
       playAnimationRef.current = requestAnimationFrame(repeat);
     }
   }, [audioRef, duration, progressBarRef, setTimeProgress]);
