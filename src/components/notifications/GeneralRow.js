@@ -17,7 +17,7 @@ const GeneralRow = ({ notification }) => {
   const dispatch = useDispatch()
 
   const playTrack = () => {
-    if(notification.type === 'version_shared'){
+    if(notification.type === 'version_shared' && notification.version_id){
         api.get(`/project/version/${notification.version_id}/url`,{
             headers: { Authorization: `Bearer ${user?.token}` },
         })
