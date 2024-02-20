@@ -90,7 +90,7 @@ const SendDM = ({ token , versionId, onCancel }) => {
         <div className='share-container'>
             <div className='hidden md:flex md:flex-row flex-col items-start md:items-center md:w-4/5 gap-5'>
                 <div className='w-full md:w-3/4'>
-                <Input label='Play limit' 
+                <Input label={t('share.play_limit')}
                        required={true} 
                        placeholder={t('global.placeholder.only_numbers')} 
                        type='number' 
