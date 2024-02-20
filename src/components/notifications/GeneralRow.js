@@ -64,7 +64,7 @@ const GeneralRow = ({ notification }) => {
                     <NotificationIcon  
                         type={notification.type} 
                         iconStyle={`md:h-7 md:w-7 h-5 w-5`} 
-                        isPlaying={playlist[0]?.isPlaying}
+                        isPlaying={play && playlist[0]?.isPlaying}
                         containerStyle={'bg-neutral-black rounded-lg flex justify-center items-center p-2.5 md:p-3'}
                         />
                     <div>
