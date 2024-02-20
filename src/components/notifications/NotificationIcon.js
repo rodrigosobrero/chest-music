@@ -9,13 +9,12 @@ const NotificationIcon = ({ type, iconStyle, containerStyle, isPlaying }) => {
     invite_accepted: LinkIcon,
     invite_denied: XMarkIcon,
     track_uploaded: CheckCircleIcon,
-    version_shared: MusicalNoteIcon,
-    player: {
+    version_shared: {
       play: PlayIcon,
       pause: PauseIcon
     }
   };
-  const IconComponent = type === 'player' ? notificationIcons.player[isPlaying ? 'pause' : 'play'] : notificationIcons[type] || MusicalNoteIcon;
+  const IconComponent = type === 'version_shared' ? notificationIcons[type][isPlaying ? 'pause' : 'play'] : notificationIcons[type] || MusicalNoteIcon;
   return (
     <>
        <div className={containerStyle}>

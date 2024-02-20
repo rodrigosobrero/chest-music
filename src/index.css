@@ -122,6 +122,12 @@ input[type=number] {
   @apply h-full;
 }
 
+.icon path{
+  @apply transition-colors fill-white;
+}
+.icon:hover path {
+  @apply fill-brand-gold
+}
 .social {
   @apply bg-neutral-silver-700 rounded-xl p-3 focus:bg-neutral-black;
 }

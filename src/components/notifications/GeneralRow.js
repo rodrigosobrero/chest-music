@@ -11,7 +11,7 @@ const GeneralRow = ({ notification }) => {
   const user = useSelector((state) => state.auth.user);
   const { playlist } = useSelector((state) => state.playlist);
   const [play, setPlay] = useState(false);
-
+  const [isActive, setIsActive] = useState(false);
   const { i18n } = useTranslation()
   
   const dispatch = useDispatch()
@@ -51,14 +51,22 @@ const GeneralRow = ({ notification }) => {
     }
   }, [playlist, notification.type]);
 
+  useEffect(() => {
+    if(notification.type === 'version_shared' && notification.version_id){
+      setIsActive(true);
+    };
+  })
+
   return (
         <>
-           <div className={`row md:!pr-5 flex  justify-between ${toggle && 'over'} `} onMouseEnter={handleChange} onMouseLeave={handleChange} onClick={handleOnCoverClick}>
+           <div className={`row md:!pr-5 flex  justify-between hover:bg-neutral-black icon ${isActive && 'cursor-pointer'}`} onClick={handleOnCoverClick}>
                 <div className='flex space-x-4 items-center'>
-                    <NotificationIcon  type={notification.type === 'version_shared' && play ? 'player' : notification.type} 
-                    iconStyle={`md:h-7 md:w-7 h-5 w-5 ${toggle ? 'text-brand-gold' : 'text-white'}`} 
-                    isPlaying={playlist[0]?.isPlaying}
-                    containerStyle={'bg-neutral-black rounded-lg flex justify-center items-center p-2.5 md:p-3'}/>
+                    <NotificationIcon  
+                        type={notification.type} 
+                        iconStyle={`md:h-7 md:w-7 h-5 w-5`} 
+                        isPlaying={play && playlist[0]?.isPlaying}
+                        containerStyle={'bg-neutral-black rounded-lg flex justify-center items-center p-2.5 md:p-3'}
+                        />
                     <div>
                         <div className='md:text-xl text-base'>{notification.content[i18n.language === 'en' ? 'en' : 'es'].title}</div>
                         <div className='md:text-base text-sm text-neutral-silver-200'>

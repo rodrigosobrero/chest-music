@@ -20,7 +20,7 @@ export default function Player() {
   const dispatch = useDispatch();
   const { playlist, playing } = useSelector(state => state.playlist);
   const { user } = useSelector(state => state.auth);
-
+  const [isCounted, setIsCounted] = useState(false);
   const [getTrackSource, getResult] = useLazyGetTrackSourceQuery();
   const [updateTrackPlay, updateResult] = useUpdateTrackPlayMutation();
 
@@ -66,6 +66,8 @@ export default function Player() {
         if (track.id === currentTrack.id) return;
       }
 
+      setIsCounted(false)
+      
       if (currentTrack.audio) {
         setTrackList({
           url: currentTrack.audio,
@@ -104,22 +106,31 @@ export default function Player() {
   }, [trackList]);
 
   useEffect(() => {
-    // console.log(lastPlayed);
-    console.log(trackList);
-    console.log(playlist[0]);
+    // console.log('tracklist', trackList)
+    // console.log('lastPlayed', lastPlayed)
+    // console.log('new', playlist[0]?.id)
+    if (trackList && playlist[0]?.isPlaying) {
+      if(lastPlayed !== playlist[0].id) {
+          // console.log('entre al play', trackList.id)
+          updateTrackPlay({ id: trackList.id });
+      }
+    }
+  }, [lastPlayed, playlist?.id, trackList]);
 
-    if (trackList && playlist[0].isPlaying) {
-      if (playlist[0].token) {
+  useEffect(() => {
+    if (trackList && playlist[0]?.isPlaying) {
+      if (playlist[0].token && !isCounted) {
+        // console.log('entre al play anonimo', trackList.id)
         updateTrackPlay({
           anonymous: true,
           id: trackList.id,
           token: playlist[0].token
         });
-      } else {
-        updateTrackPlay({ id: trackList.id });
-      }
+        setIsCounted(true)
+      } 
     }
-  }, [lastPlayed, playlist]);
+  }, [trackList, playlist[0]?.isPlaying, trackList])
+
 
   return (
     <>
