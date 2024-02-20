@@ -252,7 +252,7 @@ input[type=number] {
 }
 
 .player-progressbar input[type='range']::-webkit-slider-thumb {
-  @apply bg-brand-gold w-1.5 h-1.5 rounded-full appearance-none transition-transform duration-300;
+  @apply bg-brand-gold w-1.5 h-1.5 rounded-full appearance-none transition-transform duration-150;
 }
 
 .player-progressbar input[type='range']:active::-webkit-slider-thumb,
