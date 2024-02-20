@@ -304,17 +304,17 @@
     ]
   },
   "share": {
-    "title": "Share your treasure",
-    "generate_link": "Generate link",
-    "post": "Post",
+    "title": "Compartí tu tesoro",
+    "generate_link": "Generar link",
+    "post": "Postear",
     "send": "Enviar",
     "users": "Usuarios",
-    "send_users": "Send to users",
-    "play_limit": "Play limit",
+    "send_users": "Enviar a usuario",
+    "play_limit": "Limite de reproducción",
     "unlimited": "Ilimitado",
-    "allow_web_play": "Allow web play",
+    "allow_web_play": "Permitir reproducción web",
     "message": "Mensaje",
-    "message_example": "Por ejemplo: “Check out my new track”"
+    "message_example": "Por ejemplo: ”chequea mi nuevo tema”"  
   },
   "footer": {
     "rights": "Todos los derechos reservados."
