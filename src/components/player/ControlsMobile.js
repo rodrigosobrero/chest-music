@@ -32,7 +32,7 @@ export default function ControlsMobile({
       setTimeProgress(currentTime);
   
       progressBarRef.current.value = currentTime;
-
+        
       progressBarRef.current.style.setProperty(
         '--range-progress',
         `${(progressBarRef.current.value / duration) * 100}%`
