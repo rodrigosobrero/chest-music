@@ -49,9 +49,23 @@ export default function TrackList({ tracks }) {
         </thead>
         <tbody>
           {
-            tracks.map((track, index) =>
-              <TrackListRow key={index} track={track} isOpened={rowOpenned === track.id} toggleOptions={toggleOpen} closeOptions={closeOptions}/>
-            )
+            tracks.map((track, index) => {
+              return (
+                  track.versions.map((version) => {
+                    return (
+                      <TrackListRow 
+                          key={index} 
+                          track={track} 
+                          version={version}
+                          // version_duration={version.duration}
+                          // version_id={version.id} 
+                          // version_name={version.name}
+                          isOpened={rowOpenned === track.id} 
+                          toggleOptions={toggleOpen} 
+                          closeOptions={closeOptions}/>
+                    )})
+              )
+            })
           }
         </tbody>
       </table>
