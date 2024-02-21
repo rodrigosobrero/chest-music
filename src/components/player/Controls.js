@@ -26,25 +26,23 @@ export default function Controls({
   const repeat = useCallback(() => {
     if (audioRef.current) {
       const currentTime = audioRef.current.currentTime;
+
       const duration = audioRef.current.duration;
   
       setTimeProgress(currentTime);
   
       progressBarRef.current.value = currentTime;
-
+      
       progressBarRef.current.style.setProperty(
         '--range-progress',
-        `${(currentTime / duration) * 100}%`
+        `${(progressBarRef.current.value / duration) * 100}%`
       );
-      // console.log(progressBarRef)
-  
-      if (currentTime < duration) {
-        playAnimationRef.current = requestAnimationFrame(repeat);
-      }    
+        
+      playAnimationRef.current = requestAnimationFrame(repeat);
+      
     }
-  }, [audioRef, duration, progressBarRef, setTimeProgress]);
 
-  
+  }, [audioRef, duration, progressBarRef, setTimeProgress]);
 
   const togglePlayPause = () => {
     dispatch(play())

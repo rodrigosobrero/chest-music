@@ -1,16 +1,17 @@
 import { useCallback, useRef } from 'react';
 
-export const useDoubleClick = (doubleClick, click, timeout = 200) => {
+export const useDoubleClick = (click, doubleClick, timeout = 100) => {
   const clickTimeout = useRef();
 
   const clearClickTimeout = () => {
-    if (clickTimeout) {
+    if (clickTimeout.current) {
       clearTimeout(clickTimeout.current);
-      clickTimeout.current = undefined;
+      clickTimeout.current = null;
     }
   };
 
   return useCallback((event) => {
+    event.preventDefault();
     clearClickTimeout();
 
     if (click && event.detail === 1) {
@@ -22,5 +23,5 @@ export const useDoubleClick = (doubleClick, click, timeout = 200) => {
     if (event.detail % 2 === 0) {
       doubleClick(event);
     }
-  }, [click, doubleClick]);
+  }, [click, doubleClick, timeout]);
 };

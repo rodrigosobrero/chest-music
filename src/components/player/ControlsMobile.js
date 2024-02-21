@@ -26,6 +26,7 @@ export default function ControlsMobile({
   const repeat = useCallback(() => {
     if (audioRef.current) {
       const currentTime = audioRef.current.currentTime;
+
       const duration = audioRef.current.duration;
   
       setTimeProgress(currentTime);
@@ -34,12 +35,14 @@ export default function ControlsMobile({
 
       progressBarRef.current.style.setProperty(
         '--range-progress',
-        `${(currentTime / duration) * 100}%`
+        `${(progressBarRef.current.value / duration) * 100}%`
       );
-      
+  
       playAnimationRef.current = requestAnimationFrame(repeat);
     }
+
   }, [audioRef, duration, progressBarRef, setTimeProgress]);
+
 
   const togglePlayPause = (e) => {
     e.stopPropagation();
