@@ -89,7 +89,10 @@ p {
 }
 
 table {
-  @apply w-full border-separate border-spacing-y-3 md:border-spacing-y-7;
+  @apply !w-full !border-separate !border-spacing-y-3 md:!border-spacing-y-7;
+}
+.collapsed  {
+  @apply !border-collapse !w-full !border-spacing-y-[-10px] !m-0
 }
 
 th {
@@ -105,7 +108,7 @@ tr:hover td {
 }
 
 td {
-  @apply first:text-white transition duration-500;
+  @apply first:text-white transition duration-500 !p-0;
 }
 
 input::-webkit-outer-spin-button,

@@ -2,7 +2,7 @@ import TrackListRow from 'components/TrackListRow';
 import { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 
-export default function TrackList({ tracks }) {
+export default function TrackList({ tracks, query }) {
   const [titles, setTitles] = useState([]);
   const [rowOpenned, setRowOpenned] = useState(false);
   
@@ -33,7 +33,7 @@ export default function TrackList({ tracks }) {
 
   return (
     <>
-      <table>
+      <table className='collapsed'>
         <thead>
           <tr>
             {
@@ -48,21 +48,32 @@ export default function TrackList({ tracks }) {
           </tr>
         </thead>
         <tbody>
-          {
+        {
             tracks.map((track, index) => {
-              console.log(track)
-              return (
-                      <TrackListRow 
-                          key={index} 
-                          track={track} 
-                          version={track.versions[0]}
-                          // version_duration={version.duration}
-                          // version_id={version.id} 
-                          // version_name={version.name}
-                          isOpened={rowOpenned === track.id} 
-                          toggleOptions={toggleOpen} 
-                          closeOptions={closeOptions}/>       
-              )
+              if(query === '') {
+                return (
+                  <TrackListRow 
+                  type={false}
+                  key={index} 
+                  track={track} 
+                  version={track.versions[0]}
+                  isOpened={rowOpenned === track.versions[0]?.id} 
+                  toggleOptions={toggleOpen} 
+                  closeOptions={closeOptions}/>                  
+                )
+              } else {
+                return ( 
+                      track.versions.map((version, i) => {
+                      return (
+                        <TrackListRow 
+                            type={i !== 0 && 'version'}
+                            key={index} 
+                            track={track} 
+                            version={version}
+                            isOpened={rowOpenned === version.id} 
+                            toggleOptions={toggleOpen} 
+                            closeOptions={closeOptions}/>
+                      )}))}
             })
           }
         </tbody>
