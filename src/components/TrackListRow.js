@@ -12,7 +12,7 @@ import { PlayIcon } from '@heroicons/react/24/solid';
 import { PauseIcon } from '@heroicons/react/24/solid';
 import upload from 'assets/images/icon-upload.svg';
 
-export default function TrackListRow({ track, isOpened, version,toggleOptions, closeOptions }) {
+export default function TrackListRow({ track , isOpened, toggleOptions, closeOptions }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { playlist } = useSelector((state) => state.playlist);
@@ -21,7 +21,7 @@ export default function TrackListRow({ track, isOpened, version,toggleOptions, c
 
   const playTrack = () => {
     dispatch(playing({
-      id: version.id,
+      id: track.last_version_id,
       album: track.album,
       cover: track.cover_url,
       name: track.name,
@@ -54,7 +54,7 @@ export default function TrackListRow({ track, isOpened, version,toggleOptions, c
   }
 
   useEffect(() => {
-    setPlay(playlist[0]?.id === version.id);
+    setPlay(playlist[0]?.id === track.last_version_id && playlist[0]?.type === 'project');
   }, [playlist]);
   
   return (
@@ -82,11 +82,11 @@ export default function TrackListRow({ track, isOpened, version,toggleOptions, c
         {isDesktop && (
           <>
             <td>{track.album}</td>
-            <td>{version.name}</td>
+            <td>{track.last_version}</td>
             <td>
-              {format.date(version.date_added)}
+              {format.date(track.date_added)}
             </td>
-            <td>{format.time(version.duration)}</td>
+            <td>{format.time(track.duration)}</td>
             {/*<td>{format.bytes(track.size)}</td>*/}
           </>
         )}

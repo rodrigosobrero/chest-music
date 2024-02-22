@@ -50,20 +50,18 @@ export default function TrackList({ tracks }) {
         <tbody>
           {
             tracks.map((track, index) => {
+              console.log(track)
               return (
-                  track.versions.map((version) => {
-                    return (
                       <TrackListRow 
                           key={index} 
                           track={track} 
-                          version={version}
+                          version={track.versions[0]}
                           // version_duration={version.duration}
                           // version_id={version.id} 
                           // version_name={version.name}
                           isOpened={rowOpenned === track.id} 
                           toggleOptions={toggleOpen} 
-                          closeOptions={closeOptions}/>
-                    )})
+                          closeOptions={closeOptions}/>       
               )
             })
           }
