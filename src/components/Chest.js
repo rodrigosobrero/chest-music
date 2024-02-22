@@ -55,7 +55,7 @@ export default function Chest() {
         <div className='bg-neutral-black rounded-t-lg rounded-b-3xl pl-5 pr-4 pt-3 pb-8 md:px-[60px] md:pb-[60px] md:pt-10'>
           {
             filteredProjects.length > 0 ?
-              <TrackList tracks={filteredProjects} /> :
+              <TrackList tracks={filteredProjects} query={query}/> :
               <div className='flex flex-col items-center gap-2 pt-7 -pl-1 pb-2'>
                 <h4 className='!font-archivo font-semibold text-[22px] md:text-[28px] !normal-case'>Your chest is empty</h4>
                 <p className='text-lg text-neutral-silver-200 font-light mb-10'>
