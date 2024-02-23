@@ -157,7 +157,7 @@ export default function Nav() {
                     onClick={() => { item.link ? navigate(item.link) : actions[item.action](); setOpen(false); }} />
                 ) : (
                   <NavLink to={item.link} onClick={() => { setOpen(false) }}>
-                    {item.name}
+                    {t('global.' + item.name)}
                   </NavLink>
                 )}
               </li>
