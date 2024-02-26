@@ -52,7 +52,7 @@ export default function Chest() {
           </div>
           <StorageIndicator usedSpace={chest.used_seconds} totalSpace={chest.total_seconds} />
         </div>
-        <div className='bg-neutral-black rounded-t-lg rounded-b-3xl pl-5 pr-4 pt-3 pb-8 md:px-[60px] md:pb-[60px] md:pt-10'>
+        <div className='bg-neutral-black rounded-t-lg rounded-b-3xl pl-5 pr-4 pt-3 pb-8 md:px-[45px] md:pb-[60px] md:pt-10'>
           {
             filteredProjects.length > 0 ?
               <TrackList tracks={filteredProjects} query={query}/> :

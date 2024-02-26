@@ -33,21 +33,21 @@ export default function TrackList({ tracks, query }) {
 
   return (
     <>
-      <table className='collapsed'>
-        <thead>
-          <tr>
-            {
-              titles.map((title, index) => 
-                <th 
-                  key={index} 
-                  className={`${ !title && 'cursor-default' }`}>
-                    {title}
-                </th>
-              )
-            }
-          </tr>
-        </thead>
-        <tbody>
+      <table className='collapsed  w-full'>
+          <thead className='head-with-px'>
+            <tr>
+              {
+                titles.map((title, index) => 
+                  <th 
+                    key={index} 
+                    className={`${ !title && 'cursor-default'}`}>
+                      {title}
+                  </th>
+                )
+              }
+            </tr>
+          </thead>
+        <tbody className='chest-rows first:!pl-5 last:!pr-5'>
         {
             tracks.map((track, index) => {
               if(query === '') {
@@ -66,7 +66,7 @@ export default function TrackList({ tracks, query }) {
                       track.versions.map((version, i) => {
                       return (
                         <TrackListRow 
-                            type={i !== 0 && 'version'}
+                            type={i === 0 ? 'project' : 'version'}
                             key={index} 
                             track={track} 
                             version={version}
