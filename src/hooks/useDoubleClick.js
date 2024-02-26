@@ -1,27 +1,36 @@
-import { useCallback, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
-export const useDoubleClick = (click, doubleClick, timeout = 100) => {
-  const clickTimeout = useRef();
+const useDoubleClick = (singleClick, doubleClick) => {
+  const clicks = useRef([]);
+  const timeoutRef = useRef();
 
-  const clearClickTimeout = () => {
-    if (clickTimeout.current) {
-      clearTimeout(clickTimeout.current);
-      clickTimeout.current = null;
-    }
+  const handleClick = (event) => {
+    event.preventDefault();
+
+    clicks.current.push(new Date().getTime());
+    window.clearTimeout(timeoutRef.current);
+
+    timeoutRef.current = window.setTimeout(() => {
+      if (clicks.current.length > 1 && clicks.current[clicks.current.length - 1] - clicks.current[clicks.current.length - 2] < 250) {
+        if (doubleClick) {
+          doubleClick(event.target);
+        }
+      } else {
+        if (singleClick) {
+          singleClick(event.target);
+        }
+      }
+      clicks.current = [];
+    }, 250);
   };
 
-  return useCallback((event) => {
-    event.preventDefault();
-    clearClickTimeout();
+  useEffect(() => {
+    return () => {
+      window.clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
-    if (click && event.detail === 1) {
-      clickTimeout.current = setTimeout(() => {
-        click(event);
-      }, timeout);
-    }
-
-    if (event.detail % 2 === 0) {
-      doubleClick(event);
-    }
-  }, [click, doubleClick, timeout]);
+  return handleClick;
 };
+
+export { useDoubleClick };

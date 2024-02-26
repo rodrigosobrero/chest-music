@@ -99,8 +99,25 @@ th {
   @apply text-sm text-left border-b text-white border-neutral-silver-600 py-[11px] capitalize font-normal;
 }
 
+.head-with-px tr:first-child, th:first-child{ 
+  @apply !pl-5;
+}
+.head-with-px tr:last-child, th:last-child{ 
+  @apply !pl-5;
+}
+
+.chest-rows td:last-child,
+th:last-child {
+  border-radius: 10px 10px 10px 10px;
+}
+
+.chest-rows td:first-child,
+th:first-child {
+  border-radius: 10px 0 0 10px;
+}
+
 tr {
-  @apply text-neutral-silver-200 cursor-pointer;
+  @apply text-neutral-silver-200 cursor-pointer ;
 }
 
 tr:hover td {

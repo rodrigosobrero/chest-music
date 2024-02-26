@@ -7,6 +7,7 @@ import { useDoubleClick } from 'hooks/useDoubleClick';
 import { useEffect, useState } from 'react';
 import bar from 'assets/images/icon-barra.svg'
 
+import VersionsActionsButton from './treasure/VersionsActionsButton';
 import TrackListOptions from 'components/TrackListOptions';
 
 import { PlayIcon } from '@heroicons/react/24/solid';
@@ -33,7 +34,7 @@ export default function TrackListRow({ track, isOpened, version,toggleOptions, c
   };
 
   const handleOnClick = useDoubleClick(
-    undefined,
+    () => handlePlay(),
     () => navigate(`treasure/${track.id}`)
   );
 
@@ -45,40 +46,62 @@ export default function TrackListRow({ track, isOpened, version,toggleOptions, c
     setHover(prev => !prev);
   }
 
+  const handlePlay = () => {
+    if(play){
+      setHover(false);
+      return dispatch(togglePlay())
+    }
+    setHover(false)
+    playTrack();
+  }
+
+  const handleOnTitleClick = (e) => {
+    e.stopPropagation(); 
+    navigate(`treasure/${track.id}`)
+  }
+
   const handleOnCoverClick = (e) => {
+    e.stopPropagation();
+    setHover(false);
     if(play){
       return dispatch(togglePlay())
     }
-    e.stopPropagation();
-    setHover(false);
     playTrack();
   }
 
   useEffect(() => {
-    setPlay(playlist[0]?.id === version.id);
+    let isOnPlayer = playlist[0]?.id === version.id;
+    setPlay(isOnPlayer);
+    if(!isOnPlayer){
+      setHover(false)
+    }
   }, [playlist]);
 
   return (
-      <tr onClick={handleOnClick} style={{height: '5rem'}}>
-          <td>
+      <tr onClick={handleOnClick} style={{height: '5rem'}} 
+          onMouseEnter={toggleHover} 
+          onMouseLeave={toggleHover} 
+          className='hover:bg-neutral-silver-600'>
+          <td className='!pl-5'>
             <div className='flex flex-row items-center gap-3 md:gap-4'>
               {type !== 'version' ?
                 <div
                   className='w-[52px] h-[52px] min-w-[52px] bg- bg-cover rounded'
                   style={{ backgroundImage: `url(${track.cover_url})` }}
-                  onClick={handleOnCoverClick}
-                  onMouseEnter={toggleHover}
-                  onMouseLeave={toggleHover}>
+                  onClick={handleOnCoverClick}>
                   {hover && !play && <div className='cover-hover'><PlayIcon className='h-6 w-6 text-white' /></div>}
                   {play && playlist[0]?.isPlaying && <div className='cover-hover'><PauseIcon className='h-6 w-6 text-white' /></div>}
                 </div> 
                   :
-                <div className='w-[52px]'> 
-                  <img src={bar} className='h-[80px] w-[30px] mx-auto'/>
+                  <div className='w-[52px]'> 
+                  {hover && !play ? <PlayIcon className='h-6 w-6 text-white mx-auto' /> :
+                   play && playlist[0]?.isPlaying ? <PauseIcon className='h-6 w-6 text-white mx-auto' /> :
+                   <img src={bar} className='h-[80px] w-[30px] mx-auto'/>
+                  }
                 </div>
               }
               <div>
-                <span className='lg:text-lg line-clamp-1 z-50' onClick={() => navigate(`treasure/${track.id}`)}>{track.name}</span>
+                <span className='lg:text-lg line-clamp-1 z-50' onClick={handleOnTitleClick}>{track.name}</span>
                 <div className='text-sm text-neutral-silver-200'>
                   {track?.authors.join(', ')}
                 </div>
@@ -96,9 +119,7 @@ export default function TrackListRow({ track, isOpened, version,toggleOptions, c
               {/*<td>{format.bytes(track.size)}</td>*/}
             </>
           )}
-          {
-            type !== 'version' &&
-            <td onClick={(e) => { e.stopPropagation() }}>
+            <td onClick={(e) => { e.stopPropagation() }} className='!pr-5'>
               <div className='flex justify-end'>
                 {isDesktop && (
                   <button
@@ -108,10 +129,13 @@ export default function TrackListRow({ track, isOpened, version,toggleOptions, c
                     <img src={upload} alt='' width={24} height={24} />
                   </button>
                 )}
-                <TrackListOptions track={track} isOpened={isOpened} toggleOptions={() => toggleOptions(version.id)} closeOptions={closeOptions} />
+                {
+                  type === 'version' ? 
+                  <VersionsActionsButton version={version} project={track} /> : 
+                  <TrackListOptions track={track} isOpened={isOpened} toggleOptions={() => toggleOptions(version.id)} closeOptions={closeOptions} />
+                }
               </div>
             </td>
-          }
       </tr>
   )
 }
