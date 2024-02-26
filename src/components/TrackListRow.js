@@ -7,8 +7,8 @@ import { useDoubleClick } from 'hooks/useDoubleClick';
 import { useEffect, useState } from 'react';
 import bar from 'assets/images/icon-barra.svg'
 
-import VersionsActionsButton from './treasure/VersionsActionsButton';
 import TrackListOptions from 'components/TrackListOptions';
+import TrackVersionsActionsButton from './TrackVersionOptions';
 
 import { PlayIcon } from '@heroicons/react/24/solid';
 import { PauseIcon } from '@heroicons/react/24/solid';
@@ -43,6 +43,7 @@ export default function TrackListRow({ track, isOpened, version,toggleOptions, c
   }
 
   const toggleHover = () => {
+    if(isOpened) return setHover(false);
     setHover(prev => !prev);
   }
 
@@ -54,7 +55,6 @@ export default function TrackListRow({ track, isOpened, version,toggleOptions, c
     setHover(false)
     playTrack();
   }
-
   const handleOnTitleClick = (e) => {
     e.stopPropagation(); 
     navigate(`treasure/${track.id}`)
@@ -72,15 +72,12 @@ export default function TrackListRow({ track, isOpened, version,toggleOptions, c
   useEffect(() => {
     let isOnPlayer = playlist[0]?.id === version.id;
     setPlay(isOnPlayer);
-    if(!isOnPlayer){
-      setHover(false)
-    }
   }, [playlist]);
 
   return (
       <tr onClick={handleOnClick} style={{height: '5rem'}} 
-          onMouseEnter={toggleHover} 
-          onMouseLeave={toggleHover} 
+          onMouseEnter={() => setHover(true)} 
+          onMouseLeave={() => setHover(false)} 
           className='hover:bg-neutral-silver-600'>
           <td className='!pl-5'>
             <div className='flex flex-row items-center gap-3 md:gap-4'>
@@ -131,8 +128,17 @@ export default function TrackListRow({ track, isOpened, version,toggleOptions, c
                 )}
                 {
                   type === 'version' ? 
-                  <VersionsActionsButton version={version} project={track} /> : 
-                  <TrackListOptions track={track} isOpened={isOpened} toggleOptions={() => toggleOptions(version.id)} closeOptions={closeOptions} />
+                    <TrackVersionsActionsButton
+                    version={version} 
+                    project={track}  
+                    isOpened={isOpened} 
+                    toggleOptions={() => toggleOptions(version.id)} 
+                    closeOptions={closeOptions} /> :
+                    <TrackListOptions 
+                    track={track} 
+                    isOpened={isOpened} 
+                    toggleOptions={() =>toggleOptions(version.id)} 
+                    closeOptions={closeOptions()} />
                 }
               </div>
             </td>
