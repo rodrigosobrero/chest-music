@@ -70,9 +70,9 @@ export default function TrackListRow({ track, isOpened, version,toggleOptions, c
   }
 
   useEffect(() => {
-    let prueba = playlist[0]?.id === version.id
-    setPlay(playlist[0]?.id === version.id);
-    if(!prueba){
+    let isOnPlayer = playlist[0]?.id === version.id;
+    setPlay(isOnPlayer);
+    if(!isOnPlayer){
       setHover(false)
     }
   }, [playlist]);
