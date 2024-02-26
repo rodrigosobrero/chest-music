@@ -132,13 +132,13 @@ export default function TrackListRow({ track, isOpened, version,toggleOptions, c
                     version={version} 
                     project={track}  
                     isOpened={isOpened} 
-                    toggleOptions={() => toggleOptions(version.id)} 
-                    closeOptions={closeOptions} /> :
+                    toggleOptions={() => {toggleOptions(version.id); setHover(false)}} 
+                    closeOptions={() => {closeOptions(); setHover(false)}} /> :
                     <TrackListOptions 
                     track={track} 
                     isOpened={isOpened} 
-                    toggleOptions={() =>toggleOptions(version.id)} 
-                    closeOptions={closeOptions()} />
+                    toggleOptions={() => {toggleOptions(version.id); setHover(false)}} 
+                    closeOptions={() => {closeOptions(); setHover(false)}} />
                 }
               </div>
             </td>
