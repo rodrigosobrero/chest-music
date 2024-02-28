@@ -53,14 +53,14 @@ export default function Shared() {
               </div>
           </div>
           <div className={`${(isFetching || isLoading) && 'items-center'} flex flex-col gap-y-1 text-center`}>
-          {(isFetching || isLoading) ? <Loading />  : data.length > 0 ? 
+          {(isFetching || isLoading) ? <Loading />  : data.length < 0 ? 
             filtered?.map((el) => (
               <SharedTable artist={el.artist} data={el.tracks} dispatch={dispatch}/>
             )) 
             : 
             <div className='bg-neutral-black rounded-3xl px-4 pt-6 pb-8 md:p-[80px]  md:pt-[60px]'>
                 <div className='flex flex-col items-center gap-2'>
-                    <p className='!font-archivo !text-[28px] transof'>{t('notification.nothing_here')}</p>
+                    <h4 className='empty-title'>{t('notification.nothing_here')}</h4>
                     <p className='text-lg text-neutral-silver-200 font-light mb-10'>
                       {t('shared.any')}
                     </p>

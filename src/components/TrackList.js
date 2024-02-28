@@ -36,14 +36,14 @@ export default function TrackList({ tracks, query }) {
 
   return (
     <>
-      <table className='collapsed  w-full'>
-          <thead className='head-with-px'>
+      <table className='collapsed w-full'>
+          <thead>
             <tr>
               {
                 titles.map((title, index) => 
                   <th 
                     key={index} 
-                    className={`${ !title && 'cursor-default'}`}>
+                    className={`${ !title && 'cursor-default'} ${index === 0 && '!pl-5'}`}>
                       {title}
                   </th>
                 )
