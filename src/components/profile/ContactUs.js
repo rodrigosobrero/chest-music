@@ -18,8 +18,8 @@ const ContactUs = () => {
       <div>
         <Input type='text' label={t('help_center.message')} placeholder={t('global.placeholder.write_here')} />
       </div>
-      <div className='mt-1 w-1/6'>
-        <Button text={t('help_center.send')} style='primary' disabled={true}/>
+      <div className='mt-1 '>
+        <Button text={t('help_center.send')} style='primary' disabled={true} customStyle={'md:w-1/6 !w-2/4'}/>
       </div>
      </div>
   )

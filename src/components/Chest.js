@@ -8,9 +8,11 @@ import SearchBar from 'components/SearchBar';
 import StorageIndicator from 'components/StorageIndicator';
 
 import empty from 'assets/images/empty-chest.svg';
+import { useTranslation } from 'react-i18next';
 
 export default function Chest() {
   const [query, setQuery] = useState('');
+  const { t } = useTranslation();
   const {
     data: chest = {},
     isLoading,
@@ -41,14 +43,14 @@ export default function Chest() {
       <div className='flex flex-col gap-1'>
         <div className='flex md:grid md:grid-cols-3 bg-neutral-black rounded-t-3xl rounded-b-lg px-5 py-6 md:px-[60px] md:pt-10 md:pb-[26px]'>
           <div className='flex items-center md:gap-4 grow'>
-            <h3 className='hidden md:block'>my chest</h3>
-            <h4 className='block md:hidden'>my chest</h4>
+            <h3 className='hidden md:block'>{t('global.my chest')}</h3>
+            <h4 className='block md:hidden'>{t('global.my chest')}</h4>
             <div className='hidden md:block'>
               <Tag>{chest?.projects?.length} tracks</Tag>
             </div>
           </div>
           <div className='hidden md:flex items-center justify-center grow'>
-            <SearchBar onChange={handleOnChange} />
+            <SearchBar onChange={handleOnChange} placeholder={t('global.search_treasure')}/>
           </div>
           <StorageIndicator usedSpace={chest.used_seconds} totalSpace={chest.total_seconds} />
         </div>

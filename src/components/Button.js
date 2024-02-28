@@ -13,7 +13,7 @@ export default function Button({ type = 'button', style, text, onClick, disabled
           'btn btn-primary': style === 'primary',
           'btn btn-secondary': style === 'secondary',
           'btn btn-tertiary': style === 'tertiary',
-          'btn btn-error': style === 'error',
+          'btn btn-error ': style === 'error',
           
         }) + customStyle}>
         {loading ?
