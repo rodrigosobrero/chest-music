@@ -320,9 +320,9 @@
     "rights": "Todos los derechos reservados."
   },
   "tables": {
-    "title": "Titulo",
-    "album": "Album",
-    "version": "Version",
+    "title": "Título",
+    "album": "Àlbum",
+    "version": "Versión",
     "date_shared": "Fecha Compartido",
     "date_added": "Fecha agregado",
     "length": "Tamaño",
