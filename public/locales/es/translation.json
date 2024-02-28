@@ -324,6 +324,7 @@
     "album": "Album",
     "version": "Version",
     "date_shared": "Fecha Compartido",
+    "date_added": "Fecha agregado",
     "length": "Tamaño",
     "plays": "Reproducciones"
   }

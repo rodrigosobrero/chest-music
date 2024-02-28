@@ -1,11 +1,14 @@
 import TrackListRow from 'components/TrackListRow';
 import { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
+import { useTranslation } from 'react-i18next';
 
 export default function TrackList({ tracks, query }) {
   const [titles, setTitles] = useState([]);
   const [rowOpenned, setRowOpenned] = useState(false);
-  
+
+  const { t } = useTranslation()
+
   const toggleOpen = (id) => {
     setRowOpenned(rowOpenned === id ? false : id);
   }
@@ -15,21 +18,21 @@ export default function TrackList({ tracks, query }) {
   useEffect(() => {
     if (isMobile) {
       setTitles([
-        'title',
+        t('tables.title'),
         '',
       ])
     } else {
       setTitles([
-        'title',
-        'album',
-        'version',
-        'date added',
-        'length',
+        t('tables.title'),
+        t('tables.album'),
+        t('tables.version'),
+        t('tables.date_added'),
+        t('tables.length'),
         //'total size',
         '',
       ])
     }
-  }, [])
+  }, [t]);
 
   return (
     <>
@@ -47,7 +50,7 @@ export default function TrackList({ tracks, query }) {
               }
             </tr>
           </thead>
-        <tbody className='chest-rows first:!pl-5 last:!pr-5'>
+        <tbody className='chest-rows'>
         {
             tracks.map((track, index) => {
               if(query === '') {
