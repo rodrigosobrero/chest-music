@@ -13,11 +13,13 @@ import { useTranslation } from 'react-i18next';
 export default function Chest() {
   const [query, setQuery] = useState('');
   const { t } = useTranslation();
+  const options = { refetchOnMountOrArgChange: true, refetchOnReconnect: true };
+
   const {
     data: chest = {},
     isLoading,
     isFetching,
-  } = useGetChestQuery({}, { refetchOnMountOrArgChange: true });
+  } = useGetChestQuery({}, options);
 
   const filteredProjects = useMemo(() => {
     return filter(chest.projects || [], query);
