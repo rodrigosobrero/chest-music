@@ -8,24 +8,22 @@ import { useEffect, useState } from 'react';
 import bar from 'assets/images/icon-barra.svg'
 
 import TrackListOptions from 'components/TrackListOptions';
-// import TrackVersionsActionsButton from './TrackVersionOptions';
+import TrackVersionsActionsButton from './TrackVersionOptions';
 
 import { PlayIcon } from '@heroicons/react/24/solid';
 import { PauseIcon } from '@heroicons/react/24/solid';
 import upload from 'assets/images/icon-upload.svg';
+
 import { useModal } from 'hooks/useModal';
 
 export default function TrackListRow({ track, isOpened, version,toggleOptions, closeOptions, type }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const { onOpen: openShareModal } =  useModal('ShareVersionModal');
-
   const { playlist } = useSelector((state) => state.playlist);
-
   const [hover, setHover] = useState(false);
   const [play, setPlay] = useState(false);
-
+  const { onOpen: openShareModal } =  useModal('ShareVersionModal');
+  
   const playTrack = () => {
     dispatch(playing({
       id: version.id,
@@ -48,6 +46,8 @@ export default function TrackListRow({ track, isOpened, version,toggleOptions, c
 
     else navigate(`/share/${track.id}`);
   }
+
+  
 
   const toggleHover = () => {
     if(isOpened) return setHover(false);
@@ -100,7 +100,7 @@ export default function TrackListRow({ track, isOpened, version,toggleOptions, c
                   <div className='w-[52px]'> 
                   {hover && !play ? <PlayIcon className='h-6 w-6 text-white mx-auto' /> :
                    play && playlist[0]?.isPlaying ? <PauseIcon className='h-6 w-6 text-white mx-auto' /> :
-                   <img src={bar} className='h-[80px] w-[30px] mx-auto' alt='bar' />
+                   <img src={bar} className='h-[80px] w-[30px] mx-auto'/>
                   }
                 </div>
               }
@@ -134,7 +134,13 @@ export default function TrackListRow({ track, isOpened, version,toggleOptions, c
                   </button>
                 )}
                 {
-                  type !== 'version' &&
+                  type === 'version' ? 
+                    <TrackVersionsActionsButton
+                    version={version} 
+                    project={track}  
+                    isOpened={isOpened} 
+                    toggleOptions={() => {toggleOptions(version.id); setHover(false)}} 
+                    closeOptions={() => {closeOptions(); setHover(false)}} /> :
                     <TrackListOptions 
                     track={track} 
                     isOpened={isOpened} 

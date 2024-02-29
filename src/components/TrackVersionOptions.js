@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useModal } from 'hooks/useModal';
 import { getUrlExtension } from 'utils/helpers';
@@ -50,7 +49,7 @@ export default function TrackVersionsActionsButton({ version, project, isOpened,
   }
 
   const options = [
-    { type: 'share', description: t('global.share'), action: handleShare },
+    // { type: 'share', description: t('global.share'), action: handleShare },
     { type: 'download', description: t('global.download'), action: handleDownload },
     { type: 'edit', description: t('global.edit'), action: handleEdit },
     { type: 'delete', description: t('global.trash_can'), action: handleDelete },
