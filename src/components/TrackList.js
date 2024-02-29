@@ -53,6 +53,7 @@ export default function TrackList({ tracks, query }) {
         <tbody className='chest-rows'>
         {
             tracks?.length > 0 && tracks.map((track, index) => {
+              console.log(track)
               if(query === '') {
                 return (
                   <TrackListRow 
