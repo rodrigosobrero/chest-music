@@ -75,8 +75,8 @@
     "days_one": "hace {{count}} día",
     "days_other": "hace {{count}} días",
     "contact_us": "Contáctanos",
-    "search_treasure": "Busca un tesoro..."
-
+    "search_treasure": "Busca un tesoro...",
+    "add_version": "Agregar versión"
   },
   "signin": {
     "title": "abre tu cofre",
@@ -139,7 +139,7 @@
   },
   "mychest": {
     "uploader": {
-      "title": "drop it like it’s hot",
+      "title": "déjalo caer",
       "title_mobile": "sube tu tesoro",
       "description": "arrastra tu archivo de audio aquí para subir una nueva demo, o...",
       "description_mobile": "Selecciona un archivo para subir tu nueva demo"

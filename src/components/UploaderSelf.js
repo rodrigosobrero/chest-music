@@ -37,7 +37,7 @@ export default function UploaderSelf({ title = true, id }) {
 
     if (files && files.length) {
       const { type } = files[0];
-
+      console.log(type)
       if (type === 'audio/mpeg' || type === 'audio/wav' || type === 'audio/x-wav' || type === 'audio/x-m4a') {
         const localFileURL = window.URL.createObjectURL(files[0])
 
@@ -114,7 +114,7 @@ export default function UploaderSelf({ title = true, id }) {
               <h5 className='hidden md:block mb-4'>{t('mychest.uploader.title')}</h5>
             )}
             <h5 className='block md:hidden mb-2'>{t('mychest.uploader.title_mobile')}</h5>
-            <p className='hidden md:block'>{t('mychest.uploader.description')}</p>
+            <p className='hidden md:flex md:px-2'>{t('mychest.uploader.description')}</p>
             <p className='block md:hidden text-base'>{t('mychest.uploader.description_mobile')}</p>
             <div className='md:w-1/2'>
               <InputFile
