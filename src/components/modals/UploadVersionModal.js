@@ -67,10 +67,10 @@ export default function UploadVersionModal(props) {
         <UploaderSelf id={handleOnFileChange} />
         <Input
           type='text'
-          label='Version name'
+          label={t('upload.version_name')}
           value={version.name}
           onChange={handleOnNameChange}
-          helper='Must be different from previous.' />
+          helper={t('upload.version_helper')} />
       </div>
       <div className='grid grid-cols-2 gap-4 mt-8'>
         <Button
@@ -78,7 +78,7 @@ export default function UploadVersionModal(props) {
           style='tertiary'
           onClick={handleClose} />
         <Button
-          text='Confirm'
+          text={t('global.confirm')}
           style='primary'
           disabled={isLoading || (!version.name || !version.file)}
           loading={isLoading}
