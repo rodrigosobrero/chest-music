@@ -50,7 +50,7 @@ export default function UploadVersionModal(props) {
   }
 
   return (
-    <BaseModal title='add new version' show={props.isOpen} onClose={handleClose}>
+    <BaseModal title={t('global.add_version')} show={props.isOpen} onClose={handleClose}>
       <div className='flex flex-col items-center text-center mb-8'>
         <p className='text-white'>
           {props.meta.name}

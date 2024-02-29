@@ -36,14 +36,14 @@ export default function TrackList({ tracks, query }) {
 
   return (
     <>
-      <table className='collapsed  w-full'>
-          <thead className='head-with-px'>
+      <table className='collapsed w-full'>
+          <thead>
             <tr>
               {
                 titles.map((title, index) => 
                   <th 
                     key={index} 
-                    className={`${ !title && 'cursor-default'}`}>
+                    className={`${ !title && 'cursor-default'} ${index === 0 && '!pl-5'}`}>
                       {title}
                   </th>
                 )
@@ -52,7 +52,8 @@ export default function TrackList({ tracks, query }) {
           </thead>
         <tbody className='chest-rows'>
         {
-            tracks.map((track, index) => {
+            tracks?.length > 0 && tracks.map((track, index) => {
+              console.log(track)
               if(query === '') {
                 return (
                   <TrackListRow 
