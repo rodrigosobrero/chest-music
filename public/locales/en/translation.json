@@ -160,7 +160,9 @@
     "upload_filetype": "In .jpg or .png format, max size 10 MB",
     "browse": "Browse",
     "participants": "participants",
-    "participant": "Participant"
+    "participant": "Participant",
+    "version_name": "Version name",
+    "version_helper": "Must be different from previous." 
   },
   "profile": {
     "logout": "Log out",
