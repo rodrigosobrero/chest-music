@@ -65,15 +65,6 @@ export default function Footer() {
                 onChange={handleChange}
                 minify
               />
-              {/* <select defaultValue={i18n.language} onChange={handleChange}>
-                {
-                  data.language.map(
-                    (option, index) => <option key={index} value={option.code}>
-                      {option.icon}
-                    </option>
-                  )
-                }
-              </select> */}
             </div>
           </div>
         </div>

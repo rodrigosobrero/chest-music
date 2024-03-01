@@ -44,7 +44,7 @@ export default function Uploader({ title = true, self, id }) {
 
       console.log('file type:', type);
 
-      if (type === 'audio/mpeg' || type === 'audio/wav' || type === 'audio/x-wav') {
+      if (type === 'audio/mpeg' || type === 'audio/wav' || type === 'audio/x-wav' || type === 'audio/x-m4a') {
         const localFileURL = window.URL.createObjectURL(files[0])
 
         if (self) {

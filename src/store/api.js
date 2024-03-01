@@ -107,14 +107,14 @@ export const api = createApi({
         method: 'PATCH',
         body: { name }
       }),
-      invalidatesTags: ['Project']
+      invalidatesTags: ['Project', 'Chest']
     }),
     deleteVersion: builder.mutation({
       query: (id) => ({
         url: `project/version/${id}/`,
         method: 'DELETE'
       }),
-      invalidatesTags: ['Project', 'Trash']
+      invalidatesTags: ['Project', 'Trash', 'Chest']
     }),
     getTrash: builder.query({
       query: (id) => `project/${id}/trash/`,
@@ -125,7 +125,7 @@ export const api = createApi({
         url: `project/version/${id}/restore/`,
         method: 'GET'
       }),
-      invalidatesTags: ['Trash', 'Project']
+      invalidatesTags: ['Trash', 'Project', 'Chest']
     }),
     createParticipant: builder.mutation({
       query: (body) => ({

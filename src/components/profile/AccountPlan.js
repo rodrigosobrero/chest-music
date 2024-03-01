@@ -9,6 +9,7 @@ import Modal from 'components/Modal';
 import UpgradeStorage from 'components/modals/UpgradeStorageModal';
 
 const AccountPlan = ({ data }) => {
+  console.log('data account', data)
   const [show, setShow] = useState(false);
   const [input, setInput] = useState('');
   const [selected, setSelected] = useState();
@@ -72,7 +73,9 @@ const AccountPlan = ({ data }) => {
             <div className='space-y-4'>
               <h5 className='text-neutral-silver-200 !text-base !font-archivo'>{t('account.storage')}</h5>
               <div className='flex gap-x-4'>
-                <span className='text-brand-uva !font-thunder !font-normal !text-4xl'>{Math.round((data?.used_storage / data?.total_space) * 100)}%</span>
+                <span className='text-brand-uva !font-thunder !font-normal !text-4xl'>
+                   {Math.round(100 * data?.used_seconds / data?.total_seconds)}%                
+                </span>
                 <div className='flex flex-col items-start '>
                   <span className='!text-left !font-archivo text-neutral-silver-100'>{format.time(data?.used_seconds)}
                     <span className='!text-neutral-silver-300 !font-archivo'> of </span> {format.time(data?.total_seconds, 0)}

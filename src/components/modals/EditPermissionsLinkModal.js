@@ -55,11 +55,6 @@ export default function EditPermissionsLinkModal(props) {
     handleClose();
   }
 
-  useState(() => {
-    console.log(webPlay)
-    console.log(props.meta)
-  }, [webPlay])
-
   return (
     <BaseModal
       title='edit link permissions'

@@ -7,6 +7,7 @@ export default function Select({
   disabled, 
   label, 
   minify,
+  child,
   name, 
   onChange, 
   options, 
@@ -54,8 +55,9 @@ export default function Select({
               type='text'
               placeholder='Select one...'
               className={classNames({
-                'custom-select-input': !minify,
-                'custom-select-input-min': minify
+                'custom-select-input': !minify && !child,
+                'custom-select-input-min': minify,
+                'custom-select-input-child': child
               })}
               value={formattedOptions.find(option => option.value === value)?.label}
               ref={inputRef}

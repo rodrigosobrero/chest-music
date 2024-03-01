@@ -89,15 +89,41 @@ p {
 }
 
 table {
-  @apply w-full border-separate border-spacing-y-3 md:border-spacing-y-7;
+  @apply !w-full !border-separate !border-spacing-y-3 md:!border-spacing-y-7;
+}
+
+.collapsed  {
+  @apply !border-collapse !w-full !border-spacing-y-[-10px] !m-0
 }
 
 th {
   @apply text-sm text-left border-b text-white border-neutral-silver-600 py-[11px] capitalize font-normal;
 }
 
+
+
+.normal-rows td:last-child,
+th:last-child {
+  border-radius: 0px 0px 0px 0px !important;
+}
+
+.normal-rows td:first-child,
+th:first-child {
+  border-radius: 0px 0px 0px 0px !important;
+}
+
+.chest-rows td:last-child,
+th:last-child {
+  border-radius: 0px 10px 10px 0px;
+}
+
+.chest-rows td:first-child,
+th:first-child {
+  border-radius: 10px 0 0 10px;
+}
+
 tr {
-  @apply text-neutral-silver-200 cursor-pointer;
+  @apply text-neutral-silver-200 cursor-pointer ;
 }
 
 tr:hover td {
@@ -105,7 +131,7 @@ tr:hover td {
 }
 
 td {
-  @apply first:text-white transition duration-500;
+  @apply first:text-white transition duration-500 !p-0;
 }
 
 input::-webkit-outer-spin-button,
@@ -122,6 +148,12 @@ input[type=number] {
   @apply h-full;
 }
 
+.icon path{
+  @apply transition-colors fill-white;
+}
+.icon:hover path {
+  @apply fill-brand-gold
+}
 .social {
   @apply bg-neutral-silver-700 rounded-xl p-3 focus:bg-neutral-black;
 }
@@ -743,6 +775,10 @@ input[type="search"]::-webkit-search-results-decoration {
   @apply text-base;
 }
 
+.custom-table {
+
+}
+
 .version-options {
   @apply relative transition duration-150 flex flex-col gap-3;
 }
@@ -890,6 +926,10 @@ input[type="search"]::-webkit-search-results-decoration {
   @apply transition duration-300 bg-neutral-silver-700 py-4 pr-4 text-2xl leading-5 cursor-pointer bg-transparent focus:outline-none !w-[70px];
 }
 
+.custom-select-input-child {
+  @apply transition duration-300 bg-neutral-silver-700 py-4 pr-4 cursor-pointer bg-transparent focus:outline-none !w-[120px];
+}
+
 /* menu */
 
 #nav-icon1, #nav-icon2, #nav-icon3, #nav-icon4 {
@@ -972,4 +1012,8 @@ input[type="search"]::-webkit-search-results-decoration {
   transform: rotate(-45deg);
   top: 39px;
   left: 8px;
+}
+
+.empty-title {
+ @apply !font-archivo !font-semibold !text-[22px] md:!text-[28px] !normal-case;
 }

@@ -1,8 +1,8 @@
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isDesktop } from 'react-device-detect';
 import { format } from 'utils/helpers';
-import { playing } from 'app/playlist';
-
+import { playing, play as togglePlay } from 'app/playlist';
 import VersionsActionsButton from './VersionsActionsButton';
 
 import { PlayIcon } from '@heroicons/react/24/solid';
@@ -11,6 +11,7 @@ import { PauseIcon } from '@heroicons/react/24/solid';
 export default function VersionsRow({ project, version }) {
   const dispatch = useDispatch();
   const { playlist } = useSelector((state) => state.playlist);
+  const [play, setPlay] = useState(false)
 
   const filteredParticipants = (participants) => {
     let filtered = [];
@@ -28,7 +29,17 @@ export default function VersionsRow({ project, version }) {
     }
   }
 
+  useEffect(() => {
+    setPlay(playlist[0]?.id === version?.id);
+  }, [playlist]);
+
   const handleOnClick = () => {
+    
+    console.log(play)
+    if(play){
+      return dispatch(togglePlay());
+    } 
+
     dispatch(playing({
       id: version.id,
       album: project.album,
@@ -46,7 +57,7 @@ export default function VersionsRow({ project, version }) {
         <div className='flex flex-row gap-3 md:gap-4'>
           <div className='relative rounded flex items-center'>
             <button type='button' onClick={handleOnClick}>
-              {playlist[0]?.id === version.id && playlist[0]?.type === 'version' && playlist[0].isPlaying
+              {playlist[0]?.id === version.id && playlist[0].isPlaying
               ? <PauseIcon className='h-6 w-6 text-gray-500' />
               : <PlayIcon className='h-6 w-6 text-white' />}
             </button>

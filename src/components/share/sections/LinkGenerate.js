@@ -82,7 +82,7 @@ const LinkGenerate = ({ versionId, token, onCancel }) => {
                   <Input label={'URL'} showClipboard={true} disabled={true} value={value}/>
               </div>
       </div>
-      <Button style='tertiary' customStyle='lg:!w-[224px] mt-6 !mx-auto !w-10/12' text='Close' onClick={onCancel}/>
+      <Button style='tertiary' customStyle='lg:!w-[224px] mt-6 !mx-auto !w-10/12' text={t('global.close')} onClick={onCancel}/>
      </>
   )
 }

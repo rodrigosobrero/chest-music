@@ -24,7 +24,7 @@
     "remove": "Quitar",
     "back": "Volver",
     "profile": "perfil",
-    "my chest": "my chest",
+    "my chest": "mi cofre",
     "give feedback": "dar feedback",
     "shared": "compartido",
     "close": "Cerrar",
@@ -39,7 +39,10 @@
     "block": "Bloquear",
     "placeholder": {
       "write_here": "Escribe aquí...",
-      "search": "Buscar..."
+      "search": "Buscar...",
+      "select_one": "Selecciona uno...",
+      "only_numbers": "Solo numeros..."
+
     },
     "option_name": "Más opciones",
     "option_name_short": "Opciones",
@@ -72,8 +75,8 @@
     "days_one": "hace {{count}} día",
     "days_other": "hace {{count}} días",
     "contact_us": "Contáctanos",
-    "search_treasure": "Busca un tesoro..."
-
+    "search_treasure": "Busca un tesoro...",
+    "add_version": "Agregar versión"
   },
   "signin": {
     "title": "abre tu cofre",
@@ -157,7 +160,9 @@
     "upload_filetype": "En formato .jpg o .png, tamaño máximo 10 MB",
     "browse": "Examinar",
     "participants": "Participantes",
-    "participant": "Participante"
+    "participant": "Participante",
+    "version_name": "Nombre de versión",
+    "version_helper": "Debe ser diferente de la anterior." 
   },
   "profile": {
     "logout": "Cerrar sesión",
@@ -300,14 +305,28 @@
       }
     ]
   },
+  "share": {
+    "title": "Compartí tu tesoro",
+    "generate_link": "Generar link",
+    "post": "Postear",
+    "send": "Enviar",
+    "users": "Usuarios",
+    "send_users": "Enviar a usuario",
+    "play_limit": "Límite de reproducción",
+    "unlimited": "Ilimitado",
+    "allow_web_play": "Permitir reproducción web",
+    "message": "Mensaje",
+    "message_example": "Por ejemplo: ”chequea mi nuevo tema”"  
+  },
   "footer": {
     "rights": "Todos los derechos reservados."
   },
   "tables": {
-    "title": "Titulo",
-    "album": "Album",
-    "version": "Version",
+    "title": "Título",
+    "album": "álbum",
+    "version": "Versión",
     "date_shared": "Fecha Compartido",
+    "date_added": "Fecha agregado",
     "length": "Tamaño",
     "plays": "Reproducciones"
   }

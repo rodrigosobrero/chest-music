@@ -58,7 +58,7 @@ const Permissions = () => {
                 {isFetching ? 
                   <img src={spinner} alt='' width={20} height={20} className='animate-spin' /> : data.length >  0 ? <PermissionsList data={data} deleteListener={deleteListener}/> :            
                     <div className='flex flex-col items-center gap-2'>
-                        <h4>{t('notification.nothing_here')}</h4>
+                        <h4 className='empty-title'>{t('notification.nothing_here')}</h4>
                         <p className='text-lg text-neutral-silver-200 font-light mb-10'>
                         {t('notification.not_general')}
                         </p>

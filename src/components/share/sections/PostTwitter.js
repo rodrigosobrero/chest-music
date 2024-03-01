@@ -90,7 +90,7 @@ const PostTwitter = ({ onCancel, token, versionId }) => {
                 <Input label={'URL'} showClipboard={true} disabled={true} value={value}/>
             </div>
        </div>
-       <ButtonsContainer primaryButton={'Post'} disabled={value === ''} onClick={submit} onCancel={onCancel} />
+       <ButtonsContainer primaryButton={t('share.post')} disabled={value === ''} onClick={submit} onCancel={onCancel} />
      </>
   )
 }

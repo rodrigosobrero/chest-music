@@ -21,6 +21,7 @@ export default function ProgressBar({ timeProgress, duration, progressBarRef, au
         <input
           type='range'
           defaultValue={0}
+          step={0.05}
           className={classNames({
             'bg-neutral-black rounded-lg accent-white appearance-none': true,
             'h-1.5': open,
