@@ -199,7 +199,7 @@ input[type=number] {
 }
 
 .btn-tertiary {
-  @apply bg-neutral-silver-600 text-white disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300 hover:bg-brand-uva-light active:bg-brand-uva;
+  @apply bg-neutral-silver-600 text-white disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300 hover:bg-brand-uva active:bg-brand-uva;
 }
 
 .btn-error {
@@ -265,6 +265,7 @@ input[type=number] {
 }
 
 .player-progressbar input[type='range'] {
+  @apply hover:cursor-pointer;
   position: relative;
   width: 100%;
 }

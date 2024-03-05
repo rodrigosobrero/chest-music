@@ -35,12 +35,13 @@ export default function UserSelector({ roles, users, selected, editable }) {
       current.filter((participant) => participant.id !== user.id)
     );
   };
-
+  console.log(userList)
   return (
     <>
       <AutoComplete
         options={roles}
         handleAdd={addUser}
+        filter_ids={userList.map((user) => user.id ? user.id : user.user_id)}
         />
       <div className='flex flex-col gap-4'>
         {userList.map((user, index) =>
