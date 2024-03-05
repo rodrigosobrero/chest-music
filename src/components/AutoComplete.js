@@ -7,7 +7,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { CheckIcon } from '@heroicons/react/20/solid';
 import Select from './Select';
 
-export default function AutoComplete({ options, handleAdd, filter }) {
+export default function AutoComplete({ options, handleAdd, filter, filter_ids }) {
   const inputRef = useRef(null);
   const user = useSelector((state) => state.auth.user);
   const [searchValue, setSearchValue] = useState('');
@@ -64,13 +64,15 @@ export default function AutoComplete({ options, handleAdd, filter }) {
       });
 
       let result;
-
+      console.log(response.data)
       if (filter) {
         result = response.data.filter(user => user.type !== filter);
       } else {
         result = response.data;
       }
-
+      if(filter_ids){
+        result = result.filter(participant => !filter_ids.some(userId => userId === participant.id));
+      }
       setSearchResult(result);
     } catch (error) {
       console.log(error);

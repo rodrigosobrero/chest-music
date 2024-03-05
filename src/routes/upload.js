@@ -176,6 +176,7 @@ export default function Upload() {
       id: data.user_id,
       user: data.full_name,
       role: track.userRole,
+      isOwner: true,
     });
 
     setStep(1);
@@ -235,7 +236,7 @@ export default function Upload() {
     setParticipants(list);
   }
 
-  const Participant = ({ user, role }) => (
+  const Participant = ({ user, role, isOwner }) => (
     <>
       <div className='flex flex-row items-center gap-3'>
         <div className='p-2 bg-black rounded-full'>
@@ -255,7 +256,8 @@ export default function Upload() {
         <div className='flex flex-row w-full items-center justify-center'>
           <div className='grow flex items-center'><span className='!mb-0 text-ellipsis !text-white'>{user}</span></div>
           <Dropdown
-            list={roles}
+            list={isOwner ? roles.filter(role => role !== 'listener') : roles}
+            isOwner={isOwner}
             remove={() => removeParticipant(user)}
             selected={role}
             set={(role) => { updateParticipant(user, role) }} />
@@ -377,11 +379,12 @@ export default function Upload() {
             <div className='font-semibold mb-1.5'>{t('upload.participant')}</div>
             <AutoComplete
               options={roles}
-              handleAdd={addParticipant} />
+              handleAdd={addParticipant} 
+              filter_ids={participants.map((participant) =>  participant.id)}/>
             <div className='flex flex-col gap-4'>
               {participants.map((user, index) =>
                 <div key={index}>
-                  <Participant user={user?.user} role={user?.role} />
+                  <Participant user={user?.user} role={user?.role} isOwner={user.isOwner} />
                 </div>
               )}
             </div>
