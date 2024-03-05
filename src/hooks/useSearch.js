@@ -45,14 +45,11 @@ const useSearch = (lengthToStartSearch, listeners, token) => {
             headers: { Authorization: `Bearer ${token}` },
            })
            .then((response) =>  {
-
             let artists = response.data;
-            artists = response.data.filter(artist => artist.type !== 'fan');
-
+            artists = response.data.filter(artist => artist.type !== 'fan')
             if (listeners && listeners.length > 0) {
-                artists = artists.filter(artist => !listeners.some(listener => listener.user_id !== artist.id));
+                artists = artists.filter(artist => !listeners.some(listener => listener.user_id === artist.id));
             }
-
             setFilteredArtists(artists)
         })
         .catch(({response}) => {
