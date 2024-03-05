@@ -141,7 +141,7 @@
     "uploader": {
       "title": "drop it like it’s hot",
       "title_mobile": "drop it like it’s hot",
-      "description": "arrastra tu archivo de audio aquí para subir una nueva demo, o...",
+      "description": "Arrastra tu archivo de audio aquí para subir una nueva demo, o...",
       "description_mobile": "Selecciona un archivo para subir tu nueva demo"
     }
   },
