@@ -17,12 +17,15 @@ import fan from 'assets/images/sign-up-fan.png';
 import ErrorMessage from 'components/ErrorMessage';
 import { useCreateAccountMutation, useGetAccountQuery } from 'store/api';
 import { motion } from 'framer-motion';
+import Modal from 'components/Modal';
+import TermsModal from 'components/modals/TermsModal';
 
 export default function Setup() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [userType, setUserType] = useState('');
   const [step, setStep] = useState(0);
+  const [openTerms, setOpenTerms] = useState(false);
   const {
     register,
     handleSubmit,
@@ -115,6 +118,9 @@ export default function Setup() {
 
   const stepTwo = () => (
     <>
+      <Modal show={openTerms} setShow={setOpenTerms}>
+        <TermsModal toggle={() => setOpenTerms(false)} />
+      </Modal>
       <div className='px-6 flex flex-col items-center'>
         <div>
           <h2 className='text-[64px] md:text-[76px]'>{t('setup.step_two.title')}</h2>
@@ -221,7 +227,13 @@ export default function Setup() {
                 name='terms'
                 id='terms-and-conditions'
                 {...register('terms', { required: true })} />
-              <label htmlFor='terms-and-conditions'>{t('setup.step_two.terms')} <Link to='/profile/terms' className='text-brand-gold'>{t('setup.step_two.terms_link')}</Link></label>
+              
+              <label htmlFor='terms-and-conditions'>
+                {t('setup.step_two.terms')} {' '}
+                <span className='text-brand-gold'  onClick={() =>setOpenTerms(true)}>
+                   {t('setup.step_two.terms_link')}
+                </span>
+              </label>
             </div>
             <Button
               style='primary'

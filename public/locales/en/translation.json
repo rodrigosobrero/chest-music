@@ -76,7 +76,9 @@
     "days_other": "{{ count }} days ago",
     "contact_us": "Contact us",
     "search_treasure": "Search a treasure...",
-    "add_version": "Add new version"
+    "add_version": "Add new version",
+    "accept": "Accept",
+    "deny": "Deny"
   },
   "signin": {
     "title": "open your chest",

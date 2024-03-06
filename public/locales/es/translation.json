@@ -76,7 +76,9 @@
     "days_other": "hace {{count}} días",
     "contact_us": "Contáctanos",
     "search_treasure": "Busca un tesoro...",
-    "add_version": "Agregar versión"
+    "add_version": "Agregar versión",
+    "accept": "Aceptar",
+    "deny": "Rechazar"
   },
   "signin": {
     "title": "abre tu cofre",
