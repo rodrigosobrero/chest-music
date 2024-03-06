@@ -7,7 +7,6 @@ const TermsModal = ({toggle}) => {
   const { t, i18n } = useTranslation() 
   const { data: terms = [] } = useGetTermsQuery(i18n.language === 'en' ? 'english' : 'spanish', { refetchOnMountOrArgChange: true })
   const capitalizeText = (text) => {
-    console.log(text)
     return text.toLowerCase().split(' ').map((word) => word.charAt(0).toUpperCase() + word.slice(1, word.length)).join(' ')
   }
   return (
