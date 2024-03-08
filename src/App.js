@@ -63,10 +63,10 @@ function App() {
           path: '/sign-up',
           element: <SignUp />
         },
-        {
-          path: '/password-reset',
-          element: <PasswordReset />
-        },
+        // {
+        //   path: '/password-reset',
+        //   element: <PasswordReset />
+        // },
         {
           path: '/my-chest',
           element:
