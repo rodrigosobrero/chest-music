@@ -1,4 +1,4 @@
-import { classNames, format } from 'utils/helpers';
+import { classNames } from 'utils/helpers';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProgressBar from 'components/ProgressBar';

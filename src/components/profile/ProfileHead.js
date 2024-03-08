@@ -3,6 +3,7 @@ import ProgressBar from 'components/ProgressBar'
 import cloud from 'assets/images/icon-cloud-upload.svg'
 import pencil from 'assets/images/icon-pencil-alt.svg'
 import { bytesToSize, formatHours } from 'utils/helpers'
+import StorageIndicator from 'components/StorageIndicator'
 import Modal from 'components/Modal'
 import ChangeDataModal from 'components/modals/ChangeDataModal'
 import { useTranslation } from 'react-i18next'
@@ -49,7 +50,10 @@ const ProfileHead = ({ data, token }) => {
                     <img src={pencil} alt='' width={24} height={24} className='md:flex hidden' />
                 </button>
             </div>
-            {data?.type == 'artist' ?
+            {data?.type === 'artist' && (
+              <StorageIndicator usedSpace={data.used_seconds} totalSpace={data.total_seconds} />
+            )}
+            {/* {data?.type == 'artist' ?
             (<div className='flex justify-between flex-row-reverse md:flex-row items-center gap-x-4'>
                 <div className='flex flex-col items-end'>
                     <span className='!text-right text-neutral-silver-100 md:!text-[14px] !leading-[18px]'>
@@ -72,7 +76,7 @@ const ProfileHead = ({ data, token }) => {
                         <img src={cloud} alt='' width={28} height={28}  />
                     </button>
                 </div>
-            </div>) : ""}
+            </div>) : ""} */}
         </div>
     </>
   )
