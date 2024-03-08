@@ -2,9 +2,6 @@ import { format } from 'utils/helpers';
 
 export default function ProgressBar({ timeProgress, duration, progressBarRef, audioRef, open }) {
   const handleProgressChange = () => {
-    console.log('currentTime', audioRef.current.currentTime)
-    console.log(progressBarRef.current.value)
-
     audioRef.current.currentTime = progressBarRef.current.value;
   }
 
@@ -15,6 +12,7 @@ export default function ProgressBar({ timeProgress, duration, progressBarRef, au
         <input
           type='range'
           defaultValue={0}
+          step={0.05}
           className='bg-neutral-black rounded-lg h-1.5 accent-white appearance-none'
           ref={progressBarRef}
           onChange={handleProgressChange}
@@ -24,3 +22,5 @@ export default function ProgressBar({ timeProgress, duration, progressBarRef, au
     </>
   )
 }
+
+

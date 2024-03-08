@@ -75,7 +75,10 @@
     "days_one": "{{ count }} day ago",
     "days_other": "{{ count }} days ago",
     "contact_us": "Contact us",
-    "search_treasure": "Search a treasure..."
+    "search_treasure": "Search a treasure...",
+    "add_version": "Add new version",
+    "accept": "Accept",
+    "deny": "Deny"
   },
   "signin": {
     "title": "open your chest",
@@ -159,7 +162,9 @@
     "upload_filetype": "In .jpg or .png format, max size 10 MB",
     "browse": "Browse",
     "participants": "participants",
-    "participant": "Participant"
+    "participant": "Participant",
+    "version_name": "Version name",
+    "version_helper": "Must be different from previous." 
   },
   "profile": {
     "logout": "Log out",
@@ -329,6 +334,12 @@
     ]
   },
   "share": {
+    "title": "Share your treasure",
+    "generate_link": "Generate link",
+    "post": "Post",
+    "send": "Send",
+    "users": "Users",
+    "send_users": "Send to users",
     "play_limit": "Play limit",
     "unlimited": "Unlimited",
     "allow_web_play": "Allow web play",
@@ -343,6 +354,7 @@
     "album": "Album",
     "version": "Version",
     "date_shared": "Date Shared",
+    "date_added": "Date added",
     "length": "Length",
     "plays": "Plays"
   }

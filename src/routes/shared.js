@@ -42,7 +42,7 @@ export default function Shared() {
     <>     
        <div className='flex flex-col md:container px-3 py-10 md:p-[60px] gap-y-6 md:gap-y-10 text-center font-archivo '>
           <div className='flex flex-col items-center gap-y-2 px-3 md:px-0 '>
-              <h3 className="text-[64px] leading-[58px]">
+              <h3 className="text-[64px] lg:leading-[58px]">
                  {t('shared.title')}
               </h3>
               <span className='text-neutral-silver-200 text-base text-center leading-[22px] md:text-lg'>
@@ -60,7 +60,7 @@ export default function Shared() {
             : 
             <div className='bg-neutral-black rounded-3xl px-4 pt-6 pb-8 md:p-[80px]  md:pt-[60px]'>
                 <div className='flex flex-col items-center gap-2'>
-                    <p className='!font-archivo !text-[28px] transof'>{t('notification.nothing_here')}</p>
+                    <h4 className='empty-title'>{t('notification.nothing_here')}</h4>
                     <p className='text-lg text-neutral-silver-200 font-light mb-10'>
                       {t('shared.any')}
                     </p>

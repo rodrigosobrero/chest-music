@@ -90,7 +90,7 @@ const SendDM = ({ token , versionId, onCancel }) => {
         <div className='share-container'>
             <div className='hidden md:flex md:flex-row flex-col items-start md:items-center md:w-4/5 gap-5'>
                 <div className='w-full md:w-3/4'>
-                <Input label='Play limit' 
+                <Input label={t('share.play_limit')}
                        required={true} 
                        placeholder={t('global.placeholder.only_numbers')} 
                        type='number' 
@@ -112,10 +112,10 @@ const SendDM = ({ token , versionId, onCancel }) => {
                 <TagInput handleChange={handleChange} selectOption={selectOption} selectedsOptions={selecteds} filteredUsers={filteredUsers} input={input} removeOption={removeOption}/>
             </div>
             <div className='lg:w-4/5 w-full'>
-                <Input label={'Message'} placeholder={t('share.message_example')} onChange={handleMessageChange} value={message}/>
+                <Input label={t('share.message')} placeholder={t('share.message_example')} onChange={handleMessageChange} value={message}/>
             </div>
         </div>
-        <ButtonsContainer primaryButton={'Send'} 
+        <ButtonsContainer primaryButton={t('global.send')} 
                           onClick={sendToUsers} 
                           disabled={!(input === '' || !isToggled) || selecteds.length < 1 || message === ''} 
                           onCancel={onCancel}/>

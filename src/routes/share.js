@@ -10,6 +10,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { useGetProjectQuery } from 'store/api';
+import { useTranslation } from 'react-i18next';
 
 const Share = () => {
   const [ isUnlimited, setIsUnlimited ] = React.useState(false)
@@ -19,6 +20,7 @@ const Share = () => {
   const [ status, setStatus ] = React.useState('generate');
   const location = useLocation()
   const user = useSelector((state) => state.auth.user);
+  const { t } = useTranslation()
 
   const goBack = () => {
     navigate(-1)
@@ -42,7 +44,7 @@ const Share = () => {
     <>
       <div className='md:w-[1200px] md:p-[60px] mx-auto md:rounded-3xl  w-full  pt-8 pb-10  bg-neutral-black md:my-10 md:gap-y-8'>
         <div className='flex flex-col items-center md:gap-y-6 gap-y-4'>
-           <h3 className='md:text-[64px] text-[48px] text-center'> SHARE YOUR TREASURE </h3>
+           <h3 className='md:text-[64px] text-[48px] text-center'> {t('share.title')} </h3>
            <img src={track.cover_url} alt='track cover' className='md:w-[200px] md:h-[200px] w-[140px] h-[140px]'/>
            <div className='text-center flex flex-col md:gap-y-2 gap-y-1.5'>
              <h4 className='md:text-[22px] leading-[26px] text-base uppercase font-semibold'>{track?.name}</h4>

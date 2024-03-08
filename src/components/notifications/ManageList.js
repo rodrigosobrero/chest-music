@@ -19,7 +19,7 @@ const ManageList = ({ data, privacyIsOpen, onDelete }) => {
 
   return (
     <>
-        <table>
+        <table className='separate'>
             <thead>
             <tr>
              {titles.map((title, index) => 

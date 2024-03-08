@@ -30,7 +30,7 @@ export default function DeletePermissionsLinkModal(props) {
           onClick={handleClose} />
         <Button
           text='Remove'
-          style={'error'}
+          style={'primary'}
           disabled={isLoading}
           loading={isLoading}
           onClick={handleRemove} />

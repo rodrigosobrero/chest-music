@@ -89,15 +89,41 @@ p {
 }
 
 table {
-  @apply w-full border-separate border-spacing-y-3 md:border-spacing-y-7;
+  @apply !w-full !border-separate !border-spacing-y-3 md:!border-spacing-y-7;
+}
+
+.collapsed  {
+  @apply !border-collapse !w-full !border-spacing-y-[-10px] !m-0
 }
 
 th {
   @apply text-sm text-left border-b text-white border-neutral-silver-600 py-[11px] capitalize font-normal;
 }
 
+
+
+.normal-rows td:last-child,
+th:last-child {
+  border-radius: 0px 0px 0px 0px !important;
+}
+
+.normal-rows td:first-child,
+th:first-child {
+  border-radius: 0px 0px 0px 0px !important;
+}
+
+.chest-rows td:last-child,
+th:last-child {
+  border-radius: 0px 10px 10px 0px;
+}
+
+.chest-rows td:first-child,
+th:first-child {
+  border-radius: 10px 0 0 10px;
+}
+
 tr {
-  @apply text-neutral-silver-200 cursor-pointer;
+  @apply text-neutral-silver-200 cursor-pointer ;
 }
 
 tr:hover td {
@@ -105,7 +131,7 @@ tr:hover td {
 }
 
 td {
-  @apply first:text-white transition duration-500;
+  @apply first:text-white transition duration-500 !p-0;
 }
 
 input::-webkit-outer-spin-button,
@@ -122,6 +148,12 @@ input[type=number] {
   @apply h-full;
 }
 
+.icon path{
+  @apply transition-colors fill-white;
+}
+.icon:hover path {
+  @apply fill-brand-gold
+}
 .social {
   @apply bg-neutral-silver-700 rounded-xl p-3 focus:bg-neutral-black;
 }
@@ -167,7 +199,7 @@ input[type=number] {
 }
 
 .btn-tertiary {
-  @apply bg-neutral-silver-600 text-white disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300 hover:bg-brand-uva-light active:bg-brand-uva;
+  @apply bg-neutral-silver-600 text-white disabled:bg-neutral-silver-500 disabled:text-neutral-silver-300 hover:bg-brand-uva active:bg-brand-uva;
 }
 
 .btn-error {
@@ -233,6 +265,7 @@ input[type=number] {
 }
 
 .player-progressbar input[type='range'] {
+  @apply hover:cursor-pointer;
   position: relative;
   width: 100%;
 }
@@ -743,6 +776,10 @@ input[type="search"]::-webkit-search-results-decoration {
   @apply text-base;
 }
 
+.custom-table {
+
+}
+
 .version-options {
   @apply relative transition duration-150 flex flex-col gap-3;
 }
@@ -976,4 +1013,17 @@ input[type="search"]::-webkit-search-results-decoration {
   transform: rotate(-45deg);
   top: 39px;
   left: 8px;
+}
+
+.empty-title {
+ @apply !font-archivo !font-semibold !text-[22px] md:!text-[28px] !normal-case;
+}
+
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 5px;
+  }
+  .scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+  }
 }

@@ -4,38 +4,45 @@ import cloud from 'assets/images/icon-cloud-upload.svg'
 import pencil from 'assets/images/icon-pencil-alt.svg'
 import { bytesToSize, formatHours } from 'utils/helpers'
 import StorageIndicator from 'components/StorageIndicator'
+import { formatHours } from 'utils/helpers'
 import Modal from 'components/Modal'
 import ChangeDataModal from 'components/modals/ChangeDataModal'
 import { useTranslation } from 'react-i18next'
 import { patchData } from 'utils/api'
 import { useDispatch } from 'react-redux'
 import { updateUserData } from 'app/auth'
+
 const ProfileHead = ({ data, token }) => {
     const dispatch = useDispatch()
     const { t } = useTranslation()
     const [show, setShow] = useState()
     const [ input, setInput ] = useState()
+
     const toggle = () => {
       setShow(!show)
       setInput('');
     }
+
     const handleChange = (e) => {
       setInput(e.target.value)
     }
+
     const changeName = () => {
-      console.log(token)
       if(input === '') return;
         patchData('account/', { full_name: input }, token)
         .then((response) => dispatch(updateUserData(response)))
         .catch((err) => console.log('error', err))
         .finally(() => { toggle();})
     }
+
     const inputData = [
-    {
-     label: t('account.artist_name'),
-     placeholder: t('global.placeholder.write_here'),
-     type: 'text'
-    }]
+        {
+        label: t('account.artist_name'),
+        placeholder: t('global.placeholder.write_here'),
+        type: 'text'
+        }
+    ];
+    
   return (
     <>
         <Modal show={show} setShow={setShow}>

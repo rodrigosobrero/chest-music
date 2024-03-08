@@ -63,7 +63,7 @@ export default function TrackListOptions({ track, isOpened, toggleOptions, close
   const options = [
     { type: 'detail', description: t('global.view_details'), action: handleDetail },
     { type: 'download', description: t('global.download'), action: handleDownloadVersion },
-    { type: 'add', description: t('global.add'), action: handleCreateVersion },
+    { type: 'add', description: t('global.add_version'), action: handleCreateVersion },
     { type: 'edit', description: t('global.edit'), action: handleEditTrack },
     { type: 'delete', description: t('global.delete'), action: handleDeleteTrack },
   ];
