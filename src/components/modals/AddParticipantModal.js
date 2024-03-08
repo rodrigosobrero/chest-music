@@ -9,7 +9,7 @@ import Button from 'components/Button';
 export default function AddParticipantModal(props) {
   const { roles } = require('data/config.json');
   const { t } = useTranslation();
-  const [participant, setParticipant] = useState('');
+  const [participants, setParticipants] = useState([]);
   const [createParticipant, { isLoading }] = useCreateParticipantMutation();
   const [createInvite, { isLoading: inviteIsLoading }] = useCreateInviteMutation();
 
@@ -19,32 +19,33 @@ export default function AddParticipantModal(props) {
 
   const handleCancel = () => {
     handleClose();
-    setParticipant('');
+    setParticipants('');
   }
 
   const handleSave = async () => {
     let result;
 
-    if (participant.isEmail) {
-      result = await createInvite({
-        'project': props.meta.project.id,
-        'role': participant.role,
-        'email': participant.full_name
-      })
-    } else {
-      result = await createParticipant({
-        'project': props.meta.project.id,
-        'user': participant.id,
-        'role': participant.role
-      });
-    }
+    for (let participant of participants){
+        if (participant.isEmail) {
+          result = await createInvite({
+            'project': props.meta.project.id,
+            'role': participant.role,
+            'email': participant.full_name
+          });
+        } else {
+          result = await createParticipant({
+            'project': props.meta.project.id,
+            'user': participant.id,
+            'role': participant.role
+          });
+        };
 
-    if ('error' in result) {
-      console.log('Error');
-    } else {
-      setParticipant('');
-      handleClose();
+        if ('error' in result) {
+          console.log('Error');
+        };
     }
+      setParticipants([]);
+      handleClose();
   }
 
   return (
@@ -52,7 +53,8 @@ export default function AddParticipantModal(props) {
       <UserSelector
         roles={roles}
         users={props.meta.project.participants}
-        selected={setParticipant} />
+        selected={setParticipants}
+        selecteds={participants} />
       <div className='grid grid-cols-2 gap-4 mt-8'>
         <Button
           text={t('global.cancel')}
@@ -61,7 +63,7 @@ export default function AddParticipantModal(props) {
         <Button
           text={t('global.save')}
           style='primary'
-          disabled={isLoading || !participant || inviteIsLoading}
+          disabled={isLoading || participants.length === 0 || inviteIsLoading}
           loading={isLoading || inviteIsLoading}
           onClick={handleSave} />
       </div>
