@@ -20,7 +20,6 @@ const AccountData = ({ data, token }) => {
     setInput(e.target.value)
   }
   const changeName = () => {
-    console.log(token)
     if(input === '') return;
       patchData('account/', { full_name: input }, token)
       .then((response) => dispatch(updateUserData(response)))

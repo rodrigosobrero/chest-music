@@ -7,7 +7,7 @@ import { MusicalNoteIcon } from '@heroicons/react/24/outline';
 import { MegaphoneIcon } from '@heroicons/react/24/outline';
 import { ComputerDesktopIcon } from '@heroicons/react/24/outline';
 
-export default function UserSelector({ roles, users, selected, editable }) {
+export default function UserSelector({ roles, users, selected, selecteds }) {
   const [userList, setUserList] = useState(users);
 
   const updateUser = (user, role) => {
@@ -22,12 +22,13 @@ export default function UserSelector({ roles, users, selected, editable }) {
     setUserList(list);
   }
 
-  const addUser = (user, role, id, isEmail, editable) => {
-    const newUser = { full_name: user, role: role, id: id, editable: editable, isEmail: isEmail};
+  const addUser = (user, role, id, isEmail, editable, type) => {
+    const newUser = { full_name: user, role: role, id: id, editable: editable, isEmail: isEmail, type: type};
     const list = [...userList, newUser];
 
     setUserList(list);
-    selected(newUser);
+    const participants = [...selecteds, newUser]
+    selected(participants);
   }
 
   const removeUser = (user) => {
@@ -35,12 +36,13 @@ export default function UserSelector({ roles, users, selected, editable }) {
       current.filter((participant) => participant.id !== user.id)
     );
   };
-
+  
   return (
     <>
       <AutoComplete
         options={roles}
         handleAdd={addUser}
+        filter_ids={userList.map((user) => user.id ? user.id : user.user_id)}
         />
       <div className='flex flex-col gap-4'>
         {userList.map((user, index) =>
@@ -69,8 +71,8 @@ export default function UserSelector({ roles, users, selected, editable }) {
                   </span>
                 </div>
                 <Dropdown
-                  disabled={!editable && !user.editable}
-                  list={roles}
+                  disabled={!user.editable}
+                  list={user.type === 'fan' ? roles.filter((el) => el === 'listener') : roles}
                   remove={() => removeUser(user)}
                   selected={user?.role}
                   set={(role) => { updateUser(user, role) }} />

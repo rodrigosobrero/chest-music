@@ -8,7 +8,7 @@ import {
   CheckIcon
 } from '@heroicons/react/20/solid';
 
-export default function Dropdown({ list, selected, set, remove, disabled }) {
+export default function Dropdown({ list, selected, set, remove, disabled, isOwner }) {
   const { t } = useTranslation();
 
   const [listOpen, setListOpen] = useState(false);
@@ -63,12 +63,14 @@ export default function Dropdown({ list, selected, set, remove, disabled }) {
               {item}
             </button>
           ))}
-          <button
-            type='button'
-            className='dropdown-item !text-red-500 !border-t border-neutral-silver-500'
-            onClick={remove}>
-            {t('global.remove')}
-          </button>
+          {!isOwner && (
+            <button
+              type='button'
+              className='dropdown-item !text-red-500 !border-t border-neutral-silver-500'
+              onClick={remove}>
+              {t('global.remove')}
+            </button>
+          )}
         </div>
       </div>
     </>

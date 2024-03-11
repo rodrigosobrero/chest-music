@@ -6,9 +6,9 @@ import { useTranslation } from 'react-i18next';
 export default function ParticipantsActionsButtons({ participant }) {
   const { onOpen: openEditModal } = useModal('EditParticipantModal');
   const { onOpen: openDeleteModal } = useModal('DeleteParticipantModal');
+  const [options, setOptions] = useState([{}])
   const [isOpened, setIsOpenned] = useState(false)
   const { t } = useTranslation();
-
   const toggleOptions = () => setIsOpenned(!isOpened);
 
   const closeOptions=() => setIsOpenned(false)
@@ -21,9 +21,7 @@ export default function ParticipantsActionsButtons({ participant }) {
     openDeleteModal(participant);
   }
 
-  const options = [
-    { type: 'edit', description: t('global.edit'), action: handleEditUser }
-  ]
+
 
   const handleAction = (action) => {
     const option = options.find((opt) => opt.type === action);
@@ -37,9 +35,13 @@ export default function ParticipantsActionsButtons({ participant }) {
 
   useEffect(() => {
     if (participant.removable) {
-      options.push({
-        type: 'delete', description: 'Delete', action: handleDeleteUser
-      })
+      const newOptions = [
+        { type: 'edit', description: t('global.edit'), action: handleEditUser }, 
+        { type: 'delete', description: t('global.delete'), action: handleDeleteUser }
+      ];
+      setOptions(newOptions)
+    } else {
+      setOptions([{ type: 'edit', description: t('global.edit'), action: handleEditUser }])
     }
   }, [participant])
 

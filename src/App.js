@@ -33,6 +33,7 @@ import Share from 'routes/share';
 import Treasure from 'routes/treasure';
 import Trash from 'routes/trash';
 import SharedPlay from 'routes/shared-play';
+// import PasswordReset from 'routes/password-reset';
 
 function App() {
   const [getBetaAccess] = useLazyGetBetaAccessQuery();
@@ -62,6 +63,10 @@ function App() {
           path: '/sign-up',
           element: <SignUp />
         },
+        // {
+        //   path: '/password-reset',
+        //   element: <PasswordReset />
+        // }, 
         {
           path: '/my-chest',
           element:

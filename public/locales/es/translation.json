@@ -76,7 +76,9 @@
     "days_other": "hace {{count}} días",
     "contact_us": "Contáctanos",
     "search_treasure": "Busca un tesoro...",
-    "add_version": "Agregar versión"
+    "add_version": "Agregar versión",
+    "accept": "Aceptar",
+    "deny": "Rechazar"
   },
   "signin": {
     "title": "abre tu cofre",
@@ -141,7 +143,7 @@
     "uploader": {
       "title": "drop it like it’s hot",
       "title_mobile": "drop it like it’s hot",
-      "description": "arrastra tu archivo de audio aquí para subir una nueva demo, o...",
+      "description": "Arrastra tu archivo de audio aquí para subir una nueva demo, o...",
       "description_mobile": "Selecciona un archivo para subir tu nueva demo"
     }
   },
