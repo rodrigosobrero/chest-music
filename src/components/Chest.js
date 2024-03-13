@@ -1,25 +1,21 @@
 import { useMemo, useState } from 'react';
 import { useGetChestQuery } from 'store/api';
 import { filter } from 'utils/helpers';
-
 import Tag from 'components/Tag';
 import TrackList from 'components/TrackList';
 import SearchBar from 'components/SearchBar';
 import StorageIndicator from 'components/StorageIndicator';
-
 import empty from 'assets/images/empty-chest.svg';
 import { useTranslation } from 'react-i18next';
 
 export default function Chest() {
   const [query, setQuery] = useState('');
   const { t } = useTranslation();
-  const options = { refetchOnMountOrArgChange: true, refetchOnReconnect: true };
-
   const {
     data: chest = {},
     isLoading,
     isFetching,
-  } = useGetChestQuery({}, options);
+  } = useGetChestQuery({}, { refetchOnMountOrArgChange: true });
 
   const filteredProjects = useMemo(() => {
     return filter(chest.projects || [], query);

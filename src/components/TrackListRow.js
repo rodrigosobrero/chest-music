@@ -16,13 +16,16 @@ import upload from 'assets/images/icon-upload.svg';
 
 import { useModal } from 'hooks/useModal';
 
-export default function TrackListRow({ track, isOpened, version,toggleOptions, closeOptions, type }) {
+export default function TrackListRow({ track, isOpened, version, toggleOptions, closeOptions, type }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { playlist } = useSelector((state) => state.playlist);
   const [hover, setHover] = useState(false);
   const [play, setPlay] = useState(false);
   const { onOpen: openShareModal } =  useModal('ShareVersionModal');
+
+  const { onOpen: openOptionsModal, isOpen } = useModal('OptionsTrackModal');
+
   
   const playTrack = () => {
     dispatch(playing({
@@ -49,9 +52,13 @@ export default function TrackListRow({ track, isOpened, version,toggleOptions, c
 
   
 
-  const toggleHover = () => {
-    if(isOpened) return setHover(false);
-    setHover(prev => !prev);
+  const handleOpenOptions = () => {
+    if(isDesktop) {
+      toggleOptions(version.id); 
+      setHover(false)
+    } else {
+      openOptionsModal({ version, track, navigate})
+    }
   }
 
   const handlePlay = () => {
@@ -59,9 +66,11 @@ export default function TrackListRow({ track, isOpened, version,toggleOptions, c
       setHover(false);
       return dispatch(togglePlay())
     }
+
     setHover(false)
     playTrack();
   }
+
   const handleOnTitleClick = (e) => {
     e.stopPropagation(); 
     navigate(`treasure/${track.id}`)
@@ -70,15 +79,19 @@ export default function TrackListRow({ track, isOpened, version,toggleOptions, c
   const handleOnCoverClick = (e) => {
     e.stopPropagation();
     setHover(false);
+    
     if(play){
-      return dispatch(togglePlay())
+      return dispatch(togglePlay());
     }
+    
     playTrack();
   }
 
   useEffect(() => {
     let isOnPlayer = playlist[0]?.id === version.id;
+
     setPlay(isOnPlayer);
+
   }, [playlist]);
 
   return (
@@ -86,7 +99,7 @@ export default function TrackListRow({ track, isOpened, version,toggleOptions, c
           onMouseEnter={() => setHover(true)} 
           onMouseLeave={() => setHover(false)} 
           className='hover:bg-neutral-silver-600'>
-          <td className='!pl-5'>
+          <td className='md:!pl-5'>
             <div className='flex flex-row items-center gap-3 md:gap-4'>
               {type !== 'version' ?
                 <div
@@ -123,7 +136,7 @@ export default function TrackListRow({ track, isOpened, version,toggleOptions, c
               {/*<td>{format.bytes(track.size)}</td>*/}
             </>
           )}
-            <td onClick={(e) => { e.stopPropagation() }} className='!pr-5'>
+            <td onClick={(e) => { e.stopPropagation() }} className='md:!pr-5'>
               <div className='flex justify-end'>
                 {isDesktop && (
                   <button
@@ -136,16 +149,18 @@ export default function TrackListRow({ track, isOpened, version,toggleOptions, c
                 {
                   type === 'version' ? 
                     <TrackVersionsActionsButton
-                    version={version} 
-                    project={track}  
-                    isOpened={isOpened} 
-                    toggleOptions={() => {toggleOptions(version.id); setHover(false)}} 
-                    closeOptions={() => {closeOptions(); setHover(false)}} /> :
+                      version={version} 
+                      project={track}  
+                      isOpened={isOpened} 
+                      toggleOptions={handleOpenOptions} 
+                      closeOptions={() => { closeOptions(); setHover(false) }} 
+                    /> :
                     <TrackListOptions 
-                    track={track} 
-                    isOpened={isOpened} 
-                    toggleOptions={() => {toggleOptions(version.id); setHover(false)}} 
-                    closeOptions={() => {closeOptions(); setHover(false)}} />
+                      track={track} 
+                      isOpened={isOpened} 
+                      toggleOptions={handleOpenOptions} 
+                      closeOptions={() => { closeOptions(); setHover(false) }} 
+                    />
                 }
               </div>
             </td>
