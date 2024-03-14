@@ -43,7 +43,7 @@ export default function TrackList({ tracks, query }) {
                 titles.map((title, index) => 
                   <th 
                     key={index} 
-                    className={`${ !title && 'cursor-default'} ${index === 0 && '!pl-5'}`}>
+                    className={`${ !title && 'cursor-default'} ${index === 0 && 'md:!pl-5'}`}>
                       {title}
                   </th>
                 )
