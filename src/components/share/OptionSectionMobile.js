@@ -12,7 +12,7 @@ const OptionSectionMobile = ({ status, changeStatus }) => {
   const { t } = useTranslation()
 
   return (
-    <div className="flex md:hidden max-w-[100vw]  justify-center space-x-2">
+    <div className="flex md:hidden overflow-x-auto w-[100vw]  justify-center space-x-2">
       <div className={` flex flex-col transition-[1000ms]
                   ${status === 'post' && '!-translate-x-[10px]'}
                   ${status === 'send' && '!-translate-x-[80px]'}

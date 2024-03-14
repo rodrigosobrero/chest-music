@@ -28,6 +28,11 @@ export default function OptionsTrackModal(props) {
     openEditModal(meta)
   }
 
+  const handleOnShareClick = () => {
+    navigate(`/share/${track.id}`);
+    handleClose();
+  }
+
   const handleDetail = () => {
     navigate(`treasure/${track.id}`);
     handleClose();
@@ -62,9 +67,11 @@ export default function OptionsTrackModal(props) {
     openDeleteModal(meta);    
   }
 
+
+
   const options = [
     { type: 'detail', description: t('global.view_details'), onClick: handleDetail },
-    { type: 'share', description: t('global.share') },
+    { type: 'share', description: t('global.share'), onClick: handleOnShareClick},
     { type: 'add', description: t('global.add_version'), onClick: handleCreateVersion },
     { type: 'download', description: t('global.download'), onClick: handleDownloadVersion },
     { type: 'edit', description: t('global.edit'), onClick: handleEditTrack },
