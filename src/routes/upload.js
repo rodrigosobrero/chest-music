@@ -287,7 +287,7 @@ export default function Upload() {
             <Input
               type='text'
               name='name'
-              required={true}
+              required
               register={register}
               placeholder={t('global.write_here')}
               label={t('upload.track_name')}
@@ -295,7 +295,7 @@ export default function Upload() {
             <Input
               type='text'
               name='version'
-              required={true}
+              required
               register={register}
               placeholder={t('global.write_here')}
               label={t('upload.version')}

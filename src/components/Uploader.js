@@ -14,7 +14,9 @@ import ProgressCircle from 'components/ProgressCircle';
 import { CheckIcon } from '@heroicons/react/20/solid';
 
 export default function Uploader({ title = true, self, id }) {
-  const { accepted_files } = require('data/config.json');
+  const { 
+    accepted_files, 
+    accepted_extensions } = require('data/config.json');
   const { t } = useTranslation();
   const { file } = useSelector((state) => state.upload);
   const { user } = useSelector((state) => state.auth);
@@ -40,25 +42,18 @@ export default function Uploader({ title = true, self, id }) {
     }
 
     if (files && files.length) {
-      const { type } = files[0];
+      const { type, name, size } = files[0];
 
-      console.log('file type:', type);
-
-      if (type === 'audio/mpeg' || type === 'audio/wav' || type === 'audio/x-wav' || type === 'audio/x-m4a') {
+      if (accepted_extensions.includes(type)) {
         const localFileURL = window.URL.createObjectURL(files[0])
 
-        if (self) {
-          handleUpload(files[0], localFileURL);
-        } else {
-          dispatch(addFile({
-            filename: files[0].name,
-            size: files[0].size,
-            blob: localFileURL
-          }));
+        dispatch(addFile({
+          filename: name,
+          size,
+          blob: localFileURL
+        }));
 
-          navigate('upload');
-        }
-
+        navigate('upload');
         setShowLoader(true);
       } else {
         openWrongFormatModal();

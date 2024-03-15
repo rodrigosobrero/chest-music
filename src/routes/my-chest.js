@@ -5,7 +5,7 @@ export default function MyChest() {
   return (
     <>
       <div className='container flex flex-col gap-6 md:gap-10 py-8 lg:py-[60px]'>
-        <Uploader self={false} />
+        <Uploader />
         <Chest />
       </div>
     </>

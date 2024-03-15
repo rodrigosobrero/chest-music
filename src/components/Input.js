@@ -1,11 +1,16 @@
 import { useRef, useState, useEffect } from 'react';
-import { EyeSlashIcon } from "@heroicons/react/24/outline";
-import { EyeIcon } from '@heroicons/react/24/outline';
-import { DocumentDuplicateIcon } from "@heroicons/react/24/outline";
-import { XMarkIcon } from "@heroicons/react/24/outline";
-import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { AnimatePresence, motion } from 'framer-motion';
-import ErrorMessage from './ErrorMessage';
+import ErrorMessage from 'components/ErrorMessage';
+
+import { 
+  ChevronDownIcon,
+  ChevronUpIcon,
+  DocumentDuplicateIcon,
+  EyeIcon,
+  EyeSlashIcon,
+  XMarkIcon
+} from '@heroicons/react/24/outline';
+
 export default function Input({ type, placeholder, label, name, value, onChange, showHide, helper, required, register, error,
   showClipboard, disabled, onlyNumeric, showDelete, showMore, onDelete, isOpen, toggleOpen, maxLength, onFocus, onBlur, pattern, noWhiteSpace }) {
   const [inputType, setInputType] = useState(type);
@@ -75,7 +80,11 @@ export default function Input({ type, placeholder, label, name, value, onChange,
                 placeholder={placeholder}
                 id={name}
                 name={name}
-                {...register(name, { required, pattern: onlyNumeric ? '/[0-9]{4}/' : pattern })}
+                {...register(name, { 
+                  required, 
+                  validate: value => value.trim() !== '',
+                  pattern: onlyNumeric ? '/[0-9]{4}/' : pattern 
+                })}
                 maxLength={maxLength}
                 onFocus={onFocus}
                 onBlur={onBlur}
