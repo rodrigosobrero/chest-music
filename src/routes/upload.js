@@ -149,8 +149,16 @@ export default function Upload() {
   }
 
   const handleCreateProject = async () => {
-    const formatParticipants = participants.map((participant) => {
-      return { role: participant.role, user: participant.id }
+    
+    let formatParticipants = { invitations: [], participants: [] };
+
+    participants.forEach((participant) => {
+      if(participant.isEmail){
+        formatParticipants.invitations.push({ role: participant.role, email: participant.id })
+      } 
+      else {
+        formatParticipants.participants.push({ role: participant.role, user: participant.id })
+      }
     });
 
     const result = await createProject({
@@ -161,7 +169,8 @@ export default function Upload() {
         'name': track.version,
         'audio': track.fileId
       },
-      'participants': formatParticipants
+      'participants': formatParticipants.participants,
+      'invitations': formatParticipants.invitations
     });
 
     if ('error' in result) {
@@ -231,8 +240,8 @@ export default function Upload() {
     setParticipants(list);
   }
 
-  const addParticipant = (user, role, id) => {
-    const list = [...participants, { user: user, role: role, id: id }];
+  const addParticipant = (user, role, id, isEmail) => {
+    const list = [...participants, { user: user, role: role, id: id, isEmail: isEmail }];
     setParticipants(list);
   }
 
