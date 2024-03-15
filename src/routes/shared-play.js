@@ -52,7 +52,8 @@ const SharedPlay = () => {
   return (
     <>
       <Helmet>
-        <meta property='og:title' content={`${track.title} - Chest Music`} />
+        <meta property='og:title' content={track.title} />
+        <meta property='og:description' content={`${track.authors[0]} shared a demo with you on Chest.`} />
         <meta property='og:audio' content={track.audio_url} />
         <meta property='og:type' content='music.song' />
         <meta property='og:url' content={`${window.location.protocol}//${window.location.host}/shared-link?token=${searchParams.get('token')}`} />
