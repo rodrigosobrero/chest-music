@@ -243,7 +243,8 @@
   },
   "shared": {
     "title": "Compartido conmigo",
-    "subtitle": "Explora la lista de canciones que has escuchado recientemente"
+    "subtitle": "Explora la lista de canciones que has escuchado recientemente",
+    "link": "compartió una demo contigo en Chest"
   },
   "security": {
     "pin": "Código PIN",
