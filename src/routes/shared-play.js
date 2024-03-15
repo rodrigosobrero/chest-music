@@ -51,16 +51,22 @@ const SharedPlay = () => {
       });
   }, [searchParams]);
 
+  useEffect(() => {
+    console.log(track)
+  }, [track])
+
   return (
     <>
-      <Helmet>
-        <meta property='og:title' content={track.title} />
-        <meta property='og:description' content={`${track.authors[0]} ${t('shared.link')}.`} />
-        <meta property='og:audio' content={track.audio_url} />
-        <meta property='og:type' content='music.song' />
-        <meta property='og:url' content={`${window.location.protocol}//${window.location.host}/shared-link?token=${searchParams.get('token')}`} />
-        <meta property='og:image' content={og_cover} />
-      </Helmet>
+      {track && (
+        <Helmet>
+          <meta property='og:title' content={track.title} />
+          <meta property='og:description' content={`${track?.authors?.join(', ')} ${t('shared.link')}`} />
+          <meta property='og:audio' content={track.audio_url} />
+          <meta property='og:type' content='music.song' />
+          <meta property='og:url' content={`${window.location.protocol}//${window.location.host}/shared-link?token=${searchParams.get('token')}`} />
+          <meta property='og:image' content={og_cover} />
+        </Helmet>
+      )}
       <div className='lg:block hidden lg:container'>
         <AnimatePresence initial={false} mode='wait'>
           {isLoading || isFetching || Object.keys(track).length === 0 ? (
