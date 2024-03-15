@@ -36,7 +36,13 @@
     { "code": "es", "name": "english", "icon": "🇦🇷" },
     { "code": "en", "name": "spanish", "icon": "🇺🇸", "default": true }
   ],
-  "accepted_files": ".mp3,.wav, .m4a",
+  "accepted_files": ".mp3, .wav, .m4a",
+  "accepted_extensions": [
+    "audio/mpeg",
+    "audio/wav",
+    "audio/x-wav",
+    "audio/x-m4a"
+  ],
   "roles": [
     "artist",
     "producer",
