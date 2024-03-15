@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 import { useSearchParams, Link } from 'react-router-dom'
 import { playing } from 'app/playlist';
 import { useLazyGetSharedTrackQuery } from 'store/api';
@@ -13,6 +14,7 @@ import og_cover from 'assets/images/og-cover.jpg';
 
 const SharedPlay = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const [track, setTrack] = useState({});
   const { onOpen: openLimitModal } = useModal('PlayLimitModal');
@@ -52,7 +54,8 @@ const SharedPlay = () => {
   return (
     <>
       <Helmet>
-        <meta property='og:title' content={`${track.title} - Chest Music`} />
+        <meta property='og:title' content={track.title} />
+        <meta property='og:description' content={`${track.authors[0]} ${t('shared.link')}.`} />
         <meta property='og:audio' content={track.audio_url} />
         <meta property='og:type' content='music.song' />
         <meta property='og:url' content={`${window.location.protocol}//${window.location.host}/shared-link?token=${searchParams.get('token')}`} />
