@@ -72,7 +72,7 @@ export default function Nav() {
             <Link to={'/my-chest'}>
               <img src={logo} alt='Chest' width={146} height={32} className='w-[110px] h-[24px] md:w-[146px] md:h-[32px]' />
             </Link>
-            <Tag>Web</Tag>
+            <Tag>Beta</Tag>
           </div>
           <div className='hidden lg:block'>
             <ul>

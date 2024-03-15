@@ -23,7 +23,6 @@ export default function TrackCoverSelector({ preview, updatePreview, covers, sel
     }
 
     const objectURL = URL.createObjectURL(selectedFile);
-    // updatePreview(objectURL);
 
     updatePreview({
       url: objectURL,
@@ -51,7 +50,7 @@ export default function TrackCoverSelector({ preview, updatePreview, covers, sel
   return (
     <>
       <div
-        className={`flex items-center justify-center rounded-lg bg-neutral-silver-300 w-[140px] md:w-[160px] h-[140px] md:h-[160px] relative bg-cover mb-3 ${preview && 'bg-cover'}`}
+        className='flex items-center justify-center rounded-lg bg-neutral-silver-300 w-[140px] md:w-[160px] h-[140px] md:h-[160px] relative mb-3 bg-cover bg-center'
         style={{ backgroundImage: `url("${preview ? preview : covers[coverIndex].url}")` }}>
       </div>
       <span className='text-neutral-silver-200 mb-4'>{t('upload.preview')}</span>
@@ -100,8 +99,8 @@ export default function TrackCoverSelector({ preview, updatePreview, covers, sel
       </div>
       <div className='w-full text-center mb-10 h-6'>
         <span className='text-sm text-neutral-silver-300'>
-          {covers[coverIndex].author 
-            ? t('global.by') + ' ' + covers[coverIndex].author 
+          {covers[coverIndex].author
+            ? t('global.by') + ' ' + covers[coverIndex].author
             : ''}
         </span>
       </div>

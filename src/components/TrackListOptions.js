@@ -50,7 +50,7 @@ export default function TrackListOptions({ track, isOpened, toggleOptions, close
     const meta = {
       project: project,
       versions: project.versions,
-      lastVersion: track.last_version_id
+      lastVersion: track.versions[0].id
     }
 
     openDownloadModal(meta);
