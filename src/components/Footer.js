@@ -3,11 +3,12 @@ import Select from './Select';
 
 import logo from 'assets/images/logo-gray.svg';
 
-import { ReactComponent as AppStore } from 'assets/images/icon-appstore.svg';
-import { ReactComponent as PlayStore } from 'assets/images/icon-playstore.svg';
+// import { ReactComponent as AppStore } from 'assets/images/icon-appstore.svg';
+// import { ReactComponent as PlayStore } from 'assets/images/icon-playstore.svg';
 import { ReactComponent as Twitter } from 'assets/images/icon-twitter.svg';
 import { ReactComponent as Instagram } from 'assets/images/icon-instagram.svg';
 import { ReactComponent as LinkedIn } from 'assets/images/icon-linkedin.svg';
+import { useEffect } from 'react';
 
 export default function Footer() {
   const { languages } = require('data/config.json');
@@ -61,7 +62,7 @@ export default function Footer() {
               <Select
                 position='top'
                 options={options()}
-                value={i18n.language}
+                value={i18n.language.split('-')[0]}
                 onChange={handleChange}
                 minify
               />
