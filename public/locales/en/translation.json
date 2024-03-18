@@ -269,7 +269,8 @@
   "shared": {
     "title": "Shared with me",
     "subtitle": "Explore and play the tracks that other artists shared with you",
-    "any": "Nobody shared a track with you yet"
+    "any": "Nobody shared a track with you yet",
+    "link": "shared a demo with you on Chest"
   },
   "security": {
     "pin": "PIN Code",
