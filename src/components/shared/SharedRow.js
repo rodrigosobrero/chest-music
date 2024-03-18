@@ -49,7 +49,7 @@ const SharedRow = ({ track, isMobile }) => {
       <tr onClick={handleOnCoverClick} style={{height: '5rem'}} 
           onMouseEnter={() => setHover(true)} 
           onMouseLeave={() => setHover(false)} 
-          className='hover:bg-neutral-silver-600 text-left'>
+          className={`hover:bg-neutral-silver-600 text-left ${track.plays === track.play_limit && '!opacity-50'}`}>
         <td className='md:!pl-5'>
           <div className='flex flex-row gap-3 md:gap-4'>
             <div
