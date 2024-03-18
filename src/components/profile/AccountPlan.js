@@ -17,7 +17,6 @@ const AccountPlan = ({ data }) => {
   const { onOpen: openConverAccountModal } = useModal('ConvertAccountModal');
 
   const { data: account } = useGetAccountQuery({}, { refetchOnMountOrArgChange: true });
-  console.log(account)
   
   const handleSelectOption = (i) => {
     setSelected(countries[i]);
@@ -92,11 +91,11 @@ const AccountPlan = ({ data }) => {
                     background='gray' />
                 </div>
               </div>
-              {/* <button className='py-1.5' onClick={toggle}>
+              <button className='py-1.5' onClick={() => setShow(true)}>
                 <h5 className='text-brand-gold !font-archivo !text-lg !font-semibold'>
                   {t('account.upgrade')}
                 </h5>
-              </button> */}
+              </button>
             </div>
           )}
           <div className='space-y-4'>
