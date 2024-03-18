@@ -24,7 +24,7 @@ const SharedList = ({ tracks }) => {
 
   return (
     <>
-     <table>
+      <table className='collapsed w-full'>
          <thead >
              <tr >
                 {
@@ -32,14 +32,14 @@ const SharedList = ({ tracks }) => {
                     <th 
                       key={index} 
                       // onClick={() => { title && handleSortingChange(index) }} 
-                      className={`${ !title && 'cursor-default' } font-semibold`}>
-                        {title} 
+                      className={`${ !title && 'cursor-default'} ${index === 0 && 'md:!pl-5'}`}>
+                      {title} 
                     </th>
                   )
                 }
              </tr>
          </thead>
-         <tbody>
+         <tbody className='chest-rows'>
               {
                 tracks?.map((track, index) =>
                   <SharedRow key={index} track={track} isMobile={isMobile} />
