@@ -10,28 +10,34 @@ import { updateUserData } from 'app/auth'
 const AccountData = ({ data, token }) => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
-  const [show, setShow] = useState()
-  const [ input, setInput ] = useState()
+
+  const [show, setShow] = useState();
+  const [ input, setInput ] = useState();
+
   const toggle = () => {
     setShow(!show)
     setInput('');
-  }
+  };
+
   const handleChange = (e) => {
     setInput(e.target.value)
-  }
+  };
+
   const changeName = () => {
     if(input === '') return;
       patchData('account/', { full_name: input }, token)
       .then((response) => dispatch(updateUserData(response)))
       .catch((err) => console.log('error', err))
-      .finally(() => { toggle();})
-  }
+      .finally(() =>  toggle())
+  };
+  
   const inputData = [
     {
      label: t('account.artist_name'),
      placeholder: t('global.placeholder.write_here'),
      type: 'text'
-    }]
+  }]
+
   return (
     <> 
       <Modal show={show} setShow={setShow} >
