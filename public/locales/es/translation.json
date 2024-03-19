@@ -78,7 +78,8 @@
     "search_treasure": "Busca un tesoro...",
     "add_version": "Agregar versión",
     "accept": "Aceptar",
-    "deny": "Rechazar"
+    "deny": "Rechazar",
+    "required": "Este campo es obligatorio."
   },
   "signin": {
     "title": "abre tu cofre",
