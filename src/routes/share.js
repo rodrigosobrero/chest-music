@@ -13,11 +13,11 @@ import { useGetProjectQuery } from 'store/api';
 import { useTranslation } from 'react-i18next';
 
 const Share = () => {
-  const [ isUnlimited, setIsUnlimited ] = React.useState(false)
+  const [ isUnlimited, setIsUnlimited ] = useState(false)
   const navigate = useNavigate()
   const { trackId } = useParams()
   const {data: track = {}} = useGetProjectQuery(trackId)
-  const [ status, setStatus ] = React.useState('generate');
+  const [ status, setStatus ] = useState('generate');
   const location = useLocation()
   const user = useSelector((state) => state.auth.user);
   const { t } = useTranslation()
@@ -47,7 +47,7 @@ const Share = () => {
            <h3 className='md:text-[64px] text-[48px] text-center'> {t('share.title')} </h3>
            <img src={track.cover_url} alt='track cover' className='md:w-[200px] md:h-[200px] w-[140px] h-[140px]'/>
            <div className='text-center flex flex-col md:gap-y-2 gap-y-1.5'>
-             <h4 className='md:text-[22px] leading-[26px] text-base uppercase font-semibold'>{track?.name}</h4>
+             <h4 className='md:!text-[22px] !font-archivo leading-[26px] text-base uppercase !font-semibold !text-center'>{track?.name}</h4>
              <h6 className='md:text-xl text-base text-neutral-silver-200'>
                {track?.versions?.length > 0 && track?.versions[0].name}
              </h6>

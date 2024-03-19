@@ -54,10 +54,7 @@ const SharedRow = ({ track, isMobile }) => {
           <div className='flex flex-row gap-3 md:gap-4'>
             <div
               className='w-[52px] h-[52px] min-w-[52px] bg- bg-cover rounded'
-              style={{ backgroundImage: `url(${track.cover_url})` }}
-              onClick={handleOnCoverClick}
-              onMouseEnter={toggleHover}
-              onMouseLeave={toggleHover}>
+              style={{ backgroundImage: `url(${track.cover_url})` }}>
               {hover && !play && <div className='cover-hover'><PlayIcon className='h-6 w-6 text-white' /></div>}
               {play && playlist[0]?.isPlaying && <div className='cover-hover'><PauseIcon className='h-6 w-6 text-white' /></div>}
             </div>
