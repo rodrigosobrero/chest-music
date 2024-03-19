@@ -6,7 +6,7 @@ import {
     EyeIcon,
     PencilSquareIcon,
     PlusIcon,
-    TrashIcon
+    XCircleIcon
   } from '@heroicons/react/24/outline';
 
 const OptionsButton = ({ type, title, onClick }) => {
@@ -31,7 +31,7 @@ const OptionsButton = ({ type, title, onClick }) => {
             icon = <PencilSquareIcon className='h-6 w-6 text-brand-gold' />;
             break;
         case 'delete':
-            icon = <TrashIcon className='h-6 w-6 text-error-red' />;
+            icon = <XCircleIcon className='h-6 w-6 text-error-red' />;
             break;
     }    
     return icon;
