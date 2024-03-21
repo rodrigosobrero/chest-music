@@ -1,10 +1,14 @@
 import { isDesktop, isMobile } from 'react-device-detect';
 import { AnimatePresence, motion } from 'framer-motion';
 import { firstLetterUpperCase, format } from 'utils/helpers';
-
+import { ChevronUpIcon } from "@heroicons/react/24/solid";
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import ParticipantsActionsButtons from './ParticipantsActionsButton';
+import useSort from 'hooks/useSort';
 
-export default function ParticipantsTable({ data, headers, user }) {
+export default function ParticipantsTable({ data: list, headers, user }) {
+  const { sortBy, data, method, tagOrdered } = useSort(list);
+  
   const Rows = ({ cell }) => {
     return (
       <>
@@ -48,9 +52,11 @@ export default function ParticipantsTable({ data, headers, user }) {
         <thead>
           <tr>
             {
-              headers.map((header, index) =>
-                <th key={index}>
-                  {header}
+              headers.map(({ title, tag }, index) =>
+                <th key={index} onClick={() => {tag && sortBy(tag)}}>
+                  <span className='flex items-center gap-2 capitalize'>
+                      {title} {tagOrdered === tag && (method === 'asc' ? <ChevronDownIcon className='h-4 w-4'/> : <ChevronUpIcon className='h-4 w-4'/> )}
+                  </span>                    
                 </th>
               )
             }
