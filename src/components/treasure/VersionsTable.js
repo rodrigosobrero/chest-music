@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { AnimatePresence, motion } from 'framer-motion';
 import VersionsRow from './VersionsRow';
+import useSort from 'hooks/useSort';
 
 export default function VersionsTable({ project }) {
   const [titles, setTitles] = useState([]);
-
+  // const { sortBy, data, method, tagOrdered } = useSort(project)
   useEffect(() => {
     if (isMobile) {
       setTitles([
