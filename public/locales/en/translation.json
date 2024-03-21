@@ -356,6 +356,9 @@
     "date_shared": "Date Shared",
     "date_added": "Date added",
     "length": "Length",
-    "plays": "Plays"
+    "plays": "Plays",
+    "username": "Username",
+    "name": "Name",
+    "date_blocked": "Date blocked"
   }
 }
