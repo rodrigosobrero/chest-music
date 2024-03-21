@@ -333,6 +333,7 @@
     "plays": "Reproducciones",
     "username": "Usuario",
     "name": "Nombre",
-    "date_blocked": "Fecha bloqueado"
+    "date_blocked": "Fecha bloqueado",
+    "date_played": "Fecha reproducido"
   }
 }

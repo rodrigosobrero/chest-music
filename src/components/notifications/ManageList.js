@@ -12,6 +12,7 @@ const ManageList = ({ data: list, privacyIsOpen, onDelete }) => {
     const { t } = useTranslation();
 
     const titles = useMemo(() => {  
+        
         if(privacyIsOpen){
             if(!isMobile) {
                 return [
@@ -30,6 +31,7 @@ const ManageList = ({ data: list, privacyIsOpen, onDelete }) => {
                     { title: ''} ]} 
                 else return [{ title: t('tables.date_allowed'), tag: 'date' }, { title: '' }]
             }
+
     }, [isMobile, privacyIsOpen, t]);
 
   return (

@@ -359,6 +359,7 @@
     "plays": "Plays",
     "username": "Username",
     "name": "Name",
-    "date_blocked": "Date blocked"
+    "date_blocked": "Date blocked",
+    "date_played": "Date played"
   }
 }
