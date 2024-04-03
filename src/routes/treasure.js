@@ -176,7 +176,7 @@ export default function Treasure() {
         {data.length > 0 ? (
           <div>
             {permissionsView === 'participants' ? (
-              <ParticipantsTable data={data} headers={headers} user={user} />
+              <ParticipantsTable data={data} headers={headers} user={user} invitations={project.invitations} />
             ) : permissionsView === 'links' ? (
               <LinksTable data={data} headers={headers} />
             ) : (
