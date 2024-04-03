@@ -12,7 +12,7 @@ export default function VersionsRow({ project, version }) {
   const dispatch = useDispatch();
   const { playlist } = useSelector((state) => state.playlist);
   const [play, setPlay] = useState(false)
-  console.log(project, version)
+
   const filteredParticipants = (participants) => {
     let filtered = [];
 
