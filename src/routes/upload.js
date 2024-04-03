@@ -344,7 +344,7 @@ export default function Upload() {
                 defaultCover={defaultCover}
                 onClick={() => { setOpen(true) }} />
             </div>
-            <h4 className={`mt-8 ${track.name ? 'text-white' : 'text-neutral-silver-200'}`}>
+            <h4 className={`mt-8 !text-center ${track.name ? 'text-white' : 'text-neutral-silver-200'}`}>
               {track.name ? track.name : 'track name'}
             </h4>
             <p className='text-neutral-silver-200 uppercase mt-2 !mb-0 text-base md:text-lg'>
