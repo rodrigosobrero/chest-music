@@ -4,7 +4,7 @@ import { isDesktop } from 'react-device-detect';
 import { format } from 'utils/helpers';
 import { playing, play as togglePlay } from 'app/playlist';
 import VersionsActionsButton from './VersionsActionsButton';
-
+import icon_rectangle from 'assets/images/icon-rectangle.png'
 import { PlayIcon } from '@heroicons/react/24/solid';
 import { PauseIcon } from '@heroicons/react/24/solid';
 
@@ -12,7 +12,7 @@ export default function VersionsRow({ project, version }) {
   const dispatch = useDispatch();
   const { playlist } = useSelector((state) => state.playlist);
   const [play, setPlay] = useState(false)
-
+  console.log(project, version)
   const filteredParticipants = (participants) => {
     let filtered = [];
 
@@ -33,9 +33,7 @@ export default function VersionsRow({ project, version }) {
     setPlay(playlist[0]?.id === version?.id);
   }, [playlist]);
 
-  const handleOnClick = () => {
-    
-    console.log(play)
+  const handleOnClick = () => {    
     if(play){
       return dispatch(togglePlay());
     } 
@@ -63,10 +61,18 @@ export default function VersionsRow({ project, version }) {
             </button>
           </div>
           <div>
-            <span className='text-lg line-clamp-1'>{project.name}</span>
-            <div className='text-sm text-neutral-silver-200'>
-              {filteredParticipants(project.participants)}
-            </div>
+            <span className='text-lg line-clamp-1'>{isDesktop ? project.name : version.name}</span>
+            {isDesktop ?
+              <div className='text-sm text-neutral-silver-200'>
+                {filteredParticipants(project.participants)}
+              </div>
+            :
+              <div className='text-sm text-neutral-silver-200 flex items-center gap-2'>
+                {format.time(version.duration)} 
+                <img src={icon_rectangle} alt='rectangle' className='h-[3px]' />
+                {version.plays}
+              </div>
+            }
           </div>
         </div>
       </td>
