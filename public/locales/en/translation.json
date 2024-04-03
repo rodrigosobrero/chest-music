@@ -78,7 +78,8 @@
     "search_treasure": "Search a treasure...",
     "add_version": "Add new version",
     "accept": "Accept",
-    "deny": "Deny"
+    "deny": "Deny",
+    "required": "This field is required"
   },
   "signin": {
     "title": "open your chest",
