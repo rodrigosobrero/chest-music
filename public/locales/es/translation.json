@@ -20,7 +20,10 @@
       "beta": "registrarse a la beta",
       "default": "abre tu cofre"
     },
-    "become an artist": "Convertirme en artista",
+    "become an artist": {
+      "beta": "Convertirme en artista",
+      "default": "Convertirme en artista"
+    },
     "become": {
       "description": "Estás seguro que querés convertirte en artista? Esta acción no se puede deshacer."
     },
