@@ -1,18 +1,25 @@
 import TrackListRow from 'components/TrackListRow';
-import useSort from 'hooks/useSort';
 import { useEffect, useState } from 'react';
+import useSort from 'hooks/useSort';
+import { useModal } from 'hooks/useModal';
 import { isMobile } from 'react-device-detect';
 import { useTranslation } from 'react-i18next';
 import { ChevronUpIcon } from "@heroicons/react/24/solid";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import SearchBar from './SearchBar';
+import close from 'assets/images/icon-close.svg'
+import search from 'assets/images/icon-search-white.svg'
 
-export default function TrackList({ tracks, query }) {
+export default function TrackList({ tracks, query, handleChange }) {
   const [titles, setTitles] = useState([]);
   const [rowOpenned, setRowOpenned] = useState(false);
+                                                             
+  const { data, sortBy, method, tagOrdered, customOrderData } = useSort(tracks);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const { data, sortBy, method, tagOrdered} = useSort(tracks);
+  const { t } = useTranslation();
 
-  const { t } = useTranslation()
+  const { onOpen } = useModal('SortTracksModal')
 
   const toggleOpen = (id) => {
     setRowOpenned(rowOpenned === id ? false : id);
@@ -20,15 +27,15 @@ export default function TrackList({ tracks, query }) {
 
   const closeOptions = () => setRowOpenned(false);
 
-
   useEffect(() => {
     if (isMobile) {
       setTitles([
         {
           title: t('tables.title'),
-          tag: 'name'
+          onClick: () => onOpen({ tagSelected: tagOrdered, type: method, customOrderData: customOrderData })
         },
-        '',
+        { title: <img src={search} alt='search' onClick={() => setIsOpen(true)}/>
+        },
       ])
     } else {
       setTitles([
@@ -48,17 +55,36 @@ export default function TrackList({ tracks, query }) {
       <table className='collapsed w-full'>
           <thead>
             <tr>
-              {
-                titles.map(({title, tag}, index) => 
+              {!isOpen ? 
+                titles.map(({title, tag, onClick }, index) => 
                   <th 
-                    onClick={() => sortBy(tag)}
+                  onClick={() => { 
+                    if (tag) {
+                      sortBy(tag);
+                    } else if (onClick) {
+                      onClick();
+                    } else {
+                      console.log("No action specified");
+                    }}}                    
                     key={index} 
-                    className={`${ !title && 'cursor-default'} ${index === 0 && 'md:!pl-5'}`}>
-                      <span className='flex items-center gap-2'>
+                    className={`${ !title && 'cursor-default'} 
+                                ${index === 0 && 'md:!pl-5'}`}>
+                      <span className={`flex items-center gap-2 ${index === titles.length-1 && 'justify-end'}`}>
                         {title} {tagOrdered === tag && (method === 'asc' ? <ChevronDownIcon className='h-4 w-4'/> : <ChevronUpIcon className='h-4 w-4'/> )}
                       </span>
                   </th>
                 )
+                :
+                <>
+                  <th className='w-full'>
+                    <SearchBar placeholder={t('global.search_treasure')} onChange={handleChange}/>
+                  </th>
+                  <th>
+                    <span className='flex justify-end'>
+                      <img src={close} onClick={() => setIsOpen(false)} alt='close' />
+                    </span>
+                  </th>
+                </>
               }
             </tr>
           </thead>
