@@ -32,7 +32,7 @@ export default function TrackList({ tracks, query, handleChange }) {
       setTitles([
         {
           title: t('tables.title'),
-          onClick: () => onOpen({ tagSelected: tagOrdered, type: method, customOrderData: customOrderData })
+          onClick: () => onOpen({ tagOrdered: tagOrdered, method: method, customOrderData: customOrderData })
         },
         { title: <img src={search} alt='search' onClick={() => setIsOpen(true)}/>
         },
@@ -48,7 +48,7 @@ export default function TrackList({ tracks, query, handleChange }) {
         '',
       ])
     }
-  }, [t]);
+  }, [t, tagOrdered, method]);
 
   return (
     <>

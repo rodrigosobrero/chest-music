@@ -1,5 +1,6 @@
 import { BaseModal } from 'components/BaseModal'
 import React, { useState } from 'react'
+import { CheckIcon } from "@heroicons/react/24/solid";
 
 const SortTracksModal = (props) => {
   const [tagOrdered, setTagOrdered] = useState(props.meta.tagOrdered)
@@ -44,9 +45,10 @@ const SortTracksModal = (props) => {
   ]
   const Button = ({ title, onClick, selected }) => {
     return (
-        <button className={`w-full px-4 py-3 text-left rounded-xl text-sm ${selected ? 'bg-neutral-black' : 'bg-neutral-silver-600'}`}
+        <button className={`w-full px-4 py-3 text-left flex justify-between rounded-xl text-sm ${selected ? 'bg-neutral-black' : 'bg-neutral-silver-600'}`}
                 onClick={onClick}>
             {title}
+            {selected && <CheckIcon className="h-6 w-6 text-brand-gold" />}
         </button>
     )
   }
