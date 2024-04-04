@@ -13,6 +13,14 @@ export default function Root() {
   return (
     <>
       <Helmet>
+        <meta property="og:title" content="Chest Music" />
+        <meta property="og:description" content="If your music is your treasure, it deserves to have its chest." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://chestmusic.com/" />
+        <meta property="og:image" content="https://chestmusic.com/images/og-cover.jpg" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
         <script>
           {`
             (function(h,o,t,j,a,r){ 

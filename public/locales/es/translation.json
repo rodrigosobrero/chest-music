@@ -16,7 +16,10 @@
     "the project": "el proyecto",
     "the team": "el equipo",
     "contact us": "contactanos",
-    "open chest": "Registrarse a la BETA",
+    "open chest": {
+      "beta": "registrarse a la beta",
+      "default": "abre tu cofre"
+    },
     "become an artist": "Convertirme en artista",
     "become": {
       "description": "Estás seguro que querés convertirte en artista? Esta acción no se puede deshacer."
@@ -25,7 +28,10 @@
     "back": "Volver",
     "profile": "perfil",
     "my chest": "mi cofre",
-    "give feedback": "dar feedback",
+    "give feedback": {
+      "beta": "dar feedback",
+      "default": "dar feedback"
+    },
     "shared": "compartido",
     "close": "Cerrar",
     "open": "abierta",
