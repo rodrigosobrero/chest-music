@@ -153,7 +153,7 @@ export default function Nav() {
                 })}>
                 {item.button ? (
                   <Button
-                    text={t('global.' + item.name).toLowerCase()}
+                    text={t('global.' + item.name + (process.env.REACT_APP_BETA ? '.beta' : '.default')).toLowerCase()}
                     onClick={() => { item.link ? navigate(item.link) : actions[item.action](); setOpen(false); }} />
                 ) : (
                   <NavLink to={item.link} onClick={() => { setOpen(false) }}>
