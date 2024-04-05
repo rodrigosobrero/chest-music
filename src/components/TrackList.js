@@ -1,11 +1,16 @@
 import TrackListRow from 'components/TrackListRow';
+import useSort from 'hooks/useSort';
 import { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { useTranslation } from 'react-i18next';
+import { ChevronUpIcon } from "@heroicons/react/24/solid";
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
 
 export default function TrackList({ tracks, query }) {
   const [titles, setTitles] = useState([]);
   const [rowOpenned, setRowOpenned] = useState(false);
+
+  const { data, sortBy, method, tagOrdered} = useSort(tracks);
 
   const { t } = useTranslation()
 
@@ -15,19 +20,23 @@ export default function TrackList({ tracks, query }) {
 
   const closeOptions = () => setRowOpenned(false);
 
+
   useEffect(() => {
     if (isMobile) {
       setTitles([
-        t('tables.title'),
+        {
+          title: t('tables.title'),
+          tag: 'name'
+        },
         '',
       ])
     } else {
       setTitles([
-        t('tables.title'),
-        t('tables.album'),
-        t('tables.version'),
-        t('tables.date_added'),
-        t('tables.length'),
+        { title: t('tables.title'), tag: 'name' },
+        { title: t('tables.album'), tag: 'album' },
+        { title: t('tables.version'), tag: 'version'},
+        { title: t('tables.date_added'), tag: 'date_added' },
+        { title: t('tables.length'), tag: 'size' },
         //'total size',
         '',
       ])
@@ -40,11 +49,14 @@ export default function TrackList({ tracks, query }) {
           <thead>
             <tr>
               {
-                titles.map((title, index) => 
+                titles.map(({title, tag}, index) => 
                   <th 
+                    onClick={() => sortBy(tag)}
                     key={index} 
                     className={`${ !title && 'cursor-default'} ${index === 0 && 'md:!pl-5'}`}>
-                      {title}
+                      <span className='flex items-center gap-2'>
+                        {title} {tagOrdered === tag && (method === 'asc' ? <ChevronDownIcon className='h-4 w-4'/> : <ChevronUpIcon className='h-4 w-4'/> )}
+                      </span>
                   </th>
                 )
               }
@@ -52,7 +64,7 @@ export default function TrackList({ tracks, query }) {
           </thead>
         <tbody className='chest-rows'>
         {
-            tracks?.length > 0 && tracks.map((track, index) => {
+            tracks?.length > 0 && data.map((track, index) => {
               if(query === '') {
                 return (
                   <TrackListRow 
@@ -66,7 +78,7 @@ export default function TrackList({ tracks, query }) {
                 )
               } else {
                 return ( 
-                      track.versions.map((version, i) => {
+                     track.versions.map((version, i) => {
                       return (
                         <TrackListRow 
                             type={i === 0 ? 'project' : 'version'}

@@ -29,8 +29,8 @@ export default function SignIn() {
   }
 
   useEffect(() => {
-    clearCache()
-  }, [])
+    clearCache();
+  }, []);
 
   const {
     register,

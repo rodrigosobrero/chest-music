@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { classNames } from 'utils/helpers';
 
@@ -8,6 +8,28 @@ export const BaseModal = memo(({ title, description, footer, onClose, children, 
   const root = document.getElementById('root');
 
   if (!root) throw new Error('Root not found. Cannot render modal.');
+
+  const [modalContentHeight, setModalContentHeight] = useState(0);
+
+  useEffect(() => {
+    if(show) {
+      document.body.style.overflow = 'hidden';
+    }
+    const handleResize = () => {
+      const modalContent = document.querySelector('.modal-panel');
+      if (modalContent) {
+        setModalContentHeight(modalContent.scrollHeight);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      document.body.style.overflow = '';
+    };
+  }, [show, window.innerHeight]);
 
   const handleOutsideClick = (e) => {
     if (onClose) {
@@ -20,7 +42,6 @@ export const BaseModal = memo(({ title, description, footer, onClose, children, 
       e.stopPropagation();
     }
   }
-
   return createPortal(
     <div
       className={classNames({
@@ -28,7 +49,7 @@ export const BaseModal = memo(({ title, description, footer, onClose, children, 
         'visible': show
       })}
       onClick={handleOutsideClick}>
-      <div className='modal-container'>
+      <div className={`modal-container ${modalContentHeight > window.innerHeight && '!items-start'}`} onClick={(e) => e.stopPropagation()}>
         <div className='modal-wrapper'>
           <div
             className={`modal-panel ${customClass}`}

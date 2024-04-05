@@ -1,43 +1,62 @@
 import React, { useMemo } from 'react'
 import ManageRow from './ManageRow';
 import useMediaQuery from 'hooks/useMediaQuery';
-const ManageList = ({ data, privacyIsOpen, onDelete }) => {
-    const isMobile = useMediaQuery('(max-width: 1024px)')
-    const handleSortingChange = (index) => {
-        console.log(index);
-    }
-    const titles = useMemo(() => {
+import useSort from 'hooks/useSort';
+import { ChevronUpIcon } from "@heroicons/react/24/solid";
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
+import { useTranslation } from 'react-i18next';
+
+const ManageList = ({ data: list, privacyIsOpen, onDelete }) => {
+    const isMobile = useMediaQuery('(max-width: 1024px)');
+    const { data, tagOrdered, sortBy, method } = useSort(list);
+    const { t } = useTranslation();
+
+    const titles = useMemo(() => {  
+        
         if(privacyIsOpen){
-            if(!isMobile) return ['name', 'username','date blocked', '']
-            else return ['date blocked', '']
+            if(!isMobile) {
+                return [
+                    { title: t('tables.name'), tag: 'name' },
+                    { title: t('tables.username'), tag: 'username' }, 
+                    { title: t('tables.date_blocked'), tag: 'date' }, 
+                    { title: ''} ]
+            }
+            else return [{ title: t('tables.date_blocked'), tag: 'date'} ,  { title: '' } ]
         } else {
             if(!isMobile){
-                return [ 'name', 'username', 'date allowed', '']} 
-                else return ['date allowed', '']
+                return [
+                    { title: t('tables.name'), tag: 'name' }, 
+                    { title: t('tables.username'), tag: 'username' }, 
+                    { title: t('tables.date_allowed'), tag: 'date' }, 
+                    { title: ''} ]} 
+                else return [{ title: t('tables.date_allowed'), tag: 'date' }, { title: '' }]
             }
-    }, [isMobile, privacyIsOpen])
+
+    }, [isMobile, privacyIsOpen, t]);
 
   return (
     <>
         <table className='separate'>
             <thead>
             <tr>
-             {titles.map((title, index) => 
+             {titles.map(({ title, tag }, index) => 
                     <th 
                     key={index} 
-                    onClick={() => { title && handleSortingChange(index) }} 
-                    className={`${ !title && 'cursor-default' }`}>
-                        {title}
+                    onClick={() => { tag && sortBy(tag) }} 
+                    className={`${ !title && 'cursor-default'}`}>
+                      <span className='flex items-center gap-2 capitalize'>
+                        {title} {tagOrdered === tag && (method === 'asc' ? <ChevronDownIcon className='h-4 w-4'/> : <ChevronUpIcon className='h-4 w-4'/> )}
+                      </span>
                     </th>
              )}
             </tr>
             </thead>
             <tbody>
-            {
-                data.map((track, index) =>
-                <ManageRow data={track} isMobile={isMobile} onDelete={onDelete}/>
-                )
-            }
+               {
+                data && data.map((track, index) => (
+                    <ManageRow data={track} isMobile={isMobile} onDelete={onDelete}/>
+                ))
+               }
             </tbody>
         </table>
       </>

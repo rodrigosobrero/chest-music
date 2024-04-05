@@ -131,9 +131,15 @@ export default function Treasure() {
       case 'participants':
         data = project.participants;
         if (isMobile) {
-          headers = ['Name', ''];
+          headers = [ { title: 'Name', tag: 'full_name' }, { title: '' }];
         } else {
-          headers = ['Name', 'Role', 'Plays', 'Date added', ''];
+          headers = [ 
+            { title: 'Name', tag: 'full_name' }, 
+            { title: 'Role', tag: 'role' },
+            { title: 'Plays', tag: 'plays' },
+            { title: 'Date added', tag: 'date_added' },
+            { title: '' }
+          ];
         }
         break;
 
@@ -149,9 +155,15 @@ export default function Treasure() {
       case 'users':
         data = project.shared_versions.users;
         if (isMobile) {
-          headers = ['Name', '', ''];
+          headers = [ { title: 'Name' }, { title: '' }, { title:  '' }];
         } else {
-          headers = ['Name', 'Version shared', 'Web play', 'Plays', 'Date shared', ''];
+          headers = [
+            { title : 'Name' }, 
+            { title: 'Version shared' }, 
+            { title: 'Web play' }, 
+            { title: 'Plays' }, 
+            { title: 'Date shared' } , 
+            { title:  '' }];
         }
         break;
 
@@ -164,7 +176,7 @@ export default function Treasure() {
         {data.length > 0 ? (
           <div>
             {permissionsView === 'participants' ? (
-              <ParticipantsTable data={data} headers={headers} user={user} />
+              <ParticipantsTable data={data} headers={headers} user={user} invitations={project.invitations} />
             ) : permissionsView === 'links' ? (
               <LinksTable data={data} headers={headers} />
             ) : (

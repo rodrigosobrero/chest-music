@@ -31,7 +31,7 @@ export default function TrackMobile({
             <div
               className='rounded-3xl px-5 pt-2 backdrop-blur-xl flex flex-col gap-1 items-center justify-center h-[160px]'
               style={{ background: 'rgba(67, 71, 79, 0.30)' }}>
-              <span className='font-thunder-bold text-4xl uppercase'>
+              <span className='font-thunder-bold text-4xl uppercase !text-center'>
                 {currentTrack.name}
               </span>
               <span className='text-neutral-silver-200'>

@@ -16,8 +16,14 @@
     "the project": "el proyecto",
     "the team": "el equipo",
     "contact us": "contactanos",
-    "open chest": "Registrarse a la BETA",
-    "become an artist": "Convertirme en artista",
+    "open chest": {
+      "beta": "registrarse a la beta",
+      "default": "abre tu cofre"
+    },
+    "become an artist": {
+      "beta": "Convertirme en artista",
+      "default": "Convertirme en artista"
+    },
     "become": {
       "description": "Estás seguro que querés convertirte en artista? Esta acción no se puede deshacer."
     },
@@ -25,7 +31,10 @@
     "back": "Volver",
     "profile": "perfil",
     "my chest": "mi cofre",
-    "give feedback": "dar feedback",
+    "give feedback": {
+      "beta": "dar feedback",
+      "default": "dar feedback"
+    },
     "shared": "compartido",
     "close": "Cerrar",
     "open": "abierta",
@@ -78,7 +87,8 @@
     "search_treasure": "Busca un tesoro...",
     "add_version": "Agregar versión",
     "accept": "Aceptar",
-    "deny": "Rechazar"
+    "deny": "Rechazar",
+    "required": "Este campo es obligatorio."
   },
   "signin": {
     "title": "abre tu cofre",
@@ -326,11 +336,15 @@
   },
   "tables": {
     "title": "Título",
-    "album": "álbum",
+    "album": "Álbum",
     "version": "Versión",
     "date_shared": "Fecha Compartido",
     "date_added": "Fecha agregado",
     "length": "Tamaño",
-    "plays": "Reproducciones"
+    "plays": "Reproducciones",
+    "username": "Usuario",
+    "name": "Nombre",
+    "date_blocked": "Fecha bloqueado",
+    "date_played": "Fecha reproducido"
   }
 }

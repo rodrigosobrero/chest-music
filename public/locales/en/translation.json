@@ -16,8 +16,14 @@
     "the project": "the project",
     "the team": "the team",
     "contact us": "contact us",
-    "open chest": "Sign up to BETA",
-    "become an artist": "Become an artist",
+    "open chest": {
+        "beta": "sign up to beta",
+        "default": "open chest"
+      },
+    "become an artist": {
+      "beta": "Become an artist",
+      "default": "Become an artist"
+    },
     "become": {
       "description": "Are you sure you want to become an artist? This action can’t be undone."
     },
@@ -25,7 +31,10 @@
     "back": "Go back",
     "profile": "profile",
     "my chest": "my chest",
-    "give feedback": "give feedback",
+    "give feedback": {
+      "beta": "give feedback",
+      "default": "give feedback"
+    },
     "shared": "shared",
     "close": "Close",
     "open": "open",
@@ -78,7 +87,8 @@
     "search_treasure": "Search a treasure...",
     "add_version": "Add new version",
     "accept": "Accept",
-    "deny": "Deny"
+    "deny": "Deny",
+    "required": "This field is required"
   },
   "signin": {
     "title": "open your chest",
@@ -357,6 +367,10 @@
     "date_shared": "Date Shared",
     "date_added": "Date added",
     "length": "Length",
-    "plays": "Plays"
+    "plays": "Plays",
+    "username": "Username",
+    "name": "Name",
+    "date_blocked": "Date blocked",
+    "date_played": "Date played"
   }
 }
