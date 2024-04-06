@@ -43,6 +43,7 @@ export default function Nav() {
   )
 
   useEffect(() => {
+    // rebuild
     if (user && user.token && user.data) {
       const filter = nav
         .filter(item => item.private)
