@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import search from 'assets/images/icon-search-white.svg'
 import close from 'assets/images/icon-close.svg'
-import Input from './Input';
 import SearchBar from './SearchBar';
 
 const SearchBarMobile = ({ setIsOpen, isOpen, placeholder, onChange }) => {

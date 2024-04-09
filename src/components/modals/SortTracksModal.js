@@ -53,7 +53,7 @@ const SortTracksModal = (props) => {
     )
   }
   return (
-    <BaseModal title='Sort Tracks' show={props.isOpen} onClose={handleClose}>
+    <BaseModal header='Sort tracks' show={props.isOpen} onClose={handleClose}>
         <div className='flex flex-col gap-3'>
             {
                 titles.map(({title, tag, type}) => (
