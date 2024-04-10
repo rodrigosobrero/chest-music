@@ -55,7 +55,7 @@ const SortTracksModal = (props) => {
   function closeWithTimeout() {
     setTimeout(function() {
       handleClose();
-    }, 1500);
+    }, 300);
   };
 
   const Button = ({ title, onClick, selected }) => {
