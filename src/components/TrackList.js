@@ -18,7 +18,7 @@ export default function TrackList({ tracks, query, handleChange }) {
 
   const { data, sortBy, method, tagOrdered, customOrderData } = useSort(tracks);
   const [isOpen, setIsOpen] = useState(false);
-  const [titleOrdered, setTitleOrdered] = useState(t('tables.title'))
+  const [titleOrdered, setTitleOrdered] = useState(t('tables.date_added'))
 
   const { onOpen } = useModal('SortTracksModal')
 
@@ -76,8 +76,8 @@ export default function TrackList({ tracks, query, handleChange }) {
                     className={`${ !title && 'cursor-default'} 
                                 ${index === 0 && 'md:!pl-5'}`}>
                       <span className={`flex items-center gap-2 ${index === titles.length-1 && 'justify-end'}`}>
-                        {title} {isMobile ?  (method === 'asc' ? <ChevronDownIcon className='h-4 w-4'/> : <ChevronUpIcon className='h-4 w-4'/> ) : 
-                        tagOrdered === tag && (method === 'asc' ? <ChevronDownIcon className='h-4 w-4'/> : <ChevronUpIcon className='h-4 w-4'/> )}
+                        {title} {isMobile && index === 0 ?  (method === 'des' ? <ChevronUpIcon className='h-4 w-4'/> : <ChevronDownIcon className='h-4 w-4'/> ) : 
+                        tagOrdered === tag && (method === 'des' ? <ChevronUpIcon className='h-4 w-4'/> : <ChevronDownIcon className='h-4 w-4'/> )}
                       </span>
                   </th>
                 )
