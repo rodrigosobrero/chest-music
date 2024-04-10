@@ -155,6 +155,15 @@
       "title_mobile": "upload a treasure",
       "description": "Drag and drop your audio file here to upload a new track, or...",
       "description_mobile": "Choose a file here to upload a new track"
+    },
+    "sort_modal": {
+      "title": "Sort tracks",
+      "date_newest": "Date added (newest first)",
+      "date_latest": "Date added (oldest first)",
+      "title_a": "Title (A-Z)",
+      "title_z": "Title (Z-A)",
+      "size_biggest": "Size (biggest first)",
+      "size_smallest": "Size (smallest first)"
     }
   },
   "upload": {
@@ -371,6 +380,7 @@
     "username": "Username",
     "name": "Name",
     "date_blocked": "Date blocked",
-    "date_played": "Date played"
+    "date_played": "Date played",
+    "size": "Size"
   }
 }

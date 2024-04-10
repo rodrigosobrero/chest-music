@@ -155,6 +155,15 @@
       "title_mobile": "drop it like it’s hot",
       "description": "Arrastra tu archivo de audio aquí para subir una nueva demo, o...",
       "description_mobile": "Selecciona un archivo para subir tu nueva demo"
+    },
+    "sort_modal": {
+      "title": "Ordenar temas",
+      "date_newest": "Fecha agregado (nuevo a viejo)",
+      "date_latest": "Fecha agregado (viejo a nuevo)",
+      "title_a": "Título (A-Z)",
+      "title_z": "Título (Z-A)",
+      "size_biggest": "Tamaño (grande a chico)",
+      "size_smallest": "Tamaño (chico a grande)"
     }
   },
   "upload": {
@@ -345,6 +354,7 @@
     "username": "Usuario",
     "name": "Nombre",
     "date_blocked": "Fecha bloqueado",
-    "date_played": "Fecha reproducido"
+    "date_played": "Fecha reproducido",
+    "size": "Tamaño"
   }
 }

@@ -14,10 +14,11 @@ export default function TrackList({ tracks, query, handleChange }) {
   const [titles, setTitles] = useState([]);
   const [rowOpenned, setRowOpenned] = useState(false);
                                                              
+  const { t } = useTranslation();
+
   const { data, sortBy, method, tagOrdered, customOrderData } = useSort(tracks);
   const [isOpen, setIsOpen] = useState(false);
-
-  const { t } = useTranslation();
+  const [titleOrdered, setTitleOrdered] = useState(t('tables.title'))
 
   const { onOpen } = useModal('SortTracksModal')
 
@@ -27,12 +28,17 @@ export default function TrackList({ tracks, query, handleChange }) {
 
   const closeOptions = () => setRowOpenned(false);
 
+  const orderData = (tag, type, title) => {
+    customOrderData(tag, type); 
+    setTitleOrdered(title);
+    
+  };
   useEffect(() => {
     if (isMobile) {
       setTitles([
         {
-          title: t('tables.title'),
-          onClick: () => onOpen({ tagOrdered: tagOrdered, method: method, customOrderData: customOrderData })
+          title: titleOrdered,
+          onClick: () => onOpen({ tagOrdered: tagOrdered, method: method, customOrderData: orderData })
         },
         { title: <img src={search} alt='search' onClick={() => setIsOpen(true)}/>
         },
@@ -48,7 +54,7 @@ export default function TrackList({ tracks, query, handleChange }) {
         '',
       ])
     }
-  }, [t, tagOrdered, method]);
+  }, [t, tagOrdered, method, titleOrdered]);
 
   return (
     <>
@@ -70,7 +76,8 @@ export default function TrackList({ tracks, query, handleChange }) {
                     className={`${ !title && 'cursor-default'} 
                                 ${index === 0 && 'md:!pl-5'}`}>
                       <span className={`flex items-center gap-2 ${index === titles.length-1 && 'justify-end'}`}>
-                        {title} {tagOrdered === tag && (method === 'asc' ? <ChevronDownIcon className='h-4 w-4'/> : <ChevronUpIcon className='h-4 w-4'/> )}
+                        {title} {isMobile ?  (method === 'asc' ? <ChevronDownIcon className='h-4 w-4'/> : <ChevronUpIcon className='h-4 w-4'/> ) : 
+                        tagOrdered === tag && (method === 'asc' ? <ChevronDownIcon className='h-4 w-4'/> : <ChevronUpIcon className='h-4 w-4'/> )}
                       </span>
                   </th>
                 )
