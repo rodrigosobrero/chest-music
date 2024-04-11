@@ -377,7 +377,7 @@ export default function Upload() {
               className='bg-neutral-silver-300 w-[140px] md:w-[200px] h-[140px] md:h-[200px] rounded-lg bg-no-repeat bg-center bg-cover'
               style={{ backgroundImage: `url("${cover ? cover : defaultCover.url}")` }}>
             </div>
-            <h4 className='mt-8'>
+            <h4 className='mt-8 !text-center'>
               {track.name ? track.name : 'track name'}
             </h4>
             <p className='text-neutral-silver-200 uppercase mt-2 !mb-0 text-base md:text-lg'>
