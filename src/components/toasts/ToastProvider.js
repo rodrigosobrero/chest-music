@@ -31,6 +31,7 @@ const ToastProvider = ({ children }) => {
         {
           toasts && toasts.map((toast) => (
             <motion.div
+                    key={`toast${toast.id}`}
                     className='flex flex-col gap-3'
                     transition={{ duration: 0.7 }}
                     initial={{ y: -100, opacity: 0 }}
