@@ -7,10 +7,12 @@ import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
 import { AnimatePresence, motion } from 'framer-motion';
 import ErrorMessage from './ErrorMessage';
 export default function Input({ type, placeholder, label, name, value, onChange, showHide, helper, required, register, error,
-  showClipboard, disabled, onlyNumeric, showDelete, showMore, onDelete, isOpen, toggleOpen, maxLength, onFocus, onBlur, pattern, noWhiteSpace }) {
+  showClipboard, disabled, onlyNumeric, showDelete, showMore, onDelete, isOpen, toggleOpen, maxLength, onFocus, onBlur, pattern, noWhiteSpace,
+  showToast }) {
   const [inputType, setInputType] = useState(type);
   const [copied, setCopied] = useState(false)
   const inputRef = useRef(null);
+
   useEffect(() => {
     if (onlyNumeric) {
       const handleKeyPress = (evt) => {
@@ -38,9 +40,13 @@ export default function Input({ type, placeholder, label, name, value, onChange,
   }
 
   const copyToClipboard = () => {
+    if(value.length === 0) return;
     navigator.clipboard.writeText(value)
       .then(() => {
         setCopied(true);
+        if(showToast){
+          return showToast();
+        };
       })
       .catch((error) => {
         console.error('Error al copiar al portapapeles:', error);
@@ -127,7 +133,7 @@ export default function Input({ type, placeholder, label, name, value, onChange,
           }
           {showClipboard &&
             <div className='absolute top-4 right-4'>
-              <button type='button' onClick={copyToClipboard}>
+              <button type='button' onClick={copyToClipboard} className={value.length === 0 && 'cursor-default'}>
                 {!copied ? <DocumentDuplicateIcon className="h-5 w-5 text-neutral-silver-400" /> :
                   <DocumentDuplicateIcon className="h-5 w-5 text-brand-gold" />}
               </button>

@@ -9,7 +9,7 @@ import './i18n';
 import './index.css';
 import ModalProvider from 'components/ModalProvider';
 import { Suspense } from 'react';
-
+import ToastProvider from 'components/toasts/ToastProvider';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const persistor = persistStore(store);
 
@@ -18,7 +18,9 @@ root.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <ModalProvider>
-          <App />
+          <ToastProvider>
+            <App />
+          </ToastProvider>
         </ModalProvider>
       </PersistGate>
     </Provider>
