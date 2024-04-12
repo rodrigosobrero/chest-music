@@ -4,3 +4,4 @@ export const getModalList = state =>
 export const isModalOpen = (state, id) => state.modal[id]?.open ?? false;
 
 export const getModalMeta = (state, id) => state.modal[id]?.meta;
+

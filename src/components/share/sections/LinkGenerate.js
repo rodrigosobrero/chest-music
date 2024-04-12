@@ -2,22 +2,27 @@ import React, { useState } from 'react'
 import Toggle from 'components/share/Toggle';
 import Input from 'components/Input';
 import check from 'assets/images/icon-check-28.svg'
-import ButtonsContainer from '../ButtonsContainer';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import Button from 'components/Button';
-const LinkGenerate = ({ versionId, token, onCancel }) => {
-  const { t } = useTranslation()
-  const [input, setInput] =  useState('')
-  const [isChecked, setIsChecked] = useState(false)
-  const [isToggled, setIsToggled] = useState(false)
-  const [value, setValue] = useState('')
+import { useDispatch } from 'react-redux';
+import { createToast } from 'app/toast';
 
-  const handleCheck = (e) => setIsChecked(e.target.checked)
 
-  const handleToggle = () => setIsToggled(!isToggled)
+const LinkGenerate = ({ versionId, token, onCancel, track }) => {
+  const { t } = useTranslation();
+  const [input, setInput] =  useState('');
+  const [isChecked, setIsChecked] = useState(false);
+  const [isToggled, setIsToggled] = useState(false);
+  const [value, setValue] = useState('');
 
-  const handleChange = (e) => setInput(e.target.value)
+  const dispatch = useDispatch();
+
+  const handleCheck = (e) => setIsChecked(e.target.checked);
+
+  const handleToggle = () => setIsToggled(!isToggled);
+
+  const handleChange = (e) => setInput(e.target.value);
 
   const generateLink = () => {
     let data = {};
@@ -38,8 +43,24 @@ const LinkGenerate = ({ versionId, token, onCancel }) => {
       headers: { Authorization: `Bearer ${token}`  }
     })
     .then((response) => {
-      setValue(response.data.url)
-    })
+      setValue(response.data.url);
+      navigator.clipboard.writeText(response.data.url).then(() => generateToast())
+    })    
+    .catch((error) => {
+      console.error('Error al copiar al portapapeles:', error);
+    });
+  }
+  
+  const generateToast = () => {
+
+    let toastBody = {
+      title: 'Link copied to clipboard',
+      body: track,
+      type: 'copy'
+    };
+
+    dispatch(createToast(toastBody));
+
   }
 
   return (
@@ -79,10 +100,10 @@ const LinkGenerate = ({ versionId, token, onCancel }) => {
                   <QuestionMarkCircleIcon className="h-5 w-5 text-neutral-silver-300" />
               </div> */}
               <div className='w-full md:w-4/5'>
-                  <Input label={'URL'} showClipboard={true} disabled={true} value={value}/>
+                  <Input label={'URL'} showClipboard={true} disabled={true} value={value} showToast={generateToast} />
               </div>
       </div>
-      <Button style='tertiary' customStyle='lg:!w-[224px] mt-6 !mx-auto !w-10/12' text={t('global.close')} onClick={onCancel}/>
+      <Button style='tertiary' customStyle='lg:!w-[224px] mt-6 !mx-auto !w-10/12' text={t('global.close')} onClick={onCancel} />
      </>
   )
 }

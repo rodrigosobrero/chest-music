@@ -1028,3 +1028,31 @@ input[type="search"]::-webkit-search-results-decoration {
     border-radius: 10px;
   }
 }
+
+.toast {
+  position: fixed;
+  top: 5rem; /* Ajusta la distancia desde la parte superior según sea necesario */
+  right: 5rem; /* Ajusta la distancia desde la derecha según sea necesario */
+  background-color: white;
+  color: white;
+  padding: 15px;
+  border-radius: 5px;
+  z-index: 9999; /* Asegura que esté en la parte superior */
+}
+
+.toast-container {
+  position: fixed;
+  z-index: 9999;
+  right: 5rem;
+  top: 5rem;
+  @apply w-auto;
+}
+
+@media screen and (max-width: 1024px) {
+  .toast-container {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 5rem;
+  }
+}

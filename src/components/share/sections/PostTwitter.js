@@ -7,16 +7,20 @@ import Toggle from '../Toggle'
 import ButtonsContainer from '../ButtonsContainer';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { createToast } from 'app/toast';
 
-const PostTwitter = ({ onCancel, token, versionId }) => {
-  const { t } = useTranslation()
-  const [input, setInput] = useState('')
-  const [isChecked, setIsChecked] = useState(false)
-  const [isToggled, setIsToggled] = useState(false)
-  const [value, setValue] = useState('')
-  const handleChange = (e) => setInput(e.target.value)
+const PostTwitter = ({ onCancel, token, versionId, track }) => {
+  const { t } = useTranslation();
+  const [input, setInput] = useState('');
+  const [isChecked, setIsChecked] = useState(false);
+  const [isToggled, setIsToggled] = useState(false);
+  const [value, setValue] = useState('');
+  const dispatch = useDispatch()
 
-  const handleToggle = () => setIsToggled(!isToggled)
+  const handleChange = (e) => setInput(e.target.value);
+
+  const handleToggle = () => setIsToggled(!isToggled);
 
   const generateLink = () => {
     let data = {};
@@ -39,6 +43,18 @@ const PostTwitter = ({ onCancel, token, versionId }) => {
     .then((response) => {
       setValue(response.data.url)
     })
+  }
+
+  const generateToast = () => {
+
+    let toastBody = {
+      title: 'Link copied to clipboard',
+      body: track,
+      type: 'copy'
+    };
+
+    dispatch(createToast(toastBody));
+
   }
 
   const submit = () => {
@@ -87,7 +103,7 @@ const PostTwitter = ({ onCancel, token, versionId }) => {
                 <Input label={t('share.message')} placeholder={t('share.message_example')} onChange={(e) => setInput(e.target.value)}/>
             </div>
             <div className='lg:w-4/5 w-full'>
-                <Input label={'URL'} showClipboard={true} disabled={true} value={value}/>
+                <Input label={'URL'} showClipboard={true} disabled={true} value={value} showToast={generateToast} />
             </div>
        </div>
        <ButtonsContainer primaryButton={t('share.post')} disabled={value === ''} onClick={submit} onCancel={onCancel} />
