@@ -9,19 +9,16 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { createToast } from 'app/toast';
+import useInput from '../hook/useInput';
 
 const PostTwitter = ({ onCancel, token, versionId, track }) => {
   const { t } = useTranslation();
-  const [input, setInput] = useState('');
-  const [isChecked, setIsChecked] = useState(false);
-  const [isToggled, setIsToggled] = useState(false);
-  const [value, setValue] = useState('');
-  const dispatch = useDispatch()
 
-  const handleChange = (e) => setInput(e.target.value);
+  const dispatch = useDispatch();
 
-  const handleToggle = () => setIsToggled(!isToggled);
-
+  const { handleToggle, handleChange, value, isChecked, 
+          input, setValue, isToggled, handleMessage, message } = useInput();
+  
   const generateLink = () => {
     let data = {};
     if(!isToggled) {
@@ -44,7 +41,7 @@ const PostTwitter = ({ onCancel, token, versionId, track }) => {
       setValue(response.data.url)
     })
   }
-
+  
   const generateToast = () => {
 
     let toastBody = {
@@ -56,13 +53,14 @@ const PostTwitter = ({ onCancel, token, versionId, track }) => {
     dispatch(createToast(toastBody));
 
   }
-
+  
   const submit = () => {
     const additionalUrl = value;
-    const tweetContent = `${input}\n\n${additionalUrl}`; 
+    const tweetContent = `${message}\n\n${additionalUrl}`; 
     const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetContent)}`;
     window.open(tweetUrl, '_blank'); 
   }
+
   return (
     <>
       <div className='share-container'>
@@ -100,7 +98,7 @@ const PostTwitter = ({ onCancel, token, versionId, track }) => {
                 <QuestionMarkCircleIcon className="h-5 w-5 text-neutral-silver-300" />
             </div> */}
             <div className='lg:w-4/5 w-full'>
-                <Input label={t('share.message')} placeholder={t('share.message_example')} onChange={(e) => setInput(e.target.value)}/>
+                <Input label={t('share.message')} placeholder={t('share.message_example')} onChange={handleMessage} />
             </div>
             <div className='lg:w-4/5 w-full'>
                 <Input label={'URL'} showClipboard={true} disabled={true} value={value} showToast={generateToast} />

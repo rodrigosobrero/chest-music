@@ -1056,3 +1056,7 @@ input[type="search"]::-webkit-search-results-decoration {
     top: 5rem;
   }
 }
+
+.btn-absolute {
+  @apply absolute whitespace-nowrap text-neutral-silver-100 px-3 py-2 bg-neutral-silver-600 rounded-xl text-center transform -translate-x-1/2 -top-11 left-1/2;
+}

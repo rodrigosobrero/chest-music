@@ -88,6 +88,9 @@
     "add_version": "Add new version",
     "accept": "Accept",
     "deny": "Deny",
+    "view_trash": "View trash can",
+    "edit_track": "Edit track",
+    "share_track": "Share track",
     "required": "This field is required"
   },
   "signin": {

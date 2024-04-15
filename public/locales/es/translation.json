@@ -88,6 +88,9 @@
     "add_version": "Agregar versión",
     "accept": "Aceptar",
     "deny": "Rechazar",
+    "view_trash": "Ver papelera",
+    "edit_track": "Editar track",
+    "share_track": "Compartir track",
     "required": "Este campo es obligatorio."
   },
   "signin": {

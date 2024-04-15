@@ -7,22 +7,15 @@ import { useTranslation } from 'react-i18next';
 import Button from 'components/Button';
 import { useDispatch } from 'react-redux';
 import { createToast } from 'app/toast';
+import useInput from '../hook/useInput';
 
 
 const LinkGenerate = ({ versionId, token, onCancel, track }) => {
   const { t } = useTranslation();
-  const [input, setInput] =  useState('');
-  const [isChecked, setIsChecked] = useState(false);
-  const [isToggled, setIsToggled] = useState(false);
-  const [value, setValue] = useState('');
 
+  const { handleToggle, handleChange, value, isChecked, input, setValue, isToggled } = useInput()
+  
   const dispatch = useDispatch();
-
-  const handleCheck = (e) => setIsChecked(e.target.checked);
-
-  const handleToggle = () => setIsToggled(!isToggled);
-
-  const handleChange = (e) => setInput(e.target.value);
 
   const generateLink = () => {
     let data = {};
@@ -80,18 +73,18 @@ const LinkGenerate = ({ versionId, token, onCancel, track }) => {
                                    text-neutral-black disabled:text-neutral-silver-300 md:hidden'
                           onClick={generateLink}
                           disabled={!isToggled && !input}>
-                      <img src={check} className='h-7 w-7'/>
+                      <img src={check} className='h-7 w-7' alt='check'/>
                   </button>  
                 </div>
-                  <div className=' flex items-center  pb-5 mb-5 gap-2.5 md:pb-0 md:mb-0'>
+                <div className='flex items-center  pb-5 mb-5 gap-2.5 md:pb-0 md:mb-0'>
                   <Toggle onChange={handleToggle}/>
                   <span className='-mb-7'>{t('share.unlimited')}</span>
-                  </div>
-                  <button className='-mb-7 p-3 bg-brand-gold disabled:bg-neutral-silver-500 rounded-xl 
+                </div>
+                <button className='-mb-7 p-3 bg-brand-gold disabled:bg-neutral-silver-500 rounded-xl 
                                    text-neutral-black disabled:text-neutral-silver-300 hidden lg:block'
                           onClick={generateLink}
                           disabled={!isToggled && !input}>
-                      <img src={check} className='h-7 w-7'/>
+                      <img src={check} className='h-7 w-7' alt='check'/>
                 </button>
               </div>
               {/* <div className='flex flex-row gap-x-2.5 items-center md:w-4/5'>
