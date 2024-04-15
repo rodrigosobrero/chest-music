@@ -43,6 +43,7 @@ export default function Nav() {
   )
 
   useEffect(() => {
+    // rebuild
     if (user && user.token && user.data) {
       const filter = nav
         .filter(item => item.private)
@@ -72,7 +73,7 @@ export default function Nav() {
             <Link to={'/my-chest'}>
               <img src={logo} alt='Chest' width={146} height={32} className='w-[110px] h-[24px] md:w-[146px] md:h-[32px]' />
             </Link>
-            <Tag>Beta</Tag>
+            {process.env.REACT_APP_BETA && (<Tag>Beta</Tag>)}
           </div>
           <div className='hidden lg:block'>
             <ul>
@@ -82,7 +83,7 @@ export default function Nav() {
                     {item.button ? (
                       <Button
                         style={item.type}
-                        text={t('global.' + item.name).toLowerCase()}
+                        text={t('global.' + item.name + (process.env.REACT_APP_BETA ? '.beta' : '.default')).toLowerCase()}
                         onClick={() => { item.link ? navigate(item.link) : actions[item.action]() }} />
                     ) : (
                       <NavLink to={item.link.language ? item.link.language[i18n.language] : item.link}>
@@ -153,7 +154,7 @@ export default function Nav() {
                 })}>
                 {item.button ? (
                   <Button
-                    text={t('global.' + item.name).toLowerCase()}
+                    text={t('global.' + item.name + (process.env.REACT_APP_BETA ? '.beta' : '.default')).toLowerCase()}
                     onClick={() => { item.link ? navigate(item.link) : actions[item.action](); setOpen(false); }} />
                 ) : (
                   <NavLink to={item.link} onClick={() => { setOpen(false) }}>

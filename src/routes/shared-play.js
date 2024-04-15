@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
+import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 import { useSearchParams, Link } from 'react-router-dom'
 import { playing } from 'app/playlist';
 import { useLazyGetSharedTrackQuery } from 'store/api';
@@ -8,9 +10,11 @@ import { useModal } from 'hooks/useModal';
 
 import rectangle from 'assets/images/icon-rectangle.png'
 import cover_track from 'assets/images/cover-track.png'
+import og_cover from 'assets/images/og-cover.jpg';
 
 const SharedPlay = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const [track, setTrack] = useState({});
   const { onOpen: openLimitModal } = useModal('PlayLimitModal');
@@ -47,8 +51,22 @@ const SharedPlay = () => {
       });
   }, [searchParams]);
 
+  useEffect(() => {
+    console.log(track)
+  }, [track])
+
   return (
     <>
+      {track && (
+        <Helmet>
+          <meta property='og:title' content={track.title} />
+          <meta property='og:description' content={`${track?.authors?.join(', ')} ${t('shared.link')}`} />
+          <meta property='og:audio' content={track.audio_url} />
+          <meta property='og:type' content='music.song' />
+          <meta property='og:url' content={`${window.location.protocol}//${window.location.host}/shared-link?token=${searchParams.get('token')}`} />
+          <meta property='og:image' content={og_cover} />
+        </Helmet>
+      )}
       <div className='lg:block hidden lg:container'>
         <AnimatePresence initial={false} mode='wait'>
           {isLoading || isFetching || Object.keys(track).length === 0 ? (

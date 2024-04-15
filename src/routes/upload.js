@@ -66,7 +66,7 @@ export default function Upload() {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm();
+  } = useForm({ mode: 'all' });
 
   track.name = watch('name');
   track.version = watch('version');
@@ -287,19 +287,19 @@ export default function Upload() {
             <Input
               type='text'
               name='name'
-              required={true}
+              required
               register={register}
               placeholder={t('global.write_here')}
               label={t('upload.track_name')}
-              error={errors.name && 'This field is required'} />
+              error={errors.name && t('global.required')} />
             <Input
               type='text'
               name='version'
-              required={true}
+              required
               register={register}
               placeholder={t('global.write_here')}
               label={t('upload.version')}
-              error={errors.version && 'This field is required'} />
+              error={errors.version && t('global.required')} />
             <AutoCompleteAlbum
               searchValue={album}
               setSearchValue={setAlbum}
