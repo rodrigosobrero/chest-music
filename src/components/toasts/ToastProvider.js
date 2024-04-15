@@ -30,14 +30,13 @@ const ToastProvider = ({ children }) => {
         <div className='flex flex-col gap-3 items-end'>
         {
           toasts && toasts.map((toast) => (
-            <motion.div
-                    key={`toast${toast.id}`}
-                    className='flex flex-col gap-3'
-                    transition={{ duration: 0.7 }}
-                    initial={{ y: -100, opacity: 0 }}
-                    animate={{ y: 0, opacity: 2 }}
-                    exit={{ y: 100, opacity: 0, scale: 0.5 }}
-                    >
+            <motion.div key={`toast${toast.id}`}
+                        className='flex flex-col gap-3'
+                        transition={{ duration: 0.7 }}
+                        initial={{ y: -100, opacity: 0 }}
+                        animate={{ y: 0, opacity: 2 }}
+                        exit={{ y: 100, opacity: 0, scale: 0.5 }}
+                        >
               <Toast type={toast.type} title={toast.title} body={toast.body} close={() => onDelete(toast.id)} />
             </motion.div>
           ))
@@ -49,4 +48,4 @@ const ToastProvider = ({ children }) => {
   )
 }
 
-export default ToastProvider
+export default ToastProvider;
