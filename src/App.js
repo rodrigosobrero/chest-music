@@ -222,7 +222,7 @@ function App() {
     });
 
     auth.onIdTokenChanged(async (firebaseUser) => {
-      if (user && firebaseUser) {
+      if (user && user.token && firebaseUser) {
         const newToken = await firebaseUser.getIdToken();
         dispatch(updateUserToken(newToken));
       }
