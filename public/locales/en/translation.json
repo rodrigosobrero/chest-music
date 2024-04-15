@@ -78,7 +78,10 @@
     "search_treasure": "Search a treasure...",
     "add_version": "Add new version",
     "accept": "Accept",
-    "deny": "Deny"
+    "deny": "Deny",
+    "view_trash": "View trash can",
+    "edit_track": "Edit track",
+    "share_track": "Share track"
   },
   "signin": {
     "title": "open your chest",

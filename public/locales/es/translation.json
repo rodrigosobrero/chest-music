@@ -78,7 +78,10 @@
     "search_treasure": "Busca un tesoro...",
     "add_version": "Agregar versión",
     "accept": "Aceptar",
-    "deny": "Rechazar"
+    "deny": "Rechazar",
+    "view_trash": "Ver papelera",
+    "edit_track": "Editar track",
+    "share_track": "Compartir track"
   },
   "signin": {
     "title": "abre tu cofre",
