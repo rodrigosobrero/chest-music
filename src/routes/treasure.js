@@ -185,7 +185,7 @@ export default function Treasure() {
             {permissionsView === 'participants' ? (
               <ParticipantsTable data={data} headers={headers} user={user} invitations={project.invitations} />
             ) : permissionsView === 'links' ? (
-              <LinksTable data={data} headers={headers} />
+              <LinksTable data={data} headers={headers} project={project} />
             ) : (
               <UsersTable data={data} headers={headers} />
             )}
@@ -230,6 +230,7 @@ export default function Treasure() {
       <Navigate to='/my-chest/' replace={true} />
     )
   }
+
 
   return (
     <>
