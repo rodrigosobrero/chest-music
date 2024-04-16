@@ -47,7 +47,7 @@ const LinkGenerate = ({ versionId, token, onCancel, track }) => {
   const generateToast = () => {
 
     let toastBody = {
-      title: 'Link copied to clipboard',
+      title: t('toasts.copy'),
       body: track,
       type: 'copy'
     };

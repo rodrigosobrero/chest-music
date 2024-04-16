@@ -45,7 +45,7 @@ const PostTwitter = ({ onCancel, token, versionId, track }) => {
   const generateToast = () => {
 
     let toastBody = {
-      title: 'Link copied to clipboard',
+      title: t('toasts.copy'),
       body: track,
       type: 'copy'
     };
