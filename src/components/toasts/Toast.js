@@ -12,7 +12,7 @@ const Toast = ({ type, title, body, close }) => {
   const icon = icons[type];
 
   const cutName = (name) => {
-    return name.length > 15 ? name.slice(0, 12) + '...' : name;
+    return name.length > 29 ? name.slice(0, 30) + '...' : name;
   }
   return (
     <>
