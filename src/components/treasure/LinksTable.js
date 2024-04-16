@@ -8,13 +8,28 @@ import LinksActionsButton from './LinksActionsButton';
 
 import { DocumentDuplicateIcon } from '@heroicons/react/24/outline';
 import { ReactComponent as WebDisabled } from 'assets/images/icon-webdisabled.svg';
+import { useDispatch } from 'react-redux';
+import { createToast } from 'app/toast';
+import { useTranslation } from 'react-i18next';
 
-export default function LinksTable({ data, headers }) {
+export default function LinksTable({ data, headers, project }) {
   const Rows = ({ cell }) => {
     const location = useLocation();
+    const { t } = useTranslation();
     const [hover, setHover] = useState(false);
     const [copied, setCopied] = useState(false);
+    const dispatch = useDispatch();
+    const generateToast = () => {
+
+      let toastBody = {
+        title: t('toasts.copy'),
+        body: project.name,
+        type: 'copy'
+      };
   
+      dispatch(createToast(toastBody));
+  
+    }
     const copyToClipboard = (value) => {
       // <base_url>/shared-link?token=<token></token>
       const link = `https://${window.location.hostname}/shared-link?token=${value}`;
@@ -22,7 +37,7 @@ export default function LinksTable({ data, headers }) {
       navigator.clipboard.writeText(link)
         .then(() => {
           setCopied(true);
-  
+          generateToast()
           setTimeout(() => {
             setCopied(false)
           }, 2000);

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from 'hooks/useModal';
 import { useGetProjectQuery, useGetChestQuery } from 'store/api';
 import { classNames } from 'utils/helpers';
@@ -185,7 +185,7 @@ export default function Treasure() {
             {permissionsView === 'participants' ? (
               <ParticipantsTable data={data} headers={headers} user={user} invitations={project.invitations} />
             ) : permissionsView === 'links' ? (
-              <LinksTable data={data} headers={headers} />
+              <LinksTable data={data} headers={headers} project={project} />
             ) : (
               <UsersTable data={data} headers={headers} />
             )}
@@ -230,6 +230,7 @@ export default function Treasure() {
       <Navigate to='/my-chest/' replace={true} />
     )
   }
+
 
   return (
     <>
