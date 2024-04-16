@@ -233,79 +233,81 @@ export default function Treasure() {
 
   return (
     <>
-      <div className='container flex flex-col gap-6 md:gap-10 py-8 md:py-10'>
+      <div className='container flex flex-col gap-6 md:gap-10 py-8 md:py-10 relative'>
         <div className='toolbar'>
           <div className='grow'>
             <Breadcrumb items={breadcrumb} minify />
           </div>
-          <div className='fixed flex items-end justify-end gap-3 mt-4 right-10 lg:right-20'>
-            <div className='flex flex-col gap-2 relative '>
-            <button
-                className={`${
-                  hoverShare ? "block" : "hidden"
-                } btn-absolute`}
-              >
-                {t('global.share_track')}
-              </button>
+          <div className='flex justify-end'>
+            <div className='fixed flex items-end justify-end gap-3 -mt-4 z-50'>
+              <div className='relative'>
               <button
-                onMouseOver={() => setHoverShare(true)}
-                onMouseLeave={() => setHoverShare(false)}
-                type='button'
-                className='toolbar-button primary'
-                onClick={() => { navigate(`/share/${project.id}?=sendDM`) }}>
-                <ArrowUpTrayIcon className='h-7 w-7' />
-              </button>
+                  className={`${
+                    hoverShare ? "block" : "hidden"
+                  } btn-absolute`}
+                >
+                  {t('global.share_track')}
+                </button>
+                <button
+                  onMouseOver={() => setHoverShare(true)}
+                  onMouseLeave={() => setHoverShare(false)}
+                  type='button'
+                  className='toolbar-button primary'
+                  onClick={() => { navigate(`/share/${project.id}?=sendDM`) }}>
+                  <ArrowUpTrayIcon className='h-7 w-7' />
+                </button>
+              </div>
+              <div className="relative">
+                <button
+                  onMouseOver={() => setHoverAdd(true)}
+                  onMouseLeave={() => setHoverAdd(false)}
+                  type="button"
+                  className="toolbar-button primary relative"
+                  onClick={handleCreateVersion}
+                >
+                  <PlusIcon className="h-7 w-7" />
+                </button>
+                <button
+                  className={`${
+                    hoverAdd ? "block" : "hidden"
+                  } btn-absolute`}
+                >
+                  {t('global.add_version')}
+                </button>
+              </div>
+              {isDesktop && (
+                <>
+                  <div className='relative'>
+                    <button
+                      onMouseOver={() => setHoverEdit(true)}
+                      onMouseLeave={() => setHoverEdit(false)}
+                      type='button'
+                      className='toolbar-button primary'
+                      onClick={handleUpdateProject}>
+                      <PencilSquareIcon className='h-7 w-7' />
+                    </button>
+                    <button className={`${hoverEdit ? "block" : "hidden"} 
+                            btn-absolute`}>
+                        {t('global.edit_track')}
+                    </button>
+                  </div>
+                  <div className='relative'>
+                    <button
+                      onMouseOver={() => setHoverTrash(true)}
+                      onMouseLeave={() => setHoverTrash(false)}
+                      type='button'
+                      className='toolbar-button alert'
+                      onClick={() => { navigate(`/my-chest/treasure/${project?.id}/trash/`) }}>
+                      <TrashIcon className='h-7 w-7' />
+                    </button>
+                    <button className={`${hoverTrash ? "block" : "hidden"} 
+                            btn-absolute`}>
+                      {t('global.view_trash')}
+                    </button>
+                  </div>
+                </>
+              )}
             </div>
-            <div className="relative">
-              <button
-                onMouseOver={() => setHoverAdd(true)}
-                onMouseLeave={() => setHoverAdd(false)}
-                type="button"
-                className="toolbar-button primary relative"
-                onClick={handleCreateVersion}
-              >
-                <PlusIcon className="h-7 w-7" />
-              </button>
-              <button
-                className={`${
-                  hoverAdd ? "block" : "hidden"
-                } btn-absolute`}
-              >
-                {t('global.add_version')}
-              </button>
-            </div>
-            {isDesktop && (
-              <>
-                <div className='relative'>
-                  <button
-                    onMouseOver={() => setHoverEdit(true)}
-                    onMouseLeave={() => setHoverEdit(false)}
-                    type='button'
-                    className='toolbar-button primary'
-                    onClick={handleUpdateProject}>
-                    <PencilSquareIcon className='h-7 w-7' />
-                  </button>
-                  <button className={`${hoverEdit ? "block" : "hidden"} 
-                          btn-absolute`}>
-                      {t('global.edit_track')}
-                  </button>
-                </div>
-                <div className='relative'>
-                  <button
-                    onMouseOver={() => setHoverTrash(true)}
-                    onMouseLeave={() => setHoverTrash(false)}
-                    type='button'
-                    className='toolbar-button alert'
-                    onClick={() => { navigate(`/my-chest/treasure/${project?.id}/trash/`) }}>
-                    <TrashIcon className='h-7 w-7' />
-                  </button>
-                  <button className={`${hoverTrash ? "block" : "hidden"} 
-                          btn-absolute`}>
-                     {t('global.view_trash')}
-                  </button>
-                </div>
-              </>
-            )}
           </div>
         </div>
         <div className='flex flex-col lg:flex-row lg:items-center justify-center gap-4 lg:gap-12'>
