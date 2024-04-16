@@ -359,5 +359,8 @@
     "date_blocked": "Fecha bloqueado",
     "date_played": "Fecha reproducido",
     "size": "Tamaño"
+  }, 
+  "toasts": {
+    "copy": "Enlace copiado en portapapeles"
   }
 }

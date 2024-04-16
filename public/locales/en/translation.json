@@ -385,5 +385,8 @@
     "date_blocked": "Date blocked",
     "date_played": "Date played",
     "size": "Size"
+  },
+  "toasts": {
+    "copy": "Link copied to clipboard"
   }
 }
