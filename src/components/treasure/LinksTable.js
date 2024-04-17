@@ -28,8 +28,8 @@ export default function LinksTable({ data, headers, project }) {
       };
   
       dispatch(createToast(toastBody));
-  
     }
+    
     const copyToClipboard = (value) => {
       // <base_url>/shared-link?token=<token></token>
       const link = `https://${window.location.hostname}/shared-link?token=${value}`;
