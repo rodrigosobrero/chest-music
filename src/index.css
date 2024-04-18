@@ -100,8 +100,6 @@ th {
   @apply text-sm text-left border-b text-white border-neutral-silver-600 py-[11px] capitalize font-normal;
 }
 
-
-
 .normal-rows td:last-child,
 th:last-child {
   border-radius: 0px 0px 0px 0px !important;
@@ -146,6 +144,10 @@ input[type=number] {
 
 #root {
   @apply h-full;
+}
+
+.container {
+  @apply px-3 md:px-[60px];
 }
 
 .icon path{
