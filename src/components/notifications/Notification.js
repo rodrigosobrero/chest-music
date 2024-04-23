@@ -16,7 +16,7 @@ const Notification = () => {
   
   const { data: notifications = {}, 
           isLoading, 
-          isFetching } = useGetNotificationsQuery(status, { refetchOnMountOrArgChange: !isChanged })
+          isFetching } = useGetNotificationsQuery(status, { refetchOnMountOrArgChange: true })
 
   const blockUser = (id, callback, toggleBlocked) => {
     axios.post(process.env.REACT_APP_API + 'notification/permission/block/', 
@@ -56,7 +56,6 @@ const Notification = () => {
                   onClick={() => { setStatus('invites'); setIsChanged(true) }} 
                   isActive={status === 'invites'} 
                   counter={notifications?.invites?.new} />
-              {/* <div className={`w-[80px] mx-auto mt-1.5 border border-brand-gold ${status !== 'invites' && 'hidden'}`}></div> */}
            </div>
            <div className='text-lg'>
               <TabButton 
@@ -64,10 +63,6 @@ const Notification = () => {
                   onClick={() => setStatus('general')} 
                   isActive={status === 'general'} 
                   counter={notifications?.general?.new}/>
-              {/* <button className={status === 'general' && 'isActive'} onClick={() => {setStatus('general');}}>
-              {t('notification.general')} <span>{notifications?.general?.new}</span>
-              </button> */}
-              {/* <div className={`w-[80px] mx-auto h-0.5 mt-1.5 border border-brand-gold ${status !== 'general' && 'hidden'}`}></div> */}
            </div>
         </div>
         <div className={`w-full md:w-[720px] bg-neutral-silver-700  flex 
