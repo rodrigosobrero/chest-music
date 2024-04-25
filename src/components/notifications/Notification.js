@@ -47,14 +47,16 @@ const Notification = () => {
     await updateNotifications({ id: invite_id, response: type })
     setIsReplied(true)
   }
-  // console.log(notifications)
+
   const changeSection = async (state) => {
     setStatus(state);
     setIsChanged(true);
     if(isReplied){
       await refetch();
+      setIsReplied(false);
     }
   }
+  
   return (
     <>
       <div >
