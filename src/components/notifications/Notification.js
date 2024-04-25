@@ -13,10 +13,12 @@ const Notification = () => {
   const [status, setStatus] = useState('invites')
   const [isChanged, setIsChanged] = useState(false)
   const [updateNotifications] = useUpdateNotificationsMutation();
-  
+  const [isReplied, setIsReplied] = useState(false);
+
   const { data: notifications = {}, 
           isLoading, 
-          isFetching } = useGetNotificationsQuery(status, { refetchOnMountOrArgChange: true })
+          isFetching, 
+          refetch } = useGetNotificationsQuery(status, { refetchOnMountOrArgChange: !isChanged })
 
   const blockUser = (id, callback, toggleBlocked) => {
     axios.post(process.env.REACT_APP_API + 'notification/permission/block/', 
@@ -43,9 +45,16 @@ const Notification = () => {
   const replyNotification = async (invite_id, type) => {
     if(type !== 'denied' && type !== 'accepted') return;
     await updateNotifications({ id: invite_id, response: type })
+    setIsReplied(true)
   }
-  console.log(notifications)
-
+  // console.log(notifications)
+  const changeSection = async (state) => {
+    setStatus(state);
+    setIsChanged(true);
+    if(isReplied){
+      await refetch();
+    }
+  }
   return (
     <>
       <div >
@@ -53,14 +62,14 @@ const Notification = () => {
            <div>
               <TabButton 
                   text={t('notification.invites')}  
-                  onClick={() => { setStatus('invites'); setIsChanged(true) }} 
+                  onClick={() => changeSection('invites') } 
                   isActive={status === 'invites'} 
                   counter={notifications?.invites?.new} />
            </div>
            <div className='text-lg'>
               <TabButton 
                   text={t('notification.general')} 
-                  onClick={() => setStatus('general')} 
+                  onClick={() => changeSection('general') } 
                   isActive={status === 'general'} 
                   counter={notifications?.general?.new}/>
            </div>
