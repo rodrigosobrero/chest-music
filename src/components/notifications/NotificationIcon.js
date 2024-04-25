@@ -3,8 +3,6 @@ import { MusicalNoteIcon, XMarkIcon, LinkIcon, CheckCircleIcon, PlayIcon, PauseI
 
 const NotificationIcon = ({ type, iconStyle, containerStyle, isPlaying }) => {
   
-  console.log('type', type)
-
   const notificationIcons = {
     invite_accepted: LinkIcon,
     invite_denied: XMarkIcon,
