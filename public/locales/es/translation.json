@@ -101,9 +101,11 @@
     "reset": "¿Perdiste la llave?",
     "beta": {
       "title": "accede a la beta de chest",
+      "button": "Acceder",
       "button_google": "Accede con Google",
       "description": "Inicia sesión en la BETA de Chest con el correo electrónico con el que te invitaron.",
       "signup": "¿No tienes una invitación? Registrate.",
+      "password": "Crear contraseña",
       "modal": {
         "title": "Lo siento, correo electrónico no válido",
         "description": "El correo electrónico que utilizaste para iniciar sesión no está registrado para acceder a Chest BETA. Intenta nuevamente con otro, regístrate o",
