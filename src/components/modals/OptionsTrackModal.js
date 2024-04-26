@@ -94,7 +94,7 @@ export default function OptionsTrackModal(props) {
           <div className='text-neutral-silver-100 text-sm flex gap-4 font-archivo'>
             <div className='flex gap-2 items-center'>
               <ClockIcon className='h-5 w-5 text-brand-uva-light' />
-              {format.time(track.duration)}
+              {format.time(track.versions[0].duration)}
             </div>
             <div className='flex gap-2 items-center'>
               <PlayIcon className="h-5 w-5 text-brand-uva-light" />
