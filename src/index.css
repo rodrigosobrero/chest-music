@@ -922,7 +922,7 @@ input[type="search"]::-webkit-search-results-decoration {
 }
 
 .custom-select-options {
-  @apply absolute right-0 flex flex-col bg-black rounded-t-xl border border-neutral-silver-500 rounded-b-xl w-full transition duration-300 z-40 first:rounded-t-xl divide-y divide-neutral-700;
+  @apply absolute right-0 flex flex-col bg-black rounded-t-xl border border-neutral-silver-500 rounded-b-xl w-full transition duration-300 z-40 first:rounded-t-xl divide-y divide-neutral-700 overflow-y-auto overflow-x-hidden max-h-[150px];
 }
 
 .custom-select-input-min {

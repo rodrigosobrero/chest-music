@@ -25,6 +25,7 @@ export default function SignInBeta() {
   const [loading, setLoading] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
 
+  const { onOpen: openSignUpBetaModal } = useModal('SignUpBetaModal');
   const { onOpen: openBetaErrorModal } = useModal('BetaErrorModal');
   const [getBetaAccess] = useLazyGetBetaAccessQuery();
 
@@ -164,7 +165,7 @@ export default function SignInBeta() {
                 error={errors.email && 'This field is required'} />
               <Input
                 type='password'
-                label={t('global.password')}
+                label={t('signin.beta.password')}
                 name='password'
                 placeholder={t('global.write_here')}
                 showHide={true}
@@ -172,7 +173,7 @@ export default function SignInBeta() {
                 required={true}
                 error={errors.password && 'This field is required'} />
               <Button
-                text={t('signin.button')}
+                text={t('signin.beta.button')}
                 textStyle='!font-semibold'
                 style='primary'
                 type='submit'
@@ -180,9 +181,13 @@ export default function SignInBeta() {
                 loading={loading} />
             </div>
           </form>
-          <NavLink to='/sign-up' className='text-brand-gold h-10 md:h-auto hover:text-brand-bronze font-semibold text-lg'>
+          <Button 
+            onClick={openSignUpBetaModal}
+            text={t('signin.beta.signup')} 
+            customStyle='text-brand-gold' />
+          {/* <NavLink to='/sign-up' className='text-brand-gold h-10 md:h-auto hover:text-brand-bronze font-semibold text-lg'>
             {t('signin.beta.signup')}
-          </NavLink>
+          </NavLink> */}
         </div>
         <div className='signin-cover-beta'></div>
       </div>

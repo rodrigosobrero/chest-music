@@ -4,6 +4,7 @@ import { ChevronDownIcon, CheckIcon } from '@heroicons/react/20/solid';
 import { AnimatePresence, motion } from 'framer-motion';
 
 export default function Select({ 
+  placeholder = 'Select one...',
   disabled, 
   label, 
   minify,
@@ -53,7 +54,7 @@ export default function Select({
           <div className='relative'>
             <input
               type='text'
-              placeholder='Select one...'
+              placeholder={placeholder}
               className={classNames({
                 'custom-select-input': !minify && !child,
                 'custom-select-input-min': minify,
