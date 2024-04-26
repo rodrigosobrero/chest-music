@@ -8,7 +8,7 @@ import { useModal } from 'hooks/useModal';
 export default function OptionsTrackModal(props) {
   const { t } = useTranslation();
   const { track, version, navigate } = props.meta;
-  console.log(props)
+
   const handleClose = () => {
     if (props.onClose) props.onClose();
   }
