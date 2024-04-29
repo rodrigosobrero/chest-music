@@ -24,8 +24,8 @@ export default function DeleteTrackModal(props) {
 
   return (
     <BaseModal 
-      title='delete track' 
-      description='Are you sure you want to delete this track? This action can’t be undone.'
+      title={t('mychest.remove_track.title')}
+      description={t('mychest.remove_track.subtitle')}
       show={props.isOpen} 
       onClose={handleClose}>
       <div className='flex justify-center'>
@@ -39,7 +39,7 @@ export default function DeleteTrackModal(props) {
           style='tertiary'
           onClick={handleClose} />
         <Button
-          text='Confirm'
+          text={t('global.remove')}
           style='error'
           disabled={isLoading}
           loading={isLoading}

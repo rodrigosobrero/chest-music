@@ -167,6 +167,10 @@
       "title_z": "Title (Z-A)",
       "size_biggest": "Size (biggest first)",
       "size_smallest": "Size (smallest first)"
+    },
+    "remove_track": {
+      "title": "Remove myself from demo",
+      "subtitle": "By removing yourself from this demo it will no longer appear in your chest, but other participants will not be affected. Are you sure?"
     }
   },
   "upload": {
