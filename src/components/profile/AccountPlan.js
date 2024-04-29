@@ -118,7 +118,7 @@ const AccountPlan = ({ data }) => {
                   type='button'
                   className='text-brand-gold text-lg font-semibold py-1.2'
                   onClick={openConverAccountModal}>
-                  {t('global.become an artist')}
+                  {t('global.become an artist.default')}
                 </button>
               </div>
             )}

@@ -24,7 +24,7 @@ export default function ErrorModal(props) {
 
   return (
     <BaseModal
-      title={t('global.become an artist')}
+      title={t('global.become an artist.default')}
       show={props.isOpen}
       onClose={handleClose}>
       <div>
