@@ -169,6 +169,10 @@
       "title_z": "Título (Z-A)",
       "size_biggest": "Tamaño (grande a chico)",
       "size_smallest": "Tamaño (chico a grande)"
+    },
+    "remove_track": {
+      "title": "Borrarme de la maqueta",
+      "subtitle": "Al borrarte de esta maqueta ya no aparecerá en tu cofre, pero los demás participantes no se verán afectados. ¿Estás seguro?"
     }
   },
   "upload": {
