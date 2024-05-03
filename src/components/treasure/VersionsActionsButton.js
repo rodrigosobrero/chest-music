@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useModal } from 'hooks/useModal';
 import { getUrlExtension } from 'utils/helpers';
@@ -9,22 +9,23 @@ import { useTranslation } from 'react-i18next';
 export default function VersionsActionsButton({ version, project }) {
   const { user } = useSelector((state) => state.auth);
 
-  const { onOpen: openShareModal } =  useModal('ShareVersionModal');
+  const { onOpen: openShareModal } = useModal('ShareVersionModal');
   const { onOpen: openEditModal } = useModal('EditVersionModal');
   const { onOpen: openDeleteModal } = useModal('DeleteVersionModal');
   const { t } = useTranslation();
-  const [isOpened, setIsOpenned] = useState(false)
+  const [isOpened, setIsOpenned] = useState(false);
+  const [options, setOptions] = useState([]);
 
   const toggleOptions = () => setIsOpenned(!isOpened);
 
-  const closeOptions=() => setIsOpenned(false);
+  const closeOptions = () => setIsOpenned(false);
 
   const handleShare = () => {
     openShareModal(version);
   }
 
   const handleDownload = async () => {
-    
+
     try {
       const response = await api.get(`project/version/${version.id}/url/`, {
         headers: { Authorization: `Bearer ${user?.token}` }
@@ -54,13 +55,6 @@ export default function VersionsActionsButton({ version, project }) {
     openDeleteModal(version);
   }
 
-  const options = [
-    { type: 'share', description: t('global.share'), action: handleShare },
-    { type: 'download', description: t('global.download'), action: handleDownload },
-    { type: 'edit', description: t('global.edit'), action: handleEdit },
-    { type: 'delete', description: t('global.trash_can'), action: handleDelete },
-  ];
-
   const handleAction = (action) => {
     const option = options.find((opt) => opt.type === action);
 
@@ -71,7 +65,27 @@ export default function VersionsActionsButton({ version, project }) {
     }
   }
 
+  useEffect(() => {
+    const defaultOptions = [
+      { type: 'share', description: t('global.share'), action: handleShare },
+      { type: 'download', description: t('global.download'), action: handleDownload },
+      { type: 'edit', description: t('global.edit'), action: handleEdit }
+    ];
+  
+    const options = project.versions.length === 1
+      ? defaultOptions
+      : [...defaultOptions, { type: 'delete', description: t('global.trash_can'), action: handleDelete }];
+  
+    setOptions(options);
+  }, [project]);
+  
   return (
-    <ContextButton options={options} action={handleAction} isOpened={isOpened} toggleOptions={toggleOptions} closeOptions={closeOptions}/>
+    <>
+      {
+        options.length && (
+          <ContextButton options={options} action={handleAction} isOpened={isOpened} toggleOptions={toggleOptions} closeOptions={closeOptions} />
+        )
+      }
+    </>
   )
 }
