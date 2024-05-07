@@ -19,7 +19,7 @@ const Notification = () => {
           isLoading, 
           isFetching, 
           refetch } = useGetNotificationsQuery(status, { refetchOnMountOrArgChange: !isChanged })
-
+          
   const blockUser = (id, callback, toggleBlocked) => {
     axios.post(process.env.REACT_APP_API + 'notification/permission/block/', 
        {  "user": id }, 
