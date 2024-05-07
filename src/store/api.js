@@ -190,6 +190,10 @@ export const api = createApi({
       query: (type = 'invites') => `notification/?type=${type}`,
       providesTags: ['Notifications']
     }),
+    getNewNotificationsData: builder.query({
+      query: () => 'notification/',
+      providesTags: ['NewNotificationsData']
+    }),
     updateNotifications: builder.mutation({
       query: ({ id, response }) => ({
         url: `notification/invite/${id}/reply/`,
@@ -314,6 +318,7 @@ export const {
   useDeleteLinkMutation,
   useGetNewNotificationsQuery,
   useGetNotificationsQuery,
+  useGetNewNotificationsDataQuery,
   useUpdateNotificationsMutation,
   useGetUserQuery,
   useGetSharedsQuery,

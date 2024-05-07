@@ -37,7 +37,7 @@ const ToastProvider = ({ children }) => {
                         animate={{ y: 0, opacity: 2 }}
                         exit={{ y: 100, opacity: 0, scale: 0.5 }}
                         >
-              <Toast type={toast.type} title={toast.title} body={toast.body} close={() => onDelete(toast.id)} />
+              <Toast type={toast.type} title={toast.title} body={toast.body} close={() => onDelete(toast.id)}  project_id={toast.project_id}/>
             </motion.div>
           ))
         }
