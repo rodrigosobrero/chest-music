@@ -215,44 +215,47 @@ export default function Treasure() {
   return (
     <>
       <div className='container flex flex-col gap-6 md:gap-10 py-8 md:py-10'>
-        <div className='toolbar'>
+        <div className='toolbar relative'>
           <div className='grow'>
             <Breadcrumb items={breadcrumb} minify />
           </div>
-          <div className='lg:fixed max-w-screen-2xl flex items-center justify-end gap-3 lg:w-full'>
-            <button
-              type='button'
-              className='toolbar-button primary'
-              onClick={() => { navigate(`/share/${project.id}?=sendDM`) }}>
-              <ArrowUpTrayIcon className='h-7 w-7' />
-            </button>
-            <button
-              type='button'
-              className='toolbar-button primary'
-              onClick={handleCreateVersion}
-              style={{ color: 'blue' }}>
-              <PlusIcon className='h-7 w-7' />
-            </button>
-            {isDesktop && (
-              <>
-                <button
-                  type='button'
-                  className='toolbar-button primary'
-                  onClick={handleUpdateProject}>
-                  <PencilSquareIcon className='h-7 w-7' />
-                </button>
-                <button
-                  type='button'
-                  className='toolbar-button alert'
-                  onClick={() => { navigate(`/my-chest/treasure/${project?.id}/trash/`) }}>
-                  <TrashIcon className='h-7 w-7' />
-                </button>
-              </>
-            )}
+          {/* <div className='lg:fixed max-w-screen-2xl flex items-center justify-end gap-3 lg:w-full'> */}
+          <div className='float-right w-[100px] lg:w-[212px]'>
+            <div className='lg:fixed mt-0 lg:-mt-[20px] flex items-center justify-end gap-3'>
+              <button
+                type='button'
+                className='toolbar-button primary'
+                onClick={() => { navigate(`/share/${project.id}?=sendDM`) }}>
+                <ArrowUpTrayIcon className='h-7 w-7' />
+              </button>
+              <button
+                type='button'
+                className='toolbar-button primary'
+                onClick={handleCreateVersion}
+                style={{ color: 'blue' }}>
+                <PlusIcon className='h-7 w-7' />
+              </button>
+              {isDesktop && (
+                <>
+                  <button
+                    type='button'
+                    className='toolbar-button primary'
+                    onClick={handleUpdateProject}>
+                    <PencilSquareIcon className='h-7 w-7' />
+                  </button>
+                  <button
+                    type='button'
+                    className='toolbar-button alert'
+                    onClick={() => { navigate(`/my-chest/treasure/${project?.id}/trash/`) }}>
+                    <TrashIcon className='h-7 w-7' />
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         </div>
         <div className='flex flex-col lg:flex-row lg:items-center justify-center gap-4 lg:gap-12'>
-          <div className='w-[100px] h-[100px] lg:w-[220px] lg:h-[220px]'>
+          <div className='w-[100px] h-[100px] lg:min-w-[220px] lg:h-[220px]'>
             <TrackCoverPreview
               cover={project.cover_url}
               defaultCover={defaultCover}

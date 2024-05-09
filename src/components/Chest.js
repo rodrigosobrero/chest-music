@@ -52,14 +52,17 @@ export default function Chest() {
             </div>
           </div>
           <div className='hidden md:flex items-center justify-center grow'>
-            <SearchBar onChange={handleOnChange} placeholder={t('global.search_treasure')}/>
+            <SearchBar
+              className='!w-4/5 xl:!w-full'
+              onChange={handleOnChange}
+              placeholder={t('global.search_treasure')} />
           </div>
           <StorageIndicator usedSpace={chest.used_seconds} totalSpace={chest.total_seconds} />
         </div>
         <div className='bg-neutral-black rounded-t-lg rounded-b-3xl pl-5 pr-4 pt-3 pb-8 md:px-[45px] md:pb-[60px] md:pt-10'>
           {
             filteredProjects.length > 0 ?
-              <TrackList tracks={filteredProjects} query={query}/> :
+              <TrackList tracks={filteredProjects} query={query} /> :
               <div className='flex flex-col items-center gap-2 pt-7 -pl-1 pb-2'>
                 <h4 className='empty-title'>Your chest is empty</h4>
                 <p className='text-lg text-neutral-silver-200 font-light mb-10'>

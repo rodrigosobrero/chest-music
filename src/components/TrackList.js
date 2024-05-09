@@ -28,7 +28,6 @@ export default function TrackList({ tracks, query }) {
         t('tables.version'),
         t('tables.date_added'),
         t('tables.length'),
-        //'total size',
         '',
       ])
     }
@@ -37,46 +36,48 @@ export default function TrackList({ tracks, query }) {
   return (
     <>
       <table className='collapsed w-full'>
-          <thead>
-            <tr>
-              {
-                titles.map((title, index) => 
-                  <th 
-                    key={index} 
-                    className={`${ !title && 'cursor-default'} ${index === 0 && '!pl-5'}`}>
-                      {title}
-                  </th>
-                )
-              }
-            </tr>
-          </thead>
+        <thead>
+          <tr>
+            {
+              titles.map((title, index) =>
+                <th
+                  key={index}
+                  className={`${!title && 'cursor-default'} ${index === 0 && '!pl-5'}`}>
+                  {title}
+                </th>
+              )
+            }
+          </tr>
+        </thead>
         <tbody className='chest-rows'>
-        {
+          {
             tracks?.length > 0 && tracks.map((track, index) => {
-              if(query === '') {
+              if (query === '') {
                 return (
-                  <TrackListRow 
-                  type={false}
-                  key={index} 
-                  track={track} 
-                  version={track.versions[0]}
-                  isOpened={rowOpenned === track.versions[0]?.id} 
-                  toggleOptions={toggleOpen} 
-                  closeOptions={closeOptions}/>                  
+                  <TrackListRow
+                    type={false}
+                    key={index}
+                    track={track}
+                    version={track.versions[0]}
+                    isOpened={rowOpenned === track.versions[0]?.id}
+                    toggleOptions={toggleOpen}
+                    closeOptions={closeOptions} />
                 )
               } else {
-                return ( 
-                      track.versions.map((version, i) => {
-                      return (
-                        <TrackListRow 
-                            type={i === 0 ? 'project' : 'version'}
-                            key={index} 
-                            track={track} 
-                            version={version}
-                            isOpened={rowOpenned === version.id} 
-                            toggleOptions={toggleOpen} 
-                            closeOptions={closeOptions}/>
-                      )}))}
+                return (
+                  track.versions.map((version, i) => {
+                    return (
+                      <TrackListRow
+                        type={i === 0 ? 'project' : 'version'}
+                        key={index}
+                        track={track}
+                        version={version}
+                        isOpened={rowOpenned === version.id}
+                        toggleOptions={toggleOpen}
+                        closeOptions={closeOptions} />
+                    )
+                  }))
+              }
             })
           }
         </tbody>
