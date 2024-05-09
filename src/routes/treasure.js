@@ -234,13 +234,14 @@ export default function Treasure() {
 
   return (
     <>
-      <div className='container flex flex-col gap-6 md:gap-10 py-8 md:py-10'>
-        <div className='toolbar relative'>
+      <div className='container flex flex-col gap-6 md:gap-10 py-8 md:py-10 relative'>
+        <div className='toolbar'>
           <div className='grow'>
             <Breadcrumb items={breadcrumb} minify />
           </div>
-          <div className='float-right w-[100px] lg:w-[212px]'>
-            <div className='lg:fixed mt-0 lg:-mt-[20px] flex items-center justify-end gap-3'>
+          <div className='flex justify-end'>
+            <div className='fixed flex items-end justify-end gap-3 -mt-4 z-50'>
+              <div className='relative'>
               <button
                   className={`${
                     hoverShare ? "block" : "hidden"
@@ -256,6 +257,8 @@ export default function Treasure() {
                   onClick={() => { navigate(`/share/${project.id}?=sendDM`) }}>
                   <ArrowUpTrayIcon className='h-7 w-7' />
                 </button>
+              </div>
+              <div className="relative">
                 <button
                   onMouseOver={() => setHoverAdd(true)}
                   onMouseLeave={() => setHoverAdd(false)}
@@ -272,8 +275,10 @@ export default function Treasure() {
                 >
                   {t('global.add_version')}
                 </button>
+              </div>
               {isDesktop && (
                 <>
+                  <div className='relative'>
                     <button
                       onMouseOver={() => setHoverEdit(true)}
                       onMouseLeave={() => setHoverEdit(false)}
@@ -286,6 +291,8 @@ export default function Treasure() {
                             btn-absolute`}>
                         {t('global.edit_track')}
                     </button>
+                  </div>
+                  <div className='relative'>
                     <button
                       onMouseOver={() => setHoverTrash(true)}
                       onMouseLeave={() => setHoverTrash(false)}
@@ -305,7 +312,7 @@ export default function Treasure() {
           </div>
         </div>
         <div className='flex flex-col lg:flex-row lg:items-center justify-center gap-4 lg:gap-12'>
-          <div className='w-[100px] h-[100px] lg:min-w-[220px] lg:h-[220px]'>
+          <div className='w-[100px] h-[100px] lg:w-[220px] lg:h-[220px]'>
             <TrackCoverPreview
               cover={project.cover_url}
               defaultCover={defaultCover}

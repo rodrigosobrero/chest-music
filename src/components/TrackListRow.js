@@ -22,8 +22,9 @@ export default function TrackListRow({ track, isOpened, version, toggleOptions, 
   const { playlist } = useSelector((state) => state.playlist);
   const [hover, setHover] = useState(false);
   const [play, setPlay] = useState(false);
-  const { onOpen: openShareModal } =  useModal('ShareVersionModal');
+  const { onOpen: openShareModal } = useModal('ShareVersionModal');
   const { onOpen: openOptionsModal, isOpen } = useModal('OptionsTrackModal');
+
   const playTrack = () => {
     dispatch(playing({
       id: version.id,
@@ -48,11 +49,11 @@ export default function TrackListRow({ track, isOpened, version, toggleOptions, 
   }
 
   const handleOpenOptions = () => {
-    if(isDesktop) {
-      toggleOptions(version.id); 
+    if (isDesktop) {
+      toggleOptions(version.id);
       setHover(false)
     } else {
-      openOptionsModal({ version, track, navigate})
+      openOptionsModal({ version, track, navigate })
     }
   }
 
@@ -90,27 +91,25 @@ export default function TrackListRow({ track, isOpened, version, toggleOptions, 
   }, [playlist]);
 
   return (
-      <tr onClick={handleOnClick} style={{height: '5rem'}} 
-          onMouseEnter={() => setHover(true)} 
-          onMouseLeave={() => setHover(false)} 
-          className='hover:bg-neutral-silver-600'>
-          <td className='md:!pl-5'>
-            <div className='flex flex-row items-center gap-3 md:gap-4'>
-              {type !== 'version' ?
-                <div
-                  className='w-[52px] h-[52px] min-w-[52px] bg- bg-cover rounded'
-                  style={{ backgroundImage: `url(${track.cover_url})` }}
-                  onClick={handleOnCoverClick}>
-                  {hover && !play && <div className='cover-hover'><PlayIcon className='h-6 w-6 text-white' /></div>}
-                  {play && playlist[0]?.isPlaying && <div className='cover-hover'><PauseIcon className='h-6 w-6 text-white' /></div>}
-                </div> 
-                  :
-                  <div className='w-[52px]'> 
-                  {hover && !play ? <PlayIcon className='h-6 w-6 text-white mx-auto' /> :
-                   play && playlist[0]?.isPlaying ? <PauseIcon className='h-6 w-6 text-white mx-auto' /> :
-                   <img src={bar} className='h-[80px] w-[30px] mx-auto'/>
-                  }
-                </div>
+    <tr onClick={handleOnClick} style={{ height: '5rem' }}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      className='hover:bg-neutral-silver-600'>
+      <td className='md:!pl-5'>
+        <div className='flex flex-row items-center gap-3 md:gap-4'>
+          {type !== 'version' ?
+            <div
+              className='w-[52px] h-[52px] min-w-[52px] bg- bg-cover rounded'
+              style={{ backgroundImage: `url(${track.cover_url})` }}
+              onClick={handleOnCoverClick}>
+              {hover && !play && <div className='cover-hover'><PlayIcon className='h-6 w-6 text-white' /></div>}
+              {play && playlist[0]?.isPlaying && <div className='cover-hover'><PauseIcon className='h-6 w-6 text-white' /></div>}
+            </div>
+            :
+            <div className='w-[52px]'>
+              {hover && !play ? <PlayIcon className='h-6 w-6 text-white mx-auto' /> :
+                play && playlist[0]?.isPlaying ? <PauseIcon className='h-6 w-6 text-white mx-auto' /> :
+                  <img src={bar} className='h-[80px] w-[30px] mx-auto' />
               }
             </div>
           }
@@ -126,11 +125,13 @@ export default function TrackListRow({ track, isOpened, version, toggleOptions, 
         <>
           <td>{track.album}</td>
           <td>{version.name}</td>
-          <td>{format.date(version.date_added)}</td>
+          <td>
+            {format.date(version.date_added)}
+          </td>
           <td>{format.time(version.duration)}</td>
         </>
       )}
-      <td onClick={(e) => { e.stopPropagation() }} className='!pr-5'>
+      <td onClick={(e) => { e.stopPropagation() }} className='md:!pr-5'>
         <div className='flex justify-end'>
           {isDesktop && (
             <button
@@ -140,34 +141,24 @@ export default function TrackListRow({ track, isOpened, version, toggleOptions, 
               <img src={upload} alt='' width={24} height={24} />
             </button>
           )}
-            <td onClick={(e) => { e.stopPropagation() }} className='md:!pr-5'>
-              <div className='flex justify-end'>
-                {isDesktop && (
-                  <button
-                    type='button'
-                    className='p-[7px] rounded-[10px] transition duration-500 hover:bg-neutral-silver-700 border-[3px] border-transparent active:border-gray-600'
-                    onClick={handleOnShareClick}>
-                    <img src={upload} alt='' width={24} height={24} />
-                  </button>
-                )}
-                {
-                  type === 'version' ? 
-                    <TrackVersionsActionsButton
-                      version={version} 
-                      project={track}  
-                      isOpened={isOpened} 
-                      toggleOptions={handleOpenOptions} 
-                      closeOptions={() => { closeOptions(); setHover(false) }} 
-                    /> :
-                    <TrackListOptions 
-                      track={track} 
-                      isOpened={isOpened} 
-                      toggleOptions={handleOpenOptions} 
-                      closeOptions={() => { closeOptions(); setHover(false) }} 
-                    />
-                }
-              </div>
-            </td>
-      </tr>
+          {
+            type === 'version' ?
+              <TrackVersionsActionsButton
+                version={version}
+                project={track}
+                isOpened={isOpened}
+                toggleOptions={handleOpenOptions}
+                closeOptions={() => { closeOptions(); setHover(false) }}
+              /> :
+              <TrackListOptions
+                track={track}
+                isOpened={isOpened}
+                toggleOptions={handleOpenOptions}
+                closeOptions={() => { closeOptions(); setHover(false) }}
+              />
+          }
+        </div>
+      </td>
+    </tr>
   )
 }
