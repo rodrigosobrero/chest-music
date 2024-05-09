@@ -312,7 +312,7 @@ export default function Treasure() {
           </div>
         </div>
         <div className='flex flex-col lg:flex-row lg:items-center justify-center gap-4 lg:gap-12'>
-          <div className='w-[100px] h-[100px] lg:w-[220px] lg:h-[220px]'>
+          <div className='min-w-[100px] h-[100px] lg:min-w-[220px] lg:h-[220px]'>
             <TrackCoverPreview
               cover={project.cover_url}
               defaultCover={defaultCover}
