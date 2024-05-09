@@ -48,7 +48,10 @@ export default function Chest() {
             </div>
           </div>
           <div className='hidden md:flex items-center justify-center grow'>
-            <SearchBar onChange={handleOnChange} placeholder={t('global.search_treasure')}/>
+            <SearchBar
+              className='!w-4/5 xl:!w-full'
+              onChange={handleOnChange}
+              placeholder={t('global.search_treasure')} />
           </div>
           <StorageIndicator usedSpace={chest.used_seconds} totalSpace={chest.total_seconds} />
         </div>

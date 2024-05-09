@@ -50,7 +50,6 @@ export default function TrackList({ tracks, query, handleChange }) {
         { title: t('tables.version'), tag: 'version'},
         { title: t('tables.date_added'), tag: 'date_added' },
         { title: t('tables.length'), tag: 'size' },
-        //'total size',
         '',
       ])
     }
@@ -100,14 +99,14 @@ export default function TrackList({ tracks, query, handleChange }) {
             tracks?.length > 0 && data.map((track, index) => {
               if(query === '') {
                 return (
-                  <TrackListRow 
-                  type={false}
-                  key={index} 
-                  track={track} 
-                  version={track.versions[0]}
-                  isOpened={rowOpenned === track.versions[0]?.id} 
-                  toggleOptions={toggleOpen} 
-                  closeOptions={closeOptions}/>                  
+                  <TrackListRow
+                    type={false}
+                    key={index}
+                    track={track}
+                    version={track.versions[0]}
+                    isOpened={rowOpenned === track.versions[0]?.id}
+                    toggleOptions={toggleOpen}
+                    closeOptions={closeOptions} />
                 )
               } else {
                 return ( 

@@ -35,7 +35,7 @@ export default function StorageIndicator({ usedSpace, totalSpace }) {
           <ProgressBar
             progress={percentageUsed}
             color={setColor(active, percentageUsed)}
-            size='150'
+            size='responsive'
             direction='right'
             background='gray' />
         </div>
