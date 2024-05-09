@@ -3,13 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { format } from 'utils/helpers';
 import { useModal } from 'hooks/useModal';
 import countries from 'data/countries.json';
-
+import { useGetAccountQuery } from 'store/api';
 import ProgressBar from 'components/ProgressBar';
 import Modal from 'components/Modal';
 import UpgradeStorage from 'components/modals/UpgradeStorageModal';
 
 const AccountPlan = ({ data }) => {
-  console.log('data account', data)
   const [show, setShow] = useState(false);
   const [input, setInput] = useState('');
   const [selected, setSelected] = useState();
@@ -17,20 +16,24 @@ const AccountPlan = ({ data }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { onOpen: openConverAccountModal } = useModal('ConvertAccountModal');
 
+  const { data: account } = useGetAccountQuery({}, { refetchOnMountOrArgChange: true });
+  
   const handleSelectOption = (i) => {
     setSelected(countries[i]);
     setIsOpen(false);
   }
 
-  const handleChange = (e) => setInput(e.target.value)
-  // const toggle = () => setShow(!show);
-  const { t } = useTranslation()
-  const toggleList = () => setIsOpen(!isOpen)
+  const handleChange = (e) => setInput(e.target.value);
+
+  const { t } = useTranslation();
+  
+  const toggleList = () => setIsOpen(!isOpen);
+
   const closeModal = () => {
     setShow(false);
     setIsOpen(false);
-    setSelected()
-    setInput('')
+    setSelected();
+    setInput('');
   }
 
   const upgrade = () => {
@@ -47,10 +50,10 @@ const AccountPlan = ({ data }) => {
         }
       })
     })
-      .then((response) => response.json()
-        .then(json => {
-          closeModal();
-        }));
+    .then((response) => response.json()
+    .then(json => {
+      closeModal();
+    }));
   }
 
   useEffect(() => {
@@ -88,11 +91,11 @@ const AccountPlan = ({ data }) => {
                     background='gray' />
                 </div>
               </div>
-              {/* <button className='py-1.5' onClick={toggle}>
+              <button className='py-1.5' onClick={() => setShow(true)}>
                 <h5 className='text-brand-gold !font-archivo !text-lg !font-semibold'>
                   {t('account.upgrade')}
                 </h5>
-              </button> */}
+              </button>
             </div>
           )}
           <div className='space-y-4'>
@@ -115,7 +118,7 @@ const AccountPlan = ({ data }) => {
                   type='button'
                   className='text-brand-gold text-lg font-semibold py-1.2'
                   onClick={openConverAccountModal}>
-                  {t('global.become an artist')}
+                  {t('global.become an artist.default')}
                 </button>
               </div>
             )}

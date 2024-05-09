@@ -10,7 +10,6 @@ export default function EditParticipantModal(props) {
   const { roles } = require('data/config.json');
   const { t } = useTranslation();
   const [role, setRole] = useState(props.meta.role);
-
   const [updateParticipant, { isLoading }] = useUpdateParticipantMutation();
 
   const handleClose = () => {
@@ -40,7 +39,7 @@ export default function EditParticipantModal(props) {
         {props.meta.full_name} <span className=' text-neutral-silver-300'>@{props.meta.username}</span>
       </p>
       <Select
-        options={roles}
+        options={props.meta.user_type === 'fan' ? roles.filter((rol) => rol === 'listener') : roles.filter((rol) => rol !== 'listener')}
         name='role'
         label='Role'
         value={role}

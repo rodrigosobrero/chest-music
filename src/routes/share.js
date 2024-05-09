@@ -13,11 +13,11 @@ import { useGetProjectQuery } from 'store/api';
 import { useTranslation } from 'react-i18next';
 
 const Share = () => {
-  const [ isUnlimited, setIsUnlimited ] = React.useState(false)
+  const [ isUnlimited, setIsUnlimited ] = useState(false)
   const navigate = useNavigate()
   const { trackId } = useParams()
   const {data: track = {}} = useGetProjectQuery(trackId)
-  const [ status, setStatus ] = React.useState('generate');
+  const [ status, setStatus ] = useState('generate');
   const location = useLocation()
   const user = useSelector((state) => state.auth.user);
   const { t } = useTranslation()
@@ -47,7 +47,7 @@ const Share = () => {
            <h3 className='md:text-[64px] text-[48px] text-center'> {t('share.title')} </h3>
            <img src={track.cover_url} alt='track cover' className='md:w-[200px] md:h-[200px] w-[140px] h-[140px]'/>
            <div className='text-center flex flex-col md:gap-y-2 gap-y-1.5'>
-             <h4 className='md:text-[22px] leading-[26px] text-base uppercase font-semibold'>{track?.name}</h4>
+             <h4 className='md:!text-[22px] !font-archivo leading-[26px] text-base uppercase !font-semibold !text-center'>{track?.name}</h4>
              <h6 className='md:text-xl text-base text-neutral-silver-200'>
                {track?.versions?.length > 0 && track?.versions[0].name}
              </h6>
@@ -55,11 +55,13 @@ const Share = () => {
           <div className='flex flex-col w-full md:items-center md:mt-0 mt-4'>
           <OptionSectionDesktop status={status} changeStatus={changeStatus} />
           <OptionSectionMobile status={status} changeStatus={changeStatus} />
-              {status === 'generate' && <LinkGenerate versionId={track?.versions?.length > 0 && track?.versions[0].id} token={user?.token} onCancel={goBack}/>}
-              {status === 'post' && <PostTwitter toggleUnlimited={toggleUnlimited} onCancel={goBack} versionId={track?.versions?.length > 0 && track?.versions[0].id} token={user?.token}/>}
-              {status === 'story' && <Story token={user?.token} onCancel={goBack}/>}
+              {status === 'generate' && <LinkGenerate versionId={track?.versions?.length > 0 && track?.versions[0].id} token={user?.token} onCancel={goBack} track={track?.name} />}
+              {status === 'post' && 
+                          <PostTwitter toggleUnlimited={toggleUnlimited} onCancel={goBack} versionId={track?.versions?.length > 0 && track?.versions[0].id} 
+                                       token={user?.token} track={track.name}/>}
+              {/* {status === 'story' && <Story token={user?.token} onCancel={goBack}/>} */}
               {status === 'send' && <SendDM onCancel={goBack} toggleUnlimited={toggleUnlimited} token={user?.token} versionId={track?.versions?.length > 0 && track?.versions[0].id}/>}
-              {status === 'reel' && <Reel onCancel={goBack} />}
+              {/* {status === 'reel' && <Reel onCancel={goBack} />} */}
           </div>
         </div>
       </div>

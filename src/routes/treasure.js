@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Navigate, redirect, useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useModal } from 'hooks/useModal';
 import { useGetProjectQuery, useGetChestQuery } from 'store/api';
@@ -20,11 +20,13 @@ import { TrashIcon } from '@heroicons/react/24/outline';
 
 import { ReactComponent as Empty } from 'assets/images/empty-chest.svg';
 import TrackCoverPreview from 'components/TrackCoverPreview';
+import { useTranslation } from 'react-i18next';
 
 export default function Treasure() {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { id } = useParams();
+  const { t } = useTranslation();
 
   const { data: chest = {}, isLoading: isLoadingChest } = useGetChestQuery();
   const { data: project = {}, isLoading, error } = useGetProjectQuery(id, {
@@ -47,6 +49,11 @@ export default function Treasure() {
   const [permissionsView, setPermissionsView] = useState(permissionsOptions[0]);
   const [defaultCover, setDefaultCover] = useState('');
   const [covers, setCovers] = useState([]);
+
+  const [hoverShare, setHoverShare] = useState(false);
+  const [hoverAdd, setHoverAdd] = useState(false);
+  const [hoverTrash, setHoverTrash] = useState(false);
+  const [hoverEdit, setHoverEdit] = useState(false);
 
   const TabButton = ({ title }) => {
     return (
@@ -131,9 +138,15 @@ export default function Treasure() {
       case 'participants':
         data = project.participants;
         if (isMobile) {
-          headers = ['Name', ''];
+          headers = [ { title: 'Name', tag: 'full_name' }, { title: '' }];
         } else {
-          headers = ['Name', 'Role', 'Plays', 'Date added', ''];
+          headers = [ 
+            { title: 'Name', tag: 'full_name' }, 
+            { title: 'Role', tag: 'role' },
+            { title: 'Plays', tag: 'plays' },
+            { title: 'Date added', tag: 'date_added' },
+            { title: '' }
+          ];
         }
         break;
 
@@ -149,9 +162,15 @@ export default function Treasure() {
       case 'users':
         data = project.shared_versions.users;
         if (isMobile) {
-          headers = ['Name', '', ''];
+          headers = [ { title: 'Name' }, { title: '' }, { title:  '' }];
         } else {
-          headers = ['Name', 'Version shared', 'Web play', 'Plays', 'Date shared', ''];
+          headers = [
+            { title : 'Name' }, 
+            { title: 'Version shared' }, 
+            { title: 'Web play' }, 
+            { title: 'Plays' }, 
+            { title: 'Date shared' } , 
+            { title:  '' }];
         }
         break;
 
@@ -164,9 +183,9 @@ export default function Treasure() {
         {data.length > 0 ? (
           <div>
             {permissionsView === 'participants' ? (
-              <ParticipantsTable data={data} headers={headers} user={user} />
+              <ParticipantsTable data={data} headers={headers} user={user} invitations={project.invitations} />
             ) : permissionsView === 'links' ? (
-              <LinksTable data={data} headers={headers} />
+              <LinksTable data={data} headers={headers} project={project} />
             ) : (
               <UsersTable data={data} headers={headers} />
             )}
@@ -212,6 +231,7 @@ export default function Treasure() {
     )
   }
 
+
   return (
     <>
       <div className='container flex flex-col gap-6 md:gap-10 py-8 md:py-10'>
@@ -219,36 +239,66 @@ export default function Treasure() {
           <div className='grow'>
             <Breadcrumb items={breadcrumb} minify />
           </div>
-          {/* <div className='lg:fixed max-w-screen-2xl flex items-center justify-end gap-3 lg:w-full'> */}
           <div className='float-right w-[100px] lg:w-[212px]'>
             <div className='lg:fixed mt-0 lg:-mt-[20px] flex items-center justify-end gap-3'>
               <button
-                type='button'
-                className='toolbar-button primary'
-                onClick={() => { navigate(`/share/${project.id}?=sendDM`) }}>
-                <ArrowUpTrayIcon className='h-7 w-7' />
-              </button>
-              <button
-                type='button'
-                className='toolbar-button primary'
-                onClick={handleCreateVersion}
-                style={{ color: 'blue' }}>
-                <PlusIcon className='h-7 w-7' />
-              </button>
+                  className={`${
+                    hoverShare ? "block" : "hidden"
+                  } btn-absolute`}
+                >
+                  {t('global.share_track')}
+                </button>
+                <button
+                  onMouseOver={() => setHoverShare(true)}
+                  onMouseLeave={() => setHoverShare(false)}
+                  type='button'
+                  className='toolbar-button primary'
+                  onClick={() => { navigate(`/share/${project.id}?=sendDM`) }}>
+                  <ArrowUpTrayIcon className='h-7 w-7' />
+                </button>
+                <button
+                  onMouseOver={() => setHoverAdd(true)}
+                  onMouseLeave={() => setHoverAdd(false)}
+                  type="button"
+                  className="toolbar-button primary relative"
+                  onClick={handleCreateVersion}
+                >
+                  <PlusIcon className="h-7 w-7" />
+                </button>
+                <button
+                  className={`${
+                    hoverAdd ? "block" : "hidden"
+                  } btn-absolute`}
+                >
+                  {t('global.add_version')}
+                </button>
               {isDesktop && (
                 <>
-                  <button
-                    type='button'
-                    className='toolbar-button primary'
-                    onClick={handleUpdateProject}>
-                    <PencilSquareIcon className='h-7 w-7' />
-                  </button>
-                  <button
-                    type='button'
-                    className='toolbar-button alert'
-                    onClick={() => { navigate(`/my-chest/treasure/${project?.id}/trash/`) }}>
-                    <TrashIcon className='h-7 w-7' />
-                  </button>
+                    <button
+                      onMouseOver={() => setHoverEdit(true)}
+                      onMouseLeave={() => setHoverEdit(false)}
+                      type='button'
+                      className='toolbar-button primary'
+                      onClick={handleUpdateProject}>
+                      <PencilSquareIcon className='h-7 w-7' />
+                    </button>
+                    <button className={`${hoverEdit ? "block" : "hidden"} 
+                            btn-absolute`}>
+                        {t('global.edit_track')}
+                    </button>
+                    <button
+                      onMouseOver={() => setHoverTrash(true)}
+                      onMouseLeave={() => setHoverTrash(false)}
+                      type='button'
+                      className='toolbar-button alert'
+                      onClick={() => { navigate(`/my-chest/treasure/${project?.id}/trash/`) }}>
+                      <TrashIcon className='h-7 w-7' />
+                    </button>
+                    <button className={`${hoverTrash ? "block" : "hidden"} 
+                            btn-absolute`}>
+                      {t('global.view_trash')}
+                    </button>
+                  </div>
                 </>
               )}
             </div>

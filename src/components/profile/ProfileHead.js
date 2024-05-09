@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ProgressBar from 'components/ProgressBar'
 import cloud from 'assets/images/icon-cloud-upload.svg'
 import pencil from 'assets/images/icon-pencil-alt.svg'
-import { bytesToSize, formatHours } from 'utils/helpers'
+import { useGetChestQuery } from 'store/api';
 import StorageIndicator from 'components/StorageIndicator'
 import Modal from 'components/Modal'
 import ChangeDataModal from 'components/modals/ChangeDataModal'
@@ -16,7 +16,12 @@ const ProfileHead = ({ data, token }) => {
     const { t } = useTranslation()
     const [show, setShow] = useState()
     const [ input, setInput ] = useState()
-
+    const {
+      data: chest = {},
+      isLoading,
+      isFetching,
+    } = useGetChestQuery();
+    
     const toggle = () => {
       setShow(!show)
       setInput('');
@@ -57,7 +62,7 @@ const ProfileHead = ({ data, token }) => {
                 </button>
             </div>
             {data?.type === 'artist' && (
-              <StorageIndicator usedSpace={data.used_seconds} totalSpace={data.total_seconds} />
+              <StorageIndicator usedSpace={chest?.used_seconds} totalSpace={chest?.total_seconds} />
             )}
             {/* {data?.type == 'artist' ?
             (<div className='flex justify-between flex-row-reverse md:flex-row items-center gap-x-4'>

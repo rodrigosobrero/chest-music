@@ -2,10 +2,12 @@ import { format } from 'utils/helpers';
 import { isMobile, isDesktop } from 'react-device-detect';
 import { AnimatePresence, motion } from 'framer-motion';
 import UsersActionsButton from './UsersActionsButton';
-
+import useSort from 'hooks/useSort';
 import { ReactComponent as WebDisabled } from 'assets/images/icon-webdisabled.svg';
 
-export default function UsersTable({ data, headers }) {
+export default function UsersTable({ data: list, headers }) {
+  const { data, orderBy } = useSort(list)
+  console.log(data)
   const Rows = ({ cell }) => {
     return (
       <>
@@ -50,9 +52,9 @@ export default function UsersTable({ data, headers }) {
         <thead>
           <tr>
             {
-              headers.map((header, index) =>
+              headers.map(({title}, index) =>
                 <th key={index}>
-                  {header}
+                  {title}
                 </th>
               )
             }

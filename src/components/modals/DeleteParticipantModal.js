@@ -37,7 +37,7 @@ export default function DeleteParticipantModal(props) {
           style='tertiary'
           onClick={handleClose} />
         <Button
-          text='Remove'
+          text={t('global.remove')}
           style='error'
           disabled={isLoading}
           loading={isLoading}

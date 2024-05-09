@@ -149,8 +149,16 @@ export default function Upload() {
   }
 
   const handleCreateProject = async () => {
-    const formatParticipants = participants.map((participant) => {
-      return { role: participant.role, user: participant.id }
+    
+    let formatParticipants = { invitations: [], participants: [] };
+
+    participants.forEach((participant) => {
+      if(participant.isEmail){
+        formatParticipants.invitations.push({ role: participant.role, email: participant.id })
+      } 
+      else {
+        formatParticipants.participants.push({ role: participant.role, user: participant.id })
+      }
     });
 
     const result = await createProject({
@@ -161,7 +169,8 @@ export default function Upload() {
         'name': track.version,
         'audio': track.fileId
       },
-      'participants': formatParticipants
+      'participants': formatParticipants.participants,
+      'invitations': formatParticipants.invitations
     });
 
     if ('error' in result) {
@@ -231,8 +240,8 @@ export default function Upload() {
     setParticipants(list);
   }
 
-  const addParticipant = (user, role, id) => {
-    const list = [...participants, { user: user, role: role, id: id }];
+  const addParticipant = (user, role, id, isEmail) => {
+    const list = [...participants, { user: user, role: role, id: id, isEmail: isEmail }];
     setParticipants(list);
   }
 
@@ -335,7 +344,7 @@ export default function Upload() {
                 defaultCover={defaultCover}
                 onClick={() => { setOpen(true) }} />
             </div>
-            <h4 className={`mt-8 ${track.name ? 'text-white' : 'text-neutral-silver-200'}`}>
+            <h4 className={`mt-8 !text-center ${track.name ? 'text-white' : 'text-neutral-silver-200'}`}>
               {track.name ? track.name : 'track name'}
             </h4>
             <p className='text-neutral-silver-200 uppercase mt-2 !mb-0 text-base md:text-lg'>
@@ -368,7 +377,7 @@ export default function Upload() {
               className='bg-neutral-silver-300 w-[140px] md:w-[200px] h-[140px] md:h-[200px] rounded-lg bg-no-repeat bg-center bg-cover'
               style={{ backgroundImage: `url("${cover ? cover : defaultCover.url}")` }}>
             </div>
-            <h4 className='mt-8'>
+            <h4 className='mt-8 !text-center'>
               {track.name ? track.name : 'track name'}
             </h4>
             <p className='text-neutral-silver-200 uppercase mt-2 !mb-0 text-base md:text-lg'>

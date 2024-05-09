@@ -25,6 +25,7 @@ export default function Select({
   }
 
   const toggleOpen = () => {
+    if(disabled) return;
     setOpen(prev => !prev);
     inputRef.current.focus();
   }

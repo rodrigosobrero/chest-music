@@ -1,16 +1,19 @@
 import { isDesktop, isMobile } from 'react-device-detect';
 import { AnimatePresence, motion } from 'framer-motion';
 import { firstLetterUpperCase, format } from 'utils/helpers';
-
+import { ChevronUpIcon } from "@heroicons/react/24/solid";
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import ParticipantsActionsButtons from './ParticipantsActionsButton';
+import useSort from 'hooks/useSort';
 
-export default function ParticipantsTable({ data, headers, user }) {
-  const Rows = ({ cell }) => {
+export default function ParticipantsTable({ data: list, invitations, headers, user }) {
+  const { sortBy, data, method, tagOrdered } = useSort(list);
+  const Rows = ({ cell, type }) => {
     return (
       <>
-        <td className='lg:text-lg'>
+        <td className={`lg:text-lg ${type === 'invitation' && 'opacity-50'}`}>
           <div>
-            {cell.full_name}
+            {cell.full_name ? cell.full_name : cell.email}
             {user?.data.user_id === cell.user_id &&
               <span className='text-neutral-silver-300 ml-1'>
                 (you)
@@ -35,9 +38,12 @@ export default function ParticipantsTable({ data, headers, user }) {
             <td>{format.date(cell.date_added)}</td>
           </>
         )}
-        <td className='flex justify-end'>
-          <ParticipantsActionsButtons participant={cell} />
-        </td>
+        {
+          type === 'participant' &&
+          <td className='flex justify-end'>
+            <ParticipantsActionsButtons participant={cell} />
+          </td>
+        }
       </>
     )
   }
@@ -48,9 +54,11 @@ export default function ParticipantsTable({ data, headers, user }) {
         <thead>
           <tr>
             {
-              headers.map((header, index) =>
-                <th key={index}>
-                  {header}
+              headers.map(({ title, tag }, index) =>
+                <th key={index} onClick={() => {tag && sortBy(tag)}}>
+                  <span className='flex items-center gap-2 capitalize'>
+                      {title} {tagOrdered === tag && (method === 'asc' ? <ChevronDownIcon className='h-4 w-4'/> : <ChevronUpIcon className='h-4 w-4'/> )}
+                  </span>                    
                 </th>
               )
             }
@@ -58,14 +66,14 @@ export default function ParticipantsTable({ data, headers, user }) {
         </thead>
         <tbody>
           {
-            data.map((cell) => (
+            [...data, ...invitations].map((cell) => (
               <AnimatePresence key={cell.user_id}>
                 <motion.tr
                   key={cell.id}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}>
-                  <Rows key={cell.id} cell={cell} />
+                  <Rows key={cell.id} cell={cell} type={cell.email ? 'invitation' : 'participant'}/>
                 </motion.tr>
               </AnimatePresence>
             ))

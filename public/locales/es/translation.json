@@ -88,6 +88,9 @@
     "add_version": "Agregar versión",
     "accept": "Aceptar",
     "deny": "Rechazar",
+    "view_trash": "Ver papelera",
+    "edit_track": "Editar track",
+    "share_track": "Compartir track",
     "required": "Este campo es obligatorio."
   },
   "signin": {
@@ -157,6 +160,19 @@
       "title_mobile": "drop it like it’s hot",
       "description": "Arrastra tu archivo de audio aquí para subir una nueva demo, o...",
       "description_mobile": "Selecciona un archivo para subir tu nueva demo"
+    },
+    "sort_modal": {
+      "title": "Ordenar temas",
+      "date_newest": "Fecha agregado (nuevo a viejo)",
+      "date_latest": "Fecha agregado (viejo a nuevo)",
+      "title_a": "Título (A-Z)",
+      "title_z": "Título (Z-A)",
+      "size_biggest": "Tamaño (grande a chico)",
+      "size_smallest": "Tamaño (chico a grande)"
+    },
+    "remove_track": {
+      "title": "Borrarme de la maqueta",
+      "subtitle": "Al borrarte de esta maqueta ya no aparecerá en tu cofre, pero los demás participantes no se verán afectados. ¿Estás seguro?"
     }
   },
   "upload": {
@@ -331,18 +347,26 @@
     "unlimited": "Ilimitado",
     "allow_web_play": "Permitir reproducción web",
     "message": "Mensaje",
-    "message_example": "Por ejemplo: ”chequea mi nuevo tema”"  
+    "message_example": "Por ejemplo: ”chequeá mi nuevo tema”"  
   },
   "footer": {
     "rights": "Todos los derechos reservados."
   },
   "tables": {
     "title": "Título",
-    "album": "álbum",
+    "album": "Álbum",
     "version": "Versión",
     "date_shared": "Fecha Compartido",
     "date_added": "Fecha agregado",
     "length": "Tamaño",
-    "plays": "Reproducciones"
+    "plays": "Reproducciones",
+    "username": "Usuario",
+    "name": "Nombre",
+    "date_blocked": "Fecha bloqueado",
+    "date_played": "Fecha reproducido",
+    "size": "Tamaño"
+  }, 
+  "toasts": {
+    "copy": "Enlace copiado en portapapeles"
   }
 }

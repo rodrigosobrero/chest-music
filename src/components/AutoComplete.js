@@ -40,9 +40,9 @@ export default function AutoComplete({ options, handleAdd, filter, filter_ids })
 
   const handleSend = () => {
     if (isEmail) {
-      handleAdd(searchValue, selectedRole, searchValue, isEmail, true)
+      handleAdd(searchValue, selectedRole, searchValue, isEmail, true, 'email')
     } else {
-      handleAdd(selectedUser?.full_name, selectedRole, selectedUser?.id, isEmail, selectedUser.type !== 'fan');
+      handleAdd(selectedUser?.full_name, selectedRole, selectedUser?.id, isEmail, true, selectedUser.type);
     }
     setSearchValue('');
     setSelectedUser('');
@@ -64,7 +64,7 @@ export default function AutoComplete({ options, handleAdd, filter, filter_ids })
       });
 
       let result;
-      console.log(response.data)
+      
       if (filter) {
         result = response.data.filter(user => user.type !== filter);
       } else {

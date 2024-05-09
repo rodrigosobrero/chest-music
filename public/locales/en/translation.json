@@ -88,6 +88,9 @@
     "add_version": "Add new version",
     "accept": "Accept",
     "deny": "Deny",
+    "view_trash": "View trash can",
+    "edit_track": "Edit track",
+    "share_track": "Share track",
     "required": "This field is required"
   },
   "signin": {
@@ -157,6 +160,19 @@
       "title_mobile": "upload a treasure",
       "description": "Drag and drop your audio file here to upload a new track, or...",
       "description_mobile": "Choose a file here to upload a new track"
+    },
+    "sort_modal": {
+      "title": "Sort tracks",
+      "date_newest": "Date added (newest first)",
+      "date_latest": "Date added (oldest first)",
+      "title_a": "Title (A-Z)",
+      "title_z": "Title (Z-A)",
+      "size_biggest": "Size (biggest first)",
+      "size_smallest": "Size (smallest first)"
+    },
+    "remove_track": {
+      "title": "Remove myself from demo",
+      "subtitle": "By removing yourself from this demo it will no longer appear in your chest, but other participants will not be affected. Are you sure?"
     }
   },
   "upload": {
@@ -369,6 +385,14 @@
     "date_shared": "Date Shared",
     "date_added": "Date added",
     "length": "Length",
-    "plays": "Plays"
+    "plays": "Plays",
+    "username": "Username",
+    "name": "Name",
+    "date_blocked": "Date blocked",
+    "date_played": "Date played",
+    "size": "Size"
+  },
+  "toasts": {
+    "copy": "Link copied to clipboard"
   }
 }

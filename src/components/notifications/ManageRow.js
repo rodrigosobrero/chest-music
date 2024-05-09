@@ -1,5 +1,5 @@
 import React from 'react';
-import { timeDifference } from 'utils/helpers';
+import { format } from 'utils/helpers';
 import { XCircleIcon } from "@heroicons/react/24/outline";
 
 
@@ -8,7 +8,7 @@ const ManageRow = ({ data, isMobile, onDelete }) => {
     <tr>
       <td>{data?.name}</td>
       <td>@{data.username}</td>
-      <td className='md:flex hidden'>{timeDifference(data.date)}</td>
+      <td className='md:flex hidden'>{format.date(data.date)}</td>
       <td>
         <button className='flex items-center' onClick={() => onDelete(data.id)}>
           <XCircleIcon className="h-6 w-6 text-white" />

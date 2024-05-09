@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from 'utils/firebase';
+
 const SendDM = ({ token , versionId, onCancel }) => {
   const { t } = useTranslation()
   const navigate = useNavigate()
@@ -65,7 +66,7 @@ const SendDM = ({ token , versionId, onCancel }) => {
         "version": versionId,
         "allow_web_play": isChecked,
         "users": usersIds,
-        "message": message
+        "message": message ? message : 'Chequeá mi nuevo tema'
     }
     if(!isToggled) {
         data.play_limit = parseInt(limit)
@@ -117,7 +118,7 @@ const SendDM = ({ token , versionId, onCancel }) => {
         </div>
         <ButtonsContainer primaryButton={t('global.send')} 
                           onClick={sendToUsers} 
-                          disabled={!(input === '' || !isToggled) || selecteds.length < 1 || message === ''} 
+                          disabled={!(input === '' || !isToggled) || selecteds.length < 1} 
                           onCancel={onCancel}/>
      </>
   )
