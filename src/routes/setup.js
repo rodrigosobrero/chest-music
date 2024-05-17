@@ -64,7 +64,7 @@ export default function Setup() {
         full_name: data.name,
         plan: data.plan,
         email: account.email,
-        pincode: data.pin,
+        /* pincode: data.pin, */
         login_method: account.login_method
       }
     });
@@ -166,7 +166,7 @@ export default function Setup() {
                 required
                 register={register}
                 error={errors.name && 'This field is required'} />
-              {userType === 'artist' &&
+              {/* {userType === 'artist' &&
               <Input
                 type='number'
                 name='pin'
@@ -175,7 +175,7 @@ export default function Setup() {
                 maxLength={4}
                 showHide
                 register={register} />
-              }
+              } */}
             </div>
             {userType === 'artist' &&
             <div className='flex flex-col gap-4'>
