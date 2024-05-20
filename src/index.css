@@ -377,7 +377,7 @@ input[type=number] {
 }
 
 .signin-cover {
-  background: url('/src/assets/images/sign-in.jpg') no-repeat;
+  background: url('/src/assets/images/sign-in-beta.jpg') no-repeat;
   @apply bg-cover h-[260px] md:h-auto md:order-last;
 }
 
