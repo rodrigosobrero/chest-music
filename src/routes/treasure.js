@@ -124,6 +124,22 @@ export default function Treasure() {
     });
   }
 
+  const filteredParticipants = (participants) => {
+    let filtered = [];
+
+    participants.map((participant) => {
+      if (participant.accepted && participant.role !== 'listener') {
+        filtered.push(participant.full_name)
+      }
+    });
+
+    if (filtered.length > 0) {
+      return filtered.map((participant, index) => (
+        (index ? ', ' : '') + participant)
+      )
+    }
+  }
+
   const renderView = () => {
     let data, headers;
 
@@ -275,7 +291,7 @@ export default function Treasure() {
             <div className='uppercase text-neutral-silver-200 mb-4 lg:mb-6'>{project.album} ― {project.plays ? project.plays : 0} plays</div>
             <h2 className='lg:mb-3 text-[64px] lg:text-[76px] text-left'>{project.name}</h2>
             <div className=' text-lg lg:text-[22px]'>
-              {project.participants?.map((participant, index) => (index ? ', ' : '') + participant.full_name)}
+            {filteredParticipants(project.participants)}
             </div>
           </div>
         </div>
