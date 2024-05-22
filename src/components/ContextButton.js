@@ -15,7 +15,7 @@ import {
 
 import dots from 'assets/images/icon-dots-horizontal.svg';
 
-export default function ContextButton({ options, onClick, action, isOpened, toggleOptions, closeOptions}) {
+export default function ContextButton({ options, onClick, action, isOpened, toggleOptions, closeOptions, mobile}) {
   const { t } = useTranslation();
   const buttonDescription = options.length > 2 ? t('global.option_name') : (options.length > 1 ? t('global.option_name_short') : options[0].description);
   const [description, setDescription] = useState(buttonDescription);
@@ -79,7 +79,7 @@ export default function ContextButton({ options, onClick, action, isOpened, togg
         <AnimatePresence>
           {isOpened && (
             <motion.div
-              className='context-button-container h-20 w-auto absolute'
+              className={`context-button-container${mobile ? '-mobile' : ''} h-20 w-auto absolute`}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}>

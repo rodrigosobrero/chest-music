@@ -30,7 +30,7 @@ export default function DeleteVersionModal(props) {
         onClose={handleClose}>
         <div className='flex flex-col items-center'>
           <div className='bg-black rounded-full px-3 py-1.5'>
-            {props.meta.name}
+            {props.meta.version??props.meta.name}
           </div>
         </div>
         <div className='grid grid-cols-2 gap-4 mt-8'>
