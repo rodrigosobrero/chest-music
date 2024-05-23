@@ -264,22 +264,18 @@ export default function Treasure() {
               style={{ color: 'blue' }}>
               <PlusIcon className='h-7 w-7' />
             </button>
-            {isDesktop && (
-              <>
-                <button
-                  type='button'
-                  className='toolbar-button primary'
-                  onClick={handleUpdateProject}>
-                  <PencilSquareIcon className='h-7 w-7' />
-                </button>
-                <button
-                  type='button'
-                  className='toolbar-button alert'
-                  onClick={() => { navigate(`/my-chest/treasure/${project?.id}/trash/`) }}>
-                  <TrashIcon className='h-7 w-7' />
-                </button>
-              </>
-            )}
+            <button
+              type='button'
+              className='toolbar-button primary'
+              onClick={handleUpdateProject}>
+              <PencilSquareIcon className='h-7 w-7' />
+            </button>
+            <button
+              type='button'
+              className='toolbar-button alert'
+              onClick={() => { navigate(`/my-chest/treasure/${project?.id}/trash/`) }}>
+              <TrashIcon className='h-7 w-7' />
+            </button>
           </div>
         </div>
         <div className='flex flex-col lg:flex-row lg:items-center justify-center gap-4 lg:gap-12'>
