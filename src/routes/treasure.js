@@ -124,6 +124,9 @@ export default function Treasure() {
     });
   }
 
+  const albumPlaysCount = (tracks) => 
+    tracks.reduce((totalPlays, track) => totalPlays + (track.plays > 0 ? track.plays : 0), 0);
+
   const filteredParticipants = (participants) => {
     let filtered = [];
 
@@ -288,7 +291,7 @@ export default function Treasure() {
             />
           </div>
           <div className='grow mb-3'>
-            <div className='uppercase text-neutral-silver-200 mb-4 lg:mb-6'>{project.album} ― {project.plays ? project.plays : 0} plays</div>
+            <div className='uppercase text-neutral-silver-200 mb-4 lg:mb-6'>{project.album} ― {albumPlaysCount(project.versions)} plays</div>
             <h2 className='lg:mb-3 text-[64px] lg:text-[76px] text-left'>{project.name}</h2>
             <div className=' text-lg lg:text-[22px]'>
             {filteredParticipants(project.participants)}
