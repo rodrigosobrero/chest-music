@@ -886,9 +886,6 @@ input[type="search"]::-webkit-search-results-decoration {
 .context-button-container {
   @apply bg-neutral-silver-600 rounded-xl pt-2 px-1.5 pb-1.5 absolute bottom-12 right-0 overflow-hidden;
 }
-.context-button-container-mobile {
-  @apply bg-neutral-silver-600 rounded-xl pt-2 px-1.5 pb-1.5 absolute right-0 overflow-hidden;
-}
 .bg-custom-opacity {
   background: rgba(67, 71, 79, 0.30);
   backdrop-filter: blur(25px);

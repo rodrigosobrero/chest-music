@@ -9,7 +9,7 @@ import Input from 'components/Input';
 export default function EditVersionModal(props) {
   const { t } = useTranslation();
   const [updateVersion, { isLoading }] = useUpdateVersionMutation();
-  const [version, setVersion] = useState({ name: props.meta.version??props.meta.name });
+  const [version, setVersion] = useState({ name: props.meta.name });
 
   const handleClose = () => {
     if (props.onClose) props.onClose();

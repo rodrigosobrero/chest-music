@@ -14,7 +14,6 @@ import Track from 'components/player/Track';
 import TrackMobile from 'components/player/TrackMobile';
 
 import { ChevronDownIcon, EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
-import VersionsActionsButtonMobile from '../treasure/VersionsActionsButtonMobile';
 import { closePlayer, openPlayer } from 'app/player';
 
 export default function Player() {
@@ -66,7 +65,6 @@ export default function Player() {
       if (typeof track === 'object') {
         if (track.id === currentTrack.id) return;
       }
-      
       setIsCounted(false)
       
       if (currentTrack.audio) {
@@ -86,7 +84,6 @@ export default function Player() {
                 url: data.url,
                 cover_url: currentTrack.cover,
                 name: currentTrack.name,
-                version:data.name,
                 authors: currentTrack.authors,
                 type: currentTrack.type,
                 id: currentTrack.id
@@ -108,9 +105,9 @@ export default function Player() {
   }, [trackList]);
 
   useEffect(() => {
-     // console.log('tracklist', trackList)
-     // console.log('lastPlayed', lastPlayed)
-     // console.log('new', playlist[0]?.id)
+    // console.log('tracklist', trackList)
+    // console.log('lastPlayed', lastPlayed)
+    // console.log('new', playlist[0]?.id)
     if (trackList && playlist[0]?.isPlaying) {
       if(lastPlayed !== playlist[0].id) {
           // console.log('entre al play', trackList.id)
@@ -206,9 +203,6 @@ export default function Player() {
                       {/* <button type='button' className='p-2.5' >
                         <EllipsisHorizontalIcon className='h-6 w-6 text-white' onClick={()=>console.log(trackList)} />
                       </button> */}
-                      <div className='flex justify-end'>
-                        <VersionsActionsButtonMobile version={trackList} />
-                      </div>
                     </div>
                     <TrackMobile {...{
                       currentTrack: trackList,
