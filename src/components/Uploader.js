@@ -140,7 +140,7 @@ export default function Uploader({ title = true, self, id }) {
           </>
          : <div className='flex flex-col items-center w-full h-full'>
             {title && (
-              <h5 className='hidden md:block mb-4'>{t('mychest.uploader.title')}</h5>
+              <h5 className='container-h5-hidden hidden md:block mb-4'>{t('mychest.uploader.title')}</h5>
             )}
             <h5 className='block md:hidden mb-2'>{t('mychest.uploader.title_mobile')}</h5>
             <p className='hidden md:block'>{t('mychest.uploader.description')}</p>
@@ -153,7 +153,13 @@ export default function Uploader({ title = true, self, id }) {
             </div>
           </div>
         }
+        {isDragging && (
+          <div className="dragging-title-container">
+            <h5 className='container-h5 hidden md:block mb-4'>{t('mychest.uploader.title')}</h5>
+          </div>
+        )}
       </div>
     </>
   )
+  
 }
