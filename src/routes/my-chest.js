@@ -9,7 +9,12 @@ export default function MyChest() {
   const account = useSelector((state) => state.auth.user.data);
 
   useEffect(() => {
-    const { status } = account?.subscription;
+    if (!account) {
+      setDisabled(true);
+      return;
+    }
+
+    const { status } = account.subscription || {};
 
     if (status === 'canceled' || status === 'ended') {
       setDisabled(true);
