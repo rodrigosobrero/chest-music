@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
@@ -26,7 +26,7 @@ export default function Setup() {
   const [setupData, setSetupData] = useState({
     username: '',
     full_name: '',
-    plan: plans[0].id,
+    plan: '',
     email: '',
     login_method: ''
   });
@@ -86,11 +86,20 @@ export default function Setup() {
     }
   }
 
-  useState(() => {
+  useEffect(() => {
     if (account?.username) {
       setStep(1);
     }
   }, [account]);
+
+  useEffect(() => {
+    if (plans) {
+      setSetupData({
+        ...setupData,
+        plan: plans[0].id
+      })
+    }
+  }, [plans]);
 
   const planOption = (plan) => {
     const lang = i18n.language.split('-')[0];
