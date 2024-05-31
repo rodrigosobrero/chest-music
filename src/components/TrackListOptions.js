@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useModal } from 'hooks/useModal';
 import { useGetProjectQuery } from 'store/api';
@@ -6,12 +8,15 @@ import ContextButton from 'components/ContextButton';
 import { useTranslation } from 'react-i18next';
 
 export default function TrackListOptions({ track, isOpened, toggleOptions, closeOptions }) {
+  const account = useSelector((state) => state.auth.user.data);
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { onOpen: openEditModal } = useModal('EditTrackModal');
   const { onOpen: openUploadModal } = useModal('UploadVersionModal');
   const { onOpen: openDeleteModal } = useModal('DeleteTrackModal');
   const { onOpen: openDownloadModal } = useModal('DownloadVersionModal');
+
+  const [suspended, setSuspended] = useState(false);
 
   const {
     data: project = {}
@@ -60,12 +65,22 @@ export default function TrackListOptions({ track, isOpened, toggleOptions, close
     navigate(`treasure/${track.id}`)
   }
 
+  useEffect(() => {
+    const { status } = account.subscription;
+
+    if (status === 'canceled' || status === 'ended') {
+      setSuspended(true);
+    } else {
+      setSuspended(false);
+    }
+  }, [account]);
+
   const options = [
     { type: 'detail', description: t('global.view_details'), action: handleDetail },
     { type: 'download', description: t('global.download'), action: handleDownloadVersion },
-    { type: 'add', description: t('global.add_version'), action: handleCreateVersion },
-    { type: 'edit', description: t('global.edit'), action: handleEditTrack },
-    { type: 'delete', description: t('global.delete'), action: handleDeleteTrack },
+    { type: 'add', description: t('global.add_version'), action: handleCreateVersion, disabled: suspended },
+    { type: 'edit', description: t('global.edit'), action: handleEditTrack, disabled: suspended },
+    { type: 'delete', description: t('global.delete'), action: handleDeleteTrack, disabled: suspended },
   ];
 
 

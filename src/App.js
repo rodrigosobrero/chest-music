@@ -34,6 +34,8 @@ import Treasure from 'routes/treasure';
 import Trash from 'routes/trash';
 import SharedPlay from 'routes/shared-play';
 import PasswordReset from 'routes/password-reset';
+import Subscription from 'routes/subscription';
+import Plan from 'routes/plan';
 
 function App() {
   const [getBetaAccess] = useLazyGetBetaAccessQuery();
@@ -135,6 +137,20 @@ function App() {
           element:
             <ProtectedRoute onlyArtist={false}>
               <Help />
+            </ProtectedRoute>
+        },
+        {
+          path: 'profile/account/subscription',
+          element:
+            <ProtectedRoute onlyArtist={false}>
+              <Subscription />
+            </ProtectedRoute>
+        },
+        {
+          path: 'profile/account/subscription/plan',
+          element:
+            <ProtectedRoute onlyArtist={false}>
+              <Plan />
             </ProtectedRoute>
         },
         {

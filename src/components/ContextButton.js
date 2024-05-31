@@ -47,12 +47,13 @@ export default function ContextButton({ options, onClick, action, isOpened, togg
     return icon;
   }
 
-  const Button = ({ onClick, description, type }) => {
+  const Button = ({ onClick, description, type, disabled }) => {
     return (
       <button
+        disabled={disabled}
         type='button'
         className={classNames({
-          'bg-neutral-silver-700 text-neutral-silver-200 p-2 rounded-lg primary': true,
+          'bg-neutral-silver-700 text-neutral-silver-200 p-2 rounded-lg primary disabled:opacity-30': true,
           'alert': type === 'delete'
         })}
         onMouseEnter={() => { setDescription(description) }}
@@ -99,6 +100,7 @@ export default function ContextButton({ options, onClick, action, isOpened, togg
                 <div className='flex flex-row gap-1'>
                   {options.map(option => (
                     <Button
+                      disabled={option.disabled}
                       onClick={() => { action(option.type); closeOptions() }}
                       key={option.type}
                       type={option.type}
