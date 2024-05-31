@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 export default function VersionsActionsButton({ version, project }) {
   const { user } = useSelector((state) => state.auth);
+  const account = useSelector((state) => state.auth.user.data);
 
   const { onOpen: openShareModal } = useModal('ShareVersionModal');
   const { onOpen: openEditModal } = useModal('EditVersionModal');
@@ -15,6 +16,7 @@ export default function VersionsActionsButton({ version, project }) {
   const { t } = useTranslation();
   const [isOpened, setIsOpenned] = useState(false);
   const [options, setOptions] = useState([]);
+  const [suspended, setSuspended] = useState(false);
 
   const toggleOptions = () => setIsOpenned(!isOpened);
 
@@ -66,15 +68,25 @@ export default function VersionsActionsButton({ version, project }) {
   }
 
   useEffect(() => {
+    const { status } = account.subscription;
+
+    if (status === 'canceled' || status === 'ended') {
+      setSuspended(true);
+    } else {
+      setSuspended(false);
+    }
+  }, [account]);
+
+  useEffect(() => {
     const defaultOptions = [
-      { type: 'share', description: t('global.share'), action: handleShare },
+      { type: 'share', description: t('global.share'), action: handleShare, disabled: suspended },
       { type: 'download', description: t('global.download'), action: handleDownload },
-      { type: 'edit', description: t('global.edit'), action: handleEdit }
+      { type: 'edit', description: t('global.edit'), action: handleEdit, disabled: suspended }
     ];
   
     const options = project.versions.length === 1
       ? defaultOptions
-      : [...defaultOptions, { type: 'delete', description: t('global.trash_can'), action: handleDelete }];
+      : [...defaultOptions, { type: 'delete', description: t('global.trash_can'), action: handleDelete, disabled: suspended }];
   
     setOptions(options);
   }, [project]);

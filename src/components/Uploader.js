@@ -13,7 +13,7 @@ import ProgressCircle from 'components/ProgressCircle';
 
 import { CheckIcon } from '@heroicons/react/20/solid';
 
-export default function Uploader({ title = true, self, id }) {
+export default function Uploader({ title = true, self, id, disabled }) {
   const { 
     accepted_files, 
     accepted_extensions } = require('data/config.json');
@@ -31,6 +31,8 @@ export default function Uploader({ title = true, self, id }) {
   });
 
   const handleFile = (e) => {
+    if (disabled) return;
+
     handleDragOver(e);
 
     let files;
@@ -129,6 +131,7 @@ export default function Uploader({ title = true, self, id }) {
             <p className='block md:hidden text-base'>{t('mychest.uploader.description_mobile')}</p>
             <div className='lg:w-1/4'>
               <InputFile
+                disabled={disabled}
                 accept={accepted_files}
                 text={t('global.upload')}
                 onChange={handleFile} />

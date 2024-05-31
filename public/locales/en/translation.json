@@ -91,7 +91,8 @@
     "view_trash": "View trash can",
     "edit_track": "Edit track",
     "share_track": "Share track",
-    "required": "This field is required"
+    "required": "This field is required",
+    "modify": "Update"
   },
   "signin": {
     "title": "open your chest",
@@ -281,7 +282,23 @@
     "artist_username": "Username",
     "upgrade": "Upgrade storage",
     "delete_validation_text": "delete my chest",
-    "plan_description": "Free and limited version of Chest within the BETA stage.",
+    "plan_description": "{{currency}} {{price}} {{recurrence}} payment",
+    "manage_subscription": "Manage subscription",
+    "free_trial_end": "The free trial ends {{ date }}",
+    "update_subscription": "Update subscription",
+    "payment_method": "Payment method",
+    "credit_debit": "Debit or credit card",
+    "payment_detail": "The charge is made by",
+    "start_billing": "Billing start:",
+    "free_date": "You will not be charged until",
+    "cancel_anytime": "Cancel anytime. T&C apply.",
+    "update_plan": "Update plan",
+    "cancel_subscription": "Cancel subscription",
+    "suspended_title": "Your account will be suspended on",
+    "suspended_description": "Your subscription was canceled. Choose a plan to continue using Chest.",
+    "ended_title": "Your account is suspended",
+    "choose_plan": "Choose a plan",
+    "redirected_to": "You will be redirected to",
     "modals": {
       "delete_account": "Delete Account",
       "delete_subtitle": "We are sad to see you go. Are you sure you want to delete your account? You cannot undo this operation.",
@@ -291,7 +308,10 @@
       "upgrade_title": "Sign up for a bigger chest",
       "upgrade_subtitle": "Leave your data here to know the launch date before anyone, and access to the free trial of the Premium Plan.",
       "full_name": "Full name",
-      "country_residence": "Country of residence"
+      "country_residence": "Country of residence",
+      "upgrade_plan": "upgrade your plan",
+      "subscribe": "Subscribe to Chest Club and get a bigger chest with more benefits at a better price.",
+      "button": "Subscribe to Chest Club"
     }
   },
   "shared": {

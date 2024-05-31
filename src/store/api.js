@@ -290,6 +290,31 @@ export const api = createApi({
     }),
     getSharedTrack: builder.query({
       query: (token) => `shared/link/token/${token}`
+    }),
+    getPlans: builder.query({
+      query: () => ({
+        url: 'plan/',
+        method: 'GET'
+      }),
+      providesTags: ['Plans']
+    }),
+    createSuscription: builder.mutation({
+      query: (plan) => ({
+        url: 'account/subscription/',
+        method: 'POST',
+        body: { plan }
+      }),
+      invalidatesTags: ['Account']
+    }),
+    deleteSubscription: builder.mutation({
+      query: (id) => ({
+        url: `account/subscription/${id}/`,
+        body: {
+          status: 'canceled'
+        },
+        method: 'PATCH'
+      }),
+      invalidatesTags: ['Account']
     })
   })
 });
@@ -334,6 +359,9 @@ export const {
   useLazyGetBetaAccessQuery,
   useUpdateTrackPlayMutation,
   useLazyGetSharedTrackQuery,
+  useGetPlansQuery,
+  useCreateSuscriptionMutation,
+  useDeleteSubscriptionMutation,
 } = api;
 
 export { api as apiSlice}

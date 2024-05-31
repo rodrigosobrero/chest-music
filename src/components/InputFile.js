@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import Button from 'components/Button';
 
-export default function InputFile({ text, accept, onChange }) {
+export default function InputFile({ text, accept, onChange, disabled }) {
   const inputRef = useRef(null);
 
   const handleClick = () => {
@@ -24,7 +24,7 @@ export default function InputFile({ text, accept, onChange }) {
         ref={inputRef}
         onChange={onChange}
         accept={accept} />
-      <Button style='secondary' className='max-w-[212px]' text={text} onClick={handleClick} />
+      <Button style='secondary' className='max-w-[212px]' text={text} onClick={handleClick} disabled={disabled} />
     </>
   )
 }

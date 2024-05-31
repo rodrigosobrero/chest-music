@@ -4,10 +4,14 @@ import { ClockIcon, PlayIcon } from "@heroicons/react/24/solid";
 import { format } from 'utils/helpers';
 import OptionsButton from 'components/OptionsButton';
 import { useModal } from 'hooks/useModal';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 export default function OptionsTrackModal(props) {
   const { t } = useTranslation();
+  const account = useSelector((state) => state.auth.user.data);
   const { track, version, navigate } = props.meta;
+  const [suspended, setSuspended] = useState(false);
 
   const handleClose = () => {
     if (props.onClose) props.onClose();
@@ -67,16 +71,34 @@ export default function OptionsTrackModal(props) {
     openDeleteModal(meta);    
   }
 
+  useEffect(() => {
+    const { status } = account.subscription;
 
+    if (status === 'canceled' || status === 'ended') {
+      setSuspended(true);
+    } else {
+      setSuspended(false);
+    }
+  }, [account]);
 
   const options = [
     { type: 'detail', description: t('global.view_details'), onClick: handleDetail },
-    { type: 'share', description: t('global.share'), onClick: handleOnShareClick},
-    { type: 'add', description: t('global.add_version'), onClick: handleCreateVersion },
+    { type: 'share', description: t('global.share'), onClick: handleOnShareClick, disabled: suspended},
+    { type: 'add', description: t('global.add_version'), onClick: handleCreateVersion, disabled: suspended },
     { type: 'download', description: t('global.download'), onClick: handleDownloadVersion },
-    { type: 'edit', description: t('global.edit'), onClick: handleEditTrack },
-    { type: 'delete', description: t('global.delete'), onClick: handleDeleteTrack },
+    { type: 'edit', description: t('global.edit'), onClick: handleEditTrack, disabled: suspended },
+    { type: 'delete', description: t('global.delete'), onClick: handleDeleteTrack, disabled: suspended },
   ];
+
+  useEffect(() => {
+    const { status } = account.subscription;
+
+    if (status === 'canceled' || status === 'ended') {
+      setSuspended(true);
+    } else {
+      setSuspended(false);
+    }
+  });
 
   return (
     <BaseModal
@@ -121,13 +143,13 @@ export default function OptionsTrackModal(props) {
         <div className='mt-2 flex flex-col gap-2.5'>
           {
             options.slice(0, 4).map((option) => (
-              <OptionsButton title={option.description} type={option.type} onClick={option.onClick}/>
+              <OptionsButton title={option.description} type={option.type} onClick={option.onClick} disabled={option.disabled} />
             ))
           }
           <div className='flex gap-3'>
             {
               options.slice(4).map((option) => (
-                <OptionsButton title={option.description} type={option.type} onClick={option.onClick} />
+                <OptionsButton title={option.description} type={option.type} onClick={option.onClick} disabled={option.disabled} />
               ))
             }
           </div> 

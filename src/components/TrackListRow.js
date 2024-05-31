@@ -20,8 +20,10 @@ export default function TrackListRow({ track, isOpened, version, toggleOptions, 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { playlist } = useSelector((state) => state.playlist);
+  const account = useSelector((state) => state.auth.user.data);
   const [hover, setHover] = useState(false);
   const [play, setPlay] = useState(false);
+  const [suspended, setSuspended] = useState(false);
   const { onOpen: openShareModal } = useModal('ShareVersionModal');
   const { onOpen: openOptionsModal, isOpen } = useModal('OptionsTrackModal');
 
@@ -90,6 +92,16 @@ export default function TrackListRow({ track, isOpened, version, toggleOptions, 
 
   }, [playlist]);
 
+  useEffect(() => {
+    const { status } = account.subscription;
+
+    if (status === 'canceled' || status === 'ended') {
+      setSuspended(true);
+    } else {
+      setSuspended(false);
+    }
+  }, [account]);
+
   return (
     <tr onClick={handleOnClick} style={{ height: '5rem' }}
       onMouseEnter={() => setHover(true)}
@@ -135,8 +147,9 @@ export default function TrackListRow({ track, isOpened, version, toggleOptions, 
         <div className='flex justify-end'>
           {isDesktop && (
             <button
+              disabled={suspended}
               type='button'
-              className='p-[7px] rounded-[10px] transition duration-500 hover:bg-neutral-silver-700 border-[3px] border-transparent active:border-gray-600'
+              className='p-[7px] rounded-[10px] transition duration-500 hover:bg-neutral-silver-700 border-[3px] border-transparent active:border-gray-600 disabled:opacity-30'
               onClick={handleOnShareClick}>
               <img src={upload} alt='' width={24} height={24} />
             </button>

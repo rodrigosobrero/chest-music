@@ -49,6 +49,7 @@ export default function Treasure() {
   const [permissionsView, setPermissionsView] = useState(permissionsOptions[0]);
   const [defaultCover, setDefaultCover] = useState('');
   const [covers, setCovers] = useState([]);
+  const [suspended, setSuspended] = useState(false);
 
   const [hoverShare, setHoverShare] = useState(false);
   const [hoverAdd, setHoverAdd] = useState(false);
@@ -201,6 +202,16 @@ export default function Treasure() {
   };
 
   useEffect(() => {
+    const { status } = user.data.subscription;
+
+    if (status === 'canceled' || status === 'ended') {
+      setSuspended(true);
+    } else {
+      setSuspended(false);
+    }
+  }, [user]);
+
+  useEffect(() => {
     if (chest && chest.covers) {
       setDefaultCover(chest.covers.find(cover => cover.default));
 
@@ -231,7 +242,6 @@ export default function Treasure() {
     )
   }
 
-
   return (
     <>
       <div className='container flex flex-col gap-6 md:gap-10 py-8 md:py-10 relative'>
@@ -243,32 +253,36 @@ export default function Treasure() {
             <div className='fixed flex items-end justify-end gap-3 -mt-4 z-50'>
               <div className='relative'>
               <button
+                  disabled={suspended}
                   className={`${
                     hoverShare ? "block" : "hidden"
-                  } btn-absolute`}
+                  } btn-absolute disabled:opacity-40`}
                 >
                   {t('global.share_track')}
                 </button>
                 <button
+                  disabled={suspended}
                   onMouseOver={() => setHoverShare(true)}
                   onMouseLeave={() => setHoverShare(false)}
                   type='button'
-                  className='toolbar-button primary'
+                  className='toolbar-button primary disabled:opacity-40'
                   onClick={() => { navigate(`/share/${project.id}?=sendDM`) }}>
                   <ArrowUpTrayIcon className='h-7 w-7' />
                 </button>
               </div>
               <div className="relative">
                 <button
+                  disabled={suspended}
                   onMouseOver={() => setHoverAdd(true)}
                   onMouseLeave={() => setHoverAdd(false)}
                   type="button"
-                  className="toolbar-button primary relative"
+                  className="toolbar-button primary relative disabled:opacity-40"
                   onClick={handleCreateVersion}
                 >
                   <PlusIcon className="h-7 w-7" />
                 </button>
                 <button
+                  disabled={suspended}
                   className={`${
                     hoverAdd ? "block" : "hidden"
                   } btn-absolute`}
@@ -280,15 +294,16 @@ export default function Treasure() {
                 <>
                   <div className='relative'>
                     <button
+                      disabled={suspended}
                       onMouseOver={() => setHoverEdit(true)}
                       onMouseLeave={() => setHoverEdit(false)}
                       type='button'
-                      className='toolbar-button primary'
+                      className='toolbar-button primary disabled:opacity-40'
                       onClick={handleUpdateProject}>
                       <PencilSquareIcon className='h-7 w-7' />
                     </button>
                     <button className={`${hoverEdit ? "block" : "hidden"} 
-                            btn-absolute`}>
+                            btn-absolute disabled:opacity-40`}>
                         {t('global.edit_track')}
                     </button>
                   </div>
