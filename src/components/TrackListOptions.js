@@ -66,12 +66,15 @@ export default function TrackListOptions({ track, isOpened, toggleOptions, close
   }
 
   useEffect(() => {
-    const { status } = account.subscription;
+    if (!account || !account.subscription) {
+      setSuspended(true);
+      return;
+    }
+
+    const { status } = account.subscription || {};
 
     if (status === 'canceled' || status === 'ended') {
       setSuspended(true);
-    } else {
-      setSuspended(false);
     }
   }, [account]);
 

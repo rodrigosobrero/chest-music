@@ -80,12 +80,15 @@ const AccountPlan = ({ data }) => {
   }, [plans, data, i18n.language]);
 
   useEffect(() => {
-    const { status } = data.subscription;
+    if (!data || !data.subscription) {
+      setSuspended(true);
+      return;
+    }
+
+    const { status } = data.subscription || {};
 
     if (status === 'canceled' || status === 'ended') {
       setSuspended(true);
-    } else {
-      setSuspended(false);
     }
   }, [data]);
 
