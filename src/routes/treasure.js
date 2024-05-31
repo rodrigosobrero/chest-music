@@ -202,12 +202,15 @@ export default function Treasure() {
   };
 
   useEffect(() => {
-    const { status } = user.data.subscription;
+    if (!user.data) {
+      setSuspended(true);
+      return;
+    }
+
+    const { status } = user.data.subscription || {};
 
     if (status === 'canceled' || status === 'ended') {
       setSuspended(true);
-    } else {
-      setSuspended(false);
     }
   }, [user]);
 

@@ -72,12 +72,15 @@ export default function OptionsTrackModal(props) {
   }
 
   useEffect(() => {
-    const { status } = account.subscription;
+    if (!account || !account.subscription) {
+      setSuspended(true);
+      return;
+    }
+
+    const { status } = account.subscription || {};
 
     if (status === 'canceled' || status === 'ended') {
       setSuspended(true);
-    } else {
-      setSuspended(false);
     }
   }, [account]);
 
@@ -89,16 +92,6 @@ export default function OptionsTrackModal(props) {
     { type: 'edit', description: t('global.edit'), onClick: handleEditTrack, disabled: suspended },
     { type: 'delete', description: t('global.delete'), onClick: handleDeleteTrack, disabled: suspended },
   ];
-
-  useEffect(() => {
-    const { status } = account.subscription;
-
-    if (status === 'canceled' || status === 'ended') {
-      setSuspended(true);
-    } else {
-      setSuspended(false);
-    }
-  });
 
   return (
     <BaseModal
