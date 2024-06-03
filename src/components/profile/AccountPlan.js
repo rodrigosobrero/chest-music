@@ -117,7 +117,7 @@ const AccountPlan = ({ data }) => {
                     })}
                   </div>
                 </div>
-                {today > parseInt(data.subscription.date_started * 1000) && (
+                {data.subscription.free_trial && (
                   <div>
                     {t('account.free_trial_end', { date: getFreeTrialDays(data.subscription.date_started) })}
                   </div>
