@@ -48,7 +48,9 @@ export default function UpdateSubscription({ plan, lang, account }) {
               <div className='mt-3 flex gap-1 items-baseline'>
                 <ul className='list-disc list-inside pl-3'>
                   <li>{t('account.start_billing')} {format.dateDdMmYyyy(account.subscription.date_started)}</li>
-                  <li>{t('account.free_date')} {getFreeTrialDays(account.subscription.date_started)}</li>
+                  {account.subscription.free_trial && (
+                    <li>{t('account.free_date')} {getFreeTrialDays(account.subscription.date_started)}</li>
+                  )}
                   <li>{t('account.cancel_anytime')}</li>
                 </ul>
               </div>
