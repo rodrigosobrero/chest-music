@@ -7,7 +7,7 @@ import {
   useCreateAccountMutation, 
   useGetAccountQuery, 
   useGetPlansQuery, 
-  useCreateSuscriptionMutation } from 'store/api';
+  useCreateSubscriptionMutation } from 'store/api';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import ErrorMessage from 'components/ErrorMessage';
@@ -19,7 +19,7 @@ import mp from 'assets/images/logo-mp.svg';
 export default function Setup() {
   const { t, i18n } = useTranslation();
   const [createUser, { isLoading: isLoadingAccount }] = useCreateAccountMutation();
-  const [createSuscription, { isLoading: isLoadingSuscription }] = useCreateSuscriptionMutation();
+  const [createSubscription, { isLoading: isLoadingSuscription }] = useCreateSubscriptionMutation();
   const { data: account } = useGetAccountQuery({}, { refetchOnMountOrArgChange: true });
   const { data: plans } = useGetPlansQuery({}, { refetchOnMountOrArgChange: true });
 
@@ -77,7 +77,7 @@ export default function Setup() {
       }
     }
 
-    const resultSuscription = await createSuscription(setupData.plan).unwrap();
+    const resultSuscription = await createSubscription(setupData.plan).unwrap();
 
     if ('error' in resultSuscription) {
       console.log(resultSuscription);

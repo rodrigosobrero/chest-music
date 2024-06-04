@@ -10,7 +10,7 @@ export default function AccountSuspension({ expiration, status }) {
     <div className='flex items-center justify-center'>
       <div className='flex flex-col lg:flex-row gap-6 items-center bg-brand-gold px-5 p-3 rounded-2xl w-fit max-w-[770px]'>
         <div className='flex items-center gap-4'>
-          <ExclamationCircleIcon class='h-8 w-8 text-neutral-black hidden lg:block' />
+          <ExclamationCircleIcon className='h-8 w-8 text-neutral-black hidden lg:block' />
           <div className='flex flex-col'>
             <span className='lg:text-lg font-bold text-neutral-black text-center lg:text-left'>
               {status === 'canceled' ? (

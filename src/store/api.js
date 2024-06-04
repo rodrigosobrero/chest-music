@@ -14,13 +14,11 @@ const baseQuery = fetchBaseQuery({
 });
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
-
   let result = await baseQuery(args, api, extraOptions);
 
   if (result.error && result.error.status === 403) {
     if (result.error.data.code === 'firebase-expired-token' || result.error.data.code === 'firebase-invalid-token') {
       try {
-
         const user = auth.currentUser;
 
         if (user) {
@@ -28,7 +26,6 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
           api.setHeader('Authorization', `Bearer ${newToken}`);
           result = await baseQuery(args, api, extraOptions);
         }
-
       } catch (error) {
         console.error('Error refreshing token:', error);
         signOut(auth);
@@ -273,7 +270,7 @@ export const api = createApi({
       providesTags: ['Beta']
     }),
     updateTrackPlay: builder.mutation({
-      query: ({ id, anonymous, token}) => {
+      query: ({ id, anonymous, token }) => {
         let url = '';
 
         if (anonymous) {
@@ -298,13 +295,13 @@ export const api = createApi({
       }),
       providesTags: ['Plans']
     }),
-    createSuscription: builder.mutation({
+    createSubscription: builder.mutation({
       query: (plan) => ({
         url: 'account/subscription/',
         method: 'POST',
         body: { plan }
       }),
-      invalidatesTags: ['Account']
+      invalidatesTags: ['Account'],
     }),
     deleteSubscription: builder.mutation({
       query: (id) => ({
@@ -319,7 +316,7 @@ export const api = createApi({
   })
 });
 
-export const { 
+export const {
   useGetChestQuery,
   useGetAccountQuery,
   useGetUpdateAccountMutation,
@@ -360,8 +357,8 @@ export const {
   useUpdateTrackPlayMutation,
   useLazyGetSharedTrackQuery,
   useGetPlansQuery,
-  useCreateSuscriptionMutation,
+  useCreateSubscriptionMutation,
   useDeleteSubscriptionMutation,
 } = api;
 
-export { api as apiSlice}
+export { api as apiSlice }

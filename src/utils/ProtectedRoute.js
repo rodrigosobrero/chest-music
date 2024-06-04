@@ -2,14 +2,20 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useGetAccountQuery } from 'store/api';
 import Loader from 'components/Loader';
 
-export default function ProtectedRoute({ 
-  children, 
-  redirectPath = '/sign-in', 
+export default function ProtectedRoute({
+  children,
+  redirectPath = '/sign-in',
   onlyArtist = true }) {
   const location = useLocation();
   const navigate = useNavigate();
+
+  const {
+    data: account,
+    isSuccess: isSuccessAccount,
+    isError: isErrorAccount } = useGetAccountQuery({}, { refetchOnMountOrArgChange: true });
 
   const [authChecked, setAuthChecked] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -21,11 +27,11 @@ export default function ProtectedRoute({
       setIsAuthenticated(!!currentUser);
       setAuthChecked(true);
     });
-  
+
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
+  useEffect(() => {    
     if (!authChecked) return;
 
     if (!user) {
@@ -36,7 +42,7 @@ export default function ProtectedRoute({
     if ((!user.data || !user.data.subscription) && location.pathname !== '/setup') {
       navigate('/setup');
     }
-  }, [authChecked, user, location.pathname, navigate, redirectPath, onlyArtist]);
+  }, [authChecked, user, location.pathname, navigate, redirectPath]);
 
   if (!authChecked || !isAuthenticated) {
     return <Loader />;
