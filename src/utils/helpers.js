@@ -62,7 +62,11 @@ function firstLetterUpperCase(str) {
 }
 
 function formatHours(seconds, decimals = 2) {
-  return `${parseFloat((seconds/3600)).toFixed(decimals)} hs`
+  const formated = `${parseFloat((seconds/3600)).toFixed(decimals)} hs`;
+
+  return formated.replace('.', ':');
+
+  // return `${parseFloat((seconds/3600)).toFixed(decimals)} hs`
 }
 
 function formatBytes(bytes, decimals = 2) {
