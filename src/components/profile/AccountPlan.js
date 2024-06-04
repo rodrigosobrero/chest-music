@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { format } from 'utils/helpers';
+import { Link } from 'react-router-dom';
 import { useModal } from 'hooks/useModal';
 import { useGetPlansQuery } from 'store/api';
 import countries from 'data/countries.json';
-import ProgressBar from 'components/ProgressBar';
+import StorageIndicator from 'components/StorageIndicator';
 import Modal from 'components/Modal';
 import UpgradeStorage from 'components/modals/UpgradeStorageModal';
 import { getFreeTrialDays } from 'utils/helpers';
-import { Link } from 'react-router-dom';
 import { ExclamationCircleIcon } from '@heroicons/react/20/solid';
 
 const AccountPlan = ({ data }) => {
@@ -165,22 +164,11 @@ const AccountPlan = ({ data }) => {
             <div className='space-y-4 flex flex-col'>
               <h5 className='text-neutral-silver-200 !text-base !font-archivo'>{t('account.storage')}</h5>
               <div className='flex items-center gap-x-4 grow'>
-                <span className='text-brand-uva !font-thunder !font-normal !text-4xl'>
-                  {Math.round(100 * data?.used_seconds / data?.total_seconds)}%
-                </span>
-                <div className='flex flex-col items-start'>
-                  <div className='flex gap-1 text-sm text-neutral-silver-100 mb-1'>
-                    <span>{format.time(data?.used_seconds)} hs</span>
-                    <span className='text-neutral-silver-300'>{t('global.of')}</span>
-                    <span>{format.time(data?.total_seconds, 0)} hs</span>
-                  </div>
-                  <ProgressBar
-                    progress={(data?.used_seconds / data?.total_seconds) * 100}
-                    color='violet'
-                    size='150'
-                    direction='left'
-                    background='gray' />
-                </div>
+                <StorageIndicator
+                  usedSpace={data.used_seconds}
+                  totalSpace={data.total_seconds}
+                  upgrade={false}
+                  reverse />
               </div>
               <div>
                 {currentPlan && currentPlan.name === 'mensual' && (
