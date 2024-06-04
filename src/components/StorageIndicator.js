@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import ProgressBar from 'components/ProgressBar';
 import { formatHours } from 'utils/helpers';
 import { CloudIcon } from '@heroicons/react/24/outline';
+import { useTranslation } from 'react-i18next';
 
 export default function StorageIndicator({ usedSpace, totalSpace, reverse, upgrade = true }) {
+  const { t } = useTranslation();
   const [percentageUsed, setPercentageUsed] = useState(0);
   const [active, setActive] = useState(false);
 
@@ -37,7 +39,7 @@ export default function StorageIndicator({ usedSpace, totalSpace, reverse, upgra
             'justify-start': reverse
           })}>
             <span className='text-neutral-silver-100'>{formatHours(usedSpace)}</span>
-            <span className='text-neutral-silver-300'>of</span>
+            <span className='text-neutral-silver-300'>{t('global.of')}</span>
             <span className='text-neutral-silver-100'>{formatHours(totalSpace, 0)}</span>
           </div>
           <ProgressBar
