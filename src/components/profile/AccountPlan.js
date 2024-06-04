@@ -7,7 +7,6 @@ import countries from 'data/countries.json';
 import ProgressBar from 'components/ProgressBar';
 import Modal from 'components/Modal';
 import UpgradeStorage from 'components/modals/UpgradeStorageModal';
-import Button from 'components/Button';
 import { getFreeTrialDays } from 'utils/helpers';
 import { Link } from 'react-router-dom';
 import { ExclamationCircleIcon } from '@heroicons/react/20/solid';
@@ -33,7 +32,6 @@ const AccountPlan = ({ data }) => {
   const handleChange = (e) => setInput(e.target.value);
   const { t, i18n } = useTranslation();
   const toggleList = () => setIsOpen(!isOpen);
-  const today = new Date().getTime();
 
   const closeModal = () => {
     setShow(false);
@@ -136,7 +134,7 @@ const AccountPlan = ({ data }) => {
               <>
                 <div className='flex flex-row gap-1.5 grow'>
                   <div>
-                    <ExclamationCircleIcon class='h-5 w-5 text-error-red hidden lg:block' />
+                    <ExclamationCircleIcon className='h-5 w-5 text-error-red hidden lg:block' />
                   </div>
                   <div className=' text-error-red'>
                     {t('account.ended_title')}
