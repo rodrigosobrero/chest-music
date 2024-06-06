@@ -3,11 +3,12 @@ import { NavLink, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
-import { 
-  useCreateAccountMutation, 
-  useGetAccountQuery, 
-  useGetPlansQuery, 
-  useCreateSubscriptionMutation } from 'store/api';
+import {
+  useCreateAccountMutation,
+  useGetAccountQuery,
+  useGetPlansQuery,
+  useCreateSubscriptionMutation
+} from 'store/api';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import ErrorMessage from 'components/ErrorMessage';
@@ -20,7 +21,7 @@ export default function Setup() {
   const { t, i18n } = useTranslation();
   const [createUser, { isLoading: isLoadingAccount }] = useCreateAccountMutation();
   const [createSubscription, { isLoading: isLoadingSuscription }] = useCreateSubscriptionMutation();
-  const { data: account } = useGetAccountQuery({}, { refetchOnMountOrArgChange: true });
+  const { data: account, isLoading: isLoadingGetAccount } = useGetAccountQuery({}, { refetchOnMountOrArgChange: true });
   const { data: plans } = useGetPlansQuery({}, { refetchOnMountOrArgChange: true });
 
   const [setupData, setSetupData] = useState({
@@ -247,28 +248,35 @@ export default function Setup() {
   return (
     <>
       <div className='flex flex-col gap-8 items-center justify-center h-full pt-10 pb-10 md:px-[120px] md:py-20 w-full'>
-        {account?.subscription && <Navigate to={'/my-chest'} />}
-        {account?.email_verified
-          ? (step === 0 ? stepOne() : stepTwo())
-          : (<motion.div
-            initial={{ opacity: 0, y: -30 }}
-            animate={{ opacity: 1, y: 0 }}
-            className='flex flex-col gap-4 px-4'>
-            <h1 className='text-[76px]' style={{ lineHeight: '68px' }}>verify your email</h1>
-            <div className='flex flex-col items-center text-lg mb-6'>
-              <span className='text-neutral-silver-200'>A verification email was sent to:</span>
-              <span>{account?.email}</span>
-            </div>
-            <div className='text-neutral-silver-300 text-sm mb-3 text-center'>
-              TIP: If you can’t find the email, be sure to check your spam folder.
-            </div>
-            <div className='flex items-center justify-center'>
-              <NavLink to='/' className='text-brand-gold h-10 md:h-auto hover:text-brand-bronze font-semibold text-lg py-1.5'>
-                Having issues? Contact us
-              </NavLink>
-            </div>
-          </motion.div>)
-        }
+        {isLoadingGetAccount ? (
+          <></>
+        ) : (
+          <>
+            {account?.subscription && <Navigate to={'/my-chest'} />}
+            {account?.email_verified
+              ? (step === 0 ? stepOne() : stepTwo())
+              : (<motion.div
+                initial={{ opacity: 0, y: -30 }}
+                animate={{ opacity: 1, y: 0 }}
+                className='flex flex-col gap-4 px-4'>
+                <h1 className='text-[76px]' style={{ lineHeight: '68px' }}>verify your email</h1>
+                <div className='flex flex-col items-center text-lg mb-6'>
+                  <span className='text-neutral-silver-200'>A verification email was sent to:</span>
+                  <span>{account?.email}</span>
+                </div>
+                <div className='text-neutral-silver-300 text-sm mb-3 text-center'>
+                  TIP: If you can’t find the email, be sure to check your spam folder.
+                </div>
+                <div className='flex items-center justify-center'>
+                  <NavLink to='/' className='text-brand-gold h-10 md:h-auto hover:text-brand-bronze font-semibold text-lg py-1.5'>
+                    Having issues? Contact us
+                  </NavLink>
+                </div>
+              </motion.div>
+              )
+            }
+          </>
+        )}      
       </div>
     </>
   )
