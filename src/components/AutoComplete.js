@@ -155,7 +155,7 @@ export default function AutoComplete({ options, handleAdd, filter, filter_ids })
                 <div
                   className='autocomplete-item'
                   onClick={() => { inputRef.current.focus() }}>
-                  <span className='text-neutral-silver-200 text-sm'>Can’t find that user? invite them via email!</span>
+                  <span className='text-neutral-silver-200 text-sm'>{t('global.searchbar')}</span>
                 </div>
               </motion.div>
             )}

@@ -1,6 +1,7 @@
 {
   "global": {
     "upload": "Choose from files",
+    "searchbar":"Can’t find that user? invite them via email!",
     "click_here": "click here",
     "password": "Password",
     "yes":"Yes",

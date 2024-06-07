@@ -1,6 +1,7 @@
 {
   "global": {
     "upload": "Seleccionar archivo",
+    "searchbar":"¿No puedes encontrar a ese usuario? ¡Invítalo por correo electrónico!",
     "click_here": "clic aquí",
     "yes":"Si",
     "no":"No",
