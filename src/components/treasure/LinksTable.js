@@ -3,13 +3,14 @@ import { isMobile, isDesktop } from 'react-device-detect';
 import { AnimatePresence, motion } from 'framer-motion';
 import { classNames, format } from 'utils/helpers';
 import { useLocation } from 'react-router-dom';
-
+import { useTranslation } from 'react-i18next'
 import LinksActionsButton from './LinksActionsButton';
 
 import { DocumentDuplicateIcon } from '@heroicons/react/24/outline';
 import { ReactComponent as WebDisabled } from 'assets/images/icon-webdisabled.svg';
 
 export default function LinksTable({ data, headers }) {
+  const { t } = useTranslation() 
   const Rows = ({ cell }) => {
     const location = useLocation();
     const [hover, setHover] = useState(false);
@@ -51,7 +52,7 @@ export default function LinksTable({ data, headers }) {
           </div>
           {isMobile &&
             <div className='text-sm text-neutral-silver-300'>
-              — {cell.play_limit ? `${cell.plays}/${cell.play_limit} plays` : 'unlimited plays'}
+              — {cell.play_limit ? `${cell.plays}/${cell.play_limit} ${t('tables.plays')}` : t('global.unlimited_plays')}
             </div>
           }
         </td>
@@ -62,12 +63,12 @@ export default function LinksTable({ data, headers }) {
               <WebDisabled width={20} height={20} className='min-w-[20px] min-h-[20px]' />
             </div>
           )}
-          {isDesktop && (cell.allow_web_play ? 'Yes' : 'No')}
+          {isDesktop && (cell.allow_web_play ? t('global.yes') : t('global.no'))}
         </td>
         {isDesktop && (
           <>
             <td>
-              {cell.play_limit ? `${cell.plays}/${cell.play_limit}` : 'unlimited'}
+              {cell.play_limit ? `${cell.plays}/${cell.play_limit}` : t('global.unlimited_plays')}
             </td>
             <td>{format.date(cell.date_shared)}</td>
           </>

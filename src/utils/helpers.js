@@ -43,17 +43,17 @@ function timeDifference(previousTimestamp) {
   var years = Math.floor(months / 12); // Total de años
 
   if (years > 0) {
-    return years + (years === 1 ? ' year' : ' years') + ' ago';
+    return years === 1 ? i18next.t('global.years_one', { count: years }) : i18next.t('global.years_other', { count: years });
   } else if (months > 0) {
-    return months + (months === 1 ? ' month' : ' months') + ' ago';
+    return months === 1 ? i18next.t('global.months_one', { count: months }) : i18next.t('global.months_other', { count: months });
   } else if (days > 0) {
-    return days + (days === 1 ? ' day' : ' days') + ' ago';
+    return days === 1 ? i18next.t('global.days_one', { count: days }) : i18next.t('global.days_other', { count: days });
   } else if (hours > 0) {
-    return hours + (hours === 1 ? ' hour' : ' hours') + ' ago';
+    return hours === 1 ? i18next.t('global.hours_one', { count: hours }) : i18next.t('global.hours_other', { count: hours });
   } else if (minutes > 0) {
-    return minutes + (minutes === 1 ? ' minute' : ' minutes') + ' ago';
+    return minutes === 1 ? i18next.t('global.minutes_one', { count: minutes }) : i18next.t('global.minutes_other', { count: minutes });
   } else {
-    return seconds + (seconds === 1 ? ' second' : ' seconds') + ' ago';
+    return seconds === 1 ? i18next.t('global.seconds_one', { count: seconds }) : i18next.t('global.seconds_other', { count: seconds });
   }
 }
 

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Navigate, redirect, useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux';
 import { useModal } from 'hooks/useModal';
 import { useGetProjectQuery, useGetChestQuery } from 'store/api';
@@ -22,6 +23,7 @@ import { ReactComponent as Empty } from 'assets/images/empty-chest.svg';
 import TrackCoverPreview from 'components/TrackCoverPreview';
 
 export default function Treasure() {
+  const { t } = useTranslation() 
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { id } = useParams();
@@ -59,7 +61,7 @@ export default function Treasure() {
           })}
           disabled={permissionsView === title}
           onClick={() => { setPermissionsView(title) }}>
-          {title}
+          {t(`global.${title}`)}
         </button>
       </>
     )
@@ -69,9 +71,9 @@ export default function Treasure() {
     return (
       <>
         <div className='flex flex-col items-center'>
-          <span className='text-[28px] font-semibold mb-2'>Nothing here</span>
+          <span className='text-[28px] font-semibold mb-2'>{t(`notification.nothing_here`)}</span>
           <span className='text-lg text-neutral-silver-200 mb-10'>
-            Add users to access your track below
+          {t(`share.add_user`)}
           </span>
           <Empty width={240} height={128} className='mb-5' />
         </div>
@@ -83,15 +85,15 @@ export default function Treasure() {
     switch (view) {
       case 'participants':
         return (
-          <AddButton text='Add participant' onClick={() => { openAddParticipantModal({ project }) }} />
+          <AddButton text={t(`share.add_participant`)} onClick={() => { openAddParticipantModal({ project }) }} />
         )
       case 'links':
         return (
-          <AddButton text='Share new link' onClick={() => { openShareLinkModal({ project }) }} />
+          <AddButton text={t(`share.share_new_link`)} onClick={() => { openShareLinkModal({ project }) }} />
         )
       case 'users':
         return (
-          <AddButton text='Share to user' onClick={() => { navigate(`/share/${project.id}?=sendDM`) }} />
+          <AddButton text={t(`share.share_to_user`)} onClick={() => { navigate(`/share/${project.id}?=sendDM`) }} />
         )
     }
   }
@@ -150,13 +152,13 @@ export default function Treasure() {
       case 'participants':
         data = project.participants;
         if (isMobile) {
-          headers = [ { title: 'Name', tag: 'full_name' }, { title: '' }];
+          headers = [ { title: t(`tables.name`), tag: 'full_name' }, { title: '' }];
         } else {
           headers = [ 
-            { title: 'Name', tag: 'full_name' }, 
-            { title: 'Role', tag: 'role' },
-            { title: 'Plays', tag: 'plays' },
-            { title: 'Date added', tag: 'date_added' },
+            { title: t(`tables.name`), tag: 'full_name' }, 
+            { title: t(`tables.role`), tag: 'role' },
+            { title: t(`tables.plays`), tag: 'plays' },
+            { title: t(`tables.date_added`), tag: 'date_added' },
             { title: '' }
           ];
         }
@@ -165,23 +167,23 @@ export default function Treasure() {
       case 'links':
         data = project.shared_versions.links;
         if (isMobile) {
-          headers = ['Link', '', ''];
+          headers = [t(`global.link`), '', ''];
         } else {
-          headers = ['Link', 'Web Play', 'Plays', 'Date added', ''];
+          headers = [t(`global.link`), t(`share.web_play`), t(`tables.plays`), t(`tables.date_added`), ''];
         }
         break;
 
       case 'users':
         data = project.shared_versions.users;
         if (isMobile) {
-          headers = [ { title: 'Name' }, { title: '' }, { title:  '' }];
+          headers = [ { title: t(`tables.name`) }, { title: '' }, { title:  '' }];
         } else {
           headers = [
-            { title : 'Name' }, 
-            { title: 'Version shared' }, 
-            { title: 'Web play' }, 
-            { title: 'Plays' }, 
-            { title: 'Date shared' } , 
+            { title : t(`tables.name`) }, 
+            { title: t(`global.links_modal.version_shared`)}, 
+            { title: t(`share.web_play`) }, 
+            { title: t(`tables.plays`) }, 
+            { title: t(`tables.date_added`) } , 
             { title:  '' }];
         }
         break;
@@ -228,7 +230,7 @@ export default function Treasure() {
 
   useEffect(() => {
     setBreadcrums([
-      { name: 'My chest', link: '/my-chest' },
+      { name: t('global.my chest'), link: '/my-chest' },
       { name: project?.name, link: '' },
     ]);
   }, [project]);
@@ -287,7 +289,7 @@ export default function Treasure() {
             />
           </div>
           <div className='grow mb-3'>
-            <div className='uppercase text-neutral-silver-200 mb-4 lg:mb-6'>{project.album} ― {albumPlaysCount(project.versions)} plays</div>
+            <div className='uppercase text-neutral-silver-200 mb-4 lg:mb-6'>{project.album} ― {albumPlaysCount(project.versions)} {t('tables.plays')}</div>
             <h2 className='lg:mb-3 text-[64px] lg:text-[76px] text-left'>{project.name}</h2>
             <div className=' text-lg lg:text-[22px]'>
             {filteredParticipants(project.participants)}
@@ -299,21 +301,21 @@ export default function Treasure() {
           <div className='flex flex-col gap-2 bg-neutral-black rounded-t-3xl rounded-b-lg px-5 pt-6 md:px-[60px] md:pt-10'>
             <div className='flex w-full'>
               <div className='flex items-center md:gap-4 grow'>
-                <h3 className='hidden md:block text-5xl'>permissions</h3>
-                <h4 className='block md:hidden'>permissions</h4>
+                <h3 className='hidden md:block text-5xl'>{t('global.permissions')}</h3>
+                <h4 className='block md:hidden'>{t('global.permissions')}</h4>
               </div>
               <div className='hidden lg:flex items-center gap-8'>
                 <div className='flex items-center gap-3'>
                   <span className='font-normal text-4xl text-brand-uva font-thunder'>{project.participants.length}</span>
-                  <span className='text-lg text-neutral-silver-200'>Participants</span>
+                  <span className='text-lg text-neutral-silver-200'>{t('upload.participants')}</span>
                 </div>
                 <div className='flex items-center gap-3'>
                   <span className='font-normal text-4xl text-brand-uva font-thunder'>{project.shared_versions.links.length}</span>
-                  <span className='text-lg text-neutral-silver-200'>Links</span>
+                  <span className='text-lg text-neutral-silver-200'>{t('global.links')}</span>
                 </div>
                 <div className='flex items-center gap-3'>
                   <span className='font-normal text-4xl text-brand-uva font-thunder'>{project.shared_versions.users.length}</span>
-                  <span className='text-lg text-neutral-silver-200'>Users</span>
+                  <span className='text-lg text-neutral-silver-200'>{t('share.users')}</span>
                 </div>
               </div>
             </div>

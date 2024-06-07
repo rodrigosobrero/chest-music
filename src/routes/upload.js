@@ -325,7 +325,7 @@ export default function Upload() {
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}>
-                  Uploaded <CheckIcon className='h-4 w-4 text-brand-gold' />
+                  {t('upload.uploaded')} <CheckIcon className='h-4 w-4 text-brand-gold' />
                 </motion.div>
                 : <motion.span
                   className='font-archivo text-center'

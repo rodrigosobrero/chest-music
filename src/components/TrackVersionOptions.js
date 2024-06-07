@@ -52,7 +52,7 @@ export default function TrackVersionsActionsButton({ version, project, isOpened,
     // { type: 'share', description: t('global.share'), action: handleShare },
     { type: 'download', description: t('global.download'), action: handleDownload },
     { type: 'edit', description: t('global.edit'), action: handleEdit },
-    { type: 'delete', description: t('global.trash_can'), action: handleDelete },
+    { type: 'delete', description: t('global.trash_can.title'), action: handleDelete },
   ];
 
   const handleAction = (action) => {

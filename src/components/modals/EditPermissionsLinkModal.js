@@ -57,7 +57,7 @@ export default function EditPermissionsLinkModal(props) {
 
   return (
     <BaseModal
-      title='edit link permissions'
+      title={t('share.edit_link_permissions')}
       description={`/${props.meta.token}`}
       show={props.isOpen}
       onClose={handleClose}>
@@ -67,13 +67,13 @@ export default function EditPermissionsLinkModal(props) {
             onlyNumeric
             value={playLimit}
             disabled={!unlimited}
-            onChange={handlePlayLimit} label='Play limit' />
+            onChange={handlePlayLimit} label={t('share.play_limit')} />
         </div>
         <div className='flex items-center justify-center gap-2.5'>
           <div className='flex items-center'>
             <Toggle checked={!unlimited} onChange={handleUnlimited} />
           </div>
-          <span className='pt-6'>Unlimited</span>
+          <span className='pt-6'>{t('global.unlimited')}</span>
         </div>
       </div>
       <div className='flex items-center gap-3'>
@@ -84,7 +84,7 @@ export default function EditPermissionsLinkModal(props) {
           checked={webPlay}
           onChange={handleWebPlay} />
         <label htmlFor='webplay'>
-          Allow web play
+        {t('share.allow_web_play')}
         </label>
       </div>
       <div className='grid grid-cols-2 gap-4 mt-8'>

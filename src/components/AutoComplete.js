@@ -3,11 +3,13 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { api } from 'utils/axios';
 import { firstLetterUpperCase } from 'utils/helpers';
+import { useTranslation } from 'react-i18next'
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { CheckIcon } from '@heroicons/react/20/solid';
 import Select from './Select';
 
 export default function AutoComplete({ options, handleAdd, filter, filter_ids }) {
+  const { t } = useTranslation() 
   const inputRef = useRef(null);
   const user = useSelector((state) => state.auth.user);
   const [searchValue, setSearchValue] = useState('');
@@ -101,7 +103,7 @@ export default function AutoComplete({ options, handleAdd, filter, filter_ids })
                 className='custom-input !pr-16 md:!pr-40'
                 onFocus={() => { setFocus(true) }}
                 onBlur={() => { setFocus(false) }}
-                placeholder='Write user or email...' />
+                placeholder={t('global.placeholder.write_user_email')}/>
               {/* <select
                 className='custom-select absolute top-0 right-0 !w-auto !pr-12 !text-right !border-0 !bg-transparent'
                 onChange={(e) => { setSelectedRole(e.target.value) }}

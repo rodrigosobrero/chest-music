@@ -102,7 +102,7 @@ const AccountPlan = ({ data }) => {
             <h5 className='text-neutral-silver-200 !font-archivo !text-base'>{t('account.current_plan')}</h5>
             <div className='flex flex-col md:flex-row gap-4'>
               <div className='md:w-3/5 '>
-                <h5 className='mb-1 !text-xl !capitalize !font-archivo'>{data?.type}</h5>
+                <h5 className='mb-1 !text-xl !capitalize !font-archivo'>{t(`role.${data?.type}`)}</h5>
                 <span className='text-neutral-silver-300 !text-sm'>
                   {t('account.plan_description')}
                 </span>
