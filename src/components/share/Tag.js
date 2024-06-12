@@ -11,7 +11,7 @@ const Tag = ({title, deleteTag}) => {
           {title}
           {isHover &&
             <button onClick={deleteTag}>
-              <XMarkIcon class="h-4 w-4 text-error-red" />
+              <XMarkIcon className="h-4 w-4 text-error-red" />
             </button>
         }
       </div>

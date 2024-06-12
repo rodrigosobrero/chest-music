@@ -9,7 +9,7 @@ import {
     XCircleIcon
   } from '@heroicons/react/24/outline';
 
-const OptionsButton = ({ type, title, onClick }) => {
+const OptionsButton = ({ type, title, onClick, disabled }) => {
 
   const Icon = ({ type }) => {
     let icon;
@@ -38,7 +38,7 @@ const OptionsButton = ({ type, title, onClick }) => {
     }
 
   return (
-    <button className='w-full bg-neutral-silver-600 flex items-center py-3 px-4 gap-2.5 rounded-xl' onClick={onClick}>
+    <button className='w-full bg-neutral-silver-600 flex items-center py-3 px-4 gap-2.5 rounded-xl disabled:opacity-30' onClick={onClick} disabled={disabled}>
         <Icon type={type} />
         {title}
     </button>

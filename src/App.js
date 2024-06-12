@@ -4,8 +4,8 @@ import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { api as service } from 'utils/axios';
 import { auth } from 'utils/firebase';
 import { saveUser, updateUserToken } from 'app/auth';
-import { onAuthStateChanged, getIdToken } from 'firebase/auth';
-import { api, useLazyGetBetaAccessQuery, useLazyGetAccountQuery } from 'store/api';
+import { getIdToken } from 'firebase/auth';
+import { api, useLazyGetBetaAccessQuery } from 'store/api';
 import { store } from 'app/store';
 import { persistStore } from 'redux-persist';
 import { reset } from 'app/playlist';
@@ -33,7 +33,9 @@ import Share from 'routes/share';
 import Treasure from 'routes/treasure';
 import Trash from 'routes/trash';
 import SharedPlay from 'routes/shared-play';
-// import PasswordReset from 'routes/password-reset';
+import PasswordReset from 'routes/password-reset';
+import Subscription from 'routes/subscription';
+import Plan from 'routes/plan';
 
 function App() {
   const [getBetaAccess] = useLazyGetBetaAccessQuery();
@@ -63,10 +65,10 @@ function App() {
           path: '/sign-up',
           element: <SignUp />
         },
-        // {
-        //   path: '/password-reset',
-        //   element: <PasswordReset />
-        // }, 
+        {
+          path: '/password-reset',
+          element: <PasswordReset />
+        },
         {
           path: '/my-chest',
           element:
@@ -138,6 +140,20 @@ function App() {
             </ProtectedRoute>
         },
         {
+          path: 'profile/account/subscription',
+          element:
+            <ProtectedRoute onlyArtist={false}>
+              <Subscription />
+            </ProtectedRoute>
+        },
+        {
+          path: 'profile/account/subscription/plan',
+          element:
+            <ProtectedRoute onlyArtist={false}>
+              <Plan />
+            </ProtectedRoute>
+        },
+        {
           path: 'profile/terms',
           element:
             <ProtectedRoute onlyArtist={false}>
@@ -184,7 +200,6 @@ function App() {
     }
   ]);
 
-
   useEffect(() => {
     const getToken = (user) => {
       getIdToken(user)
@@ -201,10 +216,10 @@ function App() {
             email: user?.email,
             signInMethod: provider === 'google.com' ? 'google' : 'local'
           }));
-      })
+        })
     }
 
-    onAuthStateChanged(auth, (user) => {
+    auth.onAuthStateChanged((user) => {
       if (user) {
         if (process.env.REACT_APP_BETA) {
           getBetaAccess(user.email)
@@ -226,16 +241,14 @@ function App() {
         persistStore(store).purge();
       }
     });
-  }, []);
 
-//  useEffect(() => {
-//    auth.onIdTokenChanged(async (user) => {
-//      if (user && typeof user.getIdToken === 'function') {
-//        const newToken = await user.getIdToken(true);
-//        dispatch(updateUserToken(newToken));
-//      }    
-//    })
-//  }, []);
+    auth.onIdTokenChanged(async (firebaseUser) => {
+      if (user && user.token && firebaseUser) {
+        const newToken = await firebaseUser.getIdToken();
+        dispatch(updateUserToken(newToken));
+      }
+    });
+  }, []);
 
   return (
     <RouterProvider router={router} />

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
-import { useGetNewNotificationsQuery } from 'store/api';
+import { useGetNewNotificationsQuery, useGetNewNotificationsDataQuery } from 'store/api';
 import { useTranslation } from 'react-i18next';
 import { useModal } from 'hooks/useModal';
 import { classNames } from 'utils/helpers';
@@ -14,6 +14,7 @@ import { BellIcon } from '@heroicons/react/24/outline';
 import logo from 'assets/images/logo.svg';
 import menuIcon from 'assets/images/icon-menu.svg';
 import closeIcon from 'assets/images/icon-close.svg';
+import { createToast } from 'app/toast';
 
 export default function Nav() {
   const { nav } = require('data/config.json');
@@ -21,6 +22,7 @@ export default function Nav() {
   const { user } = useSelector((state) => state.auth);
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { onOpen: openFeedbackModal } = useModal('FeedbackModal');
   const { onOpen: openConvertAccountModal } = useModal('ConvertAccountModal');
   const [open, setOpen] = useState(false);
@@ -32,6 +34,32 @@ export default function Nav() {
     pollingInterval: 30000,
     skip: !user?.data?.type
   });
+
+  const {data: newNotifications} = useGetNewNotificationsDataQuery({} , { refetchOnMountOrArgChange: true })
+
+  useEffect(() => {
+    if (!newNotifications) return;
+  
+    const createNotifications = (notifications, type) => {
+      if (notifications.new > 0) {
+        notifications.notifications.forEach(notification => {
+          const { title, body } = notification.content[i18n.language === 'en' ? 'en' : 'es'];
+          const toastBody = {
+            title,
+            body,
+            type: type === 'general' ? notification.type : 'invite_default',
+            project_id: type === 'general' ? notification.project_id : undefined
+          };
+          dispatch(createToast(toastBody));
+        });
+      }
+    };
+  
+    createNotifications(newNotifications.general, 'general');
+    createNotifications(newNotifications.invites, 'invites');
+  
+  }, [newNotifications]);
+  
 
   const NewNotification = () => (
     <div className='absolute right-2 lg:right-0 top-2 lg:top-0'>
@@ -68,7 +96,7 @@ export default function Nav() {
   return (
     <>
       <nav className='main z-10 fixed w-full'>
-        <div className='md:container flex items-center justify-center w-full'>
+        <div className='container flex items-center justify-center w-full'>
           <div className={`flex items-center gap-4 grow ${location.pathname === '/setup' && 'justify-center'}`}>
             <Link to={'/my-chest'}>
               <img src={logo} alt='Chest' width={146} height={32} className='w-[110px] h-[24px] md:w-[146px] md:h-[32px]' />

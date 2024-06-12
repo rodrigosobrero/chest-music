@@ -27,6 +27,7 @@ export default function Treasure() {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { id } = useParams();
+  
 
   const { data: chest = {}, isLoading: isLoadingChest } = useGetChestQuery();
   const { data: project = {}, isLoading, error } = useGetProjectQuery(id, {
@@ -49,6 +50,12 @@ export default function Treasure() {
   const [permissionsView, setPermissionsView] = useState(permissionsOptions[0]);
   const [defaultCover, setDefaultCover] = useState('');
   const [covers, setCovers] = useState([]);
+  const [suspended, setSuspended] = useState(false);
+
+  const [hoverShare, setHoverShare] = useState(false);
+  const [hoverAdd, setHoverAdd] = useState(false);
+  const [hoverTrash, setHoverTrash] = useState(false);
+  const [hoverEdit, setHoverEdit] = useState(false);
 
   const TabButton = ({ title }) => {
     return (
@@ -199,7 +206,7 @@ export default function Treasure() {
             {permissionsView === 'participants' ? (
               <ParticipantsTable data={data} headers={headers} user={user} invitations={project.invitations} />
             ) : permissionsView === 'links' ? (
-              <LinksTable data={data} headers={headers} />
+              <LinksTable data={data} headers={headers} project={project} />
             ) : (
               <UsersTable data={data} headers={headers} />
             )}
@@ -213,6 +220,19 @@ export default function Treasure() {
       </>
     );
   };
+
+  useEffect(() => {
+    if (!user.data) {
+      setSuspended(true);
+      return;
+    }
+
+    const { status } = user.data.subscription || {};
+
+    if (status === 'canceled' || status === 'ended') {
+      setSuspended(true);
+    }
+  }, [user]);
 
   useEffect(() => {
     if (chest && chest.covers) {
@@ -247,41 +267,90 @@ export default function Treasure() {
 
   return (
     <>
-      <div className='container flex flex-col gap-6 md:gap-10 py-8 md:py-10'>
+      <div className='container flex flex-col gap-6 md:gap-10 py-8 md:py-10 relative'>
         <div className='toolbar'>
           <div className='grow'>
             <Breadcrumb items={breadcrumb} minify />
           </div>
-          <div className='lg:fixed max-w-screen-2xl flex items-center justify-end gap-3 lg:w-full'>
-            <button
-              type='button'
-              className='toolbar-button primary'
-              onClick={() => { navigate(`/share/${project.id}?=sendDM`) }}>
-              <ArrowUpTrayIcon className='h-7 w-7' />
-            </button>
-            <button
-              type='button'
-              className='toolbar-button primary'
-              onClick={handleCreateVersion}
-              style={{ color: 'blue' }}>
-              <PlusIcon className='h-7 w-7' />
-            </button>
-            <button
-              type='button'
-              className='toolbar-button primary'
-              onClick={handleUpdateProject}>
-              <PencilSquareIcon className='h-7 w-7' />
-            </button>
-            <button
-              type='button'
-              className='toolbar-button alert'
-              onClick={() => { navigate(`/my-chest/treasure/${project?.id}/trash/`) }}>
-              <TrashIcon className='h-7 w-7' />
-            </button>
+          <div className='flex justify-end'>
+            <div className='fixed flex items-end justify-end gap-3 -mt-4 z-50'>
+              <div className='relative'>
+              <button
+                  disabled={suspended}
+                  className={`${
+                    hoverShare ? "block" : "hidden"
+                  } btn-absolute disabled:opacity-40`}
+                >
+                  {t('global.share_track')}
+                </button>
+                <button
+                  disabled={suspended}
+                  onMouseOver={() => setHoverShare(true)}
+                  onMouseLeave={() => setHoverShare(false)}
+                  type='button'
+                  className='toolbar-button primary disabled:opacity-40'
+                  onClick={() => { navigate(`/share/${project.id}?=sendDM`) }}>
+                  <ArrowUpTrayIcon className='h-7 w-7' />
+                </button>
+              </div>
+              <div className="relative">
+                <button
+                  disabled={suspended}
+                  onMouseOver={() => setHoverAdd(true)}
+                  onMouseLeave={() => setHoverAdd(false)}
+                  type="button"
+                  className="toolbar-button primary relative disabled:opacity-40"
+                  onClick={handleCreateVersion}
+                >
+                  <PlusIcon className="h-7 w-7" />
+                </button>
+                <button
+                  disabled={suspended}
+                  className={`${
+                    hoverAdd ? "block" : "hidden"
+                  } btn-absolute`}
+                >
+                  {t('global.add_version')}
+                </button>
+              </div>
+              {isDesktop && (
+                <>
+                  <div className='relative'>
+                    <button
+                      disabled={suspended}
+                      onMouseOver={() => setHoverEdit(true)}
+                      onMouseLeave={() => setHoverEdit(false)}
+                      type='button'
+                      className='toolbar-button primary disabled:opacity-40'
+                      onClick={handleUpdateProject}>
+                      <PencilSquareIcon className='h-7 w-7' />
+                    </button>
+                    <button className={`${hoverEdit ? "block" : "hidden"} 
+                            btn-absolute disabled:opacity-40`}>
+                        {t('global.edit_track')}
+                    </button>
+                  </div>
+                  <div className='relative'>
+                    <button
+                      onMouseOver={() => setHoverTrash(true)}
+                      onMouseLeave={() => setHoverTrash(false)}
+                      type='button'
+                      className='toolbar-button alert'
+                      onClick={() => { navigate(`/my-chest/treasure/${project?.id}/trash/`) }}>
+                      <TrashIcon className='h-7 w-7' />
+                    </button>
+                    <button className={`${hoverTrash ? "block" : "hidden"} 
+                            btn-absolute`}>
+                      {t('global.view_trash')}
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
         <div className='flex flex-col lg:flex-row lg:items-center justify-center gap-4 lg:gap-12'>
-          <div className='w-[100px] h-[100px] lg:w-[220px] lg:h-[220px]'>
+          <div className='min-w-[100px] h-[100px] lg:min-w-[220px] lg:h-[220px]'>
             <TrackCoverPreview
               cover={project.cover_url}
               defaultCover={defaultCover}

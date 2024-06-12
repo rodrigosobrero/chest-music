@@ -26,10 +26,10 @@ const ProfileView = () => {
             <div className='flex flex-col gap-y-3 md:gap-y-5 w-full'>
               {user && user.data.type === 'artist' ? 
                 items?.map((el, i) => (
-                            <ProfileRow title={el.title} subtitle={el.subtitle} to={to[i]} icon={icons[i]}/>
+                            <ProfileRow key={el.title} title={el.title} subtitle={el.subtitle} to={to[i]} icon={icons[i]}/>
                 )) :
                 items_fan.map((el, i) => (
-                  <ProfileRow title={el.title} subtitle={el.subtitle} to={to_fan[i]} icon={icons_fan[i]}/>
+                  <ProfileRow key={el.title} title={el.title} subtitle={el.subtitle} to={to_fan[i]} icon={icons_fan[i]}/>
                 ))
               
               }

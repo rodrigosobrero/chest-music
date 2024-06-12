@@ -62,7 +62,11 @@ function firstLetterUpperCase(str) {
 }
 
 function formatHours(seconds, decimals = 2) {
-  return `${parseFloat((seconds/3600)).toFixed(decimals)} hs`
+  const formated = `${parseFloat((seconds/3600)).toFixed(decimals)} hs`;
+
+  return formated.replace('.', ':');
+
+  // return `${parseFloat((seconds/3600)).toFixed(decimals)} hs`
 }
 
 function formatBytes(bytes, decimals = 2) {
@@ -163,6 +167,15 @@ const format = {
     const formattedSeconds = remainingSeconds < 10 ? `0${remainingSeconds}` : remainingSeconds;
 
     return `${minutes}:${formattedSeconds}`;
+  },
+  dateDdMmYyyy: (date) => {
+    const dateFromTimestamp = new Date(parseInt(date) * 1000);
+
+    const day = dateFromTimestamp.getDate();
+    const month = dateFromTimestamp.getMonth();
+    const year = dateFromTimestamp.getFullYear();
+
+    return `${day} ${i18next.t(`global.months.${month}`)} ${year}`;
   }
 }
 
@@ -183,6 +196,21 @@ const filter = (list, key) => {
   });
 };
 
+function getFreeTrialDays(start) {
+  if (start) {
+    const dateFromTimestamp = new Date(parseInt(start) * 1000);
+    const millisecondsInADay = 24 * 60 * 60 * 1000;
+    const thirtyDaysInMs = 30 * millisecondsInADay;
+    const endDate = new Date(dateFromTimestamp.getTime() + thirtyDaysInMs);
+
+    const day = endDate.getDate();
+    const month = endDate.getMonth();
+    const year = endDate.getFullYear();
+
+    return `${day} ${i18next.t(`global.months.${month}`)} ${year}`;
+  }
+}
+
 export {
   bytesToSize,
   classNames,
@@ -194,5 +222,6 @@ export {
   formatDate,
   formatTime,
   getUrlExtension,
+  getFreeTrialDays,
   timeDifference,
 }

@@ -120,7 +120,11 @@
     "add_version": "Agregar versión",
     "accept": "Aceptar",
     "deny": "Rechazar",
-    "required": "Este campo es obligatorio."
+    "view_trash": "Ver papelera",
+    "edit_track": "Editar track",
+    "share_track": "Compartir track",
+    "required": "Este campo es obligatorio.",
+    "modify": "Modificar"
   },
   "signin": {
     "title": "abre tu cofre",
@@ -130,9 +134,11 @@
     "reset": "¿Perdiste la llave?",
     "beta": {
       "title": "accede a la beta de chest",
+      "button": "Acceder",
       "button_google": "Accede con Google",
       "description": "Inicia sesión en la BETA de Chest con el correo electrónico con el que te invitaron.",
       "signup": "¿No tienes una invitación? Registrate.",
+      "password": "Crear contraseña",
       "modal": {
         "title": "Lo siento, correo electrónico no válido",
         "description": "El correo electrónico que utilizaste para iniciar sesión no está registrado para acceder a Chest BETA. Intenta nuevamente con otro, regístrate o",
@@ -187,6 +193,19 @@
       "title_mobile": "drop it like it’s hot",
       "description": "Arrastra tu archivo de audio aquí para subir una nueva demo, o...",
       "description_mobile": "Selecciona un archivo para subir tu nueva demo"
+    },
+    "sort_modal": {
+      "title": "Ordenar temas",
+      "date_newest": "Fecha agregado (nuevo a viejo)",
+      "date_latest": "Fecha agregado (viejo a nuevo)",
+      "title_a": "Título (A-Z)",
+      "title_z": "Título (Z-A)",
+      "size_biggest": "Tamaño (grande a chico)",
+      "size_smallest": "Tamaño (chico a grande)"
+    },
+    "remove_track": {
+      "title": "Borrarme de la maqueta",
+      "subtitle": "Al borrarte de esta maqueta ya no aparecerá en tu cofre, pero los demás participantes no se verán afectados. ¿Estás seguro?"
     }
   },
   "upload": {
@@ -273,7 +292,23 @@
     "artist_username": "Nombre de usuario",
     "upgrade": "Aumentar almacenamiento",
     "delete_validation_text": "borrar mi cofre",
-    "plan_description": "Version gratuita y limitada de Chest dentro de la etapa BETA.",
+    "plan_description": "Pago {{recurrence}} de {{currency}} {{price}} ",
+    "manage_subscription": "Administrar suscripción",
+    "free_trial_end": "La prueba gratis finaliza el {{ date }}",
+    "update_subscription": "Administrar suscripción",
+    "payment_method": "Método de pago",
+    "credit_debit": "Tarjeta de crédito o débito",
+    "payment_detail": "El cobro se realiza por",
+    "start_billing": "Inicio de facturación:",
+    "free_date": "No se te cobrará hasta el",
+    "cancel_anytime": "Cancela cuando quieras. Aplican TyC.",
+    "update_plan": "Modificar plan",
+    "cancel_subscription": "Cancelar suscripción",
+    "suspended_title": "Tu cuenta se suspenderá el",
+    "suspended_description" : "Tu suscripción fue cancelada. Elige un plan ara continuar utilizando Chest.",
+    "ended_title": "Tu cuenta se encuentra suspendida",
+    "choose_plan": "Elegir un plan",
+    "redirected_to": "Te redireccionaremos a",
     "modals": {
       "delete_account": "Eliminar cuenta",
       "delete_subtitle": "Nos entristece que te vayas. ¿Estás seguro de que quieres eliminar tu cuenta? Esta operación no se puede deshacer.",
@@ -283,7 +318,10 @@
       "upgrade_title": "Suscríbete a un cofre más grande",
       "upgrade_subtitle": "Deja tus datos aquí para conocer la fecha de lanzamiento antes que nadie, y acceder a la prueba gratuita del Plan Pro.",
       "full_name": "Nombre completo",
-      "country_residence": "País de residencia"
+      "country_residence": "País de residencia",
+      "upgrade_plan": "mejorá tu plan",
+      "subscribe": "Suscribite a Chest Club y conseguí un cofre más grande con más beneficios, a un mejor precio.",
+      "button": "Suscribirme a Chest Club"
     }
   },
   "shared": {
@@ -391,12 +429,16 @@
     "name": "Nombre",
     "date_blocked": "Fecha bloqueado",
     "date_played": "Fecha reproducido",
-    "role":"rol"
+    "role":"rol",
+    "size": "Tamaño"
   },
   "role":{
     "artist":"artista",
     "listener":"oyente",
     "producer":"productor",
     "feat":"colaborador"
+  }, 
+  "toasts": {
+    "copy": "Enlace copiado en portapapeles"
   }
 }
