@@ -39,7 +39,7 @@ export default function Dropdown({ list, selected, set, remove, disabled, isOwne
               'text-sm md:text-base': true,
               'text-neutral-silver-400': disabled
             })}>
-              {firstLetterUpperCase(selected)}
+              {firstLetterUpperCase(t(`role.${selected}`))}
             </span>
             {listOpen
               ? <ChevronUpIcon className='h-5 w-5 text-white' />

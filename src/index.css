@@ -169,10 +169,37 @@ input[type=number] {
 }
 
 .uploader {
-  background: radial-gradient(50% 50.00% at 50% 50.00%, #000 0%, rgba(0, 0, 0, 0.00) 100%), rgba(6, 6, 6, 0.50);
+  background: 
+    radial-gradient(50% 50.00% at 50% 50.00%, #000 0%, rgba(0, 0, 0, 0.00) 100%), rgba(6, 6, 6, 0.50);
   background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='24' ry='24' stroke='%23333' stroke-width='4' stroke-dasharray='24%2c 24' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
   @apply flex flex-col items-center justify-center rounded-3xl md:rounded-[32px];
+  transition: background 0.3s ease;
+  position: relative;
 }
+
+.uploader.dragging {
+  background: radial-gradient(ellipse at center, rgba(6, 6, 6, 0.50) 0%, rgba(6, 6, 6, 0.50) 40%, rgba(97, 75, 138, 0.5) 80%, rgba(97, 75, 138, 0.5) 100%),
+  url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='24' ry='24' stroke='rgb(124, 89, 222)' stroke-width='4' stroke-dasharray='24%2c 24' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+}
+
+.uploader.dragging .container-h5-hidden,
+.uploader.dragging p,
+.uploader.dragging .input-file-container {
+  visibility: hidden;
+}
+.uploader.dragging .container-h5{
+  text-align: center;
+  @apply text-brand-uva-light;
+}
+.uploader.dragging .dragging-title-container {
+  @apply flex items-center justify-center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 
 .uploader h2 {
   @apply text-white uppercase text-5xl mb-4;
@@ -379,12 +406,12 @@ input[type=number] {
 }
 
 .signin-cover {
-  background: url('/src/assets/images/sign-in.jpg') no-repeat;
+  background: url('/src/assets/images/sign-in-beta1.jpeg') no-repeat;
   @apply bg-cover h-[260px] md:h-auto md:order-last;
 }
 
 .signin-cover-beta {
-  background: url('/src/assets/images/sign-in-beta.jpg') no-repeat;
+  background: url('/src/assets/images/sign-in-beta1.jpeg') no-repeat;
   @apply bg-cover h-[260px] md:h-auto md:order-last;
 }
 

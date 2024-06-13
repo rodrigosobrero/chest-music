@@ -65,7 +65,6 @@ export default function Player() {
       if (typeof track === 'object') {
         if (track.id === currentTrack.id) return;
       }
-
       setIsCounted(false)
       
       if (currentTrack.audio) {
@@ -201,9 +200,9 @@ export default function Player() {
                       <button type='button' className='p-2.5' onClick={toggleOpen}>
                         <ChevronDownIcon className='h-6 w-6 text-white' />
                       </button>
-                      <button type='button' className='p-2.5'>
-                        <EllipsisHorizontalIcon className='h-6 w-6 text-white' />
-                      </button>
+                      {/* <button type='button' className='p-2.5' >
+                        <EllipsisHorizontalIcon className='h-6 w-6 text-white' onClick={()=>console.log(trackList)} />
+                      </button> */}
                     </div>
                     <TrackMobile {...{
                       currentTrack: trackList,

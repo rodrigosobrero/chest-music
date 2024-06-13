@@ -5,6 +5,7 @@ import { useUpdateParticipantMutation } from 'store/api';
 import { BaseModal } from 'components/BaseModal';
 import Select from 'components/Select';
 import Button from 'components/Button';
+import { firstLetterUpperCase } from 'utils/helpers';
 
 export default function EditParticipantModal(props) {
   const { roles } = require('data/config.json');
@@ -34,14 +35,14 @@ export default function EditParticipantModal(props) {
   }
 
   return (
-    <BaseModal title='edit participant permissions' show={props.isOpen} onClose={handleClose}>
+    <BaseModal title={t('share.edit_participant_permissions')} show={props.isOpen} onClose={handleClose}>
       <p className='text-white text-lg'>
         {props.meta.full_name} <span className=' text-neutral-silver-300'>@{props.meta.username}</span>
       </p>
       <Select
         options={props.meta.user_type === 'fan' ? roles.filter((rol) => rol === 'listener') : roles.filter((rol) => rol !== 'listener')}
         name='role'
-        label='Role'
+        label={firstLetterUpperCase(t('tables.role'))}
         value={role}
         onChange={handleOnChange} />
       <div className='grid grid-cols-2 gap-4 mt-8'>

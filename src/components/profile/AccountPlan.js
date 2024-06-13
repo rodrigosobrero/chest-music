@@ -100,6 +100,16 @@ const AccountPlan = ({ data }) => {
         <div className='flex gap-y-8 md:gap-x-14 flex-wrap xl:flex-nowrap flex-col md:flex-row'>
           <div className='space-y-4 flex flex-col'>
             <h5 className='text-neutral-silver-200 !font-archivo !text-base'>{t('account.current_plan')}</h5>
+            <div className='flex flex-col md:flex-row gap-4'>
+              <div className='md:w-3/5 '>
+                <h5 className='mb-1 !text-xl !capitalize !font-archivo'>{t(`role.${data?.type}`)}</h5>
+                <span className='text-neutral-silver-300 !text-sm'>
+                  {t('account.plan_description')}
+                </span>
+              </div>
+              <div className='flex items-center space-x-2'>
+                <span className='text-[1.75rem]'>0$</span>
+                <span> / {t('global.month')}</span>
             {currentPlan && !suspended && (
               <div className='flex flex-col gap-4'>
                 <div className='grow'>
@@ -182,6 +192,8 @@ const AccountPlan = ({ data }) => {
               </div>
             </div>
           )}
+        </div>
+        </div>
         </div>
       </div>
     </>

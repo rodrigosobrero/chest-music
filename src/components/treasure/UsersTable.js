@@ -4,8 +4,10 @@ import { AnimatePresence, motion } from 'framer-motion';
 import UsersActionsButton from './UsersActionsButton';
 import useSort from 'hooks/useSort';
 import { ReactComponent as WebDisabled } from 'assets/images/icon-webdisabled.svg';
+import { useTranslation } from 'react-i18next'
 
 export default function UsersTable({ data: list, headers }) {
+  const { t } = useTranslation() 
   const { data, orderBy } = useSort(list)
   console.log(data)
   const Rows = ({ cell }) => {
@@ -17,7 +19,7 @@ export default function UsersTable({ data: list, headers }) {
           </div>
           {isMobile &&
             <div className='text-sm text-neutral-silver-300'>
-              — {cell.play_limit ? `${cell.plays}/${cell.play_limit} plays` : 'unlimited plays'}
+              — {cell.play_limit ? `${cell.plays}/${cell.play_limit} ${t('tables.plays')}` : t('global.unlimited_plays')}
             </div>
           }
         </td>
@@ -31,11 +33,11 @@ export default function UsersTable({ data: list, headers }) {
               <WebDisabled width={20} height={20} className='min-w-[20px] min-h-[20px]' />
             </div>
           )}
-          {isDesktop && (cell.allow_web_play ? 'Yes' : 'No')}
+          {isDesktop && (cell.allow_web_play ? t('global.yes') : t('global.no'))}
         </td>
         {isDesktop && (
           <>
-            <td>{cell.play_limit ? `${cell.plays}/${cell.play_limit}` : 'unlimited'}</td>
+            <td>{cell.play_limit ? `${cell.plays}/${cell.play_limit}` : t('global.unlimited') }</td>
             <td>{format.date(cell.date_shared)}</td>
           </>
         )}

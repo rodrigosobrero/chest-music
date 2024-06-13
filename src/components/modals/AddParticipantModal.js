@@ -49,7 +49,7 @@ export default function AddParticipantModal(props) {
   }
 
   return (
-    <BaseModal title='add participant' show={props.isOpen} onClose={handleClose}>
+    <BaseModal title={t(`share.add_participant`)}s show={props.isOpen} onClose={handleClose}>
       <UserSelector
         roles={roles}
         users={props.meta.project.participants}

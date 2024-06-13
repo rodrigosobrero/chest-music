@@ -1,25 +1,27 @@
 import { useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next'
 import VersionsRow from './VersionsRow';
 import useSort from 'hooks/useSort';
 
 export default function VersionsTable({ project }) {
+  const { t } = useTranslation()
   const [titles, setTitles] = useState([]);
   // const { sortBy, data, method, tagOrdered } = useSort(project)
   useEffect(() => {
     if (isMobile) {
       setTitles([
-        'title',
+        t('tables.title'),
         '',
       ])
     } else {
       setTitles([
-        'title',
-        'version',
-        'plays',
-        'date added',
-        'length',
+        t('tables.title'),
+        t('tables.version'),
+        t('tables.plays'),
+        t('tables.date_added'),
+        t('tables.length'),
         '',
       ])
     }

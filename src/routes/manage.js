@@ -46,13 +46,13 @@ export default function Manage() {
 
 
   const toggle = () => setShow(!show)
+  const { t } = useTranslation() 
 
   const breadcrumbItems = [
-    { name: 'Notifications', link: '/notifications' },
-    { name: 'Manage', link: '' },
+    { name: t('global.notifications'), link: '/notifications' },
+    { name: t('notification.manage'), link: '' },
   ];
 
-  const { t } = useTranslation() 
 
   return (
     <>

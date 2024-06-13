@@ -1,7 +1,18 @@
 {
   "global": {
     "upload": "Seleccionar archivo",
+    "searchbar":"¿No puedes encontrar a ese usuario? ¡Invítalo por correo electrónico!",
     "click_here": "clic aquí",
+    "yes":"Si",
+    "no":"No",
+    "permissions":"permisos",
+    "participants":"participantes",
+    "unlimited":"Ilimitadas",
+    "unlimited_plays":"Reproducciones Ilimitadas",
+    "links":"enlaces",
+    "link":"enlace",
+    "users":"usuarios",
+    "you":"tú",
     "password": "Contraseña",
     "write_here": "Escribe aquí",
     "divider": "o",
@@ -27,6 +38,19 @@
     "become": {
       "description": "Estás seguro que querés convertirte en artista? Esta acción no se puede deshacer."
     },
+    "trash_can": {
+      "trash_can": "Papelera",
+      "description": "Are you sure you want to move this version to the Trash Can? It will be deleted in 30 days.",
+      "title" : "Enviar a papelera",
+      "restore_title" : "Restaurar versión",
+      "restore" : "Restaurar",
+      "restore_description" : "¿Está seguro de que desea restaurar esta versión a su cofre?"
+    },
+    "links_modal": {
+      "choose_version": "Elija versión",
+      "choose_version_description": "Elija una versión del track para compartir",
+      "version_shared": "Versión compartida"
+    },
     "remove": "Quitar",
     "back": "Volver",
     "profile": "perfil",
@@ -47,6 +71,7 @@
     "free": "Free",
     "block": "Bloquear",
     "placeholder": {
+      "write_user_email": "Escribe usuario o email...",
       "write_here": "Escribe aquí...",
       "search": "Buscar...",
       "select_one": "Selecciona uno...",
@@ -58,7 +83,6 @@
     "edit": "Editar",
     "add": "Agregar",
     "share": "Compartir",
-    "trash_can": "Mover a la papelera",
     "view_details": "Ver detalles",
     "download": "Descargar",
     "delete": "Borrar",
@@ -79,10 +103,18 @@
       "10": "nov",
       "11": "dic"
     },
-    "hours_one": "hace {{count}} hora",
-    "hours_other": "hace {{count}} horas",
+    "years_one": "hace {{count}} año",
+    "years_other": "hace {{count}} años",
+    "months_one": "hace {{count}} mes",
+    "months_other": "hace {{count}} meses",
     "days_one": "hace {{count}} día",
     "days_other": "hace {{count}} días",
+    "hours_one": "hace {{count}} hora",
+    "hours_other": "hace {{count}} horas",
+    "minutes_one": "hace {{count}} minuto",
+    "minutes_other": "hace {{count}} minutos",
+    "seconds_one": "hace {{count}} segundo",
+    "seconds_other": "hace {{count}} segundos",
     "contact_us": "Contáctanos",
     "search_treasure": "Busca un tesoro...",
     "add_version": "Agregar versión",
@@ -178,6 +210,7 @@
   },
   "upload": {
     "title": "nombra tu tesoro",
+    "uploaded": "Subido",
     "track_name": "Nombre del track",
     "your_role": "Tu rol",
     "leave_empty": "Deja vacío para singles",
@@ -185,6 +218,8 @@
     "album": "Álbum",
     "edit_cover": "Editar portada",
     "edit_instruction": "Elige una plantilla de nuestra biblioteca o carga tu propia portada desde tus archivos.",
+    "wrong_format": "Formato incorrecto",
+    "wrong_format_description": "El archivo que subiste no es .wav o .mp3, por favor intenta de nuevo con el formato de archivo correcto.",
     "preview": "Vista previa",
     "presets": "Plantillas",
     "upload_file": "Subir archivo",
@@ -366,8 +401,16 @@
     "play_limit": "Límite de reproducción",
     "unlimited": "Ilimitado",
     "allow_web_play": "Permitir reproducción web",
+    "web_play": "reproducción web",
     "message": "Mensaje",
-    "message_example": "Por ejemplo: ”chequeá mi nuevo tema”"  
+    "message_example": "Por ejemplo: ”chequeá mi nuevo tema”",
+    "add_participant": "Añadir participante",
+    "share_new_link": "Compartir nuevo enlace",
+    "share_to_user": "Compartir a usuario",
+    "add_user": "Agregue usuarios para acceder a su track a continuación",
+    "edit_participant_permissions": "Editar permisos de participante",
+    "edit_user_permissions": "Editar permisos de usuario",
+    "edit_link_permissions": "Editar permisos de enlace"
   },
   "footer": {
     "rights": "Todos los derechos reservados."
@@ -378,13 +421,22 @@
     "version": "Versión",
     "date_shared": "Fecha Compartido",
     "date_added": "Fecha agregado",
+    "date_moved": "Fecha Movido",
+    "days_remaining": "Dias Restantes",
     "length": "Tamaño",
     "plays": "Reproducciones",
     "username": "Usuario",
     "name": "Nombre",
     "date_blocked": "Fecha bloqueado",
     "date_played": "Fecha reproducido",
+    "role":"rol",
     "size": "Tamaño"
+  },
+  "role":{
+    "artist":"artista",
+    "listener":"oyente",
+    "producer":"productor",
+    "feat":"colaborador"
   }, 
   "toasts": {
     "copy": "Enlace copiado en portapapeles"

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,20 +29,31 @@ export default function Uploader({ title = true, self, id, disabled }) {
     loaded: 0,
     total: 0
   });
+  const [isDragging, setIsDragging] = useState(false);
 
-  const handleFile = (e) => {
-    if (disabled) return;
+  useEffect(() => {
+    const handleDragOver = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setIsDragging(true);
+    };
 
-    handleDragOver(e);
+    const handleDragLeave = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setIsDragging(false);
+    };
 
-    let files;
+    window.addEventListener('dragover', handleDragOver);
+    window.addEventListener('dragleave', handleDragLeave);
 
-    if (e.dataTransfer) {
-      files = e.dataTransfer.files;
-    } else {
-      files = e.target.files;
-    }
+    return () => {
+      window.removeEventListener('dragover', handleDragOver);
+      window.removeEventListener('dragleave', handleDragLeave);
+    };
+  }, []);
 
+  const handleFile = (files) => {
     if (files && files.length) {
       const { type, name, size } = files[0];
 
@@ -63,10 +74,13 @@ export default function Uploader({ title = true, self, id, disabled }) {
     }
   }
 
-  const handleDragOver = (e) => {
+  const handleDrop = (e) => {
     e.preventDefault();
     e.stopPropagation();
-  }
+    setIsDragging(false);
+    const files = e.dataTransfer.files;
+    handleFile(files);
+  };
 
   const handleUpload = async (file, fileBlob) => {
     const formData = new FormData();
@@ -94,23 +108,28 @@ export default function Uploader({ title = true, self, id, disabled }) {
 
   return (
     <>
-      <div className='uploader py-[60px] px-5'>
-        {showLoader
-          ? <>
+      <div
+        className={`uploader py-[60px] px-5 ${isDragging ? 'dragging' : ''}`}
+        onDrop={handleDrop}
+        onDragOver={(e) => e.preventDefault()}
+        onDragLeave={(e) => setIsDragging(false)}
+      >
+        {showLoader 
+        ? <>
             <ProgressCircle
               percentage={(progress.loaded * 100) / progress.total}
               colour={progress.loaded > 0 && progress.loaded === progress.total ? '#FFB447' : '#7C59DE'} />
             <div className='flex flex-col gap-1'>
               <AnimatePresence>
-                {progress.loaded > 0 && progress.loaded === progress.total
-                  ? <motion.div
+                {progress.loaded > 0 && progress.loaded === progress.total 
+                ? <motion.div
                     className='flex items-center justify-center gap-1.5 text-brand-gold'
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}>
-                    Uploaded <CheckIcon className='h-4 w-4 text-brand-gold' />
+                    {t('upload.uploaded')} <CheckIcon className='h-4 w-4 text-brand-gold' />
                   </motion.div>
-                  : <motion.span
+                 : <motion.span
                     className='font-archivo text-center'
                     exit={{ opacity: 0 }}>
                     {bytesToSize(progress.loaded)} {t('global.of')} {bytesToSize(progress.total, 1)}
@@ -119,26 +138,29 @@ export default function Uploader({ title = true, self, id, disabled }) {
               <span className='font-archivo text-neutral-silver-300 text-sm text-center'>{file?.filename}</span>
             </div>
           </>
-          : <div
-            className='flex flex-col items-center w-full h-full'
-            onDrop={handleFile}
-            onDragOver={handleDragOver}>
+         : <div className='flex flex-col items-center w-full h-full'>
             {title && (
-              <h5 className='hidden md:block mb-4'>{t('mychest.uploader.title')}</h5>
+              <h5 className='container-h5-hidden hidden md:block mb-4'>{t('mychest.uploader.title')}</h5>
             )}
             <h5 className='block md:hidden mb-2'>{t('mychest.uploader.title_mobile')}</h5>
             <p className='hidden md:block'>{t('mychest.uploader.description')}</p>
             <p className='block md:hidden text-base'>{t('mychest.uploader.description_mobile')}</p>
-            <div className='lg:w-1/4'>
+            <div className='lg:w-1/4 input-file-container'>
               <InputFile
                 disabled={disabled}
                 accept={accepted_files}
                 text={t('global.upload')}
-                onChange={handleFile} />
+                onChange={(e) => handleFile(e.target.files)}/>
             </div>
           </div>
         }
+        {isDragging && (
+          <div className="dragging-title-container">
+            <h5 className='container-h5 hidden md:block mb-4'>{t('mychest.uploader.title')}</h5>
+          </div>
+        )}
       </div>
     </>
   )
+  
 }
