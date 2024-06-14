@@ -117,11 +117,11 @@ const Security = () => {
                          title={t('security.password_modal.title')} subtitle={t('security.password_modal.subtitle')}
                          inputsData={inputsDataPassword}  isAvailable={true} onClick={() => resetPassword(user?.data.email, () => setIsOpenPassword(false))}/>
       </Modal>
-      <Modal show={isOpenPin} setShow={setIsOpenPin}>
+      {/* <Modal show={isOpenPin} setShow={setIsOpenPin}>
         <ChangeDataModal toggle={togglePin} primaryButton={t('global.confirm')} secondaryButton={t('global.cancel')}
                         inputsData={inputsDataPin} title='Change Pin Code' onClick={changePinCode} 
                         handleChange={handlePinChange} isAvailable={isAvailable}  />
-      </Modal>
+      </Modal> */}
       {/* <div className='px-3 pt-4 pb-10 md:container md:px-[120px] md:pb-[60px] md:pt-[40px]'> */}
       <div className='container py-4 lg:py-[40px]'>
          <Breadcrumb className='px-3 md:px-0' items={paths}/>
@@ -133,8 +133,8 @@ const Security = () => {
          </div>
          <div className='w-full px-1 md:px-0 flex flex-col gap-y-4 md:gap-y-6'>
             <div className='w-full flex flex-col md:flex-row gap-x-6 gap-y-4'>
-              <Casillero title={t('security.pin')} icon={<ViewGrid className="h-8 w-8 " />} type='pin' 
-              quantity={user?.data?.pincode !== '' ? 4 : 0} onClick={() => togglePin()}/>
+             {/*  <Casillero title={t('security.pin')} icon={<ViewGrid className="h-8 w-8 " />} type='pin' 
+              quantity={user?.data?.pincode !== '' ? 4 : 0} onClick={() => togglePin()}/> */}
               <Casillero title={t('global.password')} icon={<KeyIcon className="h-8 w-8 text-gray-500" />} type='password'
               quantity={user?.data.login_method === 'local' ? 8 : 0} onClick={() => togglePassword()}/>
             </div>

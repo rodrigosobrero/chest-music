@@ -4,10 +4,12 @@ import { firstLetterUpperCase, format } from 'utils/helpers';
 import { ChevronUpIcon } from "@heroicons/react/24/solid";
 import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import ParticipantsActionsButtons from './ParticipantsActionsButton';
+import { useTranslation } from 'react-i18next'
 import useSort from 'hooks/useSort';
 
 export default function ParticipantsTable({ data: list, invitations, headers, user }) {
   const { sortBy, data, method, tagOrdered } = useSort(list);
+  const { t } = useTranslation() 
   const Rows = ({ cell, type }) => {
     return (
       <>
@@ -16,7 +18,7 @@ export default function ParticipantsTable({ data: list, invitations, headers, us
             {cell.full_name ? cell.full_name : cell.email}
             {user?.data.user_id === cell.user_id &&
               <span className='text-neutral-silver-300 ml-1'>
-                (you)
+                ({t(`global.you`)})
               </span>
             }
             {cell.is_global &&
@@ -27,13 +29,13 @@ export default function ParticipantsTable({ data: list, invitations, headers, us
           </div>
           {isMobile &&
             <div className='text-sm text-neutral-silver-300'>
-              {`${cell.role && firstLetterUpperCase(cell.role)} — ${cell.plays} plays`}
+              {`${cell.role && firstLetterUpperCase(t(`role.${cell.role}`))} — ${cell.plays} ${t(`tables.plays`)}`}
             </div>
           }
         </td>
         {isDesktop && (
           <>
-            <td>{cell.role && firstLetterUpperCase(cell.role)}</td>
+            <td>{cell.role && firstLetterUpperCase(t(`role.${cell.role}`))}</td>
             <td>{cell.plays}</td>
             <td>{format.date(cell.date_added)}</td>
           </>

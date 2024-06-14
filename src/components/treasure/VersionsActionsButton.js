@@ -57,6 +57,13 @@ export default function VersionsActionsButton({ version, project }) {
     openDeleteModal(version);
   }
 
+ /* const options = [
+    { type: 'share', description: t('global.share'), action: handleShare },
+    { type: 'download', description: t('global.download'), action: handleDownload },
+    { type: 'edit', description: t('global.edit'), action: handleEdit },
+    { type: 'delete', description: t('global.trash_can.title'), action: handleDelete },
+  ];}*/
+
   const handleAction = (action) => {
     const option = options.find((opt) => opt.type === action);
 
@@ -86,7 +93,7 @@ export default function VersionsActionsButton({ version, project }) {
   
     const options = project.versions.length === 1
       ? defaultOptions
-      : [...defaultOptions, { type: 'delete', description: t('global.trash_can'), action: handleDelete, disabled: suspended }];
+      : [...defaultOptions, { type: 'delete', description: t('global.trash_can.title'), action: handleDelete, disabled: suspended }];
   
     setOptions(options);
   }, [project]);

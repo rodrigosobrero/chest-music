@@ -24,8 +24,8 @@ export default function DeleteVersionModal(props) {
   return (
     <>
       <BaseModal
-        title='move to trash can'
-        description='Are you sure you want to move this version to the Trash Can? It will be deleted in 30 days.'
+        title={t('global.trash_can.title')}
+        description={t('global.trash_can.description')}
         show={props.isOpen}
         onClose={handleClose}>
         <div className='flex flex-col items-center'>
@@ -39,7 +39,7 @@ export default function DeleteVersionModal(props) {
             style='tertiary'
             onClick={handleClose} />
           <Button
-            text='Move to trash'
+            text={t('global.trash_can.title')}
             style='primary'
             disabled={isLoading}
             loading={isLoading}

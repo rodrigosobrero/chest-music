@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useGetTrashQuery, useGetProjectQuery } from 'store/api';
+import { useTranslation } from 'react-i18next';
 
 import Breadcrumb from 'components/Breadcrumb';
 import TrashCanTable from 'components/treasure/TrashCanTable';
@@ -8,7 +9,7 @@ import { ReactComponent as Empty } from 'assets/images/empty-chest.svg';
 
 export default function Trash() {
   const { id } = useParams();
-
+  const { t } = useTranslation();
   const {
     data = [],
     isLoading,
@@ -20,9 +21,9 @@ export default function Trash() {
   } = useGetProjectQuery(id);
 
   const breadcrumb = [
-    { name: 'My chest', link: '/my-chest' },
+    { name: t('global.my chest'), link: '/my-chest' },
     { name: project.name, link: `/my-chest/treasure/${project.id}` },
-    { name: 'Trash can', link: '' }
+    { name: t('global.trash_can.trash_can'), link: '' }
   ];
 
   if (isLoading || isFetching) {
@@ -41,13 +42,13 @@ export default function Trash() {
       <div className='container flex flex-col gap-6 md:gap-10 py-8 lg:py-[40px]'>
         <div className='flex flex-col gap-4'>
           <Breadcrumb items={breadcrumb} />
-          <h2 className='text-[64px] md:text-[76px]'>trash can</h2>
+          <h2 className='text-[64px] md:text-[76px]'>{t('global.trash_can.trash_can')}</h2>
         </div>
         {data.length > 0
           ? <TrashCanTable data={data} />
           : (
             <div className='flex flex-col items-center'>
-              <span className='text-[28px] font-semibold mb-2'>Nothing here</span>
+              <span className='text-[28px] font-semibold mb-2'>{t('notification.nothing_here')}</span>
               <Empty width={240} height={128} className='mb-5' />
             </div>
           )

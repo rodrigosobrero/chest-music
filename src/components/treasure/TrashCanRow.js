@@ -11,7 +11,7 @@ export default function TrashCanRow({ item }) {
           <>
             <td>{item.version}</td>
             <td>{item.date_moved}</td>
-            <td>{format.date(item.days_remaining)}</td>
+            <td>{item.days_remaining}</td>
           </>
         )}
         <td>
