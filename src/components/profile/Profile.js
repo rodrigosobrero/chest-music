@@ -14,8 +14,8 @@ const ProfileView = () => {
   const items_fan = t('profile.fan_sections', { returnObjects: true });
   const classIcon = 'h-7 w-7 text-brand-gold'
   const to_fan = [ 'played',  'account', 'security', 'help', 'terms']
-  const to = [ 'played', 'permissions', 'account', 'security', 'help', 'terms']
-  const icons = [ <ClockIcon className={classIcon} /> , <KeyIcon className={classIcon} />, <CloudIcon className={classIcon} />, 
+  const to = [ 'referal','played', 'permissions', 'account', 'security', 'help', 'terms']
+  const icons = [ <ClockIcon className={classIcon} />, <ClockIcon className={classIcon} /> , <KeyIcon className={classIcon} />, <CloudIcon className={classIcon} />, 
                  <Unlocked className={classIcon} />, <QuestionMarkCircleIcon className={classIcon} />, <DocumentDuplicateIcon className={classIcon}/> ]
   const icons_fan = [ <ClockIcon className={classIcon} /> , <CloudIcon className={classIcon} />, 
                  <Unlocked className={classIcon} />, <QuestionMarkCircleIcon className={classIcon} />, <DocumentDuplicateIcon className={classIcon}/> ]            
