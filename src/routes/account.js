@@ -46,7 +46,7 @@ const Account = () => {
 
   const items = t('profile.sections', { returnObjects: true });
 
-  let paths = [{ name: t('global.profile'), link: '/profile' }, { name: items[2].title }];
+  let paths = [{ name: t('global.profile'), link: '/profile' }, { name: items[3].title }];
 
   return (
     <>
@@ -60,7 +60,7 @@ const Account = () => {
         <Breadcrumb className='px-3 md:px-0' items={paths} />
         <div className='container-head-account'>
           <div className='container-items-account'>
-            <h4 className='font-thunder-bold text-5xl uppercase font-bold'>{items[2].title}</h4>
+            <h4 className='font-thunder-bold text-5xl uppercase font-bold'>{items[3].title}</h4>
             <h5 className='!font-archivo'>{t('account.subtitle')}</h5>
           </div>
         </div>

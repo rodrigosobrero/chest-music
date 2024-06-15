@@ -6,7 +6,7 @@ const Terms = () => {
   const { t, i18n } = useTranslation() 
   const { data: terms = [] } = useGetTermsQuery(i18n.language === 'en' ? 'english' : 'spanish', { refetchOnMountOrArgChange: true })
   const items = t('profile.sections', { returnObjects: true });
-  let paths = [{ name: t('global.profile'), link: '/profile' }, { name: items[4].title }]
+  let paths = [{ name: t('global.profile'), link: '/profile' }, { name: items[6].title }]
 
   const Item = ({ title, text }) => {
     return (

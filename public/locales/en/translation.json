@@ -234,7 +234,7 @@
     "logout": "Log out",
     "sections": [
       {
-        "title": "Referal code",
+        "title": "Referral code",
         "subtitle": "Exclusive benefit for ambassadors"
       },
       {
@@ -421,9 +421,12 @@
       }
     ]
   },
-  "referal":{
+  "referral":{
     "title":"How does the referral code work?",
-    "text":"Invite artists and producers to join Chest using your referral code, giving the new user a discount and generating income for you: 20% of the subscription will be credited to this section every month the referred user pays it. More information."
+    "text":"Invite artists and producers to join Chest using your referral code, giving the new user a discount and generating income for you: 20% of the subscription will be credited to this section every month the referred user pays it. More information.",
+    "share_code":"Share your code",
+    "copy":"Copy",
+    "my_referrals":"My Referrals"
   },
   "share": {
     "title": "Share your treasure",

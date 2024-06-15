@@ -13,7 +13,7 @@ const Help = () => {
   const { data: faqs = [] } = useGetFaqsQuery(i18n.language === 'en' ? 'english' : 'spanish', { refetchOnMountOrArgChange: true })
   const [ filteredData, setFilteredData ] = useState(faqs)
   const items = t('profile.sections', { returnObjects: true });
-  let paths = [{ name: t('global.profile'), link: '/profile' }, { name: items[4].title }]
+  let paths = [{ name: t('global.profile'), link: '/profile' }, { name: items[5].title }]
   const [isOpen, setIsOpen] = useState(false);
   const onChange = (e) => {
     setFilteredData(faqs.filter((el) => el.question.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(e.target.value.toLowerCase())))
@@ -25,7 +25,7 @@ const Help = () => {
         <Breadcrumb className='px-3 md:px-0' items={paths}/>
         <div className='container-head-account'>
           <div className='container-items-account'>
-              <h4 className='font-thunder-bold text-5xl font-bold uppercase'>{items[4].title}</h4>
+              <h4 className='font-thunder-bold text-5xl font-bold uppercase'>{items[5].title}</h4>
               <h5 className='text-neutral-silver-200 !text-base md:!text-lg !normal-case !font-archivo'>{t('help_center.subtitle')}</h5>
           </div>
         </div>
