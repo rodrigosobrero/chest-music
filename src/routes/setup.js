@@ -23,6 +23,9 @@ export default function Setup() {
   const [createSubscription, { isLoading: isLoadingSuscription }] = useCreateSubscriptionMutation();
   const { data: account, isLoading: isLoadingGetAccount } = useGetAccountQuery({}, { refetchOnMountOrArgChange: true });
   const { data: plans } = useGetPlansQuery({}, { refetchOnMountOrArgChange: true });
+  const [referralCode, setReferralCode] = useState(() => {
+    return localStorage.getItem('referralCode') || '';
+  });
 
   const [setupData, setSetupData] = useState({
     username: '',
@@ -48,12 +51,14 @@ export default function Setup() {
   }
 
   const handleFirstStep = (data) => {
+    console.log(referralCode);
     setSetupData({
       ...setupData,
       username: data.username,
       full_name: data.name,
       email: account.email,
-      login_method: account.login_method
+      login_method: account.login_method,
+      referral_code: referralCode
     });
     setStep(1);
   }
@@ -168,6 +173,12 @@ export default function Setup() {
               required
               register={register}
               error={errors.name && 'This field is required'} />
+            <Input
+              value={referralCode}
+              type='referralCode'
+              name='referralCode'
+              label='Referral Code'
+              disabled />
           </div>
           {errors.terms && (
             <div className='flex items-center justify-end h-14'>

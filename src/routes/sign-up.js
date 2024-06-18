@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useModal } from 'hooks/useModal';
 import { auth, provider } from 'utils/firebase';
@@ -17,6 +17,17 @@ export default function SignUp() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [loadingGoogle, setLoadingGoogle] = useState(false);
+  const location = useLocation();
+
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const referralCode = queryParams.get('referral');
+    if (referralCode) {
+      console.log('Referral code:', referralCode);
+      localStorage.setItem('referralCode', referralCode);
+    }
+  }, [location]);
 
   const { onOpen: openErrorModal } = useModal('ErrorModal');
 
@@ -28,7 +39,6 @@ export default function SignUp() {
 
   const handleSignUp = (data) => {
     setLoading(true);
-
     createUserWithEmailAndPassword(auth, data.email, data.password)
       .then(() => { navigate('/setup') })
       .catch((error) => {
