@@ -3,12 +3,13 @@ import { timeDifference } from 'utils/helpers';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
 const ManageRow = ({ data, isMobile }) => {  
+  console.log(data);
   const renderDesktopRow = () => (
     <tr className={!data.accepted && 'opacity-50'}>
-      <td className='text-lg'>{data.name}</td>
+      <td className='text-lg'>{data.full_name}</td>
       <td>@{data.username}</td>
-      <td>plan elegido</td>
-      <td>{timeDifference(data.date_added)}</td>
+      <td>{data.subscription.plan}</td>
+      <td>{timeDifference(data.subscription.date_started)}</td>
     </tr>
   );
 

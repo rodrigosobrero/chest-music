@@ -65,7 +65,7 @@ const Referral = () => {
         </div>
         <div className='bg-neutral-black rounded-b-3xl rounded-t-lg md:p-8 flex flex-row mt-1.5'>
         {isFetching ? 
-                  <img src={spinner} alt='' width={20} height={20} className='animate-spin' /> : data.length >  0 ? <ReferralList data={data} /> :            
+                  <img src={spinner} alt='' width={20} height={20} className='animate-spin' /> : data?.referrals?.length >  0 ? <ReferralList data={data?.referrals} /> :            
                     <div className='flex flex-col items-center gap-2'>
                         <h4 className='empty-title'>{t('notification.nothing_here')}</h4>
                         <p className='text-lg text-neutral-silver-200 font-light mb-10'>
