@@ -19,8 +19,6 @@ const Referral = () => {
   
   const copyToClipboard = () => {
     navigator.clipboard.writeText(data?.ambassador_url).then(() => {
-      console.log(data?.ambassador_url);
-      console.log(data);
     }).catch((err) => {
       console.error('Failed to copy text: ', err);
     });
