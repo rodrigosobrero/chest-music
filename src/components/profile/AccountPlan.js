@@ -68,7 +68,7 @@ const AccountPlan = ({ data }) => {
 
   useEffect(() => {
     if (plans && data) {
-      const plan = plans.filter(item => item.id === data.subscription.plan);
+      const plan = plans.plans.filter(item => item.id === data.subscription.plan);
       const lang = i18n.language.split('-')[0];
 
       setCurrenPlan(plan[0]);
@@ -88,7 +88,7 @@ const AccountPlan = ({ data }) => {
       setSuspended(true);
     }
   }, [data]);
-
+  console.log('DATA EN ACCOUNT',data)
   return (
     <>
       <Modal show={show} setShow={setShow} >
@@ -98,13 +98,14 @@ const AccountPlan = ({ data }) => {
       <div className='container-accountPlan'>
         <h4 className='text-[22px] !font-archivo !font-semibold !normal-case xl:'>{t('account.my_plan')}</h4>
         <div className='flex gap-y-8 md:gap-x-14 flex-wrap xl:flex-nowrap flex-col md:flex-row'>
-          <div className='space-y-4 flex flex-col'>
-            <h5 className='text-neutral-silver-200 !font-archivo !text-base'>{t('account.current_plan')}</h5>
+          <div className='space-y-4 flex flex-col gap-5 w-[50%] '>
+            <h5 className='mt-5 text-neutral-silver-200 !font-archivo !text-base'>{t('account.current_plan')}</h5>
             <div className='flex flex-col md:flex-row gap-4'>
               <div className='md:w-3/5 '>
                 <h5 className='mb-1 !text-xl !capitalize !font-archivo'>{t(`role.${data?.type}`)}</h5>
+                
                 <span className='text-neutral-silver-300 !text-sm'>
-                  {t('account.plan_description')}
+                  {data.full_name}
                 </span>
               </div>
               <div className='flex items-center space-x-2'>
@@ -170,10 +171,14 @@ const AccountPlan = ({ data }) => {
               </div>
             )}
           </div>
-          {data && data.type === 'artist' && (
-            <div className='space-y-4 flex flex-col'>
-              <h5 className='text-neutral-silver-200 !text-base !font-archivo'>{t('account.storage')}</h5>
-              <div className='flex items-center gap-x-4 grow'>
+
+        </div>
+        
+        </div>
+        {data && data.type === 'artist' && (
+            <div className='flex flex-col justify-between'>
+              <h5 className='mt-5 text-neutral-silver-200 !text-base !font-archivo'>{t('account.storage')}</h5>
+              <div className='flex items-center gap-x-4 grow mt-12'>
                 <StorageIndicator
                   usedSpace={data.used_seconds}
                   totalSpace={data.total_seconds}
@@ -192,8 +197,6 @@ const AccountPlan = ({ data }) => {
               </div>
             </div>
           )}
-        </div>
-        </div>
         </div>
       </div>
     </>

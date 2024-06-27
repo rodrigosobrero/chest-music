@@ -19,7 +19,7 @@ export default function Subscription() {
 
   useEffect(() => {
     if (plans && account) {
-      const plan = plans.filter(item => item.id === account.subscription.plan);
+      const plan = plans.plans.filter(item => item.id === account.subscription.plan);
       const lang = i18n.language.split('-')[0];
 
       setCurrenPlan(plan[0]);
