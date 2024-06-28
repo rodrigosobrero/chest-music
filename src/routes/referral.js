@@ -34,12 +34,12 @@ const Referral = () => {
                 <h3 className='font-thunder-bold !text-5xl !font-bold'>{t(items[0].title)}</h3>
             </div>
         </div>
-        <div className='bg-neutral-black rounded-3xl md:p-8 flex flex-row gap-10'>
-            <div className='ml-8 mr-6 flex flex-col gap-y-6 w-3/5'>
+        <div className='bg-neutral-black rounded-3xl p-8 flex flex-col sm:flex-col xl:flex-row  gap-10'>
+            <div className='flex flex-col gap-y-6 w-full'>
             <h4 className='!text-lg !font-archivo !normal-case'>{t('referral.title')}</h4>
             <p className='!text-base text-neutral-silver-200 !font-archivo !text-left'>{t('referral.text')}</p>
             </div>
-            <div className='  flex flex-col gap-y-4 w-2/5'>
+            <div className='  flex flex-col gap-y-4 w-full'>
             <div className=' flex flex-row'>
             <h4 className='!text-lg !font-archivo !normal-case w-4/5'>{t('referral.share_code')}</h4>
             <button
@@ -50,18 +50,18 @@ const Referral = () => {
                 <Square2StackIcon className='inline-flex h-6 w-6 text-brand-gold group-hover:text-orange-400' />
             </button>
             </div>
-            <div className='bg-neutral-silver-700 rounded-3xl md:p-8 py-8 px-6 flex flex-row'>
+            <div className='bg-neutral-silver-700 rounded-3xl py-8 px-6 flex flex-row'>
             <h4 className='!text-lg !font-archivo !normal-case text-neutral-silver-300 truncate'>{data?.ambassador_url}</h4>
             </div>
             </div>
 
         </div>
-        <div className='bg-neutral-black rounded-t-3xl rounded-b-lg md:p-8 flex flex-row mt-8'>
+        <div className='bg-neutral-black rounded-t-3xl rounded-b-lg p-8 flex flex-row mt-8'>
             <div className='container-items-account'>
                 <h3 className='font-thunder-bold !text-5xl !font-bold ml-8'>{t('referral.my_referrals')}</h3>
             </div>
         </div>
-        <div className='bg-neutral-black rounded-b-3xl rounded-t-lg md:p-8 flex flex-row mt-1.5'>
+        <div className='bg-neutral-black rounded-b-3xl rounded-t-lg p-8 flex flex-row mt-1.5'>
         {isFetching ? 
                   <img src={spinner} alt='' width={20} height={20} className='animate-spin' /> : data?.referrals?.length >  0 ? <ReferralList data={data?.referrals} /> :            
                     <div className='flex flex-col items-center gap-2'>

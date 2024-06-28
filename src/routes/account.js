@@ -4,7 +4,7 @@ import { signOut } from 'firebase/auth';
 import { auth } from 'utils/firebase';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
-import { useGetPlansQuery } from 'store/api';
+//import { useGetPlansQuery } from 'store/api';
 import AccountData from 'components/profile/AccountData';
 import AccountPlan from 'components/profile/AccountPlan';
 import Breadcrumb from 'components/Breadcrumb';

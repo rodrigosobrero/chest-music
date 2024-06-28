@@ -638,7 +638,7 @@ input[type="checkbox"]:focus {
 }
 /* ACOUNT PLAN */
 .container-accountPlan {
-  @apply bg-neutral-silver-700 lg:w-3/5 py-8 px-6 lg:px-12 rounded-2xl space-y-6;
+  @apply bg-neutral-silver-700 lg:w-3/5 py-8 px-6 lg:px-12 rounded-2xl space-y-6 flex flex-col ;
 }
 .container-accountPlan h5, h4, span {
   @apply font-archivo normal-case	text-left ;
