@@ -68,7 +68,7 @@ const AccountPlan = ({ data }) => {
 
   useEffect(() => {
     if (plans && data) {
-      const plan = plans.filter(item => item.id === data.subscription.plan);
+      const plan = plans.plans.filter(item => item.id === data.subscription.plan);
       const lang = i18n.language.split('-')[0];
 
       setCurrenPlan(plan[0]);

@@ -234,6 +234,10 @@
     "logout": "Log out",
     "sections": [
       {
+        "title": "Referral code",
+        "subtitle": "Exclusive benefit for ambassadors"
+      },
+      {
         "title": "Recently played",
         "subtitle": "Explore the list of tracks that you have recently listened"
       },
@@ -333,6 +337,8 @@
     "suspended_description": "Your subscription was canceled. Choose a plan to continue using Chest.",
     "ended_title": "Your account is suspended",
     "choose_plan": "Choose a plan",
+    "discount": "Discount applied!",
+    "beta": "BETA User",
     "redirected_to": "You will be redirected to",
     "modals": {
       "delete_account": "Delete Account",
@@ -416,6 +422,15 @@
         "text": "Quis semper diam vehicula odio quam urna vitae porttitor. Varius pretium semper condimentum diam in. Eget massa nibh imperdiet tortor odio dui. Vitae odio adipiscing imperdiet commodo placerat eleifend nunc. Non hendrerit gravida habitasse velit lacus venenatis praesent nisl. Condimentum pharetra in elit elementum ultricies pellentesque. Nullam placerat tempor pretium egestas massa nullam gravida. Suspendisse vel tortor quis dui posuere. Vestibulum malesuada risus est erat lectus risus neque sagittis eleifend. Vitae enim gravida turpis metus sit purus laoreet. Sem nec pretium sit maecenas morbi morbi. Urna quis proin aliquet sed fames turpis suspendisse. Sed quam volutpat vestibulum dictum habitant scelerisque ullamcorper orci amet. Enim et faucibus sed pellentesque risus id morbi urna. Blandit ut nisl sagittis maecenas. Turpis sed nunc egestas justo sem adipiscing eleifend semper ultrices. Sit etiam mi et viverra orci id. Suspendisse accumsan dui bibendum turpis posuere pharetra. Mollis in sem tellus accumsan. Suscipit non morbi pretium donec malesuada elementum vitae. Amet morbi eu donec ac hac senectus. Morbi tempor orci tristique ac. In porta a viverra hendrerit. Ornare neque turpis egestas neque dis aliquam semper ultricies scelerisque. Dictum in amet amet enim tempus. Sem dui pharetra sed et risus cursus fermentum et feugiat. Lorem diam duis cras nunc. Nulla imperdiet laoreet sagittis ipsum morbi leo. Tristique nisi cursus amet iaculis ac facilisis odio faucibus semper. Condimentum orci augue lectus aenean adipiscing eu vitae. In neque sit id aenean id. In nibh dolor odio in et tellus."
       }
     ]
+  },
+  "referral":{
+    "title":"How does the referral code work?",
+    "text":"Invite artists and producers to join Chest using your referral code, giving the new user a discount and generating income for you: 20% of the subscription will be credited to this section every month the referred user pays it. More information.",
+    "share_code":"Share your code",
+    "copy":"Copy",
+    "my_referrals":"My Referrals",
+    "referral_code":"Referal code"
+
   },
   "share": {
     "title": "Share your treasure",

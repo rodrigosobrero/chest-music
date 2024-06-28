@@ -37,14 +37,14 @@ const Permissions = () => {
   }
 
   const items = t('profile.sections', { returnObjects: true });
-  let paths = [{ name: t('global.profile'), link: '/profile' }, { name: items[1].title }]
+  let paths = [{ name: t('global.profile'), link: '/profile' }, { name: items[2].title }]
   return (
     <>
       <div className='pt-4 pb-10 container md:pt-10 md:px-[120px] md:pb-[60px]'>
       <Breadcrumb className='px-3 md:px-0' items={paths}/>
         <div className='flex flex-col md:flex-row justify-between mt-5 mb-8 gap-y-6 px-1 md:px-0'>
                 <div className='md:px-0 px-3 container-items-account'>
-                    <h4 className='font-thunder-bold text-5xl font-bold uppercase'>{items[1].title}</h4>
+                    <h4 className='font-thunder-bold text-5xl font-bold uppercase'>{items[2].title}</h4>
                     <span>{t('permissions.subtitle')}</span>
                 </div>
                 <div className='flex items-center gap-3 p-3 max-w-md grow bg-neutral-black self-center rounded-xl '> 

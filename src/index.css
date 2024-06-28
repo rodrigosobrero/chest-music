@@ -1077,6 +1077,18 @@ input[type="search"]::-webkit-search-results-decoration {
   @apply w-auto;
 }
 
+.discount-container{
+  width: Hug (110px)px;
+height: Hug (38px)px;
+padding: 8px 16px 8px 16px;
+gap: 10px;
+border-radius: 12px 12px 12px 12px;
+opacity: 0px;
+background: linear-gradient(180deg, #A06819 0%, #FFBE62 100%);
+color:black;
+font-weight: bold;
+}
+
 @media screen and (max-width: 1024px) {
   .toast-container {
     right: auto;

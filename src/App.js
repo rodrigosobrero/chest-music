@@ -36,6 +36,7 @@ import SharedPlay from 'routes/shared-play';
 import PasswordReset from 'routes/password-reset';
 import Subscription from 'routes/subscription';
 import Plan from 'routes/plan';
+import Referral from 'routes/referral';
 
 function App() {
   const [getBetaAccess] = useLazyGetBetaAccessQuery();
@@ -158,6 +159,13 @@ function App() {
           element:
             <ProtectedRoute onlyArtist={false}>
               <Terms />
+            </ProtectedRoute>
+        },
+        {
+          path: 'profile/referral',
+          element:
+            <ProtectedRoute onlyArtist={false}>
+              <Referral />
             </ProtectedRoute>
         },
         {
