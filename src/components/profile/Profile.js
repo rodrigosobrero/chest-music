@@ -31,15 +31,18 @@ const ProfileView = () => {
        <div className='w-full md:w-3/5 flex flex-col justify-center mx-auto items-center gap-y-8 md:gap-y-10'>
             <ProfileHead data={user?.data} token={user?.token}/>
             <div className='flex flex-col gap-y-3 md:gap-y-5 w-full'>
-              {user && user.data.type === 'artist' ? 
-                items?.map((el, i) => (
-                            <ProfileRow key={el.title} title={el.title} subtitle={el.subtitle} to={to[i]} icon={icons[i]}/>
-                )) :
-                items_fan.map((el, i) => (
-                  <ProfileRow key={el.title} title={el.title} subtitle={el.subtitle} to={to_fan[i]} icon={icons_fan[i]}/>
-                ))
-              
-              }
+            {user && user.data.type === 'artist' ? 
+    (!user.data.ambassador ? items?.slice(1).map((el, i) => (
+        <ProfileRow key={el.title} title={el.title} subtitle={el.subtitle} to={to[i + 1]} icon={icons[i + 1]} />
+    )) : items?.map((el, i) => (
+        <ProfileRow key={el.title} title={el.title} subtitle={el.subtitle} to={to[i]} icon={icons[i]} />
+    ))) :
+    (!user.data.ambassador  ? items_fan.slice(1).map((el, i) => (
+        <ProfileRow key={el.title} title={el.title} subtitle={el.subtitle} to={to_fan[i + 1]} icon={icons_fan[i + 1]} />
+    )) : items_fan.map((el, i) => (
+        <ProfileRow key={el.title} title={el.title} subtitle={el.subtitle} to={to_fan[i]} icon={icons_fan[i]} />
+    )))
+}
 
             </div>
             <button className='w-auto bg-neutral-silver-600 py-3 px-6 rounded-[10px]' onClick={handleSignOut}>{t('profile.logout')}</button>

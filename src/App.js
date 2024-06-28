@@ -164,7 +164,7 @@ function App() {
         {
           path: 'profile/referral',
           element:
-            <ProtectedRoute onlyArtist={false}>
+            <ProtectedRoute onlyArtist={false} onlyAmbassador={true} >
               <Referral />
             </ProtectedRoute>
         },

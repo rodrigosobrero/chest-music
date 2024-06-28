@@ -8,7 +8,9 @@ import Loader from 'components/Loader';
 export default function ProtectedRoute({
   children,
   redirectPath = '/sign-in',
-  onlyArtist = true }) {
+  onlyArtist = true,
+  onlyAmbassador = false
+}) {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -42,6 +44,11 @@ export default function ProtectedRoute({
     if ((!user.data || !user.data.subscription) && location.pathname !== '/setup') {
       navigate('/setup');
     }
+
+    if (onlyAmbassador && user.data.ambassador === false) {
+      navigate('/setup');
+    }
+    
   }, [authChecked, user, location.pathname, navigate, redirectPath]);
 
   if (!authChecked || !isAuthenticated) {
