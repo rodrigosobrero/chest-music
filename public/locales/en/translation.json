@@ -337,6 +337,8 @@
     "suspended_description": "Your subscription was canceled. Choose a plan to continue using Chest.",
     "ended_title": "Your account is suspended",
     "choose_plan": "Choose a plan",
+    "discount": "Discount applied!",
+    "beta": "BETA User",
     "redirected_to": "You will be redirected to",
     "modals": {
       "delete_account": "Delete Account",
@@ -426,7 +428,9 @@
     "text":"Invite artists and producers to join Chest using your referral code, giving the new user a discount and generating income for you: 20% of the subscription will be credited to this section every month the referred user pays it. More information.",
     "share_code":"Share your code",
     "copy":"Copy",
-    "my_referrals":"My Referrals"
+    "my_referrals":"My Referrals",
+    "referral_code":"Referal code"
+
   },
   "share": {
     "title": "Share your treasure",

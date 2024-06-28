@@ -18,6 +18,8 @@ import stripe from 'assets/images/logo-stripe.svg';
 import mp from 'assets/images/logo-mp.svg';
 import { TagIcon } from "@heroicons/react/24/outline";
 import spinner from 'assets/images/icon-loading-claim.png';
+import icon from 'assets/images/icon-exclamation-circle.svg'
+import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 export default function Setup() {
   const { t, i18n } = useTranslation();
@@ -68,15 +70,23 @@ export default function Setup() {
   };
 
   useEffect(() => {
-    if (step === 1) {
-      handleSetup();
-      refetchAccount().then(() => {
-        refetchPlans().then(() => {
-          setPlansUpdated(true);
-        });
-      });
-    }
+    const fetchData = async () => {
+      if (step === 1) {
+        try {
+          await handleSetup(); 
+          await refetchAccount(); 
+          await refetchPlans(); 
+          setPlansUpdated(true); 
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      }
+    };
+  
+    fetchData();
   }, [setupData, step]);
+
+  
 
   const handlePlan = (plan) => {
     setSelectedPlan(plan)
@@ -119,7 +129,7 @@ export default function Setup() {
       )
     }
   }, [plans]);
-
+  
   const planOption = (plan) => {
     const lang = i18n.language.split('-')[0];
 
@@ -137,7 +147,22 @@ export default function Setup() {
             checked={plan.id == selectedPlan}
             {...register('plan', { required: true })} />
           <label htmlFor='free'>
-            <div className='text-lg font-semibold'>{plan.displayed_data[lang].title}</div>
+            <div className='flex items-center gap-3 py-3 max-w-md grow justify-between rounded-xl '> 
+            <div className='text-lg font-semibold self-center'>{plan.displayed_data[lang].title}</div>
+            <img src={icon} className='h-6 w-6 relative' alt='exclamation circle' data-tooltip-id='a'/>
+            
+          <ReactTooltip id='a' style={{
+          width: '306px',
+          height: '78px',
+          padding: '12px',
+          gap: '10px',
+          borderRadius: '12px 12px 12px 12px',
+          background: '#E6E9ED',
+          color: '#000',
+        }}>
+          {plan.displayed_data[lang].tooltip}
+          </ReactTooltip>
+            </div>
             <div className='text-sm text-neutral-silver-300 mb-3'>{plan.displayed_data[lang].description}</div>
             <div className='mt-3 flex gap-1 items-baseline'>
               <span className='font-thunder text-2xl uppercase'>
@@ -194,12 +219,12 @@ export default function Setup() {
               required
               register={register}
               error={errors.name && 'This field is required'} />
-            {referralCode !== '' && <Input
+            {/* {referralCode !== '' && <Input
               value={referralCode}
               type='referralCode'
               name='referralCode'
               label='Referral Code'
-              disabled />}
+              disabled />} */}
           </div>
           {errors.terms && (
             <div className='flex items-center justify-end h-14'>
@@ -236,7 +261,7 @@ export default function Setup() {
       </Modal>
       <div className='px-6 flex flex-col items-center gap-8'>
         <div>
-          <h2 className='text-[64px] md:text-[76px]'>elige un plan</h2>
+          <h2 className='text-[64px] md:text-[76px]'>{t('account.choose_plan')}</h2>
         </div>
         {["referral", "discount"].includes(plans.discount?.type) &&
           <div className='w-full max-w-[480px] flex flex-col gap-3'>
@@ -245,9 +270,9 @@ export default function Setup() {
                 <TagIcon className={classIcon} />
               </div>
               <div className='flex flex-col grow'>
-                <span className='text-lg'>¡Descuento aplicado!</span>
+                <span className='text-lg'>{t('account.discount')}</span>
                 <span className='text-neutral-silver-300'>
-                  Usuario {plans.discount?.type === "referral" ? 'Referido' : 'BETA'}
+                  {plans.discount?.type === "referral" ? t('referral.referral_code') : t('account.beta')}
                 </span>
               </div>
               <div className='discount-container'>

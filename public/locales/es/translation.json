@@ -312,6 +312,8 @@
     "suspended_description" : "Tu suscripción fue cancelada. Elige un plan ara continuar utilizando Chest.",
     "ended_title": "Tu cuenta se encuentra suspendida",
     "choose_plan": "Elegir un plan",
+    "discount": "¡Descuento aplicado!",
+    "beta": "Usuario BETA",
     "redirected_to": "Te redireccionaremos a",
     "modals": {
       "delete_account": "Eliminar cuenta",
@@ -400,7 +402,8 @@
     "text":"Invitá a artistas y productores a unirse a Chest a traves de tu código de referido, dandole un descuento al nuevo usuario y generando ingresos para vos: el 20% de la suscripción se acreditará por mes en esta sección durante todos los meses que el referido la este pagando. Más información.",
     "share_code":"Compartí tu código",
     "copy":"Copiar",
-    "my_referrals":"Mis referidos"
+    "my_referrals":"Mis referidos",
+    "referral_code":"Código de referidos"
   },
   "share": {
     "title": "Compartí tu tesoro",
