@@ -10,9 +10,11 @@ import Breadcrumb from 'components/Breadcrumb';
 import Button from 'components/Button';
 import stripe from 'assets/images/logo-stripe.svg';
 import mp from 'assets/images/logo-mp.svg';
+import { TagIcon } from "@heroicons/react/24/outline";
 
 export default function Plan() {
   const { t, i18n } = useTranslation();
+  const classIcon = 'h-7 w-7 text-brand-gold'
   const paths = [
     { name: t('global.profile'), link: '/profile' },
     { name: t('global.account'), link: '/profile/account' },
@@ -53,8 +55,8 @@ export default function Plan() {
   }
 
   useEffect(() => {
-    if (plans) {
-      setSelectedPlan(plans[0].id);
+    if (plans.plans) {
+      setSelectedPlan(plans.plans[0].id);
     }
   }, [plans]);
 
@@ -98,9 +100,16 @@ export default function Plan() {
               <span className='font-thunder text-2xl uppercase'>
                 {plan.displayed_data[lang].currency}
               </span>
+              {["referral", "discount"].includes(plans.discount?.type) ?
+              <p>
+              <span className='font-thunder text-4xl line-through text-neutral-silver-300' style={{ textDecorationThickness: '1.5px' }}>{plan.displayed_data[lang].regular_price}</span>
+              <span className='font-thunder text-4xl'> {plan.displayed_data[lang].price}</span>
+              </p>
+              :
               <span className='font-thunder text-4xl'>
-                {plan.displayed_data[lang].price}
+              {plan.displayed_data[lang].price}
               </span>
+              }
               <span>
                 / {plan.displayed_data[lang].recurrence}
               </span>
@@ -126,8 +135,25 @@ export default function Plan() {
               )}
             </h2>
             <div className='flex flex-col gap-3 max-w-[480px] w-full mb-6'>
-              {plans && (
-                plans.map(plan => planOption(plan))
+            {["referral", "discount"].includes(plans.discount?.type) &&
+          <div className='w-full max-w-[480px] flex flex-col gap-3'>
+            <div className='bg-neutral-silver-600 rounded-2xl px-6 py-4 flex flex-row items-center gap-x-4'>
+              <div className='bg-neutral-silver-700 rounded-xl flex justify-center items-center p-3'>
+                <TagIcon className={classIcon} />
+              </div>
+              <div className='flex flex-col grow'>
+                <span className='text-lg'>{t('account.discount')}</span>
+                <span className='text-neutral-silver-300'>
+                  {plans.discount?.type === "referral" ? t('referral.referral_code') : t('account.beta')}
+                </span>
+              </div>
+              <div className='discount-container'>
+                {plans.discount?.percentage}% OFF
+              </div>
+            </div>
+          </div>}
+              {plans.plans && (
+                plans.plans.map(plan => planOption(plan))
               )}
             </div>
             <div className='w-full max-w-[480px] flex flex-col gap-3'>
@@ -136,13 +162,13 @@ export default function Plan() {
                 <div className='flex flex-col grow'>
                   <span className='text-lg'>{t('account.credit_debit')}</span>
                   <span className='text-sm text-neutral-silver-300'>
-                    {t('account.redirected_to')} {plans[0].payment_method === 'mercadopago' ? 'Mercado Pago' : 'Stripe'}
+                    {t('account.redirected_to')} {plans.plans[0].payment_method === 'mercadopago' ? 'Mercado Pago' : 'Stripe'}
                   </span>
                 </div>
                 <div>
                   <img 
-                    src={plans[0].payment_method === 'mercadopago' ? mp : stripe}
-                    alt={plans[0].payment_method === 'mercadopago' ? 'Mercado Pago' : 'Stripe'} 
+                    src={plans.plans[0].payment_method === 'mercadopago' ? mp : stripe}
+                    alt={plans.plans[0].payment_method === 'mercadopago' ? 'Mercado Pago' : 'Stripe'} 
                     width={104} 
                     height={36} />
                 </div>
