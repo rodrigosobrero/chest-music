@@ -1083,7 +1083,7 @@ height: Hug (38px)px;
 padding: 8px 16px 8px 16px;
 gap: 10px;
 border-radius: 12px 12px 12px 12px;
-opacity: 0px;
+opacity: 1;
 background: linear-gradient(180deg, #A06819 0%, #FFBE62 100%);
 color:black;
 font-weight: bold;
