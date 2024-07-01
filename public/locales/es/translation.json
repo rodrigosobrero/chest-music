@@ -40,7 +40,7 @@
     },
     "trash_can": {
       "trash_can": "Papelera",
-      "description": "Are you sure you want to move this version to the Trash Can? It will be deleted in 30 days.",
+      "description": "¿Estás seguro de que deseas mover esta versión a la Papelera? Se eliminará en 30 días.",
       "title" : "Enviar a papelera",
       "restore_title" : "Restaurar versión",
       "restore" : "Restaurar",
