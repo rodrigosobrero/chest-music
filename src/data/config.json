@@ -33,8 +33,8 @@
     { "name": "notifications", "link": "/notifications", "private": true }
   ],
   "languages": [
-    { "code": "es", "name": "english", "icon": "🇦🇷" },
-    { "code": "en", "name": "spanish", "icon": "🇺🇸", "default": true }
+    { "code": "es", "name": "english", "icon": "🇦🇷", "default": true },
+    { "code": "en", "name": "spanish", "icon": "🇺🇸" }
   ],
   "accepted_files": ".mp3, .wav, .m4a",
   "accepted_extensions": [

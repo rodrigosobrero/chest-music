@@ -9,6 +9,7 @@ import authReducer from 'app/auth';
 import fileReducer from 'app/upload';
 import playerReducer from 'app/player';
 import { modalReducer } from './modals';
+import toastsReducer from 'app/toast';
 
 const reducers = combineReducers({
   playlist: playlistReducer,
@@ -16,11 +17,12 @@ const reducers = combineReducers({
   upload: fileReducer,
   modal: modalReducer,
   player: playerReducer,
+  toasts: toastsReducer,
   [api.reducerPath]: api.reducer
 })
 
 const persistConfig = {
-  blacklist: ['modal', 'playlist'],
+  blacklist: ['modal', 'playlist', 'toasts'],
   key: 'root',
   storage
 }

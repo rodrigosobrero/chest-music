@@ -9,6 +9,7 @@ export default function ProgressBar({ progress, direction, color, size, backgrou
     <>
       <div className={classNames({
         'flex rounded-[3px] h-1.5': true,
+        'w-[100px] xl:w-[150px]': size === 'responsive',
         'w-[150px]': size === '150',
         'w-full': size === 'full',
         'justify-end': direction === 'right',
@@ -16,8 +17,8 @@ export default function ProgressBar({ progress, direction, color, size, backgrou
         'bg-neutral-silver-600': background === 'gray',
         'bg-neutral-black': background === 'black',
       })}>
-        <div 
-          style={innerStyle} 
+        <div
+          style={innerStyle}
           className={classNames({
             'w-0 h-full rounded-[3px] transition-transform duration-500': true,
             'bg-brand-uva': color === 'violet',

@@ -11,12 +11,12 @@ export default function WrongFormatModal(props) {
 
   return (
     <BaseModal
-      title={'wrong format'}
+      title={t('upload.wrong_format')}
       show={props.isOpen}
       onClose={handleClose}>
       <div>
         <p className='text-neutral-silver-200 text-lg mb-8'>
-          The file you uploaded isn’t .wav or .mp3, please try again with the correct file format.
+          {t('upload.wrong_format_description')}
         </p>
       </div>
       <div className='flex justify-center'>

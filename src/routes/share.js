@@ -55,11 +55,13 @@ const Share = () => {
           <div className='flex flex-col w-full md:items-center md:mt-0 mt-4'>
           <OptionSectionDesktop status={status} changeStatus={changeStatus} />
           <OptionSectionMobile status={status} changeStatus={changeStatus} />
-              {status === 'generate' && <LinkGenerate versionId={track?.versions?.length > 0 && track?.versions[0].id} token={user?.token} onCancel={goBack}/>}
-              {status === 'post' && <PostTwitter toggleUnlimited={toggleUnlimited} onCancel={goBack} versionId={track?.versions?.length > 0 && track?.versions[0].id} token={user?.token}/>}
-              {status === 'story' && <Story token={user?.token} onCancel={goBack}/>}
+              {status === 'generate' && <LinkGenerate versionId={track?.versions?.length > 0 && track?.versions[0].id} token={user?.token} onCancel={goBack} track={track?.name} />}
+              {status === 'post' && 
+                          <PostTwitter toggleUnlimited={toggleUnlimited} onCancel={goBack} versionId={track?.versions?.length > 0 && track?.versions[0].id} 
+                                       token={user?.token} track={track.name}/>}
+              {/* {status === 'story' && <Story token={user?.token} onCancel={goBack}/>} */}
               {status === 'send' && <SendDM onCancel={goBack} toggleUnlimited={toggleUnlimited} token={user?.token} versionId={track?.versions?.length > 0 && track?.versions[0].id}/>}
-              {status === 'reel' && <Reel onCancel={goBack} />}
+              {/* {status === 'reel' && <Reel onCancel={goBack} />} */}
           </div>
         </div>
       </div>

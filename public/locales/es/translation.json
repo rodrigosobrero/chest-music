@@ -1,7 +1,18 @@
 {
   "global": {
     "upload": "Seleccionar archivo",
+    "searchbar":"¿No puedes encontrar a ese usuario? ¡Invítalo por correo electrónico!",
     "click_here": "clic aquí",
+    "yes":"Si",
+    "no":"No",
+    "permissions":"permisos",
+    "participants":"participantes",
+    "unlimited":"Ilimitadas",
+    "unlimited_plays":"Reproducciones Ilimitadas",
+    "links":"enlaces",
+    "link":"enlace",
+    "users":"usuarios",
+    "you":"tú",
     "password": "Contraseña",
     "write_here": "Escribe aquí",
     "divider": "o",
@@ -27,6 +38,19 @@
     "become": {
       "description": "Estás seguro que querés convertirte en artista? Esta acción no se puede deshacer."
     },
+    "trash_can": {
+      "trash_can": "Papelera",
+      "description": "¿Estás seguro de que deseas mover esta versión a la Papelera? Se eliminará en 30 días.",
+      "title" : "Enviar a papelera",
+      "restore_title" : "Restaurar versión",
+      "restore" : "Restaurar",
+      "restore_description" : "¿Está seguro de que desea restaurar esta versión a su cofre?"
+    },
+    "links_modal": {
+      "choose_version": "Elija versión",
+      "choose_version_description": "Elija una versión del track para compartir",
+      "version_shared": "Versión compartida"
+    },
     "remove": "Quitar",
     "back": "Volver",
     "profile": "perfil",
@@ -47,6 +71,7 @@
     "free": "Free",
     "block": "Bloquear",
     "placeholder": {
+      "write_user_email": "Escribe usuario o email...",
       "write_here": "Escribe aquí...",
       "search": "Buscar...",
       "select_one": "Selecciona uno...",
@@ -58,7 +83,6 @@
     "edit": "Editar",
     "add": "Agregar",
     "share": "Compartir",
-    "trash_can": "Mover a la papelera",
     "view_details": "Ver detalles",
     "download": "Descargar",
     "delete": "Borrar",
@@ -79,16 +103,28 @@
       "10": "nov",
       "11": "dic"
     },
-    "hours_one": "hace {{count}} hora",
-    "hours_other": "hace {{count}} horas",
+    "years_one": "hace {{count}} año",
+    "years_other": "hace {{count}} años",
+    "months_one": "hace {{count}} mes",
+    "months_other": "hace {{count}} meses",
     "days_one": "hace {{count}} día",
     "days_other": "hace {{count}} días",
+    "hours_one": "hace {{count}} hora",
+    "hours_other": "hace {{count}} horas",
+    "minutes_one": "hace {{count}} minuto",
+    "minutes_other": "hace {{count}} minutos",
+    "seconds_one": "hace {{count}} segundo",
+    "seconds_other": "hace {{count}} segundos",
     "contact_us": "Contáctanos",
     "search_treasure": "Busca un tesoro...",
     "add_version": "Agregar versión",
     "accept": "Aceptar",
     "deny": "Rechazar",
-    "required": "Este campo es obligatorio."
+    "view_trash": "Ver papelera",
+    "edit_track": "Editar track",
+    "share_track": "Compartir track",
+    "required": "Este campo es obligatorio.",
+    "modify": "Modificar"
   },
   "signin": {
     "title": "abre tu cofre",
@@ -98,9 +134,11 @@
     "reset": "¿Perdiste la llave?",
     "beta": {
       "title": "accede a la beta de chest",
+      "button": "Acceder",
       "button_google": "Accede con Google",
       "description": "Inicia sesión en la BETA de Chest con el correo electrónico con el que te invitaron.",
       "signup": "¿No tienes una invitación? Registrate.",
+      "password": "Crear contraseña",
       "modal": {
         "title": "Lo siento, correo electrónico no válido",
         "description": "El correo electrónico que utilizaste para iniciar sesión no está registrado para acceder a Chest BETA. Intenta nuevamente con otro, regístrate o",
@@ -155,10 +193,24 @@
       "title_mobile": "drop it like it’s hot",
       "description": "Arrastra tu archivo de audio aquí para subir una nueva demo, o...",
       "description_mobile": "Selecciona un archivo para subir tu nueva demo"
+    },
+    "sort_modal": {
+      "title": "Ordenar temas",
+      "date_newest": "Fecha agregado (nuevo a viejo)",
+      "date_latest": "Fecha agregado (viejo a nuevo)",
+      "title_a": "Título (A-Z)",
+      "title_z": "Título (Z-A)",
+      "size_biggest": "Tamaño (grande a chico)",
+      "size_smallest": "Tamaño (chico a grande)"
+    },
+    "remove_track": {
+      "title": "Borrarme de la maqueta",
+      "subtitle": "Al borrarte de esta maqueta ya no aparecerá en tu cofre, pero los demás participantes no se verán afectados. ¿Estás seguro?"
     }
   },
   "upload": {
     "title": "nombra tu tesoro",
+    "uploaded": "Subido",
     "track_name": "Nombre del track",
     "your_role": "Tu rol",
     "leave_empty": "Deja vacío para singles",
@@ -166,6 +218,8 @@
     "album": "Álbum",
     "edit_cover": "Editar portada",
     "edit_instruction": "Elige una plantilla de nuestra biblioteca o carga tu propia portada desde tus archivos.",
+    "wrong_format": "Formato incorrecto",
+    "wrong_format_description": "El archivo que subiste no es .wav o .mp3, por favor intenta de nuevo con el formato de archivo correcto.",
     "preview": "Vista previa",
     "presets": "Plantillas",
     "upload_file": "Subir archivo",
@@ -179,6 +233,10 @@
   "profile": {
     "logout": "Cerrar sesión",
     "sections": [
+      {
+        "title": "Código de referidos",
+        "subtitle": "Beneficio exclusivo para embajadores"
+      },
       {
         "title": "Escuchado recientemente",
         "subtitle": "Explora la lista de canciones que has escuchado recientemente"
@@ -238,7 +296,25 @@
     "artist_username": "Nombre de usuario",
     "upgrade": "Aumentar almacenamiento",
     "delete_validation_text": "borrar mi cofre",
-    "plan_description": "Version gratuita y limitada de Chest dentro de la etapa BETA.",
+    "plan_description": "Pago {{recurrence}} de {{currency}} {{price}} ",
+    "manage_subscription": "Administrar suscripción",
+    "free_trial_end": "La prueba gratis finaliza el {{ date }}",
+    "update_subscription": "Administrar suscripción",
+    "payment_method": "Método de pago",
+    "credit_debit": "Tarjeta de crédito o débito",
+    "payment_detail": "El cobro se realiza por",
+    "start_billing": "Inicio de facturación:",
+    "free_date": "No se te cobrará hasta el",
+    "cancel_anytime": "Cancela cuando quieras. Aplican TyC.",
+    "update_plan": "Modificar plan",
+    "cancel_subscription": "Cancelar suscripción",
+    "suspended_title": "Tu cuenta se suspenderá el",
+    "suspended_description" : "Tu suscripción fue cancelada. Elige un plan ara continuar utilizando Chest.",
+    "ended_title": "Tu cuenta se encuentra suspendida",
+    "choose_plan": "Elegir un plan",
+    "discount": "¡Descuento aplicado!",
+    "beta": "Usuario BETA",
+    "redirected_to": "Te redireccionaremos a",
     "modals": {
       "delete_account": "Eliminar cuenta",
       "delete_subtitle": "Nos entristece que te vayas. ¿Estás seguro de que quieres eliminar tu cuenta? Esta operación no se puede deshacer.",
@@ -248,7 +324,10 @@
       "upgrade_title": "Suscríbete a un cofre más grande",
       "upgrade_subtitle": "Deja tus datos aquí para conocer la fecha de lanzamiento antes que nadie, y acceder a la prueba gratuita del Plan Pro.",
       "full_name": "Nombre completo",
-      "country_residence": "País de residencia"
+      "country_residence": "País de residencia",
+      "upgrade_plan": "mejorá tu plan",
+      "subscribe": "Suscribite a Chest Club y conseguí un cofre más grande con más beneficios, a un mejor precio.",
+      "button": "Suscribirme a Chest Club"
     }
   },
   "shared": {
@@ -318,6 +397,14 @@
       }
     ]
   },
+  "referral":{
+    "title":"Cómo funciona el código de referidos?",
+    "text":"Invitá a artistas y productores a unirse a Chest a traves de tu código de referido, dandole un descuento al nuevo usuario y generando ingresos para vos: el 20% de la suscripción se acreditará por mes en esta sección durante todos los meses que el referido la este pagando. Más información.",
+    "share_code":"Compartí tu código",
+    "copy":"Copiar",
+    "my_referrals":"Mis referidos",
+    "referral_code":"Código de referidos"
+  },
   "share": {
     "title": "Compartí tu tesoro",
     "generate_link": "Generar link",
@@ -328,8 +415,16 @@
     "play_limit": "Límite de reproducción",
     "unlimited": "Ilimitado",
     "allow_web_play": "Permitir reproducción web",
+    "web_play": "reproducción web",
     "message": "Mensaje",
-    "message_example": "Por ejemplo: ”chequeá mi nuevo tema”"  
+    "message_example": "Por ejemplo: ”chequeá mi nuevo tema”",
+    "add_participant": "Añadir participante",
+    "share_new_link": "Compartir nuevo enlace",
+    "share_to_user": "Compartir a usuario",
+    "add_user": "Agregue usuarios para acceder a su track a continuación",
+    "edit_participant_permissions": "Editar permisos de participante",
+    "edit_user_permissions": "Editar permisos de usuario",
+    "edit_link_permissions": "Editar permisos de enlace"
   },
   "footer": {
     "rights": "Todos los derechos reservados."
@@ -340,11 +435,25 @@
     "version": "Versión",
     "date_shared": "Fecha Compartido",
     "date_added": "Fecha agregado",
+    "date_moved": "Fecha Movido",
+    "days_remaining": "Dias Restantes",
     "length": "Tamaño",
     "plays": "Reproducciones",
     "username": "Usuario",
     "name": "Nombre",
     "date_blocked": "Fecha bloqueado",
-    "date_played": "Fecha reproducido"
+    "date_played": "Fecha reproducido",
+    "role":"rol",
+    "size": "Tamaño",
+    "subs_date": "Fecha de suscripción"
+  },
+  "role":{
+    "artist":"artista",
+    "listener":"oyente",
+    "producer":"productor",
+    "feat":"colaborador"
+  }, 
+  "toasts": {
+    "copy": "Enlace copiado en portapapeles"
   }
 }

@@ -11,7 +11,7 @@ const Played = () => {
   const { data, isFetching, error } = useFetch(process.env.REACT_APP_API + 'recentlyplayed/', user?.token )
   const { t } = useTranslation() 
   const items = t('profile.sections', { returnObjects: true });
-  let paths = [{ name: t('global.profile'), link: '/profile' }, { name: items[0].title }]
+  let paths = [{ name: t('global.profile'), link: '/profile' }, { name: items[1].title }]
   return (
     <>
 
@@ -19,7 +19,7 @@ const Played = () => {
       <Breadcrumb className='px-3 md:px-0' items={paths}/>
         <div className='container-head-account'>
          <div className='container-items-account'>
-            <h3 className='font-thunder-bold text-5xl font-bold'>{items[0].title}</h3>
+            <h3 className='font-thunder-bold text-5xl font-bold'>{items[1].title}</h3>
             <span className='!font-archivo !text-neutral-silver-200 !md:text-base !text-lg'>{t('recently.subtitle')}</span>
          </div>
        </div>

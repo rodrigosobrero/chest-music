@@ -134,7 +134,7 @@ export default function SignIn() {
           <NavLink to='/sign-up' className='text-brand-gold h-10 md:h-auto hover:text-brand-bronze font-semibold text-lg'>
             {t('signin.signup')}
           </NavLink>
-          <NavLink to='/sign-up' className='hover:text-brand-uva h-10 md:h-auto text-brand-uva-light font-normal'>
+          <NavLink to='/password-reset' className='hover:text-brand-uva h-10 md:h-auto text-brand-uva-light font-normal'>
             {t('signin.reset')} <span className='underline'>{t('global.click_here')}</span>
           </NavLink>
         </div>

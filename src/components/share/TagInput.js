@@ -21,15 +21,14 @@ const TagInput = ({ selectedsOptions, handleChange, filteredUsers, selectOption,
         />
       </div>
       {filteredUsers.length > 0 && (
-        <div className="absolute w-full z-10 mt-1 ">
+        <div className="absolute w-full z-10">
           <ul className="bg-neutral-black border border-neutral-silver-500 rounded-xl overflow-auto">       
             {filteredUsers.map((el, index) => (
-              <li
-                key={index}
-                className="px-4 py-2 cursor-pointer"
-                onClick={() => selectOption(index)}
-              >
-                {el.username}
+              <li key={index}
+                  className='autocomplete-item'
+                  onClick={() => selectOption(index)}>
+                    <span>{el.full_name} </span>
+                    <span className='text-sm text-neutral-silver-300'>@{el.username}</span>
               </li>
             ))}
           </ul>

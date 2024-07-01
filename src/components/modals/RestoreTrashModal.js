@@ -23,8 +23,8 @@ export default function RestoreTrashModal(props) {
 
   return (
     <BaseModal
-      title='restore version'
-      description='Are you sure you want to move this version to your chest?'
+      title={t('global.trash_can.restore_title')}
+      description={t('global.trash_can.restore_description')}
       show={props.isOpen}
       onClose={handleClose}>
       <div className='grid grid-cols-2 gap-4 mt-8'>
@@ -33,7 +33,7 @@ export default function RestoreTrashModal(props) {
           style='tertiary'
           onClick={handleClose} />
         <Button
-          text='Restore'
+          text={t('global.trash_can.restore')}
           style='primary'
           disabled={isLoading}
           loading={isLoading}

@@ -37,8 +37,8 @@ export default function ShareLinkModal(props) {
 
   return (
     <BaseModal
-      title='choose version'
-      description='Choose a version of this track to share'
+      title={t('global.links_modal.choose_version')}
+      description={t('global.links_modal.choose_version_description')}
       show={props.isOpen}
       onClose={handleClose}>
       <div className='version-options'>
@@ -68,7 +68,7 @@ export default function ShareLinkModal(props) {
           style='tertiary'
           onClick={handleCancel} />
         <Button
-          text='Confirm'
+          text={t('global.confirm')}
           style='primary'
           disabled={isLoading || !version}
           loading={isLoading}
