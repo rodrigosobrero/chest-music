@@ -471,7 +471,8 @@
     "date_blocked": "Date blocked",
     "date_played": "Date played",
     "role":"role",
-    "size": "Size"
+    "size": "Size",
+    "subs_date": "Subscription date"
   },
   "role":{
     "artist":"artist",

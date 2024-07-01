@@ -101,16 +101,16 @@ const AccountPlan = ({ data }) => {
           <div className='space-y-4 flex flex-col gap-5 w-[50%] '>
             <h5 className='mt-5 text-neutral-silver-200 !font-archivo !text-base'>{t('account.current_plan')}</h5>
             <div className='flex flex-col md:flex-row gap-4'>
-              <div className='md:w-3/5 '>
+              {/* <div className='md:w-3/5 '>
                 <h5 className='mb-1 !text-xl !capitalize !font-archivo'>{t(`role.${data?.type}`)}</h5>
                 
                 <span className='text-neutral-silver-300 !text-sm'>
                   {data.full_name}
                 </span>
-              </div>
+              </div> */}
               <div className='flex items-center space-x-2'>
-                <span className='text-[1.75rem]'>0$</span>
-                <span> / {t('global.month')}</span>
+                {/* <span className='text-[1.75rem]'>0$</span>
+                <span> / {t('global.month')}</span> */}
             {currentPlan && !suspended && (
               <div className='flex flex-col gap-4'>
                 <div className='grow'>
@@ -178,7 +178,7 @@ const AccountPlan = ({ data }) => {
         {data && data.type === 'artist' && (
             <div className='flex flex-col justify-between'>
               <h5 className='mt-5 text-neutral-silver-200 !text-base !font-archivo'>{t('account.storage')}</h5>
-              <div className='flex items-center gap-x-4 grow mt-12'>
+              <div className='flex items-center gap-x-4 grow'>
                 <StorageIndicator
                   usedSpace={data.used_seconds}
                   totalSpace={data.total_seconds}
@@ -186,14 +186,14 @@ const AccountPlan = ({ data }) => {
                   reverse />
               </div>
               <div>
-                {currentPlan && currentPlan.name === 'mensual' && (
+                {/* {currentPlan && currentPlan.name === 'mensual' && (
                   <button
                     type='button'
                     className='text-brand-gold font-archivo text-lg font-semibold py-1.5'
                     onClick={() => { openUpgradeStorageModal() }}>
                     {t('account.upgrade')}
                   </button>
-                )}
+                )} */}
               </div>
             </div>
           )}

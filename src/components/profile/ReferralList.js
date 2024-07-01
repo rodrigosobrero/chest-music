@@ -17,7 +17,7 @@ const ReferralList = ({ data: list }) => {
                 { title: t('tables.name'), tag: 'name'},
                 { title: t('tables.username'), tag: 'username' },
                 { title: 'Plan', tag: 'plays' }, 
-                { title: 'Fecha de alta', tag: 'date_added' }, 
+                { title: t('tables.subs_date'), tag: 'date_added' }, 
                 { title: '' }
             ]
         }

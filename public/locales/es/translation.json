@@ -444,7 +444,8 @@
     "date_blocked": "Fecha bloqueado",
     "date_played": "Fecha reproducido",
     "role":"rol",
-    "size": "Tamaño"
+    "size": "Tamaño",
+    "subs_date": "Fecha de suscripción"
   },
   "role":{
     "artist":"artista",
