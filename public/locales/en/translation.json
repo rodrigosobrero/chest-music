@@ -4,13 +4,19 @@
     "searchbar":"Can’t find that user? invite them via email!",
     "click_here": "click here",
     "password": "Password",
+    "password_reset":{
+      "subtitle": "Enter your email address here to continue with your",
+      "title":"password reset",
+      "send":"Send reset link"
+    },
+    
     "yes":"Yes",
     "no":"No",
     "permissions":"permissions",
     "participants":"participants",
     "unlimited":"Unlimited",
     "unlimited_plays":"Unlimited Plays",
-    "links":"links",
+    "links":"Links",
     "link":"link",
     "users":"users",
     "you":"you",

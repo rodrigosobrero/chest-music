@@ -9,10 +9,15 @@
     "participants":"participantes",
     "unlimited":"Ilimitadas",
     "unlimited_plays":"Reproducciones Ilimitadas",
-    "links":"enlaces",
+    "links":"Enlaces",
     "link":"enlace",
     "users":"usuarios",
     "you":"tú",
+    "password_reset":{
+      "subtitle": "Introduzca aquí su dirección de correo electrónico para continuar a",
+      "title":"restaurar llave",
+      "send":"Enviar enlace de restauración"
+    },
     "password": "Contraseña",
     "write_here": "Escribe aquí",
     "divider": "o",
