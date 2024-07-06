@@ -14,6 +14,7 @@ import Input from 'components/Input';
 import ErrorMessage from 'components/ErrorMessage';
 import Modal from 'components/Modal';
 import TermsModal from 'components/modals/TermsModal';
+import MPModal from 'components/modals/RedirectMPModal';
 import stripe from 'assets/images/logo-stripe.svg';
 import mp from 'assets/images/logo-mp.svg';
 import { TagIcon } from "@heroicons/react/24/outline";
@@ -34,6 +35,8 @@ export default function Setup() {
   const [plansUpdated, setPlansUpdated] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
 
+  const [redirect, setredirect] = useState(false)
+  const [redirectCountDown, setRedirectCountDown] = useState(30)
   const [setupData, setSetupData] = useState({
     username: '',
     full_name: '',
@@ -106,14 +109,18 @@ export default function Setup() {
     }
   };
   const handleConfirm = async () => {
-    
-    const resultSuscription = await createSubscription(selectedPlan).unwrap();
+    setredirect(true)
+    /* const resultSuscription = await createSubscription(selectedPlan).unwrap();
 
     if ('error' in resultSuscription) {
       console.log(resultSuscription);
     } else {
       window.location.href = resultSuscription.gateway_url;
-    }
+    } */
+  }
+
+  const handleCloseRedirect = async () =>{
+    setredirect(false)
   }
 
   useEffect(() => {
@@ -357,6 +364,9 @@ export default function Setup() {
               </motion.div>
               )
             }
+            <Modal show={redirect} >
+              <MPModal handleClose={handleCloseRedirect} setTimeLeft={setRedirectCountDown} timeLeft={redirectCountDown} ></MPModal>
+            </Modal>
           </>
         )}      
       </div>

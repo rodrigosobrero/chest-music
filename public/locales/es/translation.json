@@ -14,8 +14,8 @@
     "users":"usuarios",
     "you":"tú",
     "password_reset":{
-      "subtitle": "Introduzca aquí su dirección de correo electrónico para continuar a",
-      "title":"restaurar llave",
+      "subtitle": "Introduzca aquí su dirección de correo electrónico para ",
+      "title":"restaurar contraseña",
       "send":"Enviar enlace de restauración"
     },
     "password": "Contraseña",
@@ -136,7 +136,7 @@
     "button_google": "Iniciar sesión con Google",
     "button": "Ingresar",
     "signup": "¿No tienes cuenta? Regístrate",
-    "reset": "¿Perdiste la llave?",
+    "reset": "¿Perdiste la contraseña?",
     "beta": {
       "title": "accede a la beta de chest",
       "button": "Acceder",
@@ -274,7 +274,9 @@
     "invites": "Solicitudes",
     "general": "General",
     "nothing_here": "Nada por aquí",
-    "not_general": "Aún no has recibido ninguna notificación"
+    "not_general": "Aún no has recibido ninguna notificación",
+    "accepted": "Aceptado",
+    "denied": "Denegado"
   },
   "manage": {
     "privacy_set": "La privacidad está",

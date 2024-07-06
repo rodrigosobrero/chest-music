@@ -297,7 +297,9 @@
     "invites": "Invites",
     "general": "General",
     "nothing_here": "Nothing here",
-    "not_general": "You haven’t received any General yet"
+    "not_general": "You haven’t received any General yet",
+    "accepted": "Accepted",
+    "denied": "Denied"
   },
   "manage": {
     "privacy_set": "Privacy is set to",
@@ -484,7 +486,7 @@
     "artist":"artist",
     "listener":"listener",
     "producer":"producer",
-    "feat":"feat"   
+    "feat":"Collaborator"   
   },
   "toasts": {
     "copy": "Link copied to clipboard"
