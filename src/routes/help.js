@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import SearchBar from 'components/SearchBar'
 import FAQItem from 'components/profile/FaqItem'
@@ -11,7 +11,7 @@ import { isDesktop } from 'react-device-detect';
 const Help = () => {
   const { t, i18n } = useTranslation() 
   const { data: faqs = [] } = useGetFaqsQuery(i18n.language === 'en' ? 'english' : 'spanish', { refetchOnMountOrArgChange: true })
-  const [ filteredData, setFilteredData ] = useState(faqs)
+  const [ filteredData, setFilteredData ] = useState()
   const items = t('profile.sections', { returnObjects: true });
   let paths = [{ name: t('global.profile'), link: '/profile' }, { name: items[5].title }]
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +19,10 @@ const Help = () => {
     setFilteredData(faqs.filter((el) => el.question.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().includes(e.target.value.toLowerCase())))
   };
   
+  useEffect(()=>{
+    setFilteredData(faqs)
+  },[faqs])
+
   return (
     <>
       <div className='pt-4 pb-10 px-3 container md:pt-10 md:px-[120px] md:pb-[60px]'>
@@ -33,7 +37,7 @@ const Help = () => {
           <ContactUs />
           <div className='px-4 py-4 pb-6 md:p-8 bg-neutral-black rounded-3xl flex flex-col gap-y-4'>
               <div className={`flex justify-between relative ${isOpen && 'pb-5 !px-0'} px-2`}>
-                <h4 className='!font-archivo !normal-case text-[28px]'>FAQs</h4>
+                <h4 className='!font-archivo !normal-case text-[28px]' onClick={console.log(filteredData)}>FAQs</h4>
                 {
                   isDesktop ? 
                   <SearchBar onChange={onChange} placeholder={t('global.placeholder.search')} />
