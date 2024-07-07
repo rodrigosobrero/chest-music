@@ -11,7 +11,7 @@
     "unlimited_plays":"Reproducciones Ilimitadas",
     "links":"Enlaces",
     "link":"enlace",
-    "users":"usuarios",
+    "users":"enviados",
     "you":"tú",
     "password_reset":{
       "subtitle": "Introduzca aquí su dirección de correo electrónico para ",
@@ -433,7 +433,7 @@
     "message_example": "Por ejemplo: ”chequeá mi nuevo tema”",
     "add_participant": "Añadir participante",
     "share_new_link": "Compartir nuevo enlace",
-    "share_to_user": "Compartir a usuario",
+    "send_to_user": "Enviar a usuarios",
     "add_user": "Agregue usuarios para acceder a su track a continuación",
     "edit_participant_permissions": "Editar permisos de participante",
     "edit_user_permissions": "Editar permisos de usuario",
