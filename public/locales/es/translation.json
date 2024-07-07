@@ -18,6 +18,12 @@
       "title":"restaurar contraseña",
       "send":"Enviar enlace de restauración"
     },
+    "mp_modal":{
+      "timeLeft": "Redirigiendo en: {{timeLeft}} segundos...",
+      "title": "ANTES DE IR A MERCADO PAGO...",
+      "subtitle": "Tené en cuenta que para poder abonar con Mercado Pago deberás estar deslogueado o loguearte con el mismo correo de tu nueva cuenta de Chest.",
+      "button": "Ir ahora"
+    },
     "password": "Contraseña",
     "write_here": "Escribe aquí",
     "divider": "o",

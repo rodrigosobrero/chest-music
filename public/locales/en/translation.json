@@ -9,7 +9,12 @@
       "title":"password reset",
       "send":"Send reset link"
     },
-    
+    "mp_modal":{
+      "timeLeft": "Redirecting in: {{timeLeft}} seconds...",
+      "title": "Before redirecting to Mercado Pago...",
+      "subtitle": "Keep in mind that in order to pay with Mercado Pago you must be logged out or log in with the same email address as your new Chest account.",
+      "button": "Redirect now"
+    },
     "yes":"Yes",
     "no":"No",
     "permissions":"permissions",

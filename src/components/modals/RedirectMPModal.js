@@ -21,10 +21,10 @@ export default function PlayLimitModal({handleClose,timeLeft,setTimeLeft, handle
   return (
     
     <BaseModal
-    title='Antes de ir a Mercado pago...'
+    title={t('global.mp_modal.title')}
     onClose={handleClose}
     >
-    <p className='text-neutral-silver-100 pb-8 mw-400px '>Tené en cuenta que para poder abonar con Mercado Pago deberás estar deslogueado o loguearte con el mismo correo de tu nueva cuenta de Chest.</p>
+    <p className='text-neutral-silver-100 pb-8 mw-400px '>{t('global.mp_modal.subtitle')}</p>
     <div className='w-full'>
     <div className="loading-spinner flex justify-center">
     <svg
@@ -45,12 +45,12 @@ export default function PlayLimitModal({handleClose,timeLeft,setTimeLeft, handle
           strokeDashoffset="62.8"
         />
       </svg>
-      <div className='text-brand-gold pb-8 mw-400px mt-0.5'>Redirigiendo en: {timeLeft} segundos...</div>
+      <div className='text-brand-gold pb-8 mw-400px mt-0.5'>{t('global.mp_modal.timeLeft',{timeLeft:timeLeft})}</div>
     </div>
     <div>
     </div>
       <Button
-        text='Ir ahora'
+        text={t('global.mp_modal.button')}
         style='primary'
         onClick={handleConfirm} 
         />
