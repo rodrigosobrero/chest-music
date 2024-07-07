@@ -253,7 +253,7 @@ export default function Setup() {
               {...register('terms', { required: true })} />
             <label htmlFor='terms-and-conditions'>
               {t('setup.step_two.terms')} {' '}
-              <span className='text-brand-gold' onClick={() => setOpenTerms(true)}>
+              <span className='text-brand-gold hover:cursor-pointer' onClick={() => setOpenTerms(true)}>
                 {t('setup.step_two.terms_link')}
               </span>
             </label>

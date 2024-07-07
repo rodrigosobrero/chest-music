@@ -412,11 +412,13 @@
   },
   "referral":{
     "title":"Cómo funciona el código de referidos?",
-    "text":"Invitá a artistas y productores a unirse a Chest a traves de tu código de referido, dandole un descuento al nuevo usuario y generando ingresos para vos: el 20% de la suscripción se acreditará por mes en esta sección durante todos los meses que el referido la este pagando. Más información.",
+    "text":"Invitá a artistas y productores a unirse a Chest a traves de tu código de referido, dandole un descuento al nuevo usuario y generando ingresos para vos: el 20% de la suscripción se acreditará por mes en esta sección durante todos los meses que el referido la este pagando. ",
     "share_code":"Compartí tu código",
     "copy":"Copiar",
     "my_referrals":"Mis referidos",
-    "referral_code":"Código de referidos"
+    "referral_code":"Código de referidos",
+    "info":"Más información",
+    "nothing_here":"Aún no hay usuarios vinculados a tu codigo de referidos"
   },
   "share": {
     "title": "Compartí tu tesoro",

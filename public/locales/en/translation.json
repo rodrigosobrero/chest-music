@@ -438,11 +438,13 @@
   },
   "referral":{
     "title":"How does the referral code work?",
-    "text":"Invite artists and producers to join Chest using your referral code, giving the new user a discount and generating income for you: 20% of the subscription will be credited to this section every month the referred user pays it. More information.",
+    "text":"Invite artists and producers to join Chest using your referral code, giving the new user a discount and generating income for you: 20% of the subscription will be credited to this section every month the referred user pays it. ",
     "share_code":"Share your code",
     "copy":"Copy",
     "my_referrals":"My Referrals",
-    "referral_code":"Referal code"
+    "referral_code":"Referal code",
+    "info":"More information",
+    "nothing_here":"There are no users linked to your referral code yet"
 
   },
   "share": {
