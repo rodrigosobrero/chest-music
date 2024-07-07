@@ -264,15 +264,15 @@ export default function Setup() {
             text='Continuar'
             disabled={!validate.username || !validate.name || !validate.terms} />
         </form>
+        <Modal show={openTerms} setShow={setOpenTerms}>
+        <TermsModal toggle={() => setOpenTerms(false)} />
+      </Modal>
       </div>
     </>
   )
 
   const stepTwo = () => (
     <>
-      <Modal show={openTerms} setShow={setOpenTerms}>
-        <TermsModal toggle={() => setOpenTerms(false)} />
-      </Modal>
       <div className='px-6 flex flex-col items-center gap-8'>
         <div>
           <h2 className='text-[64px] md:text-[76px]'>{t('account.choose_plan')}</h2>
