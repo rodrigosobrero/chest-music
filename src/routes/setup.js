@@ -108,18 +108,25 @@ export default function Setup() {
       }
     }
   };
-  const handleConfirm = async () => {
+
+  const handleMercadoPago = async () =>{
+    setRedirectCountDown(30)
     setredirect(true)
-    /* const resultSuscription = await createSubscription(selectedPlan).unwrap();
+  }
+
+  const handleConfirm = async () => {
+    const resultSuscription = await createSubscription(selectedPlan).unwrap();
+    handleCloseRedirect()
 
     if ('error' in resultSuscription) {
       console.log(resultSuscription);
     } else {
       window.location.href = resultSuscription.gateway_url;
-    } */
+    }
   }
 
   const handleCloseRedirect = async () =>{
+    setRedirectCountDown(30)
     setredirect(false)
   }
 
@@ -315,7 +322,7 @@ export default function Setup() {
               text={t('global.confirm')}
               disabled={isLoadingAccount || isLoadingSuscription || !selectedPlan}
               loading={isLoadingAccount || isLoadingSuscription}
-              onClick={() => handleConfirm()} />
+              onClick={() => handleMercadoPago()} />
             {/* !account.username && (
               <Button
                 style='tertiary'
@@ -365,7 +372,7 @@ export default function Setup() {
               )
             }
             <Modal show={redirect} >
-              <MPModal handleClose={handleCloseRedirect} setTimeLeft={setRedirectCountDown} timeLeft={redirectCountDown} ></MPModal>
+              <MPModal redirect={redirect} handleClose={handleCloseRedirect} setTimeLeft={setRedirectCountDown} timeLeft={redirectCountDown} handleConfirm={handleConfirm} ></MPModal>
             </Modal>
           </>
         )}      
