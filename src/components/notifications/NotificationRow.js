@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { formatDate , timeDifference} from 'utils/helpers'
 import NotificationOption from './NotificationOption';
 import { MusicalNoteIcon } from "@heroicons/react/24/solid";
@@ -22,6 +22,11 @@ const NotificationRow = ({ invite , blockUser, replyNotification, unblockUser })
   }
 
   const toggleBlocked = () => setIsBlocked(!isBlocked)
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
+  };
 
   return (
     <>
@@ -51,7 +56,11 @@ const NotificationRow = ({ invite , blockUser, replyNotification, unblockUser })
                <MusicalNoteIcon className="md:h-7 md:w-7 h-5 w-5 text-white" />
             </div>
             <div className='flex flex-col'>
-              <div className='md:text-lg text-base'>{invite.content[i18n.language === 'en' ? 'en' : 'es'].title}</div>
+            <div 
+      className={`md:text-lg text-base max-w-[360px] ${isExpanded ? 'whitespace-normal' : 'overflow-hidden whitespace-nowrap overflow-ellipsis'}`}
+      onClick={toggleExpand}
+      style={{ cursor: 'pointer' }}
+    >{invite.content[i18n.language === 'en' ? 'en' : 'es'].title}</div>
               <div className='md:text-base text-sm text-neutral-silver-200'>
                   {invite.content[i18n.language === 'en' ? 'en' : 'es'].body}
               </div>

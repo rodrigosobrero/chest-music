@@ -14,6 +14,7 @@ import Input from 'components/Input';
 import ErrorMessage from 'components/ErrorMessage';
 import Modal from 'components/Modal';
 import TermsModal from 'components/modals/TermsModal';
+import MPModal from 'components/modals/RedirectMPModal';
 import stripe from 'assets/images/logo-stripe.svg';
 import mp from 'assets/images/logo-mp.svg';
 import { TagIcon } from "@heroicons/react/24/outline";
@@ -34,6 +35,8 @@ export default function Setup() {
   const [plansUpdated, setPlansUpdated] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
 
+  const [redirect, setredirect] = useState(false)
+  const [redirectCountDown, setRedirectCountDown] = useState(30)
   const [setupData, setSetupData] = useState({
     username: '',
     full_name: '',
@@ -105,15 +108,26 @@ export default function Setup() {
       }
     }
   };
+
+  const handleMercadoPago = async () =>{
+    setRedirectCountDown(30)
+    setredirect(true)
+  }
+
   const handleConfirm = async () => {
-    
     const resultSuscription = await createSubscription(selectedPlan).unwrap();
+    handleCloseRedirect()
 
     if ('error' in resultSuscription) {
       console.log(resultSuscription);
     } else {
       window.location.href = resultSuscription.gateway_url;
     }
+  }
+
+  const handleCloseRedirect = async () =>{
+    setRedirectCountDown(30)
+    setredirect(false)
   }
 
   useEffect(() => {
@@ -239,7 +253,7 @@ export default function Setup() {
               {...register('terms', { required: true })} />
             <label htmlFor='terms-and-conditions'>
               {t('setup.step_two.terms')} {' '}
-              <span className='text-brand-gold' onClick={() => setOpenTerms(true)}>
+              <span className='text-brand-gold hover:cursor-pointer' onClick={() => setOpenTerms(true)}>
                 {t('setup.step_two.terms_link')}
               </span>
             </label>
@@ -250,15 +264,15 @@ export default function Setup() {
             text='Continuar'
             disabled={!validate.username || !validate.name || !validate.terms} />
         </form>
+        <Modal show={openTerms} setShow={setOpenTerms}>
+        <TermsModal toggle={() => setOpenTerms(false)} />
+      </Modal>
       </div>
     </>
   )
 
   const stepTwo = () => (
     <>
-      <Modal show={openTerms} setShow={setOpenTerms}>
-        <TermsModal toggle={() => setOpenTerms(false)} />
-      </Modal>
       <div className='px-6 flex flex-col items-center gap-8'>
         <div>
           <h2 className='text-[64px] md:text-[76px]'>{t('account.choose_plan')}</h2>
@@ -308,7 +322,7 @@ export default function Setup() {
               text={t('global.confirm')}
               disabled={isLoadingAccount || isLoadingSuscription || !selectedPlan}
               loading={isLoadingAccount || isLoadingSuscription}
-              onClick={() => handleConfirm()} />
+              onClick={() => handleMercadoPago()} />
             {/* !account.username && (
               <Button
                 style='tertiary'
@@ -357,6 +371,9 @@ export default function Setup() {
               </motion.div>
               )
             }
+            <Modal show={redirect} >
+              <MPModal redirect={redirect} handleClose={handleCloseRedirect} setTimeLeft={setRedirectCountDown} timeLeft={redirectCountDown} handleConfirm={handleConfirm} ></MPModal>
+            </Modal>
           </>
         )}      
       </div>
