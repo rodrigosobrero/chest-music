@@ -131,6 +131,7 @@
     "add_version": "Add new version",
     "accept": "Accept",
     "deny": "Deny",
+    "reply": "REPLY",
     "view_trash": "View trash can",
     "edit_track": "Edit track",
     "share_track": "Share track",
@@ -493,7 +494,7 @@
     "artist":"artist",
     "listener":"listener",
     "producer":"producer",
-    "feat":"Collaborator"   
+    "feat":"Feat"   
   },
   "toasts": {
     "copy": "Link copied to clipboard"

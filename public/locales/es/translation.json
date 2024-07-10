@@ -131,6 +131,7 @@
     "add_version": "Agregar versión",
     "accept": "Aceptar",
     "deny": "Rechazar",
+    "reply": "VER",
     "view_trash": "Ver papelera",
     "edit_track": "Editar track",
     "share_track": "Compartir track",
@@ -466,7 +467,7 @@
     "artist":"artista",
     "listener":"oyente",
     "producer":"productor",
-    "feat":"colaborador"
+    "feat":"Feat"
   }, 
   "toasts": {
     "copy": "Enlace copiado en portapapeles"
