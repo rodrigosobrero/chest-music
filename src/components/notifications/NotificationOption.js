@@ -3,9 +3,11 @@ import { CheckIcon } from "@heroicons/react/24/solid";
 import { motion } from 'framer-motion';
 import { NoSymbolIcon } from "@heroicons/react/24/solid";
 import Button from 'components/Button';
+import { useTranslation } from 'react-i18next';
 
 
 const NotificationOption = ({ isOpen, onAccept, onDeny, isAccepted, isDenied, blockUser, isBlocked, unblockUser }) => {
+   const { t } = useTranslation();
     return (
         <>
          <motion.div
@@ -16,8 +18,8 @@ const NotificationOption = ({ isOpen, onAccept, onDeny, isAccepted, isDenied, bl
           transition={{ duration: 0.3, ease: 'easeOut' }}>
           {isOpen && !isAccepted && !isDenied &&
              <div className='flex justify-between md:gap-x-4 gap-x-3 font-archivo font-semibold'>
-                <button className='w-full bg-black text-white rounded-xl font-bold px-6 py-3' onClick={onDeny}>Deny</button>
-                <Button style='primary' onClick={onAccept} text='Accept'/>
+                <button className='w-full bg-black text-white rounded-xl font-bold px-6 py-3' onClick={onDeny}>{t('global.deny')}</button>
+                <Button style='primary' onClick={onAccept} text={t('global.accept')}/>
              </div>
           }
           {isOpen && (isAccepted || isDenied) &&

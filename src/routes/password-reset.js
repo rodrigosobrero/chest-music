@@ -29,8 +29,8 @@ export default function PasswordReset() {
   return (
     <>
       <div className='flex flex-col items-center justify-center w-full h-full'>
-        <h1 className=' text-[76px]'>password reset</h1>
-        <p className='text-neutral-silver-200 mb-6'>Enter your email address here to continue with your<br /> password reset</p>
+        <h1 className=' text-[76px]'>{t('global.password_reset.title')}</h1>
+        <p className='text-neutral-silver-200 mb-6'>{t('global.password_reset.subtitle')}<br /> {t('global.password_reset.title')}</p>
         <div className='max-w-[480px] w-full'>
           <form onSubmit={handleSubmit(handleReset)} className='w-full'>
             <div className='flex flex-col gap-6 w-full'>
@@ -42,8 +42,8 @@ export default function PasswordReset() {
                 required={true}
                 error={errors.email && t('global.required')}
                 placeholder={t('global.write_here')} />
-              <Button type='submit' style='primary' text='Send reset' disabled={errors.email} />
-              <Button type='button' customStyle='text-brand-gold font-bold' text='Cancel' onClick={() => { navigate('/sign-in') }} />
+              <Button type='submit' style='primary' text={t('global.password_reset.send')} disabled={errors.email} />
+              <Button type='button' customStyle='text-brand-gold font-bold' text={t('global.cancel')} onClick={() => { navigate('/sign-in') }} />
             </div>
           </form>
         </div>

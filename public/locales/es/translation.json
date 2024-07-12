@@ -9,10 +9,21 @@
     "participants":"participantes",
     "unlimited":"Ilimitadas",
     "unlimited_plays":"Reproducciones Ilimitadas",
-    "links":"enlaces",
+    "links":"Enlaces",
     "link":"enlace",
-    "users":"usuarios",
+    "users":"enviados",
     "you":"tú",
+    "password_reset":{
+      "subtitle": "Introduzca aquí su dirección de correo electrónico para ",
+      "title":"restaurar contraseña",
+      "send":"Enviar enlace de restauración"
+    },
+    "mp_modal":{
+      "timeLeft": "Redirigiendo en: {{timeLeft}} segundos...",
+      "title": "ANTES DE IR A MERCADO PAGO...",
+      "subtitle": "Tené en cuenta que para poder abonar con Mercado Pago deberás estar deslogueado o loguearte con el mismo correo de tu nueva cuenta de Chest.",
+      "button": "Ir ahora"
+    },
     "password": "Contraseña",
     "write_here": "Escribe aquí",
     "divider": "o",
@@ -120,6 +131,7 @@
     "add_version": "Agregar versión",
     "accept": "Aceptar",
     "deny": "Rechazar",
+    "reply": "VER",
     "view_trash": "Ver papelera",
     "edit_track": "Editar track",
     "share_track": "Compartir track",
@@ -131,7 +143,7 @@
     "button_google": "Iniciar sesión con Google",
     "button": "Ingresar",
     "signup": "¿No tienes cuenta? Regístrate",
-    "reset": "¿Perdiste la llave?",
+    "reset": "¿Perdiste la contraseña?",
     "beta": {
       "title": "accede a la beta de chest",
       "button": "Acceder",
@@ -269,7 +281,9 @@
     "invites": "Solicitudes",
     "general": "General",
     "nothing_here": "Nada por aquí",
-    "not_general": "Aún no has recibido ninguna notificación"
+    "not_general": "Aún no has recibido ninguna notificación",
+    "accepted": "Aceptado",
+    "denied": "Denegado"
   },
   "manage": {
     "privacy_set": "La privacidad está",
@@ -399,11 +413,13 @@
   },
   "referral":{
     "title":"Cómo funciona el código de referidos?",
-    "text":"Invitá a artistas y productores a unirse a Chest a traves de tu código de referido, dandole un descuento al nuevo usuario y generando ingresos para vos: el 20% de la suscripción se acreditará por mes en esta sección durante todos los meses que el referido la este pagando. Más información.",
+    "text":"Invitá a artistas y productores a unirse a Chest a traves de tu código de referido, dandole un descuento al nuevo usuario y generando ingresos para vos: el 20% de la suscripción se acreditará por mes en esta sección durante todos los meses que el referido la este pagando. ",
     "share_code":"Compartí tu código",
     "copy":"Copiar",
     "my_referrals":"Mis referidos",
-    "referral_code":"Código de referidos"
+    "referral_code":"Código de referidos",
+    "info":"Más información",
+    "nothing_here":"Aún no hay usuarios vinculados a tu codigo de referidos"
   },
   "share": {
     "title": "Compartí tu tesoro",
@@ -420,7 +436,7 @@
     "message_example": "Por ejemplo: ”chequeá mi nuevo tema”",
     "add_participant": "Añadir participante",
     "share_new_link": "Compartir nuevo enlace",
-    "share_to_user": "Compartir a usuario",
+    "send_to_user": "Enviar a usuarios",
     "add_user": "Agregue usuarios para acceder a su track a continuación",
     "edit_participant_permissions": "Editar permisos de participante",
     "edit_user_permissions": "Editar permisos de usuario",
@@ -451,7 +467,7 @@
     "artist":"artista",
     "listener":"oyente",
     "producer":"productor",
-    "feat":"colaborador"
+    "feat":"Feat"
   }, 
   "toasts": {
     "copy": "Enlace copiado en portapapeles"

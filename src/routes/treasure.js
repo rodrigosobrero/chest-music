@@ -100,7 +100,7 @@ export default function Treasure() {
         )
       case 'users':
         return (
-          <AddButton text={t(`share.share_to_user`)} onClick={() => { navigate(`/share/${project.id}?=sendDM`) }} />
+          <AddButton text={t(`share.send_to_user`)} onClick={() => { navigate(`/share/${project.id}?=sendDM`) }} />
         )
     }
   }
