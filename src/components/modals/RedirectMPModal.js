@@ -5,7 +5,7 @@ import spinner from 'assets/images/icon-loading-claim.png';
 import { useEffect } from 'react';
 
 
-export default function PlayLimitModal({handleClose,timeLeft,setTimeLeft, handleConfirm, redirect}) {
+export default function RedirectMPModal({handleClose,timeLeft,setTimeLeft, handleConfirm, redirect}) {
     const { t } = useTranslation();
 
   useEffect(() => {
