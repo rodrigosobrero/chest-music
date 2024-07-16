@@ -19,8 +19,6 @@ const Referral = () => {
   
   const copyToClipboard = () => {
     navigator.clipboard.writeText(data?.ambassador_url).then(() => {
-      console.log(data?.ambassador_url);
-      console.log(data);
     }).catch((err) => {
       console.error('Failed to copy text: ', err);
     });
@@ -39,7 +37,9 @@ const Referral = () => {
         <div className='bg-neutral-black rounded-3xl p-8 flex flex-col sm:flex-col xl:flex-row  gap-10'>
             <div className='flex flex-col gap-y-6 w-full'>
             <h4 className='!text-lg !font-archivo !normal-case'>{t('referral.title')}</h4>
-            <p className='!text-base text-neutral-silver-200 !font-archivo !text-left'>{t('referral.text')}</p>
+            <label className='!text-base text-neutral-silver-200 !font-archivo !text-left'>{t('referral.text')}
+            <span className='!text-base text-brand-gold !font-archivo !text-left underline hover:cursor-pointer' onClick={()=>console.log('agregar informacion')} >{t('referral.info')}</span>.
+            </label>
             </div>
             <div className='  flex flex-col gap-y-4 w-full'>
             <div className=' flex flex-row'>
@@ -66,10 +66,10 @@ const Referral = () => {
         <div className='bg-neutral-black rounded-b-3xl rounded-t-lg p-8 flex flex-row mt-1.5'>
         {isFetching ? 
                   <img src={spinner} alt='' width={20} height={20} className='animate-spin' /> : data?.referrals?.length >  0 ? <ReferralList data={data?.referrals} /> :            
-                    <div className='flex flex-col items-center gap-2'>
+                    <div className='flex flex-col items-center gap-2 mx-auto'>
                         <h4 className='empty-title'>{t('notification.nothing_here')}</h4>
                         <p className='text-lg text-neutral-silver-200 font-light mb-10'>
-                        {t('notification.not_general')}
+                        {t('referral.nothing_here')}
                         </p>
                         <img src={empty} alt='' width={240} height={128} className='mb-5' />
                     </div> 

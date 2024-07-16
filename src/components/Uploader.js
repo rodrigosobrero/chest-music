@@ -31,27 +31,17 @@ export default function Uploader({ title = true, self, id, disabled }) {
   });
   const [isDragging, setIsDragging] = useState(false);
 
-  useEffect(() => {
-    const handleDragOver = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setIsDragging(true);
-    };
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
 
-    const handleDragLeave = (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      setIsDragging(false);
-    };
-
-    window.addEventListener('dragover', handleDragOver);
-    window.addEventListener('dragleave', handleDragLeave);
-
-    return () => {
-      window.removeEventListener('dragover', handleDragOver);
-      window.removeEventListener('dragleave', handleDragLeave);
-    };
-  }, []);
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+  };
 
   const handleFile = (files) => {
     if (files && files.length) {
@@ -111,8 +101,8 @@ export default function Uploader({ title = true, self, id, disabled }) {
       <div
         className={`uploader py-[60px] px-5 ${isDragging ? 'dragging' : ''}`}
         onDrop={handleDrop}
-        onDragOver={(e) => e.preventDefault()}
-        onDragLeave={(e) => setIsDragging(false)}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
       >
         {showLoader 
         ? <>
@@ -138,7 +128,12 @@ export default function Uploader({ title = true, self, id, disabled }) {
               <span className='font-archivo text-neutral-silver-300 text-sm text-center'>{file?.filename}</span>
             </div>
           </>
-         : <div className='flex flex-col items-center w-full h-full'>
+         : <div 
+            className='flex flex-col items-center w-full h-full'
+            onDragOver={(e) => e.stopPropagation()}
+            onDragLeave={(e) => e.stopPropagation()}
+            onDrop={(e) => e.stopPropagation()}
+          >
             {title && (
               <h5 className='container-h5-hidden hidden md:block mb-4'>{t('mychest.uploader.title')}</h5>
             )}
@@ -162,5 +157,4 @@ export default function Uploader({ title = true, self, id, disabled }) {
       </div>
     </>
   )
-  
 }
