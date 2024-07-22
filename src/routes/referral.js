@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Breadcrumb from 'components/Breadcrumb'
 import { useTranslation } from 'react-i18next'
 import { useGetTermsQuery } from 'store/api'
@@ -8,6 +8,8 @@ import { useSelector } from 'react-redux';
 import spinner from 'assets/images/icon-loading-claim.png';
 import empty from 'assets/images/empty-chest.svg';
 import ReferralList from 'components/profile/ReferralList'
+import ReferralMoreInfoModal from 'components/modals/ReferralMoreInfoModal'
+import Modal from 'components/Modal';
 
 const Referral = () => {
   const { t } = useTranslation() 
@@ -16,17 +18,23 @@ const Referral = () => {
   
   const user = useSelector((state) => state.auth.user)
   const { data, handleToggle , isFetching } = useFetch(process.env.REACT_APP_API + 'account/referrals/', user?.token )
-  
+  const [isOpen, setIsOpen] = useState(false)
   const copyToClipboard = () => {
     navigator.clipboard.writeText(data?.ambassador_url).then(() => {
     }).catch((err) => {
       console.error('Failed to copy text: ', err);
     });
   }
+  const handleClose = (()=>{
+    setIsOpen(false)
+  })
 
 
   return (
     <>
+    <Modal show={isOpen}>
+      <ReferralMoreInfoModal handleClose={handleClose}/>
+    </Modal>
       <div className='pt-4 pb-10 px-3 md:container md:pt-10 md:px-[120px] md:pb-[60px]'>
        <Breadcrumb className='px-3 md:px-0' items={paths}/>
         <div className='container-head-account'>
@@ -38,7 +46,7 @@ const Referral = () => {
             <div className='flex flex-col gap-y-6 w-full'>
             <h4 className='!text-lg !font-archivo !normal-case'>{t('referral.title')}</h4>
             <label className='!text-base text-neutral-silver-200 !font-archivo !text-left'>{t('referral.text')}
-            <span className='!text-base text-brand-gold !font-archivo !text-left underline hover:cursor-pointer' onClick={()=>console.log('agregar informacion')} >{t('referral.info')}</span>.
+            <span className='!text-base text-brand-gold !font-archivo !text-left underline hover:cursor-pointer' onClick={()=>setIsOpen(true)} >{t('referral.info')}</span>.
             </label>
             </div>
             <div className='  flex flex-col gap-y-4 w-full'>
