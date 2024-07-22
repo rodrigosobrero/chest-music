@@ -11,6 +11,8 @@ import Button from 'components/Button';
 import stripe from 'assets/images/logo-stripe.svg';
 import mp from 'assets/images/logo-mp.svg';
 import { TagIcon } from "@heroicons/react/24/outline";
+import MPModal from 'components/modals/RedirectMPModal';
+import Modal from 'components/Modal';
 
 export default function Plan() {
   const { t, i18n } = useTranslation();
@@ -26,6 +28,9 @@ export default function Plan() {
   const { data: plans, isLoading: isLoadingPlans } = useGetPlansQuery({}, { refetchOnMountOrArgChange: true });
   const [deleteSubscription, { isLoading: isLoadingDelete }] = useDeleteSubscriptionMutation();
   const [createSubscription, { isLoading: isLoadingSubscription, isSuccess: isSuccessSubscription }] = useCreateSubscriptionMutation();
+
+  const [redirect, setredirect] = useState(false)
+  const [redirectCountDown, setRedirectCountDown] = useState(30)
 
   const [selectedPlan, setSelectedPlan] = useState('');
   const [suspended, setSuspended] = useState(false);
@@ -44,9 +49,19 @@ export default function Plan() {
     }
   }
 
+  const handleMercadoPago = async () =>{
+    setRedirectCountDown(30)
+    setredirect(true)
+  }
+
+  const handleCloseRedirect = async () =>{
+    setRedirectCountDown(30)
+    setredirect(false)
+  }
+
   const handleSubscription = async () => {
     const result = await createSubscription(selectedPlan).unwrap();
-
+    handleCloseRedirect()
     if ('error' in result) {
       console.log(result);
     } else {
@@ -181,7 +196,7 @@ export default function Plan() {
                 text={t('global.confirm')}
                 disabled={selectedPlan === account.subscription.plan && !suspended}
                 loading={isLoadingDelete || isLoadingSubscription}
-                onClick={() => { handleSubscription() }} />
+                onClick={() => { handleMercadoPago() }} />
               <Link to='/profile/account/subscription/' className='btn btn-tertiary'>
                 {t('global.back')}
               </Link>
@@ -194,6 +209,9 @@ export default function Plan() {
               )}
             </div>
           </div>
+          <Modal show={redirect} >
+              <MPModal redirect={redirect} handleClose={handleCloseRedirect} setTimeLeft={setRedirectCountDown} timeLeft={redirectCountDown} handleConfirm={handleSubscription} ></MPModal>
+            </Modal>
         </div>
       )}
     </>
