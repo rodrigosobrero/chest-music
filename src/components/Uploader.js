@@ -31,6 +31,12 @@ export default function Uploader({ title = true, self, id, disabled }) {
   });
   const [isDragging, setIsDragging] = useState(false);
 
+  const handleDragEnter = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(true);
+  };
+
   const handleDragOver = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -41,6 +47,14 @@ export default function Uploader({ title = true, self, id, disabled }) {
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragging(false);
+    const files = e.dataTransfer.files;
+    handleFile(files);
   };
 
   const handleFile = (files) => {
@@ -63,14 +77,6 @@ export default function Uploader({ title = true, self, id, disabled }) {
       }
     }
   }
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setIsDragging(false);
-    const files = e.dataTransfer.files;
-    handleFile(files);
-  };
 
   const handleUpload = async (file, fileBlob) => {
     const formData = new FormData();
@@ -101,6 +107,7 @@ export default function Uploader({ title = true, self, id, disabled }) {
       <div
         className={`uploader py-[60px] px-5 ${isDragging ? 'dragging' : ''}`}
         onDrop={handleDrop}
+        onDragEnter={handleDragEnter}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
       >

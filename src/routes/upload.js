@@ -45,7 +45,8 @@ export default function Upload() {
   const [album, setAlbum] = useState('');
   const [progress, setProgress] = useState({
     loaded: 0,
-    total: 0
+    total: 0,
+    error:''
   });
   const [cover, setCover] = useState('');
   const [covers, setCovers] = useState([]);
@@ -114,10 +115,13 @@ export default function Upload() {
           });
         }
       });
-
       setTrack({ ...track, fileId: response.data.id });
-    } catch (error) {
-      console.log(error)
+      } catch (error) {
+      console.log(error.response.data.error)
+      setProgress({
+        loaded:0,
+        error:error.response.data.error
+      })
     }
   }
 
@@ -316,7 +320,7 @@ export default function Upload() {
           </form>
         </div>
         <div className='flex flex-col items-center justify-center md:px-[72px] order-1 md:order-2 p-5 md:p-0 gap-4 md:gap-0'>
-          <ProgressCircle percentage={(progress.loaded * 100) / progress.total} colour={progress.loaded > 0 && progress.loaded === progress.total ? '#FFB447' : '#7C59DE'} />
+          <ProgressCircle error={progress.error} percentage={(progress.loaded * 100) / progress.total} colour={progress.loaded > 0 && progress.loaded === progress.total ? '#FFB447' : '#7C59DE'} />
           <div className='flex flex-col gap-1 md:-mt-0 -mt-6'>
             <AnimatePresence>
               {progress.loaded > 0 && progress.loaded === progress.total
@@ -328,9 +332,9 @@ export default function Upload() {
                   {t('upload.uploaded')} <CheckIcon className='h-4 w-4 text-brand-gold' />
                 </motion.div>
                 : <motion.span
-                  className='font-archivo text-center'
+                  className='font-archivo text-center text-brand-red'
                   exit={{ opacity: 0 }}>
-                  {bytesToSize(progress.loaded)} {t('global.of')} {bytesToSize(progress.total, 1)}
+                  {!progress.error ? `${bytesToSize(progress.loaded)} ${t('global.of')} ${bytesToSize(progress.total, 1)}` : progress.error + '.Try another file or try again later'}
                 </motion.span>}
             </AnimatePresence>
             <span className='font-archivo text-neutral-silver-300 text-sm text-center'>{file.filename}</span>
