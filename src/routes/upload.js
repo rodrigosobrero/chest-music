@@ -286,6 +286,7 @@ export default function Upload() {
           <h3 className='mb-8 text-center'>{t('upload.title')}</h3>
           <form
             id='first-step'
+            name='first-step'
             className='flex flex-col gap-5'
             onSubmit={handleSubmit(nextStep)}>
             <Input
