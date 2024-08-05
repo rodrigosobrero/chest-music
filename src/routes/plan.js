@@ -13,6 +13,8 @@ import mp from 'assets/images/logo-mp.svg';
 import { TagIcon } from "@heroicons/react/24/outline";
 import MPModal from 'components/modals/RedirectMPModal';
 import Modal from 'components/Modal';
+import icon from 'assets/images/icon-exclamation-circle.svg'
+import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 export default function Plan() {
   const { t, i18n } = useTranslation();
@@ -109,7 +111,22 @@ export default function Plan() {
             onChange={() => {}}
             checked={plan.id === selectedPlan} />
           <label htmlFor='free'>
-            <div className='text-lg font-semibold'>{t(`plans.${plan.billing_frequency}.title.${plan.name}`)}</div>
+          <div className='flex items-center gap-3 py-3 max-w-md grow justify-between rounded-xl '> 
+            <div className='text-lg font-semibold self-center'>{t(`plans.${plan.billing_frequency}.title.${plan.name}`)}</div>
+            <img src={icon} className='h-6 w-6 relative' alt='exclamation circle' data-tooltip-id='a'/>
+            
+          <ReactTooltip id='a' style={{
+          width: '306px',
+          height: '78px',
+          padding: '12px',
+          gap: '10px',
+          borderRadius: '12px 12px 12px 12px',
+          background: '#E6E9ED',
+          color: '#000',
+        }}>
+          {t('plans.tooltip')}
+          </ReactTooltip>
+            </div>
             <div className='text-sm text-neutral-silver-300 mb-3'>{t(`plans.${plan.billing_frequency}.description`)}</div>
             <div className='mt-3 flex gap-1 items-baseline'>
               <span className='font-thunder text-2xl uppercase'>

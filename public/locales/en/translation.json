@@ -221,6 +221,8 @@
     }
   },
   "upload": {
+    "tooltip":"24-bit .wav files are not compatible with some browsers, we will convert it to 32-bit so it can play smoothly.",
+    "bits_info": "Bits Information",
     "title": "name your treasure",
     "uploaded": "Uploaded",
     "track_name": "Track name",

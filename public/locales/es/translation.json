@@ -221,6 +221,8 @@
     }
   },
   "upload": {
+    "tooltip":"Los archivos .wav de 24 bits no son compatibles con algunos navegadores, lo convertiremos a 32 bits para que pueda reproducirse sin problemas.",
+    "bits_info": "Informacion de bits",
     "title": "nombra tu tesoro",
     "uploaded": "Subido",
     "track_name": "Nombre del track",

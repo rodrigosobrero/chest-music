@@ -16,6 +16,7 @@ import TrackCoverPreview from 'components/TrackCoverPreview';
 import Dropdown from 'components/Dropdown';
 import AutoComplete from 'components/AutoComplete';
 import AutoCompleteAlbum from 'components/AutoCompleteAlbum';
+import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 import {
   MicrophoneIcon,
@@ -46,7 +47,7 @@ export default function Upload() {
   const [progress, setProgress] = useState({
     loaded: 0,
     total: 0,
-    error:''
+    error: ''
   });
   const [cover, setCover] = useState('');
   const [covers, setCovers] = useState([]);
@@ -116,11 +117,11 @@ export default function Upload() {
         }
       });
       setTrack({ ...track, fileId: response.data.id });
-      } catch (error) {
+    } catch (error) {
       console.log(error.response.data.error)
       setProgress({
-        loaded:0,
-        error:error.response.data.error
+        loaded: 0,
+        error: error.response.data.error
       })
     }
   }
@@ -153,13 +154,13 @@ export default function Upload() {
   }
 
   const handleCreateProject = async () => {
-    
+
     let formatParticipants = { invitations: [], participants: [] };
 
     participants.forEach((participant) => {
-      if(participant.isEmail){
+      if (participant.isEmail) {
         formatParticipants.invitations.push({ role: participant.role, email: participant.id })
-      } 
+      }
       else {
         formatParticipants.participants.push({ role: participant.role, user: participant.id })
       }
@@ -338,7 +339,24 @@ export default function Upload() {
                   {!progress.error ? `${bytesToSize(progress.loaded)} ${t('global.of')} ${bytesToSize(progress.total, 1)}` : progress.error + '.Try another file or try again later'}
                 </motion.span>}
             </AnimatePresence>
-            <span className='font-archivo text-neutral-silver-300 text-sm text-center'>{file.filename}</span>
+            <span className='font-archivo text-neutral-silver-300 text-sm text-center' >{file.filename}</span>
+            <div className='flex items-center gap-3 py-3 max-w-md grow rounded-xl ' style={{ color: '#B296FF' }} data-tooltip-id='a'>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className='svg-icon'>
+                <path d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              {t('upload.bits_info')}
+              <ReactTooltip id='a' style={{
+                width: '306px',
+                height: '78px',
+                padding: '12px',
+                gap: '10px',
+                borderRadius: '12px 12px 12px 12px',
+                background: '#E6E9ED',
+                color: '#000',
+              }}>
+                {t('plans.tooltip')}
+              </ReactTooltip>
+            </div>
           </div>
         </div>
         <div className='w-full flex flex-col gap-4 md:gap-6 order-3'>
@@ -393,8 +411,8 @@ export default function Upload() {
             <div className='font-semibold mb-1.5'>{t('upload.participant')}</div>
             <AutoComplete
               options={roles}
-              handleAdd={addParticipant} 
-              filter_ids={participants.map((participant) =>  participant.id)}/>
+              handleAdd={addParticipant}
+              filter_ids={participants.map((participant) => participant.id)} />
             <div className='flex flex-col gap-4'>
               {participants.map((user, index) =>
                 <div key={index}>
