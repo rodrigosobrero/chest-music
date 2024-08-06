@@ -455,6 +455,9 @@
   "share": {
     "title": "Compartí tu tesoro",
     "generate_link": "Generar link",
+    "generate_snippet": "Generar adelanto",
+    "snippet": "Adelanto",
+    "snippet_desc": "Chest generará un adelanto de tu maqueta en formato video para que la compartas en tus redes sociales.",
     "post": "Postear",
     "send": "Enviar",
     "users": "Usuarios",

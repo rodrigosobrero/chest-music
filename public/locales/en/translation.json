@@ -480,6 +480,9 @@
   "share": {
     "title": "Share your treasure",
     "generate_link": "Generate link",
+    "generate_snippet": "Generate snippet",
+    "snippet": "Snippet",
+    "snippet_desc": "Chest will generate a video preview of your track for you to share on your preferred social media.",
     "post": "Post",
     "send": "Send",
     "users": "Users",
