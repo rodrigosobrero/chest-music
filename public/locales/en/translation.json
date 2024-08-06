@@ -221,6 +221,8 @@
     }
   },
   "upload": {
+    "tooltip":"24-bit .wav files are not compatible with some browsers, we will convert it to 32-bit so it can play smoothly.",
+    "bits_info": "Bits Information",
     "title": "name your treasure",
     "uploaded": "Uploaded",
     "track_name": "Track name",
@@ -388,6 +390,33 @@
       "current_pin": "Current PIN Code",
       "new_pin": "New PIN Code"
     }
+  },
+  "plans":{
+    "1":{
+      "title":{
+        "mensual":"Monthly subscription",
+        "mensual beta":"Monthly subscription",
+        "mensual referidos":"Monthly subscription",
+        "mensual - trial":"Free trial - Monthly subscription",
+        "mensual referidos - trial":"Free trial - Monthly subscription",
+        "mensual beta - trial":"Free trial - Monthly subscription"
+      },
+      "description":"100 hours of storage, plus direct contact with the Chest team.",
+      "monthly":"per month",
+      "monthly_desc":"",
+      "monthly_desc_trial":"Free of charge for the first month."
+    },
+    "12":{
+      "title":{
+        "anual":"Annual subscription - 20% OFF",
+        "anual referido":"Annual subscription - 20% OFF",
+        "anual beta":"Annual subscription - 20% OFF"
+      },
+      "description":"100 hours of storage, direct contact with the Chest team and exclusive access to participate in the new features in BETA.",
+      "monthly":"average per month",
+      "monthly_desc":"Annual payment of  {{price}} {{currency}}"
+    },
+    "tooltip":"Cancel anytime, without problems. Terms and Conditions apply."
   },
   "help_center": {
     "subtitle": "Access to frequently asked questions or get support to resolve your issues",

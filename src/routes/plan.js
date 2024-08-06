@@ -13,6 +13,8 @@ import mp from 'assets/images/logo-mp.svg';
 import { TagIcon } from "@heroicons/react/24/outline";
 import MPModal from 'components/modals/RedirectMPModal';
 import Modal from 'components/Modal';
+import icon from 'assets/images/icon-exclamation-circle.svg'
+import { Tooltip as ReactTooltip } from 'react-tooltip'
 
 export default function Plan() {
   const { t, i18n } = useTranslation();
@@ -93,7 +95,7 @@ export default function Plan() {
   }, [isSuccessSubscription]);
 
   const planOption = (plan) => {
-    const lang = i18n.language.split('-')[0];
+    let desc = plan.name.split(' ')[plan.name.split(' ').length-1]
 
     if (plan) {
       return (
@@ -109,27 +111,47 @@ export default function Plan() {
             onChange={() => {}}
             checked={plan.id === selectedPlan} />
           <label htmlFor='free'>
-            <div className='text-lg font-semibold'>{plan.displayed_data[lang].title}</div>
-            <div className='text-sm text-neutral-silver-300 mb-3'>{plan.displayed_data[lang].description}</div>
+          <div className='flex items-center gap-3 py-3 max-w-md grow justify-between rounded-xl '> 
+            <div className='text-lg font-semibold self-center'>{t(`plans.${plan.billing_frequency}.title.${plan.name}`)}</div>
+            <img src={icon} className='h-6 w-6 relative' alt='exclamation circle' data-tooltip-id='a'/>
+            
+          <ReactTooltip id='a' style={{
+          width: '306px',
+          height: '78px',
+          padding: '12px',
+          gap: '10px',
+          borderRadius: '12px 12px 12px 12px',
+          background: '#E6E9ED',
+          color: '#000',
+        }}>
+          {t('plans.tooltip')}
+          </ReactTooltip>
+            </div>
+            <div className='text-sm text-neutral-silver-300 mb-3'>{t(`plans.${plan.billing_frequency}.description`)}</div>
             <div className='mt-3 flex gap-1 items-baseline'>
               <span className='font-thunder text-2xl uppercase'>
-                {plan.displayed_data[lang].currency}
+              {plan.pricing_data.currency}
               </span>
               {["referral", "discount"].includes(plans.discount?.type) ?
               <p>
-              <span className='font-thunder text-4xl line-through text-neutral-silver-300' style={{ textDecorationThickness: '1.5px' }}>{plan.displayed_data[lang].regular_price}</span>
-              <span className='font-thunder text-4xl'> {plan.displayed_data[lang].price}</span>
+              <span className='font-thunder text-4xl line-through text-neutral-silver-300' style={{ textDecorationThickness: '1.5px' }}>{(plan.pricing_data.regular_price / plan.billing_frequency).toFixed(2)}</span>
+              <span className='font-thunder text-4xl'> {(plan.pricing_data.price / plan.billing_frequency).toFixed(2)}</span>
               </p>
               :
               <span className='font-thunder text-4xl'>
-              {plan.displayed_data[lang].price}
+              {(plan.pricing_data.price / plan.billing_frequency).toFixed(2)}
               </span>
               }
               <span>
-                / {plan.displayed_data[lang].recurrence}
+                / {t(`plans.${plan.billing_frequency}.monthly`)}
               </span>
             </div>
-            <div className='text-sm text-neutral-200'>{plan.displayed_data[lang].additional_data}</div>
+            {
+            desc !== 'trial'?
+            <div className='text-sm text-neutral-200'>{t(`plans.${plan.billing_frequency}.monthly_desc`,{price:plan.pricing_data.price, currency:plan.pricing_data.currency})}</div>
+            :
+            <div className='text-sm text-neutral-200'>{t(`plans.1.monthly_desc_trial`)}</div>
+            }
           </label>
         </div>
       )
