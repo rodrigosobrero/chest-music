@@ -9,6 +9,7 @@ import Reel from 'components/share/sections/ReelTiktok';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import Snippet from 'components/share/sections/Snippet';
 import { useGetProjectQuery } from 'store/api';
 import { useTranslation } from 'react-i18next';
 
@@ -56,6 +57,7 @@ const Share = () => {
           <OptionSectionDesktop status={status} changeStatus={changeStatus} />
           <OptionSectionMobile status={status} changeStatus={changeStatus} />
               {status === 'generate' && <LinkGenerate versionId={track?.versions?.length > 0 && track?.versions[0].id} token={user?.token} onCancel={goBack} track={track?.name} />}
+              {status === 'snippet' && <Snippet versionId={track?.versions?.length > 0 && track?.versions[0].id} token={user?.token} onCancel={goBack} />}
               {status === 'post' && 
                           <PostTwitter toggleUnlimited={toggleUnlimited} onCancel={goBack} versionId={track?.versions?.length > 0 && track?.versions[0].id} 
                                        token={user?.token} track={track.name}/>}
