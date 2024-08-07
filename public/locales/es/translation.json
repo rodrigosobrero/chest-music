@@ -17,6 +17,9 @@
     "password_reset":{
       "subtitle": "Introduzca aquí su dirección de correo electrónico para ",
       "title":"restaurar contraseña",
+      "check_email":"revisa tu correo electrónico",
+      "email_sent_to":"Se envió un correo electrónico para restablecer la contraseña a:",
+      "tip":"Si no puede encontrar el correo electrónico, asegúrese de revisar su carpeta de correo no deseado.",
       "send":"Enviar enlace de restauración"
     },
     "mp_modal":{

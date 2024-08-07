@@ -8,6 +8,9 @@
     "password_reset":{
       "subtitle": "Enter your email address here to continue with your",
       "title":"password reset",
+      "check_email":"check your email",
+      "email_sent_to":"A password reset email was sent to:",
+      "tip":"TIP: If you can’t find the email, be sure to check your spam folder.",
       "send":"Send reset link"
     },
     "mp_modal":{
