@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { ClockIcon, CloudIcon  } from "@heroicons/react/20/solid";
-import ButtonsContainer from '../ButtonsContainer';
+import ButtonSnippet from '../ButtonSnippet';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import Button from 'components/Button';
@@ -10,9 +10,13 @@ import Button from 'components/Button';
 const Snippet = ({ versionId, token, onCancel }) => {
     const { t } = useTranslation();
     const [isGenerating, setIsGenerating] = useState(false)
+    const [countdown, setCountdown] = useState(15)
+    const [disabled, setDisabled] = useState(false)
+    
   
     const generateSnippet = () => {
       setIsGenerating(true)
+      setDisabled(true)
       axios.get(`https://snippet-stg.chestmusic.com/shared/snippet?version_id=${versionId}`, {
         headers: { Authorization: `Bearer ${token}`  },
         responseType: 'blob',
@@ -25,11 +29,12 @@ const Snippet = ({ versionId, token, onCancel }) => {
         document.body.appendChild(link);
         link.click();
         link.remove();
+        setDisabled(false)
         setIsGenerating(false)
-      })    
-      .catch((error) => {
-        console.error(error);
-      });
+        })    
+        .catch((error) => {
+          console.error(error);
+          });
     }
 
   return (
@@ -40,7 +45,7 @@ const Snippet = ({ versionId, token, onCancel }) => {
             <div className='w-full items-center justify-center flex gap-5'>
             </div>
         </div>
-        <Button style='primary' loading={isGenerating} text={t('share.generate_snippet')} onClick={generateSnippet}/>
+        <ButtonSnippet style='primary' loading={isGenerating} text={t('share.generate_snippet')} disabled={disabled} onClick={generateSnippet}/>
     </div>
     <Button style='tertiary' customStyle='lg:!w-[224px] mt-6 !mx-auto !w-10/12' text={t('global.close')} onClick={onCancel} />
     </>
