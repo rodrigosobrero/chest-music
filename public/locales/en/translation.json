@@ -3,11 +3,20 @@
     "upload": "Choose from files",
     "searchbar":"Can’t find that user? invite them via email!",
     "click_here": "click here",
+    "remaining":"remaining",
     "password": "Password",
     "password_reset":{
       "subtitle": "Enter your email address here to continue with your",
       "title":"password reset",
+      "check_email":"check your email",
+      "email_sent_to":"A password reset email was sent to:",
+      "tip":"TIP: If you can’t find the email, be sure to check your spam folder.",
       "send":"Send reset link"
+    },
+    "verify_email":{
+      "title":"verify your email",
+      "email_sent_to":"A verification email was sent to:",
+      "issues":"Having issues? Contact us"
     },
     "mp_modal":{
       "timeLeft": "Redirecting in: {{timeLeft}} seconds...",
