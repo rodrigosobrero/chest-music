@@ -359,17 +359,17 @@ export default function Setup() {
                 initial={{ opacity: 0, y: -30 }}
                 animate={{ opacity: 1, y: 0 }}
                 className='flex flex-col gap-4 px-4'>
-                <h1 className='text-[76px]' style={{ lineHeight: '68px' }}>verify your email</h1>
+                <h1 className='text-[76px]' style={{ lineHeight: '68px' }}>{t('global.verify_email.title')}</h1>
                 <div className='flex flex-col items-center text-lg mb-6'>
-                  <span className='text-neutral-silver-200'>A verification email was sent to:</span>
+                  <span className='text-neutral-silver-200'>{t('global.verify_email.email_sent_to')}</span>
                   <span>{account?.email}</span>
                 </div>
                 <div className='text-neutral-silver-300 text-sm mb-3 text-center'>
-                  TIP: If you can’t find the email, be sure to check your spam folder.
+                  {t('global.password_reset.tip')}
                 </div>
                 <div className='flex items-center justify-center'>
                   <NavLink to='/' className='text-brand-gold h-10 md:h-auto hover:text-brand-bronze font-semibold text-lg py-1.5'>
-                    Having issues? Contact us
+                  {t('global.verify_email.issues')}
                   </NavLink>
                 </div>
               </motion.div>

@@ -22,6 +22,11 @@
       "tip":"Si no puede encontrar el correo electrónico, asegúrese de revisar su carpeta de correo no deseado.",
       "send":"Enviar enlace de restauración"
     },
+    "verify_email":{
+      "title":"Verifica tu correo electrónico",
+      "email_sent_to":"Se envió un correo electrónico para verificar tu cuenta a:",
+      "issues":"¿Tienes problemas? Contáctanos"
+    },
     "mp_modal":{
       "timeLeft": "Redirigiendo en: {{timeLeft}} segundos...",
       "title": "ANTES DE IR A MERCADO PAGO...",

@@ -13,6 +13,11 @@
       "tip":"TIP: If you can’t find the email, be sure to check your spam folder.",
       "send":"Send reset link"
     },
+    "verify_email":{
+      "title":"verify your email",
+      "email_sent_to":"A verification email was sent to:",
+      "issues":"Having issues? Contact us"
+    },
     "mp_modal":{
       "timeLeft": "Redirecting in: {{timeLeft}} seconds...",
       "title": "Before redirecting to Mercado Pago...",
