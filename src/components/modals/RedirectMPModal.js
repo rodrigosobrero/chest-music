@@ -5,18 +5,27 @@ import spinner from 'assets/images/icon-loading-claim.png';
 import { useEffect } from 'react';
 
 
-export default function PlayLimitModal({handleClose,timeLeft,setTimeLeft, handleConfirm, redirect}) {
+export default function RedirectMPModal({handleClose,timeLeft,setTimeLeft, handleConfirm, redirect}) {
     const { t } = useTranslation();
 
-  useEffect(() => {
-    if(redirect){
-        if (timeLeft === 0) handleConfirm();
-        const intervalId = setInterval(() => {
-          setTimeLeft(timeLeft - 1);
-        }, 1000);
-        return () => clearInterval(intervalId);
-    }
-  }, [timeLeft, redirect]);
+    useEffect(() => {
+      if (redirect) {
+        if (timeLeft === 0) {
+          handleConfirm();
+        } else {
+          const intervalId = setInterval(() => {
+            setTimeLeft(prevTimeLeft => {
+              if (prevTimeLeft <= 1) {
+                clearInterval(intervalId);
+                return 0;
+              }
+              return prevTimeLeft - 1;
+            });
+          }, 1000);
+          return () => clearInterval(intervalId);
+        }
+      }
+    }, [timeLeft, redirect]);
   
   return (
     

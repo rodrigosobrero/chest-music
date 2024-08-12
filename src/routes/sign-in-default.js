@@ -103,7 +103,7 @@ export default function SignIn() {
             <span className="flex-shrink mx-6 font-bureau-grotesque-extended">{t('global.divider')}</span>
             <div className="flex-grow border-t border-neutral-silver-500"></div>
           </div>
-          <form onSubmit={handleSubmit(handleSignIn)}>
+          <form id="form_signIn" name='form_signIn' onSubmit={handleSubmit(handleSignIn)}>
             <div className='flex flex-col gap-4'>
               <Input
                 type='email'

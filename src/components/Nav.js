@@ -6,6 +6,8 @@ import { useGetNewNotificationsQuery, useGetNewNotificationsDataQuery } from 'st
 import { useTranslation } from 'react-i18next';
 import { useModal } from 'hooks/useModal';
 import { classNames } from 'utils/helpers';
+import { signOut } from 'firebase/auth';
+import { auth } from 'utils/firebase';
 
 import Tag from 'components/Tag';
 import Button from 'components/Button';
@@ -70,6 +72,11 @@ export default function Nav() {
     </div>
   )
 
+  const handleSignOut = () => {
+    localStorage.removeItem('referralCode');                
+    signOut(auth);
+  };
+
   useEffect(() => {
     // rebuild
     if (user && user.token && user.data) {
@@ -96,8 +103,8 @@ export default function Nav() {
   return (
     <>
       <nav className='main z-10 fixed w-full'>
-        <div className='container flex items-center justify-center w-full'>
-          <div className={`flex items-center gap-4 grow ${location.pathname === '/setup' && 'justify-center'}`}>
+        <div className='container flex items-center w-full'>
+          <div className={`flex items-center gap-4 grow ${location.pathname === '/setup' && 'justify-between '}`}>
             <Link to={'/my-chest'}>
               <img src={logo} alt='Chest' width={146} height={32} className='w-[110px] h-[24px] md:w-[146px] md:h-[32px]' />
             </Link>
@@ -105,7 +112,7 @@ export default function Nav() {
           </div>
           <div className='hidden lg:block'>
             <ul>
-              {location.pathname !== '/setup' &&
+              {location.pathname !== '/setup' ?
                 navLinks.map((item) =>
                   <li key={item.name}>
                     {item.button ? (
@@ -134,7 +141,7 @@ export default function Nav() {
                       </NavLink>
                     )}
                   </li>
-                )
+                ):<button className='w-auto bg-neutral-silver-600 py-3 px-6 rounded-[10px]' onClick={handleSignOut}>{t('profile.logout')}</button>
               }
             </ul>
           </div>

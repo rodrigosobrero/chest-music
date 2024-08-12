@@ -39,7 +39,7 @@ const Text = ({ colour, percentage }) => {
   );
 };
 
-const ProgressCircle = ({ percentage, colour }) => {
+const ProgressCircle = ({ percentage, colour, error }) => {
   const pct = cleanPercentage(percentage);
   return (
     <svg width={200} height={200}>
@@ -47,7 +47,20 @@ const ProgressCircle = ({ percentage, colour }) => {
         <Circle colour="#25292E" />
         <Circle colour={colour} pct={pct} />
       </g>
-      <Text percentage={pct} colour={colour} />
+      {!error ? 
+      <Text percentage={pct} colour={colour} />:
+      <text
+      x='50%'
+      y='56%'
+      dominantBaseline='central'
+      textAnchor='middle'
+      fontSize='120px'
+      fill={colour}
+      className='font-thunder font-normal'
+    >
+      X
+    </text>    
+      }
     </svg>
   );
 };

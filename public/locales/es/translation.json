@@ -3,6 +3,7 @@
     "upload": "Seleccionar archivo",
     "searchbar":"¿No puedes encontrar a ese usuario? ¡Invítalo por correo electrónico!",
     "click_here": "clic aquí",
+    "remaining":"restantes",
     "yes":"Si",
     "no":"No",
     "permissions":"permisos",
@@ -16,7 +17,15 @@
     "password_reset":{
       "subtitle": "Introduzca aquí su dirección de correo electrónico para ",
       "title":"restaurar contraseña",
+      "check_email":"revisa tu correo electrónico",
+      "email_sent_to":"Se envió un correo electrónico para restablecer la contraseña a:",
+      "tip":"Si no puede encontrar el correo electrónico, asegúrese de revisar su carpeta de correo no deseado.",
       "send":"Enviar enlace de restauración"
+    },
+    "verify_email":{
+      "title":"Verifica tu correo electrónico",
+      "email_sent_to":"Se envió un correo electrónico para verificar tu cuenta a:",
+      "issues":"¿Tienes problemas? Contáctanos"
     },
     "mp_modal":{
       "timeLeft": "Redirigiendo en: {{timeLeft}} segundos...",
@@ -221,6 +230,8 @@
     }
   },
   "upload": {
+    "tooltip":"Los archivos .wav de 24 bits no son compatibles con algunos navegadores, lo convertiremos a 32 bits para que pueda reproducirse sin problemas.",
+    "bits_info": "Informacion de bits",
     "title": "nombra tu tesoro",
     "uploaded": "Subido",
     "track_name": "Nombre del track",
@@ -363,6 +374,35 @@
       "new_pin": "Nuevo Código PIN"
     }
   },
+  "plans":{
+    "1":{
+      "title":{
+        "mensual":"Abono mensual",
+        "mensual beta":"Abono mensual",
+        "mensual referidos":"Abono mensual",
+        "mensual - trial":"Prueba gratis - Abono mensual",
+        "mensual referidos - trial":"Prueba gratis - Abono mensual",
+        "mensual beta - trial":"Prueba gratis - Abono mensual"
+      },
+      "description":"100 horas de almacenamiento seguro, y contacto directo con el equipo de Chest.",
+      "monthly":"por mes",
+      "monthly_desc":"",
+      "monthly_desc_trial":"Gratis por el primer mes."
+    },
+    "12":{
+      "title":{
+        "anual":"Suscripción anual - 20% OFF",
+        "anual referido":"Suscripción anual - 20% OFF",
+        "anual beta":"Suscripción anual - 20% OFF"
+      },
+      "description":"100 horas de almacenamiento seguro, contacto directo con el equipo de Chest y acceso a participar de las nuevas funciones en BETA.",
+      "monthly":"promedio al mes",
+      "monthly_desc":"Pago anual de {{price}} {{currency}}"
+    },
+   
+    "tooltip":"Pagá en pesos argentinos con el tipo de cambio Dólar MEP. Cancelá tu suscripción cuando quieras, sin complicaciones."
+    
+  },
   "help_center": {
     "subtitle": "Accede a las preguntas más frecuentes u obtén ayuda para resolver cualquier problema",
     "contact_us": "Contáctanos",
@@ -424,6 +464,9 @@
   "share": {
     "title": "Compartí tu tesoro",
     "generate_link": "Generar link",
+    "generate_snippet": "Generar adelanto",
+    "snippet": "Adelanto",
+    "snippet_desc": "Chest generará un adelanto de tu maqueta en formato video para que la compartas en tus redes sociales.",
     "post": "Postear",
     "send": "Enviar",
     "users": "Usuarios",
